@@ -1,0 +1,201 @@
+<div *ngIf="check_fonct('l_taxe')">
+  <mat-card>
+    <div fxLayout fxLayoutAlign="center center">
+      <mat-form-field fxFlex="40%">
+        <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+      </mat-form-field>
+      <mat-card-header class="card-header">
+        <span class="header">La liste des taxes</span>
+        <div *ngIf="check_fonct('c_taxe')">
+          <button mat-icon-button class="buttons" status="success" (click)="openAjout()">
+            <mat-icon class="material-icons color_green" title="Ajouter taxe">add_circle</mat-icon>
+          </button>
+        </div>
+      </mat-card-header>
+
+    </div>
+    <table mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="taxe_codetaxe">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> code taxe</th>
+        <td mat-cell *matCellDef="let taxe"> {{taxe.taxe_codetaxe}} </td>
+      </ng-container>
+      <ng-container matColumnDef="taxe_branch">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> branche </th>
+        <td mat-cell *matCellDef="let taxe"> {{onGetLibelleByBranche(taxe.taxe_branch)}} </td>
+      </ng-container>
+      <ng-container matColumnDef="taxe_catego">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> categorie</th>
+        <td mat-cell *matCellDef="let taxe"> {{onGetLibelleByCategorie(taxe.taxe_catego)}} </td>
+      </ng-container>
+      <ng-container matColumnDef="taxe_codeproduit">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> produit</th>
+        <td mat-cell *matCellDef="let taxe"> {{onGetLibelleByProduit(taxe.taxe_codeproduit)}} </td>
+      </ng-container>
+      <!-- <ng-container matColumnDef="taxe_calcul">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> assiette calcul</th>
+        <td mat-cell *matCellDef="let taxe"> {{onGetLibelleByTypeAssiette((taxe.taxe_calcul).toString())}} </td>
+      </ng-container> -->
+      <ng-container matColumnDef="taxe_txappliq">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>taux appliquée (%)</th>
+        <td mat-cell *matCellDef="let taxe"> {{taxe.taxe_txappliq}} </td>
+      </ng-container>
+      <ng-container matColumnDef="taxe_dateffet">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>date prise d'effet</th>
+        <td mat-cell *matCellDef="let taxe"> {{taxe.taxe_dateffet | date: 'dd-MM-yyyy'}} </td>
+      </ng-container>
+      <!-- <ng-container matColumnDef="taxe_datefin">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>date de fin d'effet </th>
+          <td mat-cell *matCellDef="let taxe"> {{taxe.taxe_datefin | date: 'dd-MM-yyyy'}} </td>
+        </ng-container> -->
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let taxe">
+          <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">
+            <mat-icon class="mat-18">more_vert</mat-icon>
+          </button>
+          <mat-menu #detail="matMenu">
+            <button mat-menu-item (click)="open(dialog ,taxe)">
+              <mat-icon>visibility</mat-icon> Détail
+            </button>
+            <div *ngIf="check_fonct('u_taxe')">
+              <button mat-menu-item (click)="openModif(taxe)">
+                <mat-icon color="primary">edit</mat-icon> Modifier
+              </button>
+            </div>
+            <div *ngIf="check_fonct('d_taxe')">
+              <button mat-menu-item (click)="open(dialogdel ,taxe)">
+                <mat-icon color="warn">delete</mat-icon> Suppimer
+              </button>
+            </div>
+          </mat-menu>
+        </td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef> Details </th>
+        <td mat-cell *matCellDef="let taxe">
+          <button mat-icon-button color="primary" (click)="open(dialog ,taxe)">
+            <mat-icon class="mat-18">reorder</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="update">
+        <th mat-header-cell *matHeaderCellDef>
+          <div *ngIf="check_fonct('u_taxe')">Modification </div>
+        </th>
+        <td mat-cell *matCellDef="let taxe">
+          <button mat-icon-button color="green" (click)="openModif(taxe)">
+            <mat-icon class="mat-18">edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <br>
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef>
+          <div *ngIf="check_fonct('u_taxe')">Suppression </div>
+        </th>
+
+        <th mat-header-cell *matHeaderCellDef>
+          <div *ngIf="check_fonct('d_taxe')"> Delete </div>
+        </th>
+        <td mat-cell *matCellDef="let taxe">
+
+          <button mat-icon-button color="warn" (click)="open(dialogdel ,taxe)">
+            <mat-icon class="mat-18">
+              <div *ngIf="check_fonct('d_taxe')"></div>delete
+            </mat-icon>
+          </button>
+        </td>
+      </ng-container> -->
+      <!-- <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef><div *ngIf="check_fonct('d_taxe')"> Delete</div> </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="warn" (click)="redirectToDelete(element.id)">
+                  <mat-icon class="mat-18"><div *ngIf="check_fonct('d_taxe')">delete</div></mat-icon>
+              </button>
+            </td>
+          </ng-container> -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+    <mat-paginator [pageSize]="5" [pageSizeOptions]="[1, 5, 10, 15, 20]">
+    </mat-paginator>
+
+    <ng-template #dialogdel let-taxe let-ref="dialogRef">
+
+      <nb-card>
+
+        <nb-card-body>
+          <h5 class="grid-h">Confirmation de la suppression</h5>
+          <div class="row">
+            <div class="col-sm-6">
+              <br>
+
+              <div></div><br>
+
+            </div>
+
+          </div>
+
+
+        </nb-card-body>
+        <nb-card-footer>
+          <button nbButton (click)="onDeleteTaxe(taxe.taxe_codetaxe)" (click)="ref.close()"
+            status="success">Confirmer</button>&nbsp;&nbsp;
+          <button nbButton (click)="ref.close()" status="danger">Annuler</button>
+        </nb-card-footer>
+      </nb-card>
+
+
+
+    </ng-template>
+    <ng-template #dialog let-taxe let-ref="dialogRef">
+
+      <nb-card>
+        <nb-card-header class="col-lg-12">
+          DETAILS TAXE
+        </nb-card-header>
+        <nb-card-body>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <h5 class="grid-h">Information generale</h5>
+              <div><span class="detail">code de la taxe : </span>{{ taxe.taxe_codetaxe }}</div><br>
+              <div><span class="detail">branche : </span>{{ onGetLibelleByBranche(taxe.taxe_branch) }}</div><br>
+              <div><span class="detail">code branche : </span>{{taxe.taxe_branch }}</div><br>
+              <div><span class="detail">categorie :</span> {{ onGetLibelleByCategorie(taxe.taxe_catego) }}</div><br>
+              <div><span class="detail">code categorie :</span> {{ taxe.taxe_catego }}</div><br>
+              <div><span class="detail">produit :</span> {{ onGetLibelleByProduit(taxe.taxe_codeproduit) }}</div><br>
+              <div><span class="detail">code produit :</span> {{ taxe.taxe_codeproduit }}</div><br>
+            </div>
+            <div class="col-sm-6">
+              <h5 class="grid-h">Autres</h5>
+              <div><span class="detail">code garantie: </span>{{ taxe.taxe_garant }}</div><br>
+              <div><span class="detail">assiette de calcul : </span>{{
+                onGetLibelleByTypeAssiette((taxe.taxe_calcul).toString()) }}</div><br>
+              <div><span class="detail">taux appliquée (%): </span>{{ taxe.taxe_txappliq }}</div><br>
+              <div><span class="detail">date de prise d'effet taxe : </span>{{ taxe.taxe_dateffet | date: 'dd-MM-yyyy'}}
+              </div><br>
+              <div><span class="detail">date de fin d'effet taxe : </span>{{ taxe.taxe_datefin | date: 'dd-MM-yyyy'}}
+              </div><br>
+            </div>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <button nbButton (click)="ref.close()" status="danger">Fermer</button>&nbsp;&nbsp;
+          <button nbButton (click)="openModif(taxe,taxe.taxe_id)" (click)="ref.close()" status="success">
+            Modifier</button>
+
+        </nb-card-footer>
+      </nb-card>
+
+
+    </ng-template>
+  </mat-card>
+</div>
+
+<div *ngIf="check_fonct('l_taxe')==false">
+  <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

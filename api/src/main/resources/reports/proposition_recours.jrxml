@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="declaration_menace_sinistre" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eaecab74-b54d-4d4b-b977-14447a0a08f2">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="connPostgres"/>
+	<parameter name="clientNumero" class="java.lang.Long"/>
+	<parameter name="clientAdresse" class="java.lang.String"/>
+	<parameter name="clientDenomination" class="java.lang.String"/>
+	<parameter name="clientPrenom" class="java.lang.String"/>
+	<parameter name="clientNom" class="java.lang.String"/>
+	<parameter name="numeroSinistre" class="java.lang.Long"/>
+	<parameter name="dateEdition" class="java.util.Date"/>
+	<parameter name="dateSurvenance" class="java.util.Date"/>
+	<parameter name="contrat" class="java.lang.Long"/>
+	<parameter name="personneTraiteDossier" class="java.lang.String"/>
+	<parameter name="beneficiairePrenom" class="java.lang.String"/>
+	<parameter name="beneficiaireNom" class="java.lang.String"/>
+	<parameter name="beneficiaireDenomination" class="java.lang.String"/>
+	<parameter name="description" class="java.lang.String"/>
+	<parameter name="demandeur" class="java.lang.String"/>
+	<parameter name="tiersPrenom" class="java.lang.String"/>
+	<parameter name="tiersNom" class="java.lang.String"/>
+	<parameter name="tiersDenomination" class="java.lang.String"/>
+	<parameter name="montantLettre" class="java.lang.String"/>
+	<parameter name="branche" class="java.lang.String"/>
+	<parameter name="numeroRecours" class="java.lang.Long"/>
+	<parameter name="montantPrincipal" class="java.lang.Long"/>
+	<parameter name="montantFrais" class="java.lang.Long"/>
+	<parameter name="montantHonoraires" class="java.lang.Long"/>
+	<parameter name="montantGlobal" class="java.lang.Long"/>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="802">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<image>
+				<reportElement x="0" y="-10" width="140" height="70" uuid="3f910c88-1ac4-464c-8542-61d8cfe06260"/>
+				<imageExpression><![CDATA[System.getProperty("user.home")+"/img/SONAC.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="172" y="265" width="326" height="20" uuid="a1c36bcd-b4d2-4c9b-9b85-aeabe8550604"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{numeroSinistre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="172" y="310" width="326" height="20" uuid="7edb3a8e-4227-4b68-86a6-f36acc1f6232"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{description} != null ? $P{description} : ""+"".toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="172" y="288" width="326" height="20" uuid="9b6632f2-211b-41d4-b5ef-80aef4e7be1a"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($P{dateSurvenance})+"".toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="172" y="332" width="326" height="20" uuid="e3615136-a5c4-43f8-bb6c-ec52c76c1279"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{demandeur}+"".toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="172" y="244" width="326" height="20" uuid="a6718883-fcc2-4569-959b-e6d8db6aaeb4"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{contrat}+": "+$P{branche}+"".toString()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="367" width="550" height="83" uuid="ea8a39c6-8c70-49fc-afc5-be2315aeec8b"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Madame, Monsieur,
+Nous avons l’avantage de vous informer que conformément aux conditions particulières de votre contrat ci-dessus référencé, nous vous faisons parvenir ce recours pour obtenir de votre part, le remboursement du préjudice que vous avez causé durant l’exécution du contrat ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="12" y="430" width="548" height="20" uuid="25fdcf3f-0131-4d48-a412-14bd919914f6"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["N° "+$P{contrat}+"  "+$P{branche}+", vous liant au bénéficiaire pour un montant réparti ainsi : ".toString()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="631" width="561" height="44" uuid="0c1c5f96-c77b-42be-b503-be243692a6a4"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Vous en souhaitant bonne réception de la présente, nous vous prions d’agréer Mesdames, Messieurs, l’expression de nos sentiments distingués.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="675" width="240" height="23" uuid="4d7c0ce5-4ead-45ef-af40-d2bfbc3515ad"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Pour la compagnie]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="244" width="151" height="20" uuid="cd583b58-fe2d-4c47-820e-a90eb2f0b6b2"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Numéro de contrat      :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="266" width="150" height="20" uuid="f1bbef96-f346-4286-adc6-cc00701e4ba3"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Numéro de sinistre     : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="310" width="150" height="20" uuid="672fb9c5-7db9-42e9-b94c-97cad672a421"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Affaire                          : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="332" width="151" height="20" uuid="1a3463bb-cb2f-4f89-9fe9-c575d534d055"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Référence traitement  :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="288" width="150" height="20" uuid="c6447b06-adbf-4b9c-8cba-4aeba74bee97"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date de survenance    : ]]></text>
+			</staticText>
+			<rectangle radius="15">
+				<reportElement x="-1" y="138" width="267" height="98" uuid="b2a5ac8f-7733-4fd2-92d3-ee26e7622714"/>
+			</rectangle>
+			<rectangle radius="15">
+				<reportElement x="290" y="138" width="270" height="98" uuid="c1675b8c-2ff5-42d0-b288-80d3e9259ba7"/>
+			</rectangle>
+			<textField>
+				<reportElement x="10" y="148" width="250" height="51" uuid="25e6660f-648c-4874-b650-f867d98052a5"/>
+				<textElement>
+					<font fontName="Arial Black" size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Tiers recours: "+($P{tiersPrenom} != null ? $P{tiersPrenom} : "") + (" ") + ($P{tiersNom}  != null ? $P{tiersNom} : "")  +  
+(($P{tiersPrenom} != null  && $P{tiersNom}  != null && $P{tiersDenomination} != null ) ? (" ") : "") + 
+($P{tiersDenomination} != null ? $P{tiersDenomination} : "")+"".toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="201" width="250" height="30" uuid="4b5efd9e-addc-47e5-9ba0-e1a3ab77a9a3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{clientAdresse}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="148" width="250" height="53" uuid="98db6f79-8fb1-4656-bb57-815a50e240c4"/>
+				<textElement>
+					<font fontName="Arial Black" size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Bénéficiaire: "+($P{beneficiairePrenom} != null ? $P{beneficiairePrenom} : "") + (" ") + ($P{beneficiaireNom}  != null ? $P{beneficiaireNom} : "")  +  
+((
+	($P{beneficiairePrenom} != null && $P{beneficiairePrenom} != "")  && 
+	($P{beneficiaireNom} != null && $P{beneficiaireNom} != "") && 
+	($P{beneficiaireDenomination} != null && $P{beneficiaireDenomination} != "")) ? ("  ") + $P{beneficiaireDenomination} : "")+"".toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="201" width="250" height="30" uuid="1c14e097-c1bd-4862-9be5-32345bfd3eb4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{clientAdresse}]]></textFieldExpression>
+			</textField>
+			<rectangle radius="15">
+				<reportElement x="180" y="4" width="380" height="86" forecolor="#00FF00" uuid="e8ae3181-3c72-4f58-bc9d-f707e4dbe44d"/>
+			</rectangle>
+			<rectangle radius="15">
+				<reportElement x="-1" y="460" width="561" height="167" uuid="ff552dd4-7728-4b5e-ba20-53ecc0069a69"/>
+			</rectangle>
+			<textField>
+				<reportElement x="240" y="465" width="300" height="31" uuid="bc440f9d-3dc9-4a6f-b5a0-70d87c8ba509"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0").format(Double.valueOf($P{montantPrincipal}))+" XOF".toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="491" width="300" height="28" uuid="05c4889d-4dd5-4e2c-8a04-90ef04433803"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0").format(Double.valueOf($P{montantFrais}))+" XOF".toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="514" width="300" height="30" uuid="316fd6ef-569a-4771-9598-fe41b305d079"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0").format(Double.valueOf($P{montantHonoraires}))+" XOF".toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="560" width="300" height="32" uuid="468e73e2-5ac1-42e4-bbcc-1c9a57dd17e3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0").format(Double.valueOf($P{montantGlobal}))+" XOF ".toString()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="465" width="200" height="30" uuid="7545c7e0-e7d5-44fa-a9b9-11b04a29b950"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Black" size="16"/>
+				</textElement>
+				<text><![CDATA[Recours principal      :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="489" width="200" height="30" uuid="a5537409-7bda-4e0b-90d7-e7937a86d0b0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Black" size="16"/>
+				</textElement>
+				<text><![CDATA[Frais                           :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="514" width="200" height="30" uuid="128bbb91-2a84-49f7-9d11-84cd5ca32433"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Black" size="16"/>
+				</textElement>
+				<text><![CDATA[Honoraires                 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="562" width="200" height="30" uuid="8d22ccda-7ed7-4d12-90ec-e17f93765530"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Black" size="16"/>
+				</textElement>
+				<text><![CDATA[Recours global          :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="195" y="549" width="175" height="1" uuid="6648709a-59ca-4d94-8896-4279a67d74fa"/>
+				<graphicElement>
+					<pen lineWidth="3.0"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="744" width="560" height="1" uuid="6296b74c-34cb-481d-9a4e-8d0a18a0246d"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="-11" y="750" width="581" height="52" uuid="93df0dda-2da1-4fe6-b230-5e82033aeaf3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Société Anonyme avec Conseil d'Administration au capital de 3.000.000.000 de francs CFA entièrement libéré 
+55, Rue Wagane DIOUF, Immeuble TRIANON - BP: 3939 Dakar (Sénégal) - Compte bancaire BOA N 0103506000/3 
+RCCM SN-DKR 97.B.1658 - NINEA 0201707 OG3 - Tél: +221 33 889 82 10 - Fax: +221 33 821 36 11 
+Email: sonacourier@orange.sn - Site web: www.sonac.sn 
+Entreprise régie par le Code des Assurances de la CIMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="195" y="10" width="350" height="40" uuid="9009d583-c0cf-4bb9-b8a7-52d11e55a3b7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="24"/>
+				</textElement>
+				<text><![CDATA[PROPOSITION RECOURS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="195" y="50" width="351" height="34" uuid="9f48cabd-2151-4b46-8764-0d050c1d412f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="24"/>
+				</textElement>
+				<textFieldExpression><![CDATA["N°: "+$P{numeroRecours}+"".toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="592" width="300" height="35" uuid="1dcec0a5-52e7-4ab3-a1eb-1beec3ae1d10"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["("+$P{montantLettre}+")"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="98" width="270" height="30" uuid="5dc79ac4-0e25-4ea7-b470-9128f46885ae"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Dakar, le "+new SimpleDateFormat("dd/MM/yyyy").format($P{dateEdition})+"".toString()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+</jasperReport>

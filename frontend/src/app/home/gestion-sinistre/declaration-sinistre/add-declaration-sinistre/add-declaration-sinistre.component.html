@@ -1,0 +1,468 @@
+<div *ngIf="check_fonct('c_sinistre')">
+  <form [formGroup]="mySinistreForm">
+    <div class="col-lg-4">
+      <nb-card>
+        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Ajouter déclaration de sinistre
+        </nb-card-header>
+      </nb-card>
+    </div>
+    <br>
+    <div class="tabs">
+      <input type="radio" name="tabs" id="tabone" checked="checked">
+      <label for="tabone" class="lab">INFORMATION CONTRACTUELLE/COUVERTURE</label>
+      <div class="tab" formGroupName="sinistreForm">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="label">Client<span style="color:red;">*</span></label>
+
+              <mat-select class="form-control" [formControl]="clientsCtrl" placeholder="choisir client"
+                (selectionChange)="onChangeClient($event)" fullWidth id="sini_souscripteur" #singleSelect>
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="clientsFilterCtrl" placeholderLabel="recherche..."
+                    noEntriesFoundLabel="aucune corespondance">
+                  </ngx-mat-select-search>
+                </mat-option>
+                <mat-option value="{{client.clien_numero}}" *ngFor="let client of filteredClients | async">
+                  {{client.clien_numero}} : {{client.clien_prenom}} {{client.clien_nom}}
+                  {{client.clien_denomination}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="label">Numéro Police<span style="color:red;">*</span></label>
+              <mat-select class="form-control" [formControl]="policesCtrl" placeholder="choisir police"
+                (selectionChange)="onChangePolice($event)" fullWidth id="surete_numpoli" #singleSelect>
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="policesFilterCtrl" placeholderLabel="recherche..."
+                    noEntriesFoundLabel="aucune corespondance">
+                  </ngx-mat-select-search>
+                </mat-option>
+                <mat-option value="{{police.poli_numero}}" *ngFor="let police of filteredPolices | async">
+                  {{police.poli_numero}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+
+          <div class="col-sm-4" *ngIf="afficherACheteur">
+            <div class="form-group">
+              <label class="label">Numéro Acheteur</label> <span style="color:red;">*</span>
+              <!-- <input fieldSize="small" formControlName="sini_acheteur" type="text" nbInput fullWidth
+                                id="sini_acheteur"> -->
+              <mat-select class="form-control" [formControl]="acheteurCtrl" placeholder="choisir acheteur"
+                (selectionChange)="onChangeAcheteur($event)" fullWidth id="sini_acheteur" #singleSelect>
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="acheteurFilterCtrl" placeholderLabel="recherche..."
+                    noEntriesFoundLabel="aucune corespondance">
+                  </ngx-mat-select-search>
+                </mat-option>
+                <mat-option value="{{acheteur.achet_numero}}" *ngFor="let acheteur of filteredAcheteur | async">
+                  {{acheteur.achet_numero}}: {{acheteur.achet_prenom}} {{acheteur.achet_nom}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="" class="label">Code branche</label>
+              <input readonly fieldSize="small" [value]="libelleBranche" type="text" nbInput fullWidth
+                id="sini_branche">
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="" class="label">Code catégorie</label>
+              <input readonly fieldSize="small" [value]="libelleCategorie" type="text" nbInput fullWidth
+                id="sini_categorie">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="" class="label">code produit </label>
+              <input readonly fieldSize="small" [value]="libelleProduit" type="text" nbInput fullWidth
+                id="sini_produit">
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="" class="label">Bénéficiaire</label>
+              <!-- <input *ngIf="saisirBeneficiaire" fieldSize="small" formControlName="sini_beneficiaire" type="number"
+              nbInput fullWidth id="sini_beneficiaire"> -->
+
+              <input readonly fieldSize="small" [value]="libelleBeneficiaire" type="text" nbInput fullWidth
+                id="sini_beneficiaire">
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="" class="label">Numéro tiers recours </label>
+              <input readonly fieldSize="small" [value]="libelleTiersRecours" type="text" nbInput fullWidth
+                id="sini_tiersrecours">
+            </div>
+          </div>
+
+          <!-- <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Donneur d'ordre</label>
+                        <input readonly fieldSize="small" [value]="libelleDonneurDordre" type="text" nbInput fullWidth
+                            id="sini_donneurdordre">
+                    </div>
+                </div> -->
+
+          <!-- <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Code intermédiaire</label>
+                        <input readonly fieldSize="small" [value]="libelleInterm" type="text" nbInput fullWidth
+                            id="sini_intermediaire">
+                    </div>
+                </div> -->
+
+          <!-- <div class="col-sm-4">
+          <div class="form-group">
+            <label for="" class="label">Numéro Risque</label>
+            <input readonly fieldSize="small" formControlName="sini_risque" type="text" nbInput fullWidth
+              id="sini_risque">
+          </div>
+        </div> -->
+
+          <!-- =============== Ramener les champs de l'onglet information couverture ================= -->
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Lieu du sinistre</label>
+              <input readonly fieldSize="small" formControlName="sini_lieu" type="text" nbInput fullWidth
+                id="sini_lieu">
+              <!-- <input *ngIf="!saisirLieuSinistre" readonly fieldSize="small" formControlName="sini_lieu" type="text"
+              nbInput fullWidth id="sini_lieu">
+            <input *ngIf="saisirLieuSinistre" fieldSize="small" formControlName="sini_lieu" type="text" nbInput
+              fullWidth id="sini_lieu"> -->
+            </div>
+          </div>
+
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="label">Date survenance</label> <span style="color:red;">*</span>
+              <input fieldSize="small" formControlName="sini_datesurvenance" type="date" nbInput fullWidth
+                id="sini_datesurvenance" (focusout)="onChangeFocusDateSurvenance($event)" [max]="getToday()">
+              <div *ngIf="verifDateSurvenance" class="col-sm-8">
+                <span>La date doit être comprise entre la date prise d'effet:
+                  <span style="color:red">{{dateEffet | date: 'dd-MM-yyyy'}}</span>
+                  et d'echeance de la police:
+                  <span style="color: red">{{dateEcheance | date: 'dd-MM-yyyy'}}</span>
+                  et valide antérieure ou égale à la date du jour.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="label">Date déclaration</label> <span style="color:red;">*</span>
+              <input fieldSize="small" formControlName="sini_datedeclaration" type="date" nbInput fullWidth
+                id="sini_datedeclaration" (focusout)="onChangeFocusDateDeclaration($event)" [max]="getToday()">
+              <div *ngIf="verifDateDeclaration" class="col-sm-8">
+                <span>La date doit être supérieure ou égale à la date d'effet de la police:
+                  <span style="color:red">{{dateEffet | date: 'dd-MM-yyyy'}}</span>
+                  et antérieure ou égale à la date du jour.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="label">Description sinistre </label>
+              <textarea rows="1" nbInput fullWidth formControlName="sini_description"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <input type="radio" name="tabs" id="tabtwo">
+    <label for="tabtwo" class="lab">INFORMATION COUVERTURE</label>
+    <div class="tab" formGroupName="sinistreForm">
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label class="label">Type de sinistre</label>
+            <input readonly fieldSize="small" formControlName="sini_typesinistre" type="text" nbInput fullWidth
+              id="sini_typesinistre">
+          </div>
+        </div>
+
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label class="label">Date survenance</label> <span style="color:red;">*</span>
+            <input fieldSize="small" formControlName="sini_datesurvenance" type="date" nbInput fullWidth
+              id="sini_datesurvenance" (focusout)="onChangeFocusDateSurvenance($event)" [max]="getToday()">
+            <div *ngIf="verifDateSurvenance" class="col-sm-8">
+              <span>La date doit être comprise entre la date prise d'effet:
+                <span style="color:red">{{dateEffet | date: 'dd-MM-yyyy'}}</span>
+                et d'echeance de la police:
+                <span style="color: red">{{dateEcheance | date: 'dd-MM-yyyy'}}</span>
+                et valide antérieure ou égale à la date du jour.
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label class="label">Date déclaration</label> <span style="color:red;">*</span>
+            <input fieldSize="small" formControlName="sini_datedeclaration" type="date" nbInput fullWidth
+              id="sini_datedeclaration" (focusout)="onChangeFocusDateDeclaration($event)" [max]="getToday()">
+            <div *ngIf="verifDateDeclaration" class="col-sm-8">
+              <span>La date doit être supérieure ou égale à la date d'effet de la police:
+                <span style="color:red">{{dateEffet | date: 'dd-MM-yyyy'}}</span>
+                et antérieure ou égale à la date du jour.
+              </span>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label class="label">Date saisie</label>
+            <input readonly fieldSize="small" formControlName="sini_datesaisie" type="date" nbInput fullWidth
+              id="sini_datesaisie" [max]="getToday()">
+          </div>
+        </div>
+
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label class="label">Lieu du sinistre</label>
+            <input *ngIf="!saisirLieuSinistre" readonly fieldSize="small" formControlName="sini_lieu" type="text"
+              nbInput fullWidth id="sini_lieu">
+
+            <input *ngIf="saisirLieuSinistre" fieldSize="small" formControlName="sini_lieu" type="text" nbInput
+              fullWidth id="sini_lieu">
+          </div>
+        </div>
+
+        <div class="col-sm-9">
+          <div class="form-group">
+            <label class="label">Description sinistre </label>
+            <textarea rows="1" nbInput fullWidth formControlName="sini_description"></textarea>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+      <input type="radio" name="tabs" id="tabthree">
+      <label for="tabthree" class="lab">IDENTIFICATION RISQUE/EVALUATIONS</label>
+      <div class="tab">
+        <fieldset class="fieldset" formGroupName="creditForm" *ngIf="afficherCredit">
+          <legend class="tailleLegend">Crédit</legend>
+
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro crédit</label> <span style="color:red;">*</span>
+                <nb-select [(selected)]="codeCredit" (selectedChange)="onChangeCredit($event)" fullWidth
+                  id="credit_numero">
+                  <nb-option value="{{credit.credit_numero}}" *ngFor="let credit of credits">
+                    {{credit.credit_numero}}
+                  </nb-option>
+                </nb-select>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Acheteur</label>
+                <input readonly fieldSize="small" [value]="acheteurChoisi" type="text" nbInput fullWidth>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Montant crédit</label>
+                <input readonly fieldSize="small" [value]="montantCredit" type="text" nbInput fullWidth
+                  id="credit_mtncredit">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Nbre écheances accordées</label>
+                <input readonly fieldSize="small" formControlName="credit_nbecheanceaccorde" type="number" nbInput
+                  fullWidth id="credit_nbecheanceaccorde">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Nbre écheances en retard</label>
+                <input fieldSize="small" formControlName="credit_nbechenaceretard" type="number" nbInput fullWidth
+                  id="credit_nbechenaceretard" (focusout)="onChangeFocusNombreEcheanceRetard($event)">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Nbre écheances impayées</label>
+                <input readonly fieldSize="small" formControlName="credit_nbecheanceimpaye" type="number" nbInput
+                  fullWidth id="credit_nbecheanceimpaye">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Montant sinistre</label>
+                <input readonly fieldSize="small" [value]="montantMenace" type="text" nbInput fullWidth>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <br>
+        <fieldset class="fieldset" formGroupName="risque_locatifForm" *ngIf="afficherRiskLocatif">
+          <legend class="tailleLegend">Risque locatif</legend>
+
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro risque locatif</label><span style="color:red;">*</span>
+                <nb-select [(selected)]="codeRisqueLocatif" (selectedChange)="onChangeRisqueLocatif($event)" fullWidth
+                  id="riskl_numero">
+                  <nb-option value="{{risqueLocatif.riskl_numero}}" *ngFor="let risqueLocatif of risqueLocatifs">
+                    {{risqueLocatif.riskl_numero}}
+                  </nb-option>
+                </nb-select>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Acheteur</label>
+                <input readonly fieldSize="small" [value]="acheteurChoisi" type="text" nbInput fullWidth>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Montant Loyer</label>
+                <input readonly fieldSize="small" [value]="montantLoyer" type="text" nbInput fullWidth
+                  id="riskl_mtnloyer">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Nbre Loyers impayés</label>
+                <input fieldSize="small" formControlName="riskl_nombreloyerimpaye" type="number" nbInput fullWidth
+                  id="riskl_nombreloyerimpaye" (focusout)="onChangeFocusNombreLoyersImpayes($event)">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Montant Loyers impayés</label>
+                <input readonly fieldSize="small" [value]="montantLoyerImpaye" type="text" nbInput fullWidth
+                  id="riskl_mtnloyerimpaye">
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="fieldset" formGroupName="risque_locatifForm" *ngIf="afficherRiskCaution">
+          <legend class="tailleLegend">Caution</legend>
+
+          <!-- <br><br><br><br><br><br> -->
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Engagement</label><!-- <span style="color:red;">*</span>-->
+                <nb-select [(selected)]="codeEngagement" (selectedChange)="onChangeEngagement($event)" fullWidth
+                  id="engagement">
+                  <nb-option value="{{engagement.engag_numeroengagement}}" *ngFor="let engagement of engagements">
+                    {{engagement.engag_numeroengagement}}
+                  </nb-option>
+                </nb-select>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Capital engagé</label>
+                <input readonly fieldSize="small" [value]="capitalEngage" type="text" nbInput fullWidth
+                  id="capitalEngager">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Capital libéré</label>
+                <input readonly fieldSize="small" [value]="capitalLibere" type="text" nbInput fullWidth
+                  id="capitalLiberer">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Capital restant</label>
+                <input readonly fieldSize="small" [value]="capitalRestant" type="text" nbInput fullWidth
+                  id="capitalRestant">
+              </div>
+            </div>
+            <!-- <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Montant Loyers impayés</label>
+                            <input readonly fieldSize="small" [value]="montantLoyerImpaye" type="text" nbInput fullWidth
+                                id="riskl_mtnloyerimpaye">
+                        </div>
+                    </div> -->
+          </div>
+        </fieldset>
+        <br>
+        <fieldset class="fieldset" formGroupName="mvtsinistreForm">
+          <legend class="tailleLegend">Evaluation</legend>
+
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Montant principal</label>
+                <input fieldSize="small" [value]="montantPrincipal" type="text" nbInput fullWidth
+                  id="mvts_montantprincipal" (focusout)="onChangeFocusMontantPrincipal($event)"
+                  [ngStyle]="{border: getColorMontantPrincipal()}">
+              </div>
+              <div *ngIf="problemeMontantPrincipalCredit" class="col-sm-8">
+                <span style="color:red; font-style: italic;">
+                  Le montant principal doit-être inférieur ou égal au montant sinistre
+                </span>
+              </div>
+              <div *ngIf="problemeMontantPrincipalRiskLocatif" class="col-sm-8">
+                <span style="color:red; font-style: italic;">
+                  Le montant principal doit-être inférieur ou égal au montant loyer impayé
+                </span>
+              </div>
+              <div *ngIf="problemeMontantPrincipalCaution" class="col-sm-8">
+                <span style="color:red; font-style: italic;">
+                  Le montant principal doit-être inférieur ou égal au capital restant
+                </span>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Montant frais</label>
+                <input fieldSize="small" [value]="montantFrais" type="text" nbInput fullWidth id="mvts_montantfrais"
+                  (focusout)="onChangeFocusMontantFrais($event)">
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Montant honoraires</label>
+                <input fieldSize="small" [value]="montantHonoraire" type="text" nbInput fullWidth
+                  id="mvts_montanthonoraire" (focusout)="onChangeFocusMontantHonoraire($event)">
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <br>
+    <div>
+      <button nbButton status="success" (click)="submit()"
+        [disabled]='!mySinistreForm.valid || erreur || declarationSinistre'>Valider</button>
+    </div>
+  </form>
+</div>
+<div *ngIf="check_fonct('c_sinistre')==false">
+  <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

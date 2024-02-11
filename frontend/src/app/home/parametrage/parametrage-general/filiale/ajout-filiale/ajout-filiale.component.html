@@ -1,0 +1,336 @@
+<!-- <form [formGroup]="addForm"> 
+  <div class="col-lg-12">
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Ajouter une filiale</nb-card-header>
+    </nb-card>
+  </div> 
+  
+  <nb-card>
+    <nb-card-header>Ajouter une filiale</nb-card-header>
+    
+    <nb-card-body >
+      
+      <div class="row">
+        
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Code Compagnie</label>
+            <nb-select (selectedChange)="onChangeCompagnie($event)" fullWidth>                    
+              <nb-option value="{{compagnie.comp_numero}}" *ngFor="let compagnie of listCompagnies">{{compagnie.comp_numero}} : {{compagnie.comp_denomination}}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label  class="label">Code Pays</label>
+            <nb-select (selectedChange)="onChangeCodePays($event)" fullWidth>                    
+              <nb-option value="{{codepays.pays_code}}" *ngFor="let codepays of listPays">{{codepays.pays_code}} : {{codepays.pays_libellelong}}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label  class="label">Code Groupe</label>
+            <nb-select (selectedChange)="onChangeGroupe($event)" fullWidth>                    
+              <nb-option value="{{codegroupe.group_code}}" *ngFor="let codegroupe of listGroupes">{{codegroupe.group_code}} : {{codegroupe.group_liblong}}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="" class="label">Denomination</label>
+            <input  formControlName="fili_denomination" type="text" nbInput fullWidth id="fili_denomination" >
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label  class="label">Sigle</label>
+            <input  formControlName="fili_sigle" type="text" nbInput fullWidth id="fili_sigle" >
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label  class="label">Code Devise</label>
+            <input  formControlName="fili_codedevise" type="number" nbInput fullWidth id="fili_codedevise" >
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label  class="label">Adresse 1</label>
+            <input  formControlName="fili_adresse1" type="text" nbInput fullWidth id="fili_adresse1" >
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label  class="label">Adresse 2</label>
+            <input  formControlName="fili_adresse2" type="text" nbInput fullWidth id="fili_adresse2">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label  class="label">Telephone 1</label>
+            <input  formControlName="fili_telephone1" type="text" nbInput fullWidth id="fili_telephone1">
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label  class="label">Telephone 2</label>
+            <input  formControlName="fili_telephone2" type="text" nbInput fullWidth id="fili_telephone2">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label  class="label">Telephone mobile</label>
+            <input  formControlName="fili_telephonemobile" type="text" nbInput fullWidth id="fili_telephonemobile" >
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label  class="label">Code Postal</label>
+            <input  formControlName="fili_codepostal" type="text" nbInput fullWidth id="fili_codepostal" >
+          </div>
+        </div>
+      </div>
+      
+      
+      <nb-card-footer>
+        <button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+        &nbsp;&nbsp;<button nbButton status="success" (click)="submit()" [disabled]='!addForm.valid'>Ajouter</button>
+      </nb-card-footer>
+    </nb-card-body>
+  </nb-card>
+</form> -->
+
+
+
+
+<div *ngIf="check_fonct('c_filiale')">
+<form [formGroup]="addForm"> 
+  
+  <div class="col-lg-4">
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Ajout Filiale</nb-card-header>
+    </nb-card>
+  </div> 
+  <br>
+  <div class="tabs">
+    
+    <input type="radio" name="tabs" id="tabone" checked="checked">
+    <label for="tabone" class="lab">Filiale</label>
+    <div class="tab">
+      
+      <div class="row">
+        <div class="col-lg-12">
+          <!-- <nb-card>
+            <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Filiale</nb-card-header>
+            <nb-card-body> -->
+              
+              <div class="row">
+                
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="label">Code Compagnie <span style="color:red;">*</span></label>
+                    <!-- <nb-select (selectedChange)="onChangeCompagnie($event)" fullWidth fieldSize="small" >                    
+                      <nb-option value="{{compagnie.comp_numero}}" *ngFor="let compagnie of listCompagnies">{{compagnie.comp_numero}} : {{compagnie.comp_denomination}}</nb-option>
+                    </nb-select> -->
+                    <mat-select class="form-control" [formControl]="compagnieCtrl" placeholder="choisir une compagnie"
+                    (selectionChange)="onChangeCompagnie($event)" fullWidth
+                    id="fili_codecompagnie" #singleSelect>
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="compagnieFilterCtrl"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let compagnie of filteredcompagnie | async" value="{{compagnie.comp_numero}}">
+                      {{compagnie.comp_numero}} : {{compagnie.comp_denomination}}
+                    </mat-option>
+                </mat-select>
+              </div>
+
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label  class="label">Code Pays <span style="color:red;">*</span></label>
+                    
+                    <!-- <nb-select (selectedChange)="onChangeCodePays($event)" fullWidth>                    
+                      <nb-option value="{{codepays.pays_code}}" *ngFor="let codepays of listPays">{{codepays.pays_code}} : {{codepays.pays_libellelong}}</nb-option>
+                    </nb-select> -->
+                    <input fieldSize="small" formControlName="fili_codepays" [readonly]="true" value="((this.listPays.find(p => p.alpha2Code === event.substring(0, 2))).callingCodes[0])" type="text" nbInput fullWidth id="fili_codepays" >
+                    
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label  class="label">Code Devise <span style="color:red;">*</span></label>
+                    <input fieldSize="small" formControlName="fili_codedevise" [readonly]="true" value="this.listPays.find(p => p.alpha2Code === event.substring(0, 2))).currencies[0].code)" type="text" nbInput fullWidth id="fili_codedevise" >
+                    
+                    
+                    <!-- <input  formControlName="fili_codedevise" type="number" nbInput fullWidth id="fili_codedevise" > -->
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label  class="label">Code Groupe </label>
+                    <!-- <nb-select (selectedChange)="onChangeGroupe($event)" fullWidth fieldSize="small" >                    
+                      <nb-option value="">&nbsp;</nb-option>
+                      <nb-option value="{{codegroupe.group_code}}" *ngFor="let codegroupe of listGroupes">{{codegroupe.group_code}} : {{codegroupe.group_liblong}}</nb-option>
+                    </nb-select> -->
+
+
+                    <mat-select class="form-control" [formControl]="groupeCtrl" placeholder="choisir un groupe"
+                    (selectionChange)="onChangeGroupe($event)" fullWidth
+                    id="fili_codegroupe" #singleSelect>
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="groupeFilterCtrl"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option value="">&nbsp;</mat-option>
+                    <mat-option *ngFor="let codegroupe of filteredgroupe | async" value="{{codegroupe.group_code}}">
+                      {{codegroupe.group_code}} : {{codegroupe.group_liblong}}
+                    </mat-option>
+                </mat-select>
+
+
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label for="" class="label">Denomination <span style="color:red;">*</span></label>
+                    <input  formControlName="fili_denomination" type="text" nbInput fullWidth fieldSize="small"  id="fili_denomination" (focusout)="onchangeDenom()">
+                    <span *ngIf="errorDenom" style="color:red;">La dénomination est obligatoire</span>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label  class="label">Sigle <span style="color:red;">*</span></label>
+                    <input  formControlName="fili_sigle" type="text" nbInput fieldSize="small"  fullWidth id="fili_sigle" (focusout)="onchangeSigle()">
+                    <span *ngIf="errorSigle" style="color:red;">Le sigle est obligatoire</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- </nb-card-body>
+            </nb-card> -->
+          </div>
+        </div>
+        
+        
+        
+        <input type="radio" name="tabs" id="tabtwo">
+        <label for="tabtwo" class="lab">INFORMATION</label>
+        <div class="tab">
+          <div class="row">
+            <div class="col-lg-12">
+              <!-- <nb-card>
+                <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Information </nb-card-header>
+                <nb-card-body>
+                -->
+                
+                <div class="row">
+                  
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label  class="label">Adresse 1 <span style="color:red;">*</span></label>
+                      <input  formControlName="fili_adresse1" type="text" fieldSize="small"  nbInput fullWidth id="fili_adresse1" (focusout)="onchangeAdresse1()">
+                      <span *ngIf="errorAdresse1" style="color:red;">L'adresse est obligatoire</span>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label  class="label">Adresse 2</label>
+                      <input  formControlName="fili_adresse2" type="text" fieldSize="small" nbInput fullWidth id="fili_adresse2">
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label  class="label">Code Postal</label>
+                      <input  formControlName="fili_codepostal" type="text" nbInput fieldSize="small"  fullWidth id="fili_codepostal" >
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label  class="label">Telephone 1 <span style="color:red;">*</span></label>
+                      <!-- <input  formControlName="fili_telephone1" type="text" nbInput fieldSize="small"  fullWidth id="fili_telephone1" (keyup)="onchangeNumero1()"
+                      (focusout)="onFocusOutEventTel1()"> -->
+
+                      <ngx-intl-tel-input   [cssClass]="'form-control'"  [preferredCountries]="[CountryISO.Senegal]"
+                      [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                      [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                      [selectedCountryISO]="CountryISO.Senegal" [maxLength]="15" (focusout)="onchangeNumero1()"
+                      [phoneValidation]="true" [separateDialCode]="true"
+                      [numberFormat]="PhoneNumberFormat.National" id="fili_telephone1" formControlName="fili_telephone1">
+                    </ngx-intl-tel-input>
+                  <br/>
+                      <span *ngIf="!errorNumero1" style="color:red;">Le numero n'est pas valide</span>
+                      <span *ngIf="errorTel1" style="color:red;">Le téléphone 1 est obligatoire</span>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label  class="label">Telephone 2</label>
+                      <!-- <input  formControlName="fili_telephone2" type="text" nbInput fieldSize="small"  fullWidth id="fili_telephone2" (keyup)="onchangeNumero2()">
+                      -->
+                      <ngx-intl-tel-input [cssClass]="'form-control'"  [preferredCountries]="[CountryISO.Senegal]"
+                      [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                      [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                      [selectedCountryISO]="CountryISO.Senegal" [maxLength]="15" (keyup)="onchangeNumero2()"
+                      [phoneValidation]="true" [separateDialCode]="true"
+                      [numberFormat]="PhoneNumberFormat.National" id="fili_telephone2" formControlName="fili_telephone2">
+                    </ngx-intl-tel-input>
+                    <br/>
+                    <span *ngIf="!errorNumero2" style="color:red;">Le numero n'est pas valide</span>
+                    
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label  class="label">Telephone mobile <span style="color:red;">*</span></label>
+                      <!-- <input  formControlName="fili_telephonemobile" type="text" nbInput fieldSize="small"  fullWidth id="fili_telephonemobile" (keyup)="onchangeNumero()"
+                      (focusout)="onFocusOutEventMob()"> -->
+
+
+                      <ngx-intl-tel-input  [cssClass]="'form-control'"  [preferredCountries]="[CountryISO.Senegal]"
+                      [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                      [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                      [selectedCountryISO]="CountryISO.Senegal" [maxLength]="15" (focusout)="onchangeNumero()"
+                      [phoneValidation]="true" [separateDialCode]="true"
+                      [numberFormat]="PhoneNumberFormat.National" id="fili_telephonemobile" formControlName="fili_telephonemobile">
+                    </ngx-intl-tel-input>
+
+                      <br/>
+                      <span *ngIf="!errorNumero" style="color:red;">Le numero n'est pas valide</span>
+                      <span *ngIf="errorMob" style="color:red;">Le numéro est obligatoire</span>
+                      <!-- <span *ngIf="errorNumero" style="color:green;">Le numero est valide</span> -->
+                    </div>
+                  </div>
+                  
+                </div>
+                
+                <!-- </nb-card-body>
+                </nb-card> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div>
+          <button nbButton status="success" (click)="submit()" [disabled]='!addForm.valid'>Ajouter</button>
+          &nbsp;&nbsp; <button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+          
+          
+        </div>
+        
+        
+      </form>
+    </div>
+    <div *ngIf="check_fonct('c_filiale')==false">
+      <ngx-page-not-autoriser></ngx-page-not-autoriser>
+    </div>

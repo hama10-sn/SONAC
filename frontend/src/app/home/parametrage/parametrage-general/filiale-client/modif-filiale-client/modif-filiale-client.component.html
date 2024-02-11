@@ -1,0 +1,97 @@
+<div *ngIf="check_fonct('u_filiale_Client')">
+    <form [formGroup]="modifForm"> 
+      
+      <div class="col-lg-4">
+        <nb-card>
+          <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Modifier Filiale Client</nb-card-header>
+        </nb-card>
+      </div> 
+      <br>
+      <div class="tabs">
+        
+        <input type="radio" name="tabs" id="tabone" checked="checked">
+        <label for="tabone" class="lab">Filiale Client</label>
+        <div class="tab">
+          
+          <div class="row">
+            <div class="col-lg-12">
+              <!-- <nb-card>
+                <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Filiale_Client</nb-card-header>
+                <nb-card-body> -->
+                  
+                  <div class="row">
+                    
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label class="label">Code Client <span style="color:red;">*</span></label>
+                        <nb-select (selectedChange)="onChangeClient($event)" fullWidth fieldSize="small" [(selected)]="filcli_numercli">                    
+                          <nb-option value="{{client.clien_numero}}" *ngFor="let client of listClients">{{client.clien_numero}} : {{client.clien_denomination}}</nb-option>
+                        </nb-select>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label  class="label">Code Pays <span style="color:red;">*</span></label>
+                        
+                         <nb-select (selectedChange)="onChangeCodePays($event)" [(selected)]="filcli_codepays" fullWidth>                    
+                          <nb-option value="{{codepays.callingCodes[0]}}" *ngFor="let codepays of listPays">{{codepays.callingCodes[0]}} : {{codepays.name}}</nb-option>
+                        </nb-select>
+                        <!-- <input fieldSize="small" formControlName="filcli_codepays" [readonly]="true" value="((this.listPays.find(p => p.alpha2Code === event.substring(0, 2))).callingCodes[0])" type="text" nbInput fullWidth id="filcli_codepays" >
+                         -->
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label  class="label">Code Devise <span style="color:red;">*</span></label>
+                        <input fieldSize="small" formControlName="filcli_codedevise" [readonly]="true" value="this.listPays.find(p => p.callingCodes[0] === event)).currencies[0].code)" type="text" nbInput fullWidth id="filcli_codedevise" >
+                        
+                        
+                        <!-- <input  formControlName="filcli_codedevise" type="number" nbInput fullWidth id="filcli_codedevise" > -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label  class="label">Code Groupe </label>
+                        <!-- <nb-select  [(selected)]="filcli_codegroupe" (selectedChange)="onChangeGroupe($event)" fullWidth fieldSize="small" >                    
+                          <nb-option value="">&nbsp;</nb-option>
+                          <nb-option value="{{codegroupe.group_code}}" *ngFor="let codegroupe of listGroupes">{{codegroupe.group_code}} : {{codegroupe.group_liblong}}</nb-option>
+                        </nb-select> -->
+
+                        <mat-select class="form-control" [formControl]="groupeCtrl" placeholder="choisir un groupe"
+                        (selectionChange)="onChangeGroupe($event)" fullWidth
+                        id="fili_codegroupe" #singleSelect>
+                        <mat-option>
+                            <ngx-mat-select-search [formControl]="groupeFilterCtrl"></ngx-mat-select-search>
+                        </mat-option>
+                        <mat-option value="">&nbsp;</mat-option>
+                        <mat-option *ngFor="let codegroupe of filteredgroupe | async" value="{{codegroupe.group_code}}">
+                          {{codegroupe.group_code}} : {{codegroupe.group_liblong}}
+                        </mat-option>
+                    </mat-select>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- </nb-card-body>
+                </nb-card> -->
+              </div>
+            </div>
+            </div>
+            <br>
+            <div>
+              <button nbButton status="success" (click)="submit()" [disabled]='!modifForm.valid'>Ajouter</button>
+              &nbsp;&nbsp; <button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+              
+              
+            </div>
+            
+            
+          </form>
+        </div>
+        <div *ngIf="check_fonct('u_filiale_Client')==false">
+          <ngx-page-not-autoriser></ngx-page-not-autoriser>
+        </div>

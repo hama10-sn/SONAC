@@ -1,0 +1,121 @@
+<div *ngIf="check_fonct('c_pays')">
+    <form [formGroup]="modifForm">
+        <div class="col-lg-4">
+            <nb-card>
+                <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Modification date comptable</nb-card-header>
+            </nb-card>
+        </div>
+        <br>
+
+        <div class="tabs">
+            <input type="radio" name="tabs" id="tabone" checked="checked">
+            <label for="tabone" class="lab">INFORMATION TABLE COMPTABLE</label>
+            <div class="tab">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="" class="label">Type table<span style="color:red;">*</span></label>
+                            <input fieldSize="small" type="text" formControlName="datecompt_typtable" id="datecompt_typtable" readonly nbInput fullWidth>
+                            <!--nb-select fullWidth formControlName="datecompt_typtable" id="datecompt_typtable">
+                                <!-nb-option value="1">Comptable</nb-option->
+                                <nb-option value=1>Production</nb-option>
+                                <nb-option value=2>Sinistre</nb-option>
+                                <nb-option value=3>Réassurance</nb-option>
+                                <!-nb-option value="5">Traitement annuel</nb-option->
+                            </nb-select-->
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="label">Type centralisation<span style="color:red;">*</span></label>
+                            <input fieldSize="small" type="text" formControlName="datecompt_typcentral" id="datecompt_typcentral" readonly nbInput fullWidth>
+                            <!--nb-select fullWidth formControlName="datecompt_typcentral" id="datecompt_typcentral">
+                                <nb-option value="J">Journalière</nb-option>
+                                <nb-option value="M">Mensuel</nb-option>
+                                <nb-option value="T">Trimestriel</nb-option>
+                                <nb-option value="A">Annuel</nb-option>
+                            </nb-select-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="radio" name="tabs" id="tabtwo">
+            <label for="tabtwo" class="lab">INFORMATION EXERCICES</label>
+            <div class="tab">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">code du journal<span style="color:red;">*</span></label>
+                            <nb-select fullWidth formControlName="datecompt_codejournal" id="datecompt_codejournal">
+                                <nb-option value="12">Production</nb-option>
+                                <nb-option value="14">Sinistre</nb-option>
+                                <nb-option value="17">Réassurance</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">libelle du journal<span style="color:red;">*</span></label>
+                            <input fieldSize="small" formControlName="datecompt_libellejourn" type="text" nbInput fullWidth id="datecompt_libellejourn" [max]="getToday()">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">datecompt_datejourn<span style="color:red;">*</span></label>
+                            <input fieldSize="small" (focusout)="onfocusDateJournal()" formControlName="datecompt_datejourn" type="date" nbInput fullWidth id="datecompt_datejourn">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">date mensuelle en cours<span style="color:red;">*</span></label>
+                            <input fieldSize="small" readonly formControlName="datecompt_datemens" type="text" nbInput fullWidth id="datecompt_datemens">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">date annuelle en cours<span style="color:red;">*</span></label>
+                            <input fieldSize="small" readonly formControlName="datecompt_dateexercice" type="number" nbInput fullWidth id="datecompt_dateexercice">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">cloture ou pas<span style="color:red;">*</span></label>
+                            <!--input fieldSize="small" formControlName="datecompt_cloture" type="date" nbInput fullWidth id="datecompt_cloture"-->
+                             <nb-select fullWidth formControlName="datecompt_cloture" id="datecompt_cloture">
+                                <nb-option value="O">Oui</nb-option>
+                                <nb-option value="N">Non</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <!--div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Clôture exercice prochain<span style="color:red;">*</span></label>
+                            <nb-select fullWidth formControlName="datecompt_clotproch" id="datecompt_clotproch">
+                                <nb-option value="O">Oui</nb-option>
+                                <nb-option value="N">Non</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <!-div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Ouverture exercice prochain<span style="color:red;">*</span></label>
+                            <nb-select fullWidth formControlName="datecompt_exerciceouv" id="datecompt_exerciceouv">
+                                <nb-option value="O">Oui</nb-option>
+                                <nb-option value="N">Non</nb-option>
+                            </nb-select>
+                        </div>
+                    </div-->
+                </div>
+            </div>
+        </div>
+        <br>
+        <div>
+            <button nbButton status="success" (click)="onSubmit()" [disabled]='!modifForm.valid'>Modifier</button>
+            &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="check_fonct('c_pays')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

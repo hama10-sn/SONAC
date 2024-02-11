@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="instructions" pageWidth="595" pageHeight="867" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="32d67310-94aa-4e3f-9875-cddc4954109a">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sonac_bd"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[select  *from dem_pers]]>
+	</queryString>
+	<field name="dem_persnum" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="dem_persnum"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_persnum"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="actif" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="actif"/>
+		<property name="com.jaspersoft.studio.field.label" value="actif"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_adresse1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_adresse1"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_adresse1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_adresse2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_adresse2"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_adresse2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_civilitepers" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="dem_civilitepers"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_civilitepers"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_codeutilisateur" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_codeutilisateur"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_codeutilisateur"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_comptebancaire" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_comptebancaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_comptebancaire"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_datemodification" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="dem_datemodification"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_datemodification"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_email"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_ninea" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_ninea"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_ninea"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_nom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_nom"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_nom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_objetdemande" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_objetdemande"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_objetdemande"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_prenom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_prenom"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_prenom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_produitdemande1" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="dem_produitdemande1"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_produitdemande1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_produitdemande2" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="dem_produitdemande2"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_produitdemande2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_produitdemande3" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="dem_produitdemande3"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_produitdemande3"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_registrecommerce" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_registrecommerce"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_registrecommerce"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_secteuractivites" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="dem_secteuractivites"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_secteuractivites"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_soumissionarbitrage" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_soumissionarbitrage"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_soumissionarbitrage"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_statut" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_statut"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_statut"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_telephone2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_telephone2"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_telephone2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_telephonemobile" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_telephonemobile"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_telephonemobile"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_telephoneprincipal" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_telephoneprincipal"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_telephoneprincipal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_typeclientpers" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_typeclientpers"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_typeclientpers"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_typetitulaire" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="dem_typetitulaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_typetitulaire"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_ville" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_ville"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_ville"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_branch" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="dem_branch"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_branch"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_categorie" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="dem_categorie"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_categorie"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_commentaire" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_commentaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_commentaire"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="827" splitType="Stretch">
+			<rectangle>
+				<reportElement x="75" y="244" width="425" height="76" uuid="52c662c3-f5e1-4df5-9be6-246b7966b1f7"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="150" y="160" width="270" height="30" uuid="b8b9b7cb-248f-4617-a8a3-b2578cabd11a"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Client : .............../CTP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="190" width="270" height="30" uuid="c91b52b9-9096-4939-8667-09f778cb731a"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Assure: ........................................]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="50" y="350" width="490" height="473" uuid="7460791c-1f46-4b67-b9db-872887576f80"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="80" y="270" width="410" height="33" uuid="2e147cd2-12d7-4700-824e-c18480ce14ed"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[DISPOSITIONS GENERALES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="360" width="191" height="50" uuid="3df8100a-adfe-4413-8cdf-487cdba127cb"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[ARTICLE 1 – Définition des termes 
+Donneur d’ordre : La personne à la demande de laquelle il est émis un acte de cautionnement.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="420" width="191" height="30" uuid="01b3873a-b2b6-402b-bfe7-6deab7f60d0b"/>
+				<text><![CDATA[Garant: l’émetteur de l’acte de cautionnement ou de garantie ci – après dénommé la « SONAC ».]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="460" width="200" height="40" uuid="753b7ee5-6500-4989-8b88-427d3f8ec2e6"/>
+				<text><![CDATA[Bénéficiaire : organisme au profit duquel l’acte de cautionnement ou de garantie est émis.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="331" y="360" width="203" height="130" uuid="7011edcd-0c30-49a3-8841-b5be545ca6c4"/>
+				<text><![CDATA[accords dont les parties pourraient convenir. Dans le silence de leur conventions, les parties se référent aux dispositions de l’Acte Uniforme portant organisation des sûretés en ses articles 12 à 49 et à toutes les autres lois, décrets et arrêtés applicables notamment sur les marchés publics ou privés. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="520" width="200" height="40" uuid="6a4f8153-e350-43c0-9fa0-9cef973d9742"/>
+				<text><![CDATA[Article 2  - objet du contrat
+La présente police a pour objet l’émission par la SONAC d’engagements par signatures (cautionnement ou lettre de garantie) à la demande de son client le donneur d’ordre.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="579" width="200" height="30" uuid="a5a43853-9c99-4f1c-a13e-6bc499ce62cf"/>
+				<text><![CDATA[Ces engagements par signature entrent dans le cadre des garanties exigées des candidats et des titulaires de marchés publics ou privés.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="627" width="200" height="30" uuid="c90ece41-f85f-43eb-80d8-ee092d139d58"/>
+				<text><![CDATA[Ces conditions générales sont complétées, précisées ou modifiées par les « Conditions  particulières » qui sont convenues pour tous les actes de cautionnement délivrés par la SONAC à la demande de son client le donneur d’ordre.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="113" y="680" width="195" height="60" uuid="f8decd17-45c0-419d-8d20-9a67d040ac65"/>
+				<text><![CDATA[Article 3 – Dispositions applicables 
+Les relations entre les parties sont régies par les présentes conditions générales et  par tous les ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="331" y="510" width="203" height="114" uuid="68485ec0-7af6-4720-9826-ab77d58ce1f2"/>
+				<text><![CDATA[Article 4 - Durée et entré en vigueur du contrat
+Le présent contrat est conclu pour une année renouvelable par tacite reconduction. Il entre en vigueur à partir de sa signature et autorise le Donneur d’ordre à présenter au Garant toute demande entrant dans le champ d’application des présentes.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="650" width="204" height="49" uuid="eb9a56ab-db94-44fd-a3ec-d6894f93449d"/>
+				<text><![CDATA[Article 5 - Champ d’application
+Entrent dans les engagements par signature pouvant être demandés par le Donneur d’ordre au Garant, les cautionnements ou garanties de soumission, d’avance de démarrage de bonne exécution, de retenue de garantie  ou de toute autre nature ou appellation qui peuvent être demandés dans les marchés de travaux.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="331" y="720" width="203" height="70" uuid="c39a0ef3-e46c-435b-81e7-67eb48863fd2"/>
+				<text><![CDATA[Les bénéficiaires des engagements qui sont demandés par le Donneur d’ordre au Garant, sont des personnes physiques ou morales, de droit public ou de droit privé, nationales ou étrangères.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="85" y="-10" width="425" height="50" forecolor="#171313" backcolor="#E6E3E3" uuid="6b3c8911-7ba6-4f72-9ff6-7cc1cfb429a0"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="130" y="0" width="350" height="33" backcolor="#E6E6E6" uuid="2c732fb0-96d7-48b8-a22c-0ecfd61da5b4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CAUTIONS  DE MARCHES]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="85" y="80" width="425" height="50" forecolor="#171313" backcolor="#E6E3E3" uuid="974e150b-fe5d-49a5-97a3-7fbdd9b2d61e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="130" y="90" width="350" height="33" backcolor="#E6E6E6" uuid="101f7f9b-d146-417b-97ba-87d180e18712"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONDITIONS GENERALES]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="234" y="162" width="100" height="30" uuid="6fce2a64-192c-4f87-bed5-d08e1db63da6"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_persnum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="191" width="100" height="30" uuid="4b8515b5-e455-4ed1-9506-f416e68209c6"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_prenom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="273" y="191" width="100" height="30" uuid="54eb1db0-4c60-44a0-a2b3-449b2a2ae781"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_nom}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="465" splitType="Stretch">
+			<rectangle>
+				<reportElement x="60" y="107" width="490" height="343" uuid="bfb45019-bf79-4107-a83a-d625c73b06fd"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="70" y="120" width="200" height="110" uuid="4f2bb5d2-36ff-4f4f-8e1d-3795650ecd2e"/>
+				<text><![CDATA[Article 6 –  La demande de cautionnement 
+La délivrance des engagements de cautionnement est faite sur demande du Donneur d’ordre. Cette demande est accompagnée des pièces pouvant permettre au Garant d’émettre le cas échéant, son acte de cautionnement conformément aux prescriptions du Bénéficiaire.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="120" width="190" height="110" uuid="350eab00-ab04-4fd1-96c4-9ef1a16ab444"/>
+				<text><![CDATA[Au cas où l’acceptation de la délivrance des cautionnements demandés est assujettie à des conditions  différentes de celles habituellement pratiquées, la SONAC, après en avoir informé le Donneur d’ordre, est tenu de le lui notifier dans un délai raisonnable.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="260" width="200" height="60" uuid="776c5152-a10e-4064-b1e4-c988a00ebc90"/>
+				<text><![CDATA[Article 7 - La délivrance des cautionnements
+Après étude du dossier du Donneur d’ordre, la SONAC délivre éventuellement le cautionnement qui lui est demandé.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="260" width="190" height="80" uuid="9e5934d9-76f5-4528-bf7f-53116a004e45"/>
+				<text><![CDATA[Article 8 – Modalités de délivrance
+Sauf convention expresse entre les parties, les actes de cautionnement sont délivrés après satisfaction des conditions convenues entre les parties et paiement de la facture y afférente.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="350" width="200" height="90" uuid="7501f79a-dc07-42c8-b0e9-eba3f3f880c7"/>
+				<text><![CDATA[En cas d’acceptation du Garant de la délivrance des actes de cautionnement dans les conditions habituelles convenues avec le Donneur d’ordre, ce dernier en est informé par les moyens les plus rapides pour procéder aux retraits des actes de cautionnement.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="115" y="23" width="347" height="50" uuid="6e2cad53-609c-41e9-9fe1-6db0bbe2e97a"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="120" y="32" width="332" height="33" uuid="8a3da5f1-71d8-4b95-8c8b-2f899338d19d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DE LA DELIVRANCE DES CAUTIONNEMENTS]]></text>
+			</staticText>
+		</band>
+		<band height="827">
+			<staticText>
+				<reportElement x="99" y="68" width="350" height="33" uuid="738d5352-4ffc-4ab2-9627-a01d5a9798e4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[OBLIGATIONS DU GARANT]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="50" y="150" width="520" height="590" uuid="52efa2e1-f6e6-4196-a604-01ab256dfe78"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="340" y="170" width="210" height="80" uuid="e1b61dbc-4d33-4fbf-8f2d-c3b732b62ce7"/>
+				<text><![CDATA[Article 10 – Obligations d’information
+Le Garant s’oblige avant toute intervention relativement à un acte de cautionnement d’en informer le Donneur par notamment la transmission d’une copie de la correspondance du bénéficiaire.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="65" y="180" width="213" height="61" uuid="bf98cb4b-5c0a-4cf1-8d2a-945c4ffc69af"/>
+				<text><![CDATA[Article 9 – Obligation de diligence
+Le Garant devra répondre avec diligence aux demandes de cautionnements qui lui sont faites par le Donneur d’ordre. Il s’engage à lui donner une réponse dans les 05 jours œuvrés suivant la date du dépôt de la demande. Cette réponse peut être faite par tout moyen.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="260" width="240" height="30" uuid="446ae751-d035-48d5-a75d-ab544a199028"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[OBLIGATIONS DU DONNEUR D’ORDRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="65" y="327" width="253" height="393" uuid="ea596788-ef38-43cc-803e-516d26d3e875"/>
+				<text><![CDATA[Article 11 – Obligation de paiement des primes
+Le Donneur d’ordre est tenu au paiement d’une commission de délivrance qui constitue la rémunération de la SONAC. Cette commission est appelée d’une manière générique « prime d’assurance ». 
+
+Le paiement de cette prime est à faire à la réception de l’avis d’émission de primes. Le défaut de paiement à cette date rend caduque les engagements de l’assureur. 
+Toutefois, si le montant de la prime excède la somme de 2.800.000 F CFA, il peut être accordé à l’Assuré un échéancier de règlement de la prime sur une durée précise.
+
+Le non respect des termes du protocole engendre la résiliation de plein droit du contrat.
+
+Une fois la prime payée, elle ne peut pas être restituée sauf si le Donneur, pour des raisons indépendantes de sa volonté, n’a pas pu jouir des bénéfices du cautionnement. 
+
+Dans ce dernier cas, la restitution portera sur la prime excepté les frais d’études de dossier. Il sera également tenu compte du délai pendant lequel le Donneur d’ordre aura gardé par devers lui l’acte de cautionnement, tout trimestre commencé étant dû.
+
+Toute augmentation du cautionnement avant l’échéance annuelle donnera lieu à la perception d’une prime complémentaire calculée prorata temporis.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="341" y="327" width="206" height="393" uuid="f2c59620-de4f-40f5-84d5-4d19a5954841"/>
+				<text><![CDATA[Article 12 – Obligation de diligence
+Le Donneur d’ordre s’oblige à exécuter le contrat pour lequel le garant a donné son cautionnement conformément aux prescriptions du bénéficiaire. Il s’engage à prendre toutes les dispositions utiles pour qu’il ne puisse lui être reproché aucun manquement dans l’exécution des obligations pour lesquelles il a obtenu le cautionnement de la SONAC. 
+
+Le donneur d’ordre s’engage pour toute la durée de la présente police à introduire auprès de la SONAC toute demande d’augmentation de son cautionnement ou tout nouveau cautionnement  exigé par le même bénéficiaire.
+
+Article 13 – Obligation d’information
+Le Donneur d’ordre s’oblige à tenir informé périodiquement le Garant des dispositions qu’il met en œuvre pour la bonne réalisation du marché pour lequel il a obtenu le cautionnement du Garant. 
+
+Il est tenu également de convier le Garant à toutes les réunions et visites de chantiers qu’il organise avec les différentes parties prenantes à la réalisation du marché garanti.
+
+Le Donneur d’ordre s’engage en outre à transmettre annuellement au Garant ses états financiers annuels tels que approuvés par ses organes de contrôle.
+]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="80" y="0" width="400" height="40" uuid="dc2ea2f1-ddc0-44f5-bb40-d355e5f39269"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="115" y="0" width="347" height="40" uuid="0a2924ba-39bf-4b57-bf83-a9abbef9ac20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[OBLIGATIONS DES PARTIES]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="90" y="750" width="405" height="40" uuid="438e51bd-5efd-43f1-a43e-01bb4ac06087"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="117" y="755" width="350" height="30" uuid="47b374cb-c91e-4532-b112-03f5b2b95e1b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DE L’INTERVENTION ET DES RECOURS DU GARANT]]></text>
+			</staticText>
+		</band>
+		<band height="473">
+			<rectangle>
+				<reportElement x="50" y="0" width="480" height="473" uuid="6bee79ed-2548-4f1f-a3a7-82b12acc4917"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="65" y="20" width="185" height="110" uuid="632e31fc-0f4c-4a19-8aef-33b0a26a9ac0"/>
+				<text><![CDATA[Article 14 – De l’intervention du Garant
+Dès lors que le bénéficiaire constate que le candidat n’a pas exécuté une des obligations auxquelles il est tenu en vertu de l’offre, il adresse une déclaration de sinistre et demande l’intervention du Garant. 
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="20" width="205" height="80" uuid="0666802a-4695-4097-a3cb-2dab8118bd41"/>
+				<text><![CDATA[Il en est fait information au Donneur d’ordre qui pourra en faire opposition que sur présentation de pièces régulières établissant l’exécution de ses obligations. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="65" y="150" width="195" height="300" uuid="2ce2665d-420b-4d3c-b9fa-180af4336169"/>
+				<text><![CDATA[Aussi, dans les 48 heures qui suivent la réception de cette information, le Donneur d'ordre  est tenu de faire part au Garant de ses appréciations sur la demande du Bénéficiaire. A défaut, le Garant se réserve le droit de répondre utilement à la demande du Bénéficiaire.
+
+Le Donneur d’ordre autorise le Garant à prendre toutes mesures conservatoires au cas où il serait invité à intervenir comme caution ou dès qu’il est averti d’une défaillance du donneur d’ordre vis à vis du bénéficiaire.
+
+Article 15 – Du paiement du Garant
+En cas de paiement au Bénéficiaire, le Donneur d’ordre est tenu de rembourser au Garant et sans discussion le montant de son intervention, augmenté ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="150" width="210" height="280" uuid="a89895a7-d806-4268-8825-f338564ee48f"/>
+				<text><![CDATA[des frais et dépenses judiciaires, extrajudiciaires et autres, majoré d’une indemnité forfaitaire de 10 % des sommes payées
+
+Dès l’instant qu’un paiement aura été effectué au profit du Bénéficiaire, le Donneur d’ordre, sans qu’il ne soit besoin de l’établissement d’une quelconque écrit, cède de droit au Garant, toute créance qui pourrait lui revenir à quelque titre que ce soit contre des tiers et ce à concurrence du montant déterminé à l’alinéa précédent. 
+
+La notification au débiteur – cédé  de la présente police et des pièces de paiement de la SONAC au Bénéficiaire vaudront pour le débiteur – cédé  signification de la cession et il pourra dès lors se libérer valablement entre les mains du Garant.
+]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band height="827" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<break>
+				<reportElement x="0" y="800" width="561" height="1" uuid="3a27a793-d3f1-4c1a-b509-80f2744d7040"/>
+			</break>
+			<rectangle>
+				<reportElement x="47" y="16" width="500" height="634" uuid="756744fd-eafb-46dc-b1d6-7f6d5ed3a976"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="70" y="40" width="210" height="310" uuid="c18bbe8d-374a-42ce-9a12-7098da0174df"/>
+				<text><![CDATA[Article 16 - Circulation du contrat
+Le présent contrat conservera tous ses effets en cas de transformation de la situation juridique de la SONAC Garant, de fusion ou de cession de portefeuille à un autre organisme.
+
+Si le donneur d’ordre cède son entreprise à un tiers, ce dernier s’oblige à continuer le contrat, après accord expresse de la SONAC.
+
+Article 17 - Résiliation du contrat 
+Le contrat peut être résilié  par chacune des parties. La partie qui prend l’initiative de la résiliation est tenue de servir à son cocontractant un préavis, trois (3) mois avant la fin de la période annuelle en cours.
+
+Le contrat est également résilié de plein droit en cas de cessation d’activités du Donneur d’ordre ou de prononcé à son encontre d’un jugement de cessation de paiement ou  de la conclusion de tout autre accord destiné à l’éviter ou retarder.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="306" y="40" width="241" height="310" uuid="d19898ff-358e-4f5c-8876-bf18b7196b0f"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Article 18 -  compétence juridictionnelle. 
+Tout différend relatif à la validité, l’interprétation, l’exécution de la présente police sera soumise au Tribunal du domicile de l’Assuré. 
+Article 19 – loi applicable
+Les parties choisissent la loi sénégalaise comme étant applicable quelle que soit la situation des parties ou le lieu d’exécution des marchés objet des engagements par signature délivrés par la SONAC.
+Article 19 -  Election de domicile
+Pour l’exécution des présentes, les parties font élection de domicile à savoir :
+
+	La SONAC – Sa au 55, Rue Wagane DIOUF Dakar, 
+
+	Pour .....................................................
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="359" width="200" height="137" uuid="d5931fe9-14f0-4ca6-8e72-68111cc3de2c"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fait en double exemplaire, signé et échangé entre les parties.
+
+Dakar, le………………..
+
+Pour «........................................................»                                                                                                             Pour la SONAC – SA 
+« Lu et Approuvé »                                                      
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="318" y="370" width="195" height="73" uuid="1e08721b-5376-4175-81ff-d6dfe08a157e"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pour la Sonac - SA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="391" y="239" width="100" height="30" uuid="ca633f0e-66e3-46df-a9b1-206f087a655c"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_prenom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="184" y="419" width="100" height="30" uuid="15b75252-d15b-4633-9ebb-f762b60e261e"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_nom}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="112" y="395" width="100" height="30" uuid="c6e67edd-4029-4cf9-b8a6-7e5f3b4653f0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="114" y="419" width="100" height="30" uuid="bcdc8766-3f91-46e8-b130-738b23ce5ef8"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_prenom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="454" y="239" width="100" height="30" uuid="3585b229-bf28-4127-aba5-83122e67dd16"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_nom}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="360" y="399" width="130" height="30" uuid="3441bf47-73f7-479e-b7f6-f4b4f553e461"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[<<  Lu et approuvé  >>]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

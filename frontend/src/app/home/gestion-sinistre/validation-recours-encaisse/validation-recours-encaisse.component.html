@@ -1,0 +1,91 @@
+<form [formGroup]="myValidationForm">
+  <div class="col-lg-6">
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Encaissement du recours</nb-card-header>
+    </nb-card>
+  </div>
+  <br>
+  <div class="tabs">
+    <input type="radio" name="tabs" id="tabone" checked="checked">
+    <label for="tabone" class="lab">INFO RECOURS</label>
+    <div class="tab">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant recours à encaissé en principal</label>
+            <input fieldSize="small" readonly [value]="montant_recours_principal" type="text" nbInput fullWidth id="recou_mtnencp">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant recours à encaissé en frais</label>
+            <input fieldSize="small" readonly [value]="montant_recours_frais" type="text" nbInput fullWidth id="recou_mtnenfr">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant recours à encaissé en honoraires</label>
+            <input fieldSize="small" readonly [value]="montant_recours_honoraire" type="text" nbInput fullWidth id="recou_mtnenho">
+          </div>
+        </div>
+      </div>
+    </div>
+    <input type="radio" name="tabs" id="tabtwo">
+    <label for="tabtwo" class="lab">INFO ENCAISSEMENT</label>
+    <div class="tab" formGroupName="recoursForm">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Code réglement<span class="obligatoire">*</span></label>
+              <nb-select fullWidth (selectedChange)="onChangeCodeReglement($event)" formControlName="recou_cregl"
+                id="recou_cregl">
+                <nb-option value="C">Chèque</nb-option>
+                <nb-option value="T">Traite</nb-option>
+                <nb-option value="V">Virement</nb-option>
+                <nb-option value="E">Espèces</nb-option>
+              </nb-select>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Code banque<span *ngIf="showObligatoireCodeBanque"
+              class="obligatoire">*</span></label>
+            <mat-select class="form-control" [formControl]="banqueCtrl" placeholder="choisir une banque"
+              (selectionChange)="onChangeBanque($event)" fullWidth id="recou_cbanq" #singleSelect>
+              <mat-option>
+                <ngx-mat-select-search [formControl]="banqueFilterCtrl" placeholderLabel="recherche..."
+                  noEntriesFoundLabel="aucune corespondance">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option value="{{banque.banq_codebanque}}" *ngFor="let banque of filteredBanque | async">
+                {{banque.banq_codebanque}} : {{banque.banq_codenormalise}} : {{banque.banq_denomination}}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Numéro chéque<span *ngIf="showObligatoireNumCheque"
+                class="obligatoire">*</span></label>
+            <input fieldSize="small" formControlName="recou_numchq" type="text" nbInput fullWidth
+              id="recou_numchq" (focusout)="onFocusOutEventNumCheque($event)"
+              [ngStyle]="{border: getColorNumCheque()}">
+            <p class="paraProblemeSaisi" *ngIf="problemeMemeNumCheque">
+              {{messageExistanceCheque}}
+            </p>  
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Date encaissement<span style="color:red;">*</span></label>
+            <input type="date" formControlName="recou_dateenc" nbInput fullWidth [max]="getToday()">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+    <div>
+      <button nbButton status="success" (click)="onSubmit()" [disabled]='!myValidationForm.valid'>Valider</button>
+    </div>
+</form>

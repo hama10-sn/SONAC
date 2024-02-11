@@ -1,0 +1,74 @@
+
+    <mat-card>
+      <mat-card-header class="card-header">
+        <span class="header">Fichiers a fournir pour l'ouverture de compte</span>    
+        </mat-card-header>
+      <div class="row">
+          <div class="col-lg-6">
+            <button status="success" nbButton (click)="openAjoutUpLoad()">
+              <mat-icon>file_upload</mat-icon> joindre documents
+          </button> 
+          <br><br>
+          <div *ngIf="displayButtonUpload">
+            <span style="color: green;">Vous pouvez selectionner un ou plusieurs documents  </span><br><br>
+                  
+             
+            <input type="file" (change)="onFileSelected($event)" multiple name="files"
+            id=""><br>
+          
+            <br><button size="small" status="primary" nbButton (click)="onClickUpload()">
+             <mat-icon>file_upload</mat-icon>upload
+            </button><br>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div>Liste des fichiers valide à cocher pour le propspect: {{numero_prospect}} </div>
+          <table>
+            
+            <tbody *ngFor="let filename of filenames">
+                <tr>
+                  <td>{{filename}}</td>
+                  <td style="text-align: center"><button size="tiny" (click)="onClickDownload(filename )" status="success"
+                    nbButton>
+                    <mat-icon>visibility</mat-icon> &nbsp;Prévisualiser
+                  </button>
+                  </td>
+                  <td style="text-align: center">&nbsp;<button size="tiny" (click)="onClickDelete(filename )" status="danger"
+                      nbButton>
+                      <mat-icon>delete</mat-icon>supprimer
+                      </button></td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+
+        <div class="col-sm-12" >
+
+      <br>
+            <div class="row">
+              <legend>&nbsp;&nbsp;&nbsp;&nbsp;Verifier et cocher les documents deja validés<span style="color:red;">*</span></legend>
+           </div>
+          
+    <div class="row">
+            
+          <nb-card-body> 
+            <nb-checkbox (checkedChange)="toggle($event)" [checked]="checked"><span style="color:red;">* </span>Demande adressée au Directeur Général</nb-checkbox><br>
+            <nb-checkbox (checkedChange)="toggledeux($event)" [checked]="checkeddeux"><span style="color:red;">* </span>statuts et documents officiels(RC, NINEA)</nb-checkbox><br>
+            <nb-checkbox (checkedChange)="toggletrois($event)" [checked]="checkedtrois"><span style="color:red;">* </span>CNI du principal dirigeant</nb-checkbox><br>
+            <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquatre">les réalisations de la société</nb-checkbox><br>
+            <nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq">CV principal dirigeant</nb-checkbox>    <br>              
+            <nb-checkbox (checkedChange)="togglesix($event)" [checked]="checkedsix">bilans(3 derniers exercices)</nb-checkbox><br>
+            <nb-checkbox (checkedChange)="togglesept($event)" [checked]="checkedsept">relevés bancaires(3 derniers mois)</nb-checkbox><br>
+          </nb-card-body>
+      </div>
+    </div>
+</div>
+      <br> 
+      <button nbButton status="success" [disabled]='!check' (click)="onAjout()">Valider</button> 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button nbButton class="pull-right" status="danger" (click)="onAnnuler()">Annuler</button>
+    </mat-card>
+ 
+    <!-- <div *ngIf="check_fonct21('u_role')==false">
+      <ngx-page-not-autoriser></ngx-page-not-autoriser>
+    </div> -->

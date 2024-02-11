@@ -1,0 +1,19 @@
+package sn.jmad.sonac.message.response;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import sn.jmad.sonac.model.Mvtsinistre;
+import sn.jmad.sonac.model.Recours;
+import sn.jmad.sonac.model.Sinistre;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class ValidationsFront {
+	private Recours recoursForm;
+	private Sinistre sinistreForm;
+	private Mvtsinistre mvtsinistreForm;
+}

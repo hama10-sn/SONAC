@@ -1,0 +1,16 @@
+.buttons{
+    position: absolute;
+    top:30%;
+    right: 0px;
+    width: 100px;
+    size:20px;
+    //transform: translateY(-50%);
+    }
+    ::ng-deep .navigation .link nb-icon {
+        display: none !important;
+      }
+    
+      .icon { 
+        font-size: 1500px; 
+        height: 50px;
+        }

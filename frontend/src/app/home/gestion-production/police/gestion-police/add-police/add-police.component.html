@@ -1,0 +1,1563 @@
+<!-- <div *ngIf="check_fonct('c_intermediaire')"> -->
+<div>
+    <form [formGroup]="addForm">
+
+        <div class="col-lg-4">
+            <nb-card>
+                <nb-card-header id="titre_entete">Ajouter une police</nb-card-header>
+            </nb-card>
+        </div>
+
+        
+        <p class="paraProblemeSaisi" *ngIf="errorDomestique"> Pour le produit GARANTI DOMESTIQUE la durée ne peut pas etre supérieur à 180 jours</p>
+
+        <div class="tabs">
+            <input type="radio" name="tabs" id="tabone" checked="checked">
+            <label for="tabone" class="lab">INFO ADM..</label>
+            <div class="tab">
+                <div class="row">
+                    <!-- <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Numéro Police <span class="obligatoire">*</span></label>
+                            <input min="0" fieldSize="small" formControlName="poli_numero" type="number" nbInput
+                                id="poli_numero">
+                        </div>
+                    </div> -->
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Code branche <span class="obligatoire">*</span></label>
+                            <!-- <input fullWidth fieldSize="small" formControlName="poli_branche" type="number" nbInput
+                                id="poli_branche"> -->
+                            <nb-select (selectedChange)="onChangeBranche($event)" fullWidth id="poli_branche">
+                                <nb-option value="{{branche.branche_numero}}" *ngFor="let branche of listeCodeBranche">
+                                    {{branche.branche_numero}} : {{branche.branche_libelleLong}}
+                                </nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Code catégorie <span class="obligatoire">*</span></label>
+                            <!-- <input fullWidth fieldSize="small" formControlName="poli_categorie" type="number" nbInput
+                                id="poli_categorie"> -->
+                            <nb-select [(selected)]="poli_codecategorie" (selectedChange)="onChangeCategorie($event)"
+                                fullWidth id="poli_categorie">
+                                <nb-option value="{{categorie.categ_numero}}"
+                                    *ngFor="let categorie of listeNumeroCategorie">
+                                    {{categorie.categ_numero}} : {{categorie.categ_libellelong}}
+                                </nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">code produit <span class="obligatoire">*</span></label>
+                            <!-- <input min="0" fieldSize="small" formControlName="poli_codeproduit" type="number" nbInput
+                                id="poli_codeproduit"> -->
+                            <nb-select [(selected)]="poli_codeproduit" (selectedChange)="onChangeProduit($event)"
+                                fullWidth id="poli_codeproduit">
+                                <nb-option value="{{produit.prod_numero}}" *ngFor="let produit of listeCodeProduit">
+                                    {{produit.prod_numero}} : {{produit.prod_denominationlong}}
+                                </nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Code compagnie <span class="obligatoire">*</span></label>
+                             <input fullWidth fieldSize="small" formControlName="poli_compagnie" type="text" nbInput
+                                id="poli_compagnie" [readonly]="true">
+                            <!-- <nb-select (selectedChange)="onChangeCodeCimaCompagnie($event)" selected="1"
+                                id="poli_compagnie" fullWidth>
+                                <nb-option *ngFor="let class of codecimacomp" value="{{class.code_cima_compagnie}}">
+                                    {{class.code_cima_compagnie}} : {{class.denomination}}
+                                </nb-option>
+                            </nb-select> -->
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Code pays <span class="obligatoire">*</span></label>
+                            <input fullWidth fieldSize="small" formControlName="poli_codepays" type="text" nbInput
+                                id="poli_codepays" [readonly]="true">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Type de client <span class="obligatoire">*</span></label>
+                            <input fullWidth fieldSize="small" [readonly]="true" formControlName="poli_souscripteur" type="text" nbInput
+                                id="poli_souscripteur">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Numéro client <span class="obligatoire">*</span></label>
+                            <input fullWidth fieldSize="small" [readonly]="true" formControlName="poli_client" type="text" nbInput
+                                id="poli_client">
+                        </div>
+                    </div>
+               
+                    
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Numéro de police remplacée </label>
+                            <input min="0" fullWidth fieldSize="small" formControlName="poli_policeremplacee"
+                                type="number" nbInput id="poli_policeremplacee">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Numéro dernier avenant <span class="obligatoire">*</span></label>
+                            <input min="0" fullWidth fieldSize="small" formControlName="poli_numerodernieravenant"
+                                type="number" nbInput id="poli_numerodernieravenant" [readonly]="true">
+                        </div>
+                    </div>
+<!--                     
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Status <span class="obligatoire">*</span></label>
+                            <input fullWidth fieldSize="small" formControlName="poli_status" type="text" nbInput
+                                id="poli_status">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Souscripteur <span class="obligatoire">*</span></label>
+                            <input fullWidth fieldSize="small" formControlName="poli_souscripteur" type="text" nbInput
+                                id="poli_souscripteur">
+                        </div>
+                    </div> -->
+
+                </div>
+            </div>
+
+            <input type="radio" name="tabs" id="tabtwo">
+            <label for="tabtwo" class="lab">INFO CONTRAC..</label>
+            <div class="tab">
+                <div class="row">
+                    
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="" class="label">Code intermédiaire <span class="obligatoire">*</span></label>
+                            <!-- <input fullWidth min="0" fieldSize="small" formControlName="poli_intermediaire"
+                                type="number" nbInput id="poli_intermediaire"> -->
+                            <nb-select (selectedChange)="onChangeIntermediaire($event)" fullWidth
+                                id="poli_intermediaire">
+                                <nb-option value="{{intermediaire.inter_numero}}"
+                                    *ngFor="let intermediaire of listeNumeroIntermediaire">
+                                    {{intermediaire.inter_numero}} : {{intermediaire.inter_denomination}}
+                                </nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                  <div class="col-sm-3" *ngIf="!natureClient">
+                        <div class="form-group">
+                            <label for="" class="label">Code groupe</label>
+                            <!-- <input fullWidth fieldSize="small" formControlName="poli_codegroupe" type="text" nbInput
+                                id="poli_codegroupe"> -->
+                            <nb-select (selectedChange)="onChangeGroupe($event)" fullWidth>
+                                <nb-option value="{{groupe.group_code}}" *ngFor="let groupe of listGroupes">
+                                    {{groupe.group_code}} : {{groupe.group_liblong}}</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3" *ngIf="!natureClient">
+                        <div class="form-group">
+                            <label for="" class="label">Code filiale</label>
+                            <!-- <input fullWidth fieldSize="small" formControlName="poli_filiale" type="text" nbInput
+                                id="poli_filiale"> -->
+                            <nb-select (selectedChange)="onChangeFiliale($event)" fullWidth id="poli_filiale" >
+                                <nb-option value="{{filiale.fili_numero}}"
+                                    *ngFor="let filiale of listeCodeFiliale_compagnie">
+                                    {{filiale.fili_numero}} : {{filiale.fili_denomination}}
+                                </nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">code du fractionnement <span class="obligatoire">*</span></label>
+                            <!-- <input min="0" fullWidth fieldSize="small" formControlName="poli_codefractionnement"
+                                type="number" nbInput id="poli_codefractionnement"> -->
+                                
+                            <nb-select (selectedChange)="onChangeLibeleTypeFractionnement($event)" fullWidth>
+                                <nb-option value="{{type.id}}" *ngFor="let type of listTypeFractionnement">{{type.value}}</nb-option>
+                              </nb-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3" *ngIf="proratis">
+                        <div class="form-group">
+                            <label class="label">Proratis en jour</label>
+                            <input min="0" fullWidth fieldSize="small" formControlName="proratis"
+                                type="number" nbInput id="proratis" (focusout)="onFocusOutEventProratis()">
+                        </div>
+                    </div>
+<!--                     
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="" class="label">Date 1er effet <span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" formControlName="poli_dateeffet1"
+                                    type="datetime-local" nbInput id="poli_dateeffet1">
+                            </div>
+                        </div> -->
+                        <!-- <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="" class="label">Date anniversaire</label>
+                                <input fullWidth fieldSize="small" formControlName="poli_dateanniversaire"
+                                    type="datetime-local" nbInput id="poli_dateanniversaire">
+                            </div>
+                        </div> -->
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="" class="label">Date effet en cours <span
+                                        class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" formControlName="poli_dateeffetencours"
+                                    type="datetime-local" nbInput id="poli_dateeffetencours" (focusout)="onFocusOutEventDateEffetEnCours()">
+                            </div>
+                        </div>
+    
+                    
+            
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="" class="label">Date échéance en cours <span
+                                        class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" formControlName="poli_dateecheance"
+                                    type="datetime-local" nbInput id="poli_dateecheance" [readonly]="true">
+                            </div>
+                        </div>
+                        <!-- <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="" class="label">Durée(en mois) <span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" formControlName="poli_duree" type="number" nbInput
+                                    id="poli_duree" [readonly]="true">
+                            </div>
+                        </div> -->
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Type de gestion <span class="obligatoire">*</span></label>
+                                <!-- <input min="0" fullWidth fieldSize="small" formControlName="poli_typegestion" type="number"
+                                    nbInput id="poli_typegestion"> -->
+                                    <nb-select (selectedChange)="onChangeLibeleTypeGestion($event)" fullWidth>
+                                        <nb-option value="{{type.id}}" *ngFor="let type of listTypeGestion">{{type.value}}</nb-option>
+                                      </nb-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Type de contrat <span class="obligatoire">*</span></label>
+                                <!-- <input min="0" fullWidth fieldSize="small" formControlName="poli_typecontrat" type="number"
+                                    nbInput id="poli_typecontrat"> -->
+
+                                    <nb-select (selectedChange)="onChangeLibeleTypeContrat($event)" fullWidth>
+                                        <nb-option value="{{type.id}}" *ngFor="let type of listTypeContrat">{{type.value}}</nb-option>
+                                      </nb-select>
+                            </div>
+                        
+                    </div>
+                    <!-- <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Type de révision</label>
+                             <input min="0" fullWidth fieldSize="small" formControlName="poli_typerevision" type="number"
+                                nbInput id="poli_typerevision"> -->                           
+                                <!-- <nb-select (selectedChange)="onChangeLibeleTypeRevision($event)" fullWidth>
+                                    <nb-option value="{{type.id}}" *ngFor="let type of listTypeRevision">{{type.value}}</nb-option>
+                                  </nb-select>
+                        </div>
+                    </div>  -->
+                         
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Taux de réduction commerciale</label>
+                            <input min="0" fullWidth fieldSize="small" formControlName="poli_remisecommerciale"
+                                type="number" nbInput id="poli_remisecommerciale">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <input type="radio" name="tabs" id="tabrisk">
+            <label for="tabrisk" class="lab">ACTE/RISQUE</label>
+            <div class="tab">
+                <div class="row">
+                     <!-- debut acte -->                       
+             <div class="col-sm-3">
+                <!-- <div *ngIf="riskc"> -->
+                <div class="form-group">
+                    <label class="label">type acte <span class="obligatoire">*</span></label>
+                    <!-- <input  formControlName="act_typegarantie" type="text" nbInput fullWidth
+                        id="act_typegarantie" > -->
+
+                        <nb-select (selectedChange)="onChangeLibeleTypeActe($event)" fullWidth>
+                            <nb-option value="{{type.id}}" *ngFor="let type of listTypeActe">{{type.value}}</nb-option>
+                          </nb-select>
+                </div>
+            <!-- </div> -->
+            </div>
+            <!-- <div class="col-sm-3"> -->
+                <!-- <div *ngIf="riskc"> -->
+                <!-- <div class="form-group">
+                    <label class="label">identite beneficiaire</label>
+                    <input formControlName="act_idbeneficiaire" type="text" nbInput fullWidth
+                        id="act_idbeneficiaire" >
+                </div> -->
+            <!-- </div> -->
+            <div class="col-sm-3">
+                <!-- <div *ngIf="riskc"> -->
+                <div class="form-group">
+                    <label class="label">Prénom Bénéficiaire</label>
+                    <input formControlName="benef_prenoms" type="text" nbInput fullWidth
+                        id="benef_prenoms" >
+                </div>
+            <!-- </div> -->
+            </div>
+            <div class="col-sm-3">
+                <!-- <div *ngIf="riskc"> -->
+                <div class="form-group">
+                    <label class="label">Nom Bénéficiaire</label>
+                    <input formControlName="benef_nom" type="text" nbInput fullWidth
+                        id="benef_nom" >
+                </div>
+            <!-- </div> -->
+            </div>
+            <div class="col-sm-3">
+                <!-- <div *ngIf="riskc"> -->
+                <div class="form-group">
+                    <label class="label">Type Bénéficiaire</label>
+                    <!-- <input formControlName="benef_typbenef" type="text" nbInput fullWidth
+                        id="benef_typbenef" > -->
+                        <nb-select (selectedChange)="onChangeTypeBeneficiaire($event)" fullWidth>
+                            <nb-option value="contractante">Contractante</nb-option>
+                            <nb-option value="assure">assuré</nb-option>
+                            <nb-option value="tiers">tiers</nb-option>
+                            <nb-option value="avocat">avocat</nb-option>
+                            
+                          </nb-select>
+                </div>
+            <!-- </div> -->
+            </div>
+            
+            <!-- <div class="col-sm-3">
+                 <div *ngIf="riskc"> -->
+                <!-- <div class="form-group">
+                    <label class="label">identité candidat ou adjudicataire</label>
+                    <input formControlName="act_idcandidat" type="text" nbInput fullWidth
+                        id="act_idcandidat" >
+                </div> --> 
+            <!-- </div> -->
+            <!-- </div> -->
+
+            <!-- <div class="col-sm-3">
+                <div *ngIf="riskc">
+                <div class="form-group">
+                    <label class="label">type de marché</label>
+                    <input formControlName="act_typemarche" type="text" nbInput fullWidth
+                        id="act_typemarche" >
+                </div>
+            </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div *ngIf="riskc">
+                <div class="form-group">
+                    <label class="label">numéro du marché public</label>
+                    <input formControlName="act_numeromarchepublic" type="text" nbInput fullWidth
+                        id="act_numeromarchepublic" >
+                </div>
+            </div>
+            </div>
+
+            <div class="col-sm-3">
+            <div *ngIf="riskc">
+                <div class="form-group">
+                    <label class="label">date du marché</label>
+                    <input formControlName="act_datemarche" type="date" nbInput fullWidth
+                        id="act_datemarche" >
+                </div>
+             </div>
+            </div>
+
+            <div class="col-sm-3">
+            <div *ngIf="riskc">
+                <div class="form-group">
+                    <label class="label">identité contractante</label>
+                    <input formControlName="act_idcontractante" type="text" nbInput fullWidth
+                        id="act_idcontractante" >
+                </div>
+            </div>
+            </div> -->
+
+
+            
+        <!-- fin acte -->
+                  <!-- risque produit -->
+                     
+                  <!-- <div class="col-sm-3">
+                    <div *ngIf="risk">
+                    <div class="form-group">
+                        <label class="label">Type risque <span class="obligatoire">*</span></label>
+                        <input  formControlName="risq_typerisque" type="text" nbInput fullWidth
+                            id="risq_typerisque" >
+                    </div>
+                </div>
+                </div> -->
+
+                <div class="col-sm-3">
+                    <div *ngIf="risk">
+                    <div class="form-group">
+                        <label class="label">Designation risque <span class="obligatoire">*</span></label>
+                        <input formControlName="risq_designation1" type="text" nbInput fullWidth
+                            id="risq_designation1" >
+                    </div>
+                </div>
+                </div>
+
+                <!-- <div class="col-sm-3">
+                    <div *ngIf="risk">
+                    <div class="form-group">
+                        <label class="label">Designation2 risque</label>
+                        <input formControlName="risq_designation2" type="text" nbInput fullWidth
+                            id="risq_designation2" >
+                    </div>
+                </div>
+                </div> -->
+
+                <div class="col-sm-3">
+                    <div *ngIf="risk">
+                    <div class="form-group">
+                        <label class="label">Localisation risque <span class="obligatoire">*</span></label>
+                        <input formControlName="risq_localisation1" type="text" nbInput fullWidth
+                            id="risq_localisation1" >
+                    </div>
+                </div>
+                </div>
+<!-- 
+                <div class="col-sm-3">
+                    <div *ngIf="risk">
+                    <div class="form-group">
+                        <label class="label">Localisation2 risque</label>
+                        <input formControlName="risq_localisation2" type="text" nbInput fullWidth
+                            id="risq_localisation2" >
+                    </div>
+                </div>
+                </div> -->
+
+                <div class="col-sm-3">
+                    <div *ngIf="risk">
+                    <div class="form-group">
+                        <label class="label">Risque capital assure <span class="obligatoire">*</span></label>
+                        <input formControlName="risq_capitalassure" type="text" nbInput fullWidth
+                            id="risq_capitalassure" (focusout)="onFocusOutEventCapitalAssure()">
+                    </div>
+                </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div *ngIf="risk">
+                    <div class="form-group">
+                        <label class="label">Risque capital smp</label>
+                        <input formControlName="risq_capitalsmp" type="number" min="0" nbInput fullWidth
+                            id="risq_capitalsmp" >
+                    </div>
+                </div>
+                </div>
+
+                
+                <div class="col-sm-3">
+                    <div *ngIf="risk">
+                    <div class="form-group">
+                        <label class="label">Risque capital LCI</label>
+                        <input formControlName="risq_capitallci" type="number" min="0" nbInput fullWidth
+                            id="risq_capitallci" >
+                    </div>
+                </div>
+                </div>
+                <div class="col-sm-3" *ngIf="credit">
+        
+                    <div class="form-group">
+                        <label class="label">Genre Risque <span class="obligatoire">*</span></label>
+                        <nb-select (selectedChange)="onChangeCA($event)" fullWidth>
+                            <nb-option value="CA_GLOBAL">CA global</nb-option>
+                            <nb-option value="CA_PARTIEL">CA Partiel</nb-option>
+                            <nb-option value="CA_CAS">CA Cas par Cas</nb-option>
+                            <!-- <nb-option value="CA_PAYS">CA par pays</nb-option> -->
+                          </nb-select>
+                    </div>
+                
+                
+            </div>
+
+<!--                 
+                <div class="col-sm-3" *ngIf="credit">
+
+                    <div class="form-group">
+                        <label class="label">montant global credit/marchandises</label>
+                        <input formControlName="risq_mtnglobalcredit" type="text" nbInput fullWidth
+                            id="risq_mtnglobalcredit" >
+                    </div>
+                
+                </div> -->
+
+                <div class="col-sm-3" *ngIf="credit">
+        
+                    <div class="form-group">
+                        <label class="label">nombre d'échéances</label>
+                        <input formControlName="risq_nbreecheances" type="number" min="0" nbInput fullWidth
+                            id="risq_nbreecheances" >
+                    </div>
+                
+                
+            </div>
+                 <!-- fin risque -->
+
+           
+     </div>    
+
+     </div>
+     
+             <!-- risque locatif     -->
+             <input type="radio" name="tabs" id="tabloc" *ngIf="riskl">
+             <label for="tabloc" class="lab" *ngIf="riskl">RISQUE LOC..</label>
+             <div class="tab">
+                 <div class="row"> 
+             <!-- <div class="col-sm-3">
+                <div *ngIf="riskl">
+                <div class="form-group">
+                    <label class="label">numéro de l'acheteur</label>
+                    <input  formControlName="riskl_numeroacheteur" type="text" nbInput fullWidth
+                        id="riskl_numeroacheteur" >
+                </div>
+            </div>
+            </div> -->
+
+            <div class="col-sm-3">
+                <div *ngIf="riskl">
+                <div class="form-group">
+                    <label class="label">type de risque locatif</label>
+                    <!-- <input formControlName="riskl_type" type="text" nbInput fullWidth
+                        id="riskl_type" > -->
+                        <nb-select (selectedChange)="onChangeTypeLocatif($event)" fullWidth>
+                            <nb-option value="immobilier">immobilier</nb-option>
+                            <nb-option value="mobilier">mobilier</nb-option>
+                    
+                          </nb-select>
+                </div>
+            </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div *ngIf="riskl">
+                <div class="form-group">
+                    <label class="label">description du risque locatif</label>
+                    <input formControlName="riskl_description" type="text" nbInput fullWidth
+                        id="riskl_description" >
+                </div>
+            </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div *ngIf="riskl">
+                <div class="form-group">
+                    <label class="label">montant du loyer</label>
+                    <input formControlName="riskl_mtnloyer" type="number" min="0" nbInput fullWidth
+                        id="riskl_mtnloyer" >
+                </div>
+            </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div *ngIf="riskl">
+                <div class="form-group">
+                    <label class="label">montant des loyers indemnisés</label>
+                    <input formControlName="riskl_mntloyerindemnite" type="number" min="0" nbInput fullWidth
+                        id="riskl_mntloyerindemnite" >
+                </div>
+            </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div *ngIf="riskl">
+                <div class="form-group">
+                    <label class="label">montant des loyers recouvrés</label>
+                    <input formControlName="riskl_mntloyerrecouvre" type="number" min="0" nbInput fullWidth
+                        id="riskl_mntloyerrecouvre" >
+                </div>
+            </div>
+        </div>
+
+
+
+<!-- debut acheteur pour risque locatif -->
+                  
+<div class="col-sm-3" *ngIf="riskl">
+
+    <div class="form-group">
+        <label class="label">Numéro affaire</label>
+        <input  formControlName="achet_numeroaffaire" type="number" min="0" nbInput fullWidth
+            id="achet_numeroaffaire" >
+    </div>
+
+</div>
+
+<div class="col-sm-3" *ngIf="riskl">
+
+    <div class="form-group">
+        <label class="label">type acheteur</label>
+        <!-- <input formControlName="achet_type" type="text" nbInput fullWidth
+            id="achet_type" > -->
+
+            <nb-select (selectedChange)="onChangeTypeAcheteur($event)" fullWidth>
+                <nb-option value="prive">privé</nb-option>
+                <nb-option value="public">public</nb-option>
+        
+              </nb-select>
+    </div>
+
+</div>
+
+<!-- <div class="col-sm-3">
+    <div *ngIf="credit" >
+    <div class="form-group">
+        <label class="label">chiffre affaires</label>
+        <input formControlName="achet_chiffreaffaire" type="text" nbInput fullWidth
+            id="achet_chiffreaffaire" >
+    </div>
+</div>
+</div>
+
+<div class="col-sm-3">
+    <div *ngIf="credit" >
+    <div class="form-group">
+        <label class="label">nbre incidents de paiement</label>
+        <input formControlName="achet_incidentpaiement" type="text" nbInput fullWidth
+            id="achet_incidentpaiement" >
+    </div>
+</div>
+</div>
+
+<div class="col-sm-3">
+    <div *ngIf="credit" >
+    <div class="form-group">
+        <label class="label">montant incidents de paiement</label>
+        <input formControlName="achet_montantincidentpaiement" type="text" nbInput fullWidth
+            id="achet_montantincidentpaiement" >
+    </div>
+</div>
+</div>
+
+<div class="col-sm-3">
+    <div *ngIf="credit" >
+    <div class="form-group">
+        <label class="label">montant incidents de paiement</label>
+        <input formControlName="achet_montantincidentpaiement" type="text" nbInput fullWidth
+            id="achet_montantincidentpaiement" >
+    </div>
+</div>
+</div>
+
+<div class="col-sm-3">
+    <div *ngIf="credit" >
+    <div class="form-group">
+        <label class="label">montant incidents récupérés</label>
+        <input formControlName="achet_montantpaiementrecup" type="text" nbInput fullWidth
+            id="achet_montantpaiementrecup" >
+    </div>
+</div>
+</div>
+
+
+<div class="col-sm-3">
+    <div *ngIf="credit" >
+    <div class="form-group">
+        <label class="label">dispersion acheteur</label>
+        <input formControlName="achet_dispersion" type="text" nbInput fullWidth
+            id="achet_dispersion" >
+    </div>
+</div>
+</div> -->
+
+
+<div class="col-sm-3" *ngIf="riskl">
+    <div class="form-group">
+        <label class="label">qualité acheteur</label>
+        <input formControlName="achet_qualite" type="number" min="0" nbInput fullWidth
+            id="achet_qualite" >
+    </div>
+
+</div>
+<!-- <div class="col-sm-3">
+<div *ngIf="credit" >
+<div class="form-group">
+    <label class="label">Acheteur et client</label>
+    <input formControlName="achet_typologie" type="text" nbInput fullWidth
+        id="achet_typologie" >
+</div>
+</div>
+</div>
+<div class="col-sm-3">
+<div *ngIf="credit" >
+<div class="form-group">
+<label class="label">montant du crédit</label>
+<input formControlName="achet_montantcredit" type="text" nbInput fullWidth
+    id="achet_montantcredit" >
+</div>
+</div>
+</div> -->
+
+<!-- fin acheteur pour risque locatif-->
+
+
+
+    </div>
+        </div>
+
+             <!-- fin risque locatif -->
+     
+             <!-- debut risques reglementes -->
+             <input type="radio" name="tabs" id="tabREGL" *ngIf="riskr">
+        <label for="tabREGL" class="lab" *ngIf="riskr">RISQUE REGLE..</label>
+        <div class="tab">
+            <div class="row"> 
+             <div class="col-sm-3">
+                <div *ngIf="riskr">
+                <div class="form-group">
+                    <label class="label">type de risque réglementé</label>
+                    <input  formControlName="riskr_type" type="text" nbInput fullWidth
+                        id="riskr_type" >
+                </div>
+            </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div *ngIf="riskr">
+                <div class="form-group">
+                    <label class="label">description du risque réglementé</label>
+                    <input formControlName="riskr_description" type="text" nbInput fullWidth
+                        id="riskr_description" >
+                </div>
+            </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div *ngIf="riskr">
+                <div class="form-group">
+                    <label class="label">montant caution</label>
+                    <input formControlName="riskr_mtncaution" type="number" min="0" nbInput fullWidth
+                        id="riskr_mtncaution" >
+                </div>
+            </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div *ngIf="riskr">
+                <div class="form-group">
+                    <label class="label">montant couverture financière</label>
+                    <input formControlName="riskr_mtncouverturefinanciere" type="number" min="0" nbInput fullWidth
+                        id="riskr_mtncouverturefinanciere" >
+                </div>
+            </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div *ngIf="riskr">
+                <div class="form-group">
+                    <label class="label">date d'exigibilité</label>
+                    <input formControlName="riskr_dateexigibilite" type="date" nbInput fullWidth
+                        id="riskr_dateexigibilite" >
+                </div>
+            </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div *ngIf="riskr">
+                <div class="form-group">
+                    <label class="label">date de renouvellement</label>
+                    <input formControlName="riskr_daterenouvellement" type="date" nbInput fullWidth
+                        id="riskr_daterenouvellement" >
+                </div>
+            </div>
+            </div>
+            
+            <div class="col-sm-3">
+                <div *ngIf="riskr">
+                <div class="form-group">
+                    <label class="label">capitaux garantis</label>
+                    <input formControlName="riskr_capitauxgaranti" type="number" min="0" nbInput fullWidth
+                        id="riskr_capitauxgaranti" >
+                </div>
+            </div>
+            </div>
+            
+            <div class="col-sm-3">
+                <div *ngIf="riskr">
+                <div class="form-group">
+                    <label class="label">beneficiaire</label>
+                    <input formControlName="riskr_beneficiaire" type="text" nbInput fullWidth
+                        id="riskr_beneficiaire" >
+                </div>
+            </div>
+            </div>
+            
+            <div class="col-sm-3">
+                <div *ngIf="riskr">
+                <div class="form-group">
+                    <label class="label">revision</label>
+                    <input formControlName="riskr_revision" type="text" nbInput fullWidth
+                        id="riskr_revision" >
+                </div>
+            </div>
+            </div>
+            
+            <div class="col-sm-3">
+                <div *ngIf="riskr">
+                <div class="form-group">
+                    <label class="label">date de révision</label>
+                    <input formControlName="riskr_daterevision" type="date" nbInput fullWidth
+                        id="riskr_daterevision" >
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+             <!-- fin risques reglemente -->
+      
+        <!-- debut lot -->
+        <input type="radio" name="tabs" id="tablot" *ngIf="riskc">
+        <label for="tablot" class="lab" *ngIf="riskc">LOT/MAR..</label>
+        <div class="tab">
+            <div class="row"> 
+        <div class="col-sm-3">
+            <div *ngIf="riskc">
+            <div class="form-group">
+                <label class="label">Description lot</label>
+                <input  formControlName="lot_description" type="text" nbInput fullWidth
+                    id="lot_description" >
+            </div>
+        </div>
+        </div>
+        <div class="col-sm-3">
+            <div *ngIf="riskc">
+            <div class="form-group">
+                <label class="label">Durée des travaux du lot en mois</label>
+                <input  formControlName="lot_dureetravaux" type="number" min="0" nbInput fullWidth
+                    id="lot_dureetravaux" >
+            </div>
+        </div>
+        </div>
+       
+        <!-- fin lot -->
+        <!-- debut marche -->
+        <div class="col-sm-3">
+            <div *ngIf="riskc">
+            <div class="form-group">
+                <label class="label">identification marché</label>
+                <input  formControlName="march_identification" type="text" nbInput fullWidth
+                    id="march_identification" >
+            </div>
+        </div>
+        </div>
+
+        <div class="col-sm-3">
+            <div *ngIf="riskc">
+            <div class="form-group">
+                <label class="label">identification donneur d'ordre</label>
+                <input formControlName="march_donneurordre" type="text" nbInput fullWidth
+                    id="march_donneurordre" [readonly]="true">
+            </div>
+        </div>
+        </div>
+        
+        <div class="col-sm-3">
+            <div *ngIf="riskc">
+            <div class="form-group">
+                <label class="label">descriptif marché public</label>
+                <input formControlName="march_descriptionmarche1" type="text" nbInput fullWidth
+                    id="march_descriptionmarche1" >
+            </div>
+        </div>
+        </div>
+
+        <!-- <div class="col-sm-3">
+            <div *ngIf="riskc">
+            <div class="form-group">
+                <label class="label">identification contractante</label>
+                <input formControlName="march_idcontractante" type="text" nbInput fullWidth
+                    id="march_idcontractante" >
+            </div>
+        </div>
+        </div> -->
+
+        <div class="col-sm-3">
+            <div *ngIf="riskc">
+            <div class="form-group">
+                <label class="label">nombre de lots</label>
+                <input formControlName="march_nombrelots" type="number" min="0" nbInput fullWidth
+                    id="march_nombrelots" >
+            </div>
+        </div>
+        </div>
+
+        <div class="col-sm-3">
+            <div *ngIf="riskc">
+            <div class="form-group">
+                <label class="label">durée du marché en mois</label>
+                <input formControlName="march_dureeenmois" type="number" min="0" nbInput fullWidth
+                    id="march_dureeenmois" >
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+          <!-- fin marché -->
+     
+                 <!-- debut credit -->
+                 <input type="radio" name="tabs" id="tabcredit" *ngIf="credit">
+            <label for="tabcredit" class="lab" *ngIf="credit">CREDIT</label>
+            <div class="tab">
+                <div class="row"> 
+                 <!-- <div class="col-sm-3">
+                    <div *ngIf="credit" >
+                    <div class="form-group">
+                        <label class="label">Numéro Client credit</label>
+                        <input  formControlName="credit_numeroclient" type="text" nbInput fullWidth
+                            id="credit_numeroclient" >
+                    </div>
+                </div>
+                </div> -->
+
+                <!-- <div class="col-sm-3">
+                    <div *ngIf="credit" >
+                    <div class="form-group">
+                        <label class="label">Numéro Acheteur</label>
+                        <input formControlName="credit_numeroachateur" type="text" nbInput fullWidth
+                            id="credit_numeroachateur" >
+                    </div>
+                </div>
+                </div> -->
+
+                <div class="col-sm-3" *ngIf="credit">
+                
+                    <div class="form-group">
+                        <label class="label">credit type</label>
+                        <!-- <input formControlName="credit_type" type="text" nbInput fullWidth
+                            id="credit_type" > -->
+                            <nb-select (selectedChange)="onChangeTypeCredit($event)" fullWidth>
+                                <nb-option value="bancaires">bancaires</nb-option>
+                                <nb-option value="commerciaux domestiques">commerciaux domestiques</nb-option>
+                                <nb-option value="etrangers">etrangers</nb-option>
+                              </nb-select>
+                    </div>
+                
+                </div>
+
+                <div class="col-sm-3">
+                    <div *ngIf="credit" >
+                    <div class="form-group">
+                        <label class="label">credit type marchandise</label>
+                        <input formControlName="credit_typemarchandise" type="number" min="0" nbInput fullWidth
+                            id="credit_typemarchandise" >
+                    </div>
+                </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div *ngIf="credit" >
+                    <div class="form-group">
+                        <label class="label">credit montant</label>
+                        <input formControlName="credit_mtncredit" type="number" min="0" nbInput fullWidth
+                            id="credit_mtncredit" >
+                    </div>
+                </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div *ngIf="credit" >
+                    <div class="form-group">
+                        <label class="label">credit nbre echeance accorde</label>
+                        <input formControlName="credit_nbecheanceaccorde" type="number" min="0" nbInput fullWidth
+                            id="credit_nbecheanceaccorde" >
+                    </div>
+                </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div *ngIf="credit" >
+                    <div class="form-group">
+                        <label class="label">credit montant indemnite</label>
+                        <input formControlName="credit_mntindemnite" type="number" min="0" nbInput fullWidth
+                            id="credit_mntindemnite" >
+                    </div>
+                </div>
+                </div>
+
+                
+                <div class="col-sm-3">
+                    <div *ngIf="credit" >
+                    <div class="form-group">
+                        <label class="label">credit montant recours encaisse</label>
+                        <input formControlName="credit_mtnrecoursencaisse" type="number" min="0" nbInput fullWidth
+                            id="credit_mtnrecoursencaisse" >
+                    </div>
+                </div>
+                </div>
+
+                
+                <div class="col-sm-3">
+                    <div *ngIf="credit" >
+                    <div class="form-group">
+                        <label class="label">credit charge recouvrement</label>
+                        <input formControlName="credit_chargerecouvrement" type="number" min="0" nbInput fullWidth
+                            id="credit_chargerecouvrement" >
+                    </div>
+                </div>
+            </div>
+                <!-- fin credit -->
+             <!-- debut acheteur -->
+                  
+             <div class="col-sm-3">
+                <div *ngIf="credit" >
+                <div class="form-group">
+                    <label class="label">Numéro affaire</label>
+                    <input  formControlName="achet_numeroaffaire" type="number" min="0" nbInput fullWidth
+                        id="achet_numeroaffaire" >
+                </div>
+            </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div *ngIf="credit" >
+                <div class="form-group">
+                    <label class="label">type acheteur</label>
+                    <!-- <input formControlName="achet_type" type="text" nbInput fullWidth
+                        id="achet_type" > -->
+
+                        <nb-select (selectedChange)="onChangeTypeAcheteur($event)" fullWidth>
+                            <nb-option value="prive">privé</nb-option>
+                            <nb-option value="public">public</nb-option>
+                    
+                          </nb-select>
+                </div>
+            </div>
+            </div>
+
+            <!-- <div class="col-sm-3">
+                <div *ngIf="credit" >
+                <div class="form-group">
+                    <label class="label">chiffre affaires</label>
+                    <input formControlName="achet_chiffreaffaire" type="text" nbInput fullWidth
+                        id="achet_chiffreaffaire" >
+                </div>
+            </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div *ngIf="credit" >
+                <div class="form-group">
+                    <label class="label">nbre incidents de paiement</label>
+                    <input formControlName="achet_incidentpaiement" type="text" nbInput fullWidth
+                        id="achet_incidentpaiement" >
+                </div>
+            </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div *ngIf="credit" >
+                <div class="form-group">
+                    <label class="label">montant incidents de paiement</label>
+                    <input formControlName="achet_montantincidentpaiement" type="text" nbInput fullWidth
+                        id="achet_montantincidentpaiement" >
+                </div>
+            </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div *ngIf="credit" >
+                <div class="form-group">
+                    <label class="label">montant incidents de paiement</label>
+                    <input formControlName="achet_montantincidentpaiement" type="text" nbInput fullWidth
+                        id="achet_montantincidentpaiement" >
+                </div>
+            </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div *ngIf="credit" >
+                <div class="form-group">
+                    <label class="label">montant incidents récupérés</label>
+                    <input formControlName="achet_montantpaiementrecup" type="text" nbInput fullWidth
+                        id="achet_montantpaiementrecup" >
+                </div>
+            </div>
+            </div>
+
+            
+            <div class="col-sm-3">
+                <div *ngIf="credit" >
+                <div class="form-group">
+                    <label class="label">dispersion acheteur</label>
+                    <input formControlName="achet_dispersion" type="text" nbInput fullWidth
+                        id="achet_dispersion" >
+                </div>
+            </div>
+            </div> -->
+
+            
+            <div class="col-sm-3">
+                <div *ngIf="credit" >
+                <div class="form-group">
+                    <label class="label">qualité acheteur</label>
+                    <input formControlName="achet_qualite" type="number" min="0" nbInput fullWidth
+                        id="achet_qualite" >
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-sm-3">
+            <div *ngIf="credit" >
+            <div class="form-group">
+                <label class="label">Acheteur et client</label>
+                <input formControlName="achet_typologie" type="text" nbInput fullWidth
+                    id="achet_typologie" >
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div *ngIf="credit" >
+        <div class="form-group">
+            <label class="label">montant du crédit</label>
+            <input formControlName="achet_montantcredit" type="text" nbInput fullWidth
+                id="achet_montantcredit" >
+        </div>
+    </div>
+</div> -->
+
+            <!-- fin acheteur -->
+
+        </div>
+    </div>
+
+            
+
+            <input type="radio" name="tabs" id="tabfour">
+            <label for="tabfour" class="lab">TARIFICA..</label>
+            <div class="tab">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Exonération Taxe<span class="obligatoire">*</span></label>
+                            <!-- <input fullWidth fieldSize="small" formControlName="poli_exonerationtps" type="text" nbInput
+                                id="poli_exonerationtps"> -->
+                                <nb-select (selectedChange)="onChangeExoneration($event)"  selected="non" fullWidth>
+                                    <nb-option value="oui">oui</nb-option>
+                                    <nb-option value="non">non</nb-option>
+                            
+                                  </nb-select>
+                        </div>
+                    </div>
+                  
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <span>Prime nette totale:  <span style="font-weight: bold;" >{{primenette | ngxNumberWithCommas}} FCFA</span></span>
+                            <br><span>Taux appliqué:  <span style="font-weight: bold;" >{{tauxAp}} %</span></span>
+                            <!-- <input min="0" fullWidth fieldSize="small" formControlName="poli_primenettotal"
+                                type="number" nbInput id="poli_primenettotal" [readonly]="true"> -->
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <span>Commission apporteur 1: <span style="font-weight: bold;" >{{commissionsapporteur1 | ngxNumberWithCommas}} FCFA</span></span>
+                            <!-- <input fullWidth fieldSize="small" formControlName="quit_commissionsapporteur1"
+                                type="number" nbInput id="quit_commissionsapporteur1" [readonly]="true"> -->
+                        </div>
+                    </div>
+                </div>
+                    <div class="row">
+                
+                    <!-- <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Participation Bénéficiaire (PB)</label>
+                            <input fullWidth fieldSize="small" formControlName="poli_participationbenef" type="text"
+                                nbInput id="poli_participationbenef">
+                        </div>
+                    </div> -->
+                   
+
+                    <!-- <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Formule de garantie</label>
+                            <input fullWidth fieldSize="small" formControlName="poli_formulegarantie" type="number"
+                                nbInput id="poli_formulegarantie">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Prime nette de référence</label>
+                            <input min="0" fullWidth fieldSize="small" formControlName="poli_primenetreference"
+                                type="number" nbInput id="poli_primenetreference">
+                        </div>
+                    </div> -->
+<!--                    
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Taux PB</label>
+                            <input fullWidth fieldSize="small" formControlName="poli_tauxparticipationbenef"
+                                type="number" nbInput id="poli_tauxparticipationbenef">
+                        </div>
+                    </div> -->
+                    
+                       
+                <div class="col-sm-4">
+        
+                    <div class="form-group" *ngIf="credit">
+                        <label class="label">Type Risque <span class="obligatoire">*</span></label>
+                            
+                    <nb-select (selectedChange)="onChangeTypeRisque($event)" fullWidth>
+                        <nb-option value="RC">commercial</nb-option>
+                        <nb-option value="RP">politique</nb-option>
+                        <nb-option value="RM">mixte</nb-option>
+                      </nb-select>
+                    </div>
+        
+            </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <span>Accessoire compagnie: <span style="font-weight: bold;" >{{accessoirecompagnie | ngxNumberWithCommas}} FCFA</span></span>
+                            <!-- <input fullWidth fieldSize="small" formControlName="quit_accessoirecompagnie"
+                                type="number" nbInput id="quit_accessoirecompagnie"
+                                [readonly]="true"> -->
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                <div class="col-sm-4" *ngIf="showDateExo">
+                    <div class="form-group">
+                        <label class="label">Date Exonération</label>
+                        <input fullWidth fieldSize="small" formControlName="poli_datexoneration"
+                            type="datetime-local" nbInput id="poli_datexoneration">
+                    </div>
+                </div> 
+            </div>
+
+                <div class="row">
+                    
+                    
+                    <div class="col-sm-4">
+                
+                        <div class="form-group" *ngIf="soumission">
+                            <label class="label">Type traitement</label>
+                            <!-- <input fullWidth fieldSize="small" formControlName="type_traitement"
+                                type="text" nbInput id="type_traitement"> -->
+                                
+                        <nb-select (selectedChange)="onChangeTypeSoumission($event)" fullWidth>
+                            <nb-option value="express">express</nb-option>
+                            <nb-option value="normal">normal</nb-option>
+                          </nb-select>
+                        </div>
+                    
+                </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <span>Accessoire apporteur: <span style="font-weight: bold;" >{{accessoireapporteur | ngxNumberWithCommas}} FCFA</span></span>
+                            <!-- <input fullWidth fieldSize="small" formControlName="quit_accessoireapporteur"
+                                type="number" nbInput id="quit_accessoireapporteur" 
+                                [readonly]="true"  > -->
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            
+                            <button   nbButton status="primary" (click)="tarifer()" >Tarifer</button>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <div *ngIf="!exo"> <span>Taxe TE: <span style="font-weight: bold;" >{{taxeTE | ngxNumberWithCommas}} FCFA</span></span></div> <div *ngIf="exo"><span>Taxe TE: <span style="font-weight: bold;" >0 FCFA</span></span></div> 
+                            <!-- <input fullWidth fieldSize="small" formControlName="quit_mtntaxete"
+                                type="number" nbInput id="quit_mtntaxete" [readonly]="true">  -->
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <div *ngIf="!exo"> <span>Prime brute totale: <span style="font-weight: bold;" >{{primebrute | ngxNumberWithCommas}} FCFA </span></span></div>
+                            <div *ngIf="exo"> <span>Prime brute totale: <span style="font-weight: bold;" >{{pb | ngxNumberWithCommas}} FCFA </span></span></div>
+                            <!-- <input min="0" fullWidth fieldSize="small" formControlName="poli_primebruttotal"
+                                type="number" nbInput id="poli_primebruttotal" [readonly]="true"> -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+<!-- repartition clause -->
+
+<!-- <input type="radio" name="tabs" id="tabtwo2">
+            <label for="tabtwo2" class="lab">REP../CLAUSE</label>
+            <div class="tab">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Clause d'ajustement</label>
+                            <input fullWidth fieldSize="small" formControlName="poli_clauseajustement" type="number"
+                                nbInput id="poli_clauseajustement">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Clause de révision</label> -->
+                            <!-- <input fullWidth fieldSize="small" formControlName="poli_clauserevision" type="number"
+                                nbInput id="poli_clauserevision"> -->
+<!-- 
+                                <nb-select (selectedChange)="onChangeLibeleTypeClauseRevision($event)" fullWidth>
+                                    <nb-option value="{{type.id}}" *ngFor="let type of listTypeClauseRevision">{{type.value}}</nb-option>
+                                  </nb-select>
+                        </div>
+                    </div>
+  
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Numéro plan de coassurance</label>
+                            <input min="0" fullWidth fieldSize="small" formControlName="poli_numeroplanreassfac"
+                                type="number" nbInput id="poli_numeroplanreassfac">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Numéro du plan de réassurance FAC</label>
+                            <input min="0" fullWidth fieldSize="small" formControlName="poli_numeroplanreassfac"
+                                type="number" nbInput id="poli_numeroplanreassfac">
+                        </div>
+                    </div> 
+                
+                 
+
+                </div>
+            </div> -->
+
+
+
+            <input type="radio" name="tabs" id="tabheight">
+            <label for="tabheight" class="lab">INFO COMP..</label>
+            <div class="tab">
+                <div class="row">
+<!--                 
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Coefficient de bonus</label>
+                            <input min="0" fullWidth fieldSize="small" formControlName="poli_coefbonus" type="number"
+                                nbInput id="poli_coefbonus">
+                        </div>
+                    </div> -->
+
+                    
+                    
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Plan de Coassurance</label>
+                            <input fullWidth nbInput fieldSize="small" >
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Plan de Réassurance</label>
+                            <input fullWidth nbInput fieldSize="small" >
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Numéro attestation</label>
+                            <input min="0" fullWidth fieldSize="small" formControlName="poli_numeroattestation"
+                                type="text" nbInput id="poli_numeroattestation">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Numéro certificat</label>
+                            <input min="0" fullWidth fieldSize="small" formControlName="poli_numerocertificat"
+                                type="text" nbInput id="poli_numerocertificat">
+                        </div>
+                    </div> -->
+                    
+             
+
+
+                    <!-- <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Exonération Taxe enregistrement (TE)</label>
+                            <input fullWidth fieldSize="small" formControlName="poli_exonerationtaxeenr" type="text"
+                                nbInput id="poli_exonerationtaxeenr">
+                        </div>
+                    </div> -->
+                    <!-- <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Code taxe TE</label>
+                            <input fullWidth fieldSize="small" formControlName="poli_codetaxe" type="number" nbInput
+                                id="poli_codetaxe">
+                        </div>
+                    </div> -->
+                    <!-- <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Exonération Taxe valeur ajoutée (TVA)</label>
+                            <input fullWidth fieldSize="small" formControlName="poli_exonerationtva" type="text" nbInput
+                                id="poli_exonerationtva">
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Code taxe TVA</label>
+                            <input fullWidth fieldSize="small" formControlName="poli_codetva" type="number" nbInput
+                                id="poli_codetva">
+                        </div>
+                    </div>
+                     -->
+                    <!-- <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Code taxe TPS</label>
+                            <input fullWidth fieldSize="small" formControlName="poli_codetps" type="number" nbInput
+                                id="poli_codetps">
+                        </div>
+                    </div> -->
+                     
+                    <!-- <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Type de facultative</label> -->
+                            <!-- <input min="0" fullWidth fieldSize="small" formControlName="poli_typefacultive" type="text"
+                                nbInput id="poli_typefacultive"> -->
+
+                                <!-- <nb-select (selectedChange)="onChangeLibeleTypeFacultative($event)" fullWidth>
+                                    <nb-option value="{{type.id}}" *ngFor="let type of listTypeFacultative">{{type.value}}</nb-option>
+                                  </nb-select>
+                        </div>
+                    </div> 
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Indice</label>
+                            <input fullWidth fieldSize="small" formControlName="poli_indice" type="text" nbInput
+                                id="poli_indice">
+                                
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Type d'indice</label> -->
+                            <!-- <input fullWidth fieldSize="small" formControlName="poli_typeindice" type="text" nbInput
+                                id="poli_typeindice"> -->
+<!-- 
+                            
+                                <nb-select (selectedChange)="onChangeLibeleTypeIndice($event)" fullWidth>
+                                    <nb-option value="{{type.id}}" *ngFor="let type of listTypeIndice">{{type.value}}</nb-option>
+                                  </nb-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Date d'indice</label>
+                            <input fullWidth fieldSize="small" formControlName="poli_dateindice" type="datetime-local"
+                                nbInput id="poli_dateindice">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Valeur d'indice</label>
+                            <input fullWidth fieldSize="small" formControlName="poli_valeurindice" type="number" nbInput
+                                id="poli_valeurindice">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Date révision</label>
+                                <input fullWidth fieldSize="small" formControlName="poli_daterevision"
+                                    type="datetime-local" nbInput id="poli_daterevision">
+                            </div>
+                        </div> -->
+                    
+                    </div>
+            </div>
+
+        </div>
+
+        <br>
+
+        <nb-card-footer>
+            <button nbButton status="success" (click)="onSubmit2(dialog)"
+                [disabled]='!addForm.valid || erreur'>Ajouter</button>
+            &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="onCancel()">Annuler</button>
+        </nb-card-footer>
+    </form>
+
+
+
+    <ng-template #dialog let-policeForm let-ref="dialogRef">
+      
+        <nb-card>
+          <nb-card-header>
+            Création Police {{ policeForm.poli_numero }}
+          </nb-card-header>
+          <nb-card-body>
+            
+            <div class="row">
+              <div class="col-sm-12">
+                <h5 class="grid-h">Détail création police</h5>
+                <div><span class="detail">Numero police:</span> {{ policeForm.poli_numero }}</div><br>
+                <div><span class="detail">Numero acte:</span> {{policeForm.act_numero}}</div><br>
+                <div><span class="detail">Numero risque:</span> {{policeForm.risq_numero}}</div><br>
+                <div *ngIf="riskr"><div><span class="detail">Numero risque réglementé:</span> {{policeForm.riskr_numero}}</div><br></div>
+                <div *ngIf="riskl"><div><span class="detail">Numero risque locatif:</span> {{policeForm.riskl_numero}}</div><br></div>
+                <div *ngIf="riskc"><div><span class="detail">Numero et identification marché:</span> {{policeForm.march_numero}}  -- {{policeForm.march_identification}}</div><br></div>
+                <div *ngIf="riskc"><div><span class="detail">Numero lot et description:</span> {{policeForm.lot_numero}}  --  {{policeForm.lot_description}}</div><br></div>
+                <div *ngIf="riskl"><div><span class="detail">Numero acheteur:</span> {{policeForm.achet_numero}}</div><br></div>
+                <div *ngIf="credit"><div><span class="detail">Numero acheteur:</span> {{policeForm.achet_numero}}</div><br></div>
+                <div *ngIf="credit"><div><span class="detail">Numero crédit:</span> {{policeForm.credit_numero}}</div><br></div>
+                <div><span class="detail">Numero engagement:</span> {{policeForm.engag_numeroengagement}}</div><br>
+                <div><span class="detail">Numero avenant:</span> {{policeForm.aven_numeroavenant}}</div><br>
+                <div><span class="detail">Numero facture:</span> {{policeForm.fact_numacte}}</div><br>
+                <div><span class="detail">Numero quittance:</span> {{policeForm.quit_numero}}</div><br>
+                <div><span class="detail">Beneficiare:</span> {{policeForm.benef_Num}}</div><br><br>
+                <div><ngx-imprimer-facture [numero_facture]="policeForm.fact_numacte"></ngx-imprimer-facture></div><br>
+                
+              </div>
+              
+            </div>
+          </nb-card-body>
+          <nb-card-footer>
+            <button nbButton (click)="onOpenPolice(policeForm.poli_client)" (click)="ref.close()" status="success">FERMER</button>
+            
+          </nb-card-footer>
+        </nb-card>
+        
+        
+      </ng-template>
+
+
+</div>
+<!-- <div *ngIf="check_fonct('c_intermediaire')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div> -->

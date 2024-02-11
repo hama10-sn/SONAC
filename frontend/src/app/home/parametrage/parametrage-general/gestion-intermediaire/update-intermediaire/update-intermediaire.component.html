@@ -1,0 +1,324 @@
+<div *ngIf="check_fonct('u_intermediaire')">
+    <form [formGroup]="modifForm">
+
+        <div class="col-lg-4">
+            <nb-card>
+                <nb-card-header id="titre_entete">Modifier un intermédiaire</nb-card-header>
+            </nb-card>
+        </div>
+
+        <!-- Gestion du controle de saisi -->
+        <p class="paraProblemeSaisi" *ngIf="problemeNumeroIntermediaire"> Le Numéro intermédiaire est obligatoire</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeDenomination"> La dénomination est obligatoire</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeDenominationCourt"> La dénomination court est obligatoire</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeRue"> L'adresse rue est obligatoire </p>
+        <p class="paraProblemeSaisi" *ngIf="problemeTelephone1"> Le numéro téléphone 1 est obligatoire</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeNumeroMobile"> Le numéro mobile est obligatoire</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeEmail"> L'email est obligatoire </p>
+        <p class="paraProblemeSaisi" *ngIf="problemeObjectifCA"> L'objectif du chiffre d'affaire est obligatoire </p>
+        <p class="paraProblemeSaisi" *ngIf="problemeCAPorteFeuille"> Le chiffre d'affaire (porte feuille) est
+            obligatoire
+        </p>
+        <p class="paraProblemeSaisi" *ngIf="problemeMontantCommAnnuel"> Le montant des commissions annuel est
+            obligatoire
+        </p>
+        <p class="paraProblemeSaisi" *ngIf="problemeNumAgrement"> Le numero d'agrément est obligatoire </p>
+
+        <div class="tabs">
+            <input type="radio" name="tabs" id="tabone" checked="checked">
+            <label for="tabone" class="lab">Intermédiaire</label>
+            <div class="tab">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Code intermédiaire <span class="obligatoire">*</span></label>
+                            <input min="0" readonly fieldSize="small" formControlName="inter_numero" type="number"
+                                nbInput fullWidth id="inter_numero">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="" class="label">Type Intermédiaire <span class="obligatoire">*</span></label>
+                            <nb-select fullWidth [(selected)]="type_intermediaire"
+                                (selectedChange)="onChangeTypeIntermediaire($event)" id="inter_type">
+                                <nb-option value="courtier">Courtier</nb-option>
+                                <nb-option value="agent general">Agent général</nb-option>
+                                <nb-option value="apporteur d'affaire">apporteur d'affaire</nb-option>
+
+                            </nb-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Dénomination <span class="obligatoire">*</span></label>
+                            <input fieldSize="small" formControlName="inter_denomination" type="text" nbInput fullWidth
+                                id="inter_denomination" (focusout)="onFocusOutEventDenomination()"
+                                [ngStyle]="{border: getColorDenomination()}">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Dénomination court <span class="obligatoire">*</span></label>
+                            <input fieldSize="small" formControlName="inter_denominationcourt" type="text" nbInput
+                                fullWidth id="inter_denominationcourt" (focusout)="onFocusOutEventDenominationCourt()"
+                                [ngStyle]="{border: getColorDenominationCourt()}">
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="" class="label">Code Commission</label>
+                            <nb-select [(selected)]="codeCommission" (selectedChange)="onChangeCommission($event)"
+                                fullWidth id="inter_codecommission">
+                                <nb-option value="{{commission.comm_code}}"
+                                    *ngFor="let commission of listeCodeCommission">
+                                    {{commission.comm_code}}
+                                </nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="label">Numero Agrément <span *ngIf="showObligatoireNumAgrement"
+                                    class="obligatoire">*</span></label>
+                            <input readonly fieldSize="small" (focusout)="onFocusOutEventAgrement()"
+                                formControlName="inter_numagrement" type="text" [ngStyle]="{border: getColorAgrement()}"
+                                nbInput fullWidth id="inter_numagrement">
+                        </div>
+                        <div>
+                            <p class="paraProblemeSaisi" *ngIf="problemeNumeroAgrementExisteDeja"> il existe déjà un
+                                courtier avec ce numéro d'agrément</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="label">Date début carte agrément <span class="obligatoire">*</span></label>
+                            <input fieldSize="small" (change)="onFocusOutEventDDCA($event)"
+                                formControlName="inter_datedebutcarteagrement" type="datetime-local"
+                                [ngStyle]="{border: getColorAgrement()}" nbInput fullWidth
+                                id="inter_datedebutcarteagrement">
+                        </div>
+
+                    </div>
+                    <div class="col-sm-z">
+                        <div class="form-group">
+                            <label for="" class="label">Autorisation <span class="obligatoire">*</span></label>
+                            <nb-select fullWidth (focusout)="onChangeAutorisation()" id="inter_autorisation"
+                                formControlName="inter_autorisation">
+                                <nb-option value="oui">oui</nb-option>
+                                <nb-option value="non">non</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-z">
+                        <div class="form-group">
+                            <label for="" class="label">annee exercice <span class="obligatoire">*</span></label>
+                            <nb-select fullWidth (focusout)="onChangeAutorisation()" id="inter_anneeexercice"
+                                formControlName="inter_anneeexercice">
+                                <nb-option *ngFor="let annee of anneeExercice" value="{{annee}}">
+                                    {{annee}}
+                                </nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input type="radio" name="tabs" id="tabtwo">
+            <label for="tabtwo" class="lab">CONTACT</label>
+            <div class="tab">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Boîte Postale</label>
+                            <input fieldSize="small" formControlName="inter_boitepostale" type="text" nbInput fullWidth
+                                id="inter_boitepostale">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Rue <span class="obligatoire">*</span></label>
+                            <input fieldSize="small" formControlName="inter_rue" type="text" nbInput fullWidth
+                                id="inter_rue" (focusout)="onFocusOutEventRue()" [ngStyle]="{border: getColorRue()}">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="" class="label">Quartier et Ville</label>
+                            <input fieldSize="small" formControlName="inter_quartierville" type="text" nbInput fullWidth
+                                id="inter_quartierville">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Email <span class="obligatoire">*</span></label>
+                            <input fieldSize="small" formControlName="inter_email" type="text" nbInput fullWidth
+                                id="inter_email" (change)="onchangeMail()" (focusout)="onFocusOutEventEmail()"
+                                [ngStyle]="{border: getColorEmail()}">
+                            <div *ngIf="displayMailError">
+                                <span *ngIf="!errorEmail" style="color:red;">L'email n'est pas valide</span>
+                            </div>
+                            <div>
+                                <p class="paraProblemeSaisi" *ngIf="problemeEmailExisteDeja"> Cet email existe déjà </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Numéro téléphone 1 <span class="obligatoire">*</span></label>
+                            <!-- <input fieldSize="small" formControlName="inter_telephone1" type="text" nbInput fullWidth
+                                id="inter_telephone1" (change)="onchangeTelephone1()"
+                                (focusout)="onFocusOutEventTelephone1()" [ngStyle]="{border: getColorTelephone1()}"> -->
+                            <ngx-intl-tel-input (focusout)="onchangeTelephone1()" [cssClass]="'form-control'"
+                                [preferredCountries]="[CountryISO.Senegal]" [enableAutoCountrySelect]="true"
+                                [enablePlaceholder]="false" [searchCountryFlag]="true"
+                                [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                                [selectedCountryISO]="CountryISO.Senegal" [phoneValidation]="true"
+                                [separateDialCode]="true" [numberFormat]="PhoneNumberFormat.National"
+                                id="inter_telephone1" formControlName="inter_telephone1">
+                            </ngx-intl-tel-input>
+                            <div *ngIf="displayNumero1Error">
+                                <span *ngIf="!errorNumero1" style="color:red;">Le numero n'est pas valide</span>
+                            </div>
+                            <div>
+                                <p class="paraProblemeSaisi" *ngIf="problemeTelephone1ExisteDeja"> Numéro de téléphone1
+                                    existe déjà </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Numéro téléphone 2</label>
+                            <!-- <input fieldSize="small" formControlName="inter_telephone2" type="text" nbInput fullWidth
+                                id="inter_telephone2" (change)="onchangeTelephone2()"> -->
+                            <ngx-intl-tel-input (focusout)="onchangeTelephone2()" [cssClass]="'form-control'"
+                                [preferredCountries]="[CountryISO.Senegal]" [enableAutoCountrySelect]="true"
+                                [enablePlaceholder]="false" [searchCountryFlag]="true"
+                                [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                                [selectedCountryISO]="CountryISO.Senegal" [phoneValidation]="true"
+                                [separateDialCode]="true" [numberFormat]="PhoneNumberFormat.National"
+                                id="inter_telephone2" formControlName="inter_telephone2">
+                            </ngx-intl-tel-input>
+                            <div *ngIf="displayNumero2Error">
+                                <span *ngIf="!errorNumero2" style="color:red;">Le numero n'est pas valide</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Numéro mobile <span class="obligatoire">*</span></label>
+                            <!-- <input fieldSize="small" formControlName="inter_portable" type="text" nbInput fullWidth
+                                id="inter_portable" (change)="onchangeNumeroPortable()"
+                                (focusout)="onFocusOutEventNumeroMobile()" [ngStyle]="{border: getColorNumeroMobile()}"> -->
+                            <ngx-intl-tel-input (focusout)="onchangeNumeroPortable()" [cssClass]="'form-control'"
+                                [preferredCountries]="[CountryISO.Senegal]" [enableAutoCountrySelect]="true"
+                                [enablePlaceholder]="false" [searchCountryFlag]="true"
+                                [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                                [selectedCountryISO]="CountryISO.Senegal" [phoneValidation]="true"
+                                [separateDialCode]="true" [numberFormat]="PhoneNumberFormat.National"
+                                id="inter_portable" formControlName="inter_portable">
+                            </ngx-intl-tel-input>
+                            <div *ngIf="displayNumeroPortable">
+                                <span *ngIf="!errorNumeroPortable" style="color:red;">Le numero n'est pas valide</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input type="radio" name="tabs" id="tabthree">
+            <label for="tabthree" class="lab">AUTRES</label>
+            <div class="tab">
+                <div class="row">
+
+                    <!-- =============================== RECHERCHE FILTRE ========================== -->
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Classification métier <span class="obligatoire">*</span></label>
+                            <mat-select class="form-control" [formControl]="classifCtrl"
+                                placeholder="choisir une classification"
+                                (selectionChange)="onChangeClassification($event)" fullWidth
+                                id="inter_classificationmetier" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="classifFilterCtrl"></ngx-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngFor="let classif of filteredClassif | async" value="{{classif.code}}">
+                                    {{ classif.libelle }}
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+
+                    <!-- =============================== RECHERCHE FILTRE ========================== -->
+
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Objectif chiffre d'affaire <span class="obligatoire">*</span></label>
+                            <input [value]="objectifCA" fieldSize="small" type="text" nbInput fullWidth
+                                id="inter_objectifcaannuel" (focusout)="onFocusOutEventObjectifCA($event)"
+                                [ngStyle]="{border: getColorObjectifCA()}">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Chiffre d'affaire (porte feuille) <span
+                                    class="obligatoire">*</span></label>
+                            <input [value]="caPorteFeuille" fieldSize="small" type="text" nbInput fullWidth
+                                id="inter_caportefeuille" (focusout)="onFocusOutEventCAPorteFeuille($event)"
+                                [ngStyle]="{border: getColorCAPorteFeuille()}">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Montant des sinistres</label>
+                            <input [value]="montantSinistre" fieldSize="small" type="text" nbInput
+                                fullWidth id="inter_sinistralite" (focusout)="onFocusOutEventMontantSinistre($event)">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Montant des arriérés</label>
+                            <input [value]="montantArriere" fieldSize="small" type="text" nbInput
+                                fullWidth id="inter_arriere" (focusout)="onFocusOutEventMontantArriere($event)">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Durée moyenne des arriérés</label>
+                            <input min="0" fieldSize="small" formControlName="inter_dureemoyenne" type="number" nbInput
+                                fullWidth id="inter_dureemoyenne">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Montant des commissions annuel <span
+                                    class="obligatoire">*</span></label>
+                            <input [value]="montantCommAnnuel" fieldSize="small" type="text" nbInput fullWidth
+                                id="inter_montantcommission" (focusout)="onFocusOutEventMontantCommission($event)"
+                                [ngStyle]="{border: getColorMontantCommAnnuel()}">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="" class="label">Date d'entrer en relation <span
+                                    style="color:red;">*</span></label>
+                            <input fieldSize="small" readonly formControlName="inter_datentrerelation"
+                                type="datetime-local" nbInput fullWidth id="inter_datentrerelation">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <nb-card-footer>
+            <button nbButton status="success" (click)="onSubmit()"
+                [disabled]='!modifForm.valid || erreur'>Modifier</button>
+            &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="onCancel()">Annuler</button>
+        </nb-card-footer>
+    </form>
+</div>
+<div *ngIf="check_fonct('u_intermediaire')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

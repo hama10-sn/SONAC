@@ -1,0 +1,139 @@
+<form [formGroup]="addForm"> 
+  
+    <div class="col-lg-12">
+      <nb-card>
+        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Ajout d'un devis</nb-card-header>
+      </nb-card>
+    </div> 
+    <div class="row">
+      <div class="col-lg-12">
+        <nb-card>
+          <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Information</nb-card-header>
+          <nb-card-body>
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="label">Numéro de devis<span style="color:red;">*</span></label>
+                  <input fieldSize="small" formControlName="devis_numero"  type="number" nbInput fullWidth  id="devis_numero" >
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="label">Numéro de proposition</label>
+                  <input fieldSize="small" formControlName="devis_numeroproposition"  type="number" nbInput fullWidth  id="devis_numeroproposition" >
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="label">Souscripteur / Prospect<span style="color:red;">*</span></label>
+                  <input fieldSize="small" formControlName="devis_souscripteur"  type="number" nbInput fullWidth  id="devis_souscripteur" >
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="label">Status<span style="color:red;">*</span></label>
+                  <nb-select (selectedChange)="onChangeStatus($event)" fullWidth id="devis_status">
+                    <nb-option value="1">En Cours</nb-option>
+                </nb-select>
+                </div>
+              </div>
+              
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="label">Objet devis</label>
+                      <input fieldSize="small" formControlName="devis_objet"  type="text" nbInput fullWidth  id="devis_objet" >
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="form-group">
+                      <label class="label">Branche<span style="color:red;">*</span></label>
+                      <nb-select (selectedChange)="onChangeBranche($event)" fullWidth id="devis_branche">
+                        <nb-option value="{{branche.branche_numero}}" *ngFor="let branche of listeCodeBranche">
+                            {{branche.branche_numero}} : {{branche.branche_libelleLong}}
+                        </nb-option>
+                    </nb-select>
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="form-group">
+                      <label class="label">Categorie<span style="color:red;">*</span></label>
+                      <nb-select [(selected)]="nettoyageC" (selectedChange)="onChangeCategorie($event)" fullWidth id="devis_categorie">
+                        <nb-option value="{{categorie.categ_numero}}"
+                            *ngFor="let categorie of listeNumeroCategorie">
+                            {{categorie.categ_numero}} : {{categorie.categ_libellelong}}
+                        </nb-option>
+                    </nb-select>
+                    </div>
+                  </div>
+
+            </div>
+            </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+          <nb-card>
+            <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Prime</nb-card-header>
+            <nb-card-body>
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label class="label">Montant nette<span style="color:red;">*</span></label>
+                    <input fieldSize="small" formControlName="devis_montantnet"  type="number" nbInput fullWidth  id="devis_montantnet" >
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label class="label">Accessoires compagnie<span style="color:red;">*</span></label>
+                    <input fieldSize="small" formControlName="devis_accessoirecompagnie"  type="number" nbInput fullWidth  id="devis_accessoirecompagnie" >
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label class="label">Accessoires apporteur<span style="color:red;">*</span></label>
+                    <input fieldSize="small" formControlName="devis_accessoireapporteur"  type="number" nbInput fullWidth  id="devis_accessoireapporteur" >
+                  </div>
+                </div>
+                
+              </div>
+              <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                      <label class="label">Frais accessoires</label>
+                      <input fieldSize="small" formControlName="devis_montantfrais"  type="number" nbInput fullWidth  id="devis_montantfrais" >
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="form-group">
+                      <label class="label">Taxes<span style="color:red;">*</span></label>
+                      <input fieldSize="small" formControlName="devis_montanttaxe"  type="number" nbInput fullWidth  id="devis_montanttaxe" >
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="label">Montant total à payer<span style="color:red;">*</span></label>
+                      <input fieldSize="small" formControlName="devis_montantttc"  type="number" nbInput fullWidth  id="devis_montantttc" >
+                    </div>
+                  </div>
+  
+              </div>
+              </nb-card-body>
+          </nb-card>
+        </div>
+      </div>
+    
+      
+    
+    <div>
+      <button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+                &nbsp;&nbsp;<button nbButton status="success" (click)="submit()" [disabled]='!addForm.valid'>Ajouter</button>
+              
+    </div>
+    
+    
+    </form>
+    

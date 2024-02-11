@@ -1,0 +1,46 @@
+<div *ngIf="check_fonct('u_civilite')">
+<form [formGroup]="modifForm"> 
+    <nb-card>
+        <nb-card-header>Modifier un civilite</nb-card-header>
+        
+        <nb-card-body >
+          
+          <div class="row">
+            
+            
+            <div class="col-sm-4">
+                <div class="form-group">
+                  <label  class="label">Libelle long<span style="color:red;">*</span></label>
+                  <input formControlName="civ_libellelong"  type="text" nbInput fullWidth  id="civ_libellelong" required>             
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                  <label  class="label">Libelle court<span style="color:red;">*</span></label>
+                  <input formControlName="civ_libellecourt"  type="text" nbInput fullWidth  id="civ_libellecourt" required>             
+                </div>
+            </div>
+          </div> 
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label  class="label">Nature<span style="color:red;">*</span></label>
+                <input formControlName="civ_nature" [readonly]="true" type="text" nbInput fullWidth  id="civ_nature" required>             
+                <!--nb-select [selected]="nature" (selectedChange)="onChange($event)" fullWidth id="civ_nature" >
+                  <nb-option value="1">Physique</nb-option>
+                  <nb-option value="2">Morale</nb-option>
+                </nb-select-->             
+              </div>
+          </div>
+        </div>       
+          <nb-card-footer>
+            <button nbButton status="success" (click)="submit()"  [disabled]='!modifForm.valid'>Modifier</button>
+            &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+          </nb-card-footer>
+        </nb-card-body>
+      </nb-card>
+    </form>
+  </div>
+  <div *ngIf="check_fonct('u_civilite')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+  </div>

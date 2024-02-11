@@ -1,0 +1,186 @@
+<div *ngIf="check_fonct('u_categorie')">
+<form [formGroup]="modifForm"> 
+    <!--nb-card>
+        <nb-card-header>Ajouter un categorie</nb-card-header>
+        
+        <nb-card-body >
+          
+          <div class="row">
+            <div class="form-group">
+              <label class="label">Numero de Catégorie <span style="color:red;">*</span></label>
+              <input formControlName="categ_numero" [readonly]="true" value="onChangeBranche($event)"  type="number" nbInput fullWidth  id="categ_numero" >
+            </div>
+                
+            <div class="col-sm-4">
+              
+              <div class="form-group">
+                <label  class="label">Numero Branche associée<span style="color:red;">*</span></label>
+                <input  formControlName="categ_numerobranche" [readonly]="true" value="onChangeBranche($event)"  type="number" nbInput fullWidth  id="branche_numero" >
+               
+              </div>
+
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                  <label  class="label">Libelle long<span style="color:red;">*</span></label>
+                  <input formControlName="categ_libellelong" type="text" nbInput fullWidth id="categ_libellelong" >
+                </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label  class="label">Libelle Court<span style="color:red;">*</span></label>
+                <input formControlName="categ_libellecourt" type="text" nbInput fullWidth id="categ_libellecourt" >
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="" class="label">Classification analytique</label>
+                <input formControlName="categ_classificationanalytique" type="number" nbInput fullWidth id="categ_classificationanalytique" >
+              </div>
+            </div>
+            <div class="col-sm-4">
+                
+                <div class="form-group">
+                  <label  class="label">Code taxe associé<span style="color:red;">*</span></label>
+                  <nb-select [(selected)]="taxe_codetaxe" (selectedChange)="onChangeTaxe($event)" fullWidth id="categ_codetaxe">                    
+                    <nb-option value="{{taxe.taxe_codetaxe}}" *ngFor="let taxe of listTaxes">{{taxe.taxe_codetaxe}}</nb-option>
+                  </nb-select>
+                </div>
+              </div>
+            <div class="col-sm-4">
+                  <div class="form-group">
+                    <label for="" class="label">Code commission associé</label>
+                    <nb-select [(selected)]="comm_code" (selectedChange)="onChangeCommission($event)" fullWidth id="categ_codecommission">                    
+                      <nb-option value="{{commission.comm_code}}" *ngFor="let commission of listCommissions">{{commission.comm_code}}</nb-option>
+                    </nb-select>
+                  </div>                  
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="" class="label">Date de mise à jour<span style="color:red;">*</span></label>
+                    <input formControlName="categ_datemodification" type="datetime-local" nbInput fullWidth id="categ_datemodification" >                
+                </div>              
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="" class="label">Date de comptabilisatione<span style="color:red;">*</span></label>
+                    <input formControlName="categ_datecomptabilisation" type="datetime-local" nbInput fullWidth id="categ_datecomptabilisation" >                
+                </div>              
+            </div>
+          </div>
+        
+          <nb-card-footer>
+            <button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+            &nbsp;&nbsp;<button nbButton status="success" (click)="submit()" [disabled]='!modifForm.valid'>Modifier</button>
+          </nb-card-footer>
+        </nb-card-body>
+      </nb-card-->
+
+
+
+
+
+
+
+
+
+      <div class="col-lg-4">
+        <nb-card>
+          <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Modification Categorie</nb-card-header>
+        </nb-card>
+      </div>   
+      
+      <br>
+      
+<div class="tabs">
+      <input type="radio" name="tabs" id="tabone" checked="checked">
+      <label for="tabone" class="lab">INFORMATION</label>
+    <div class="tab">
+        <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">                
+                  <label class="label">Numero de Catégorie <span style="color:red;">*</span></label>
+                  <input fieldSize="small" formControlName="categ_numero" [readonly]="true" value="onChangeBranche($event)"  type="number" nbInput fullWidth  id="categ_numero" >                
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label  class="label">Numero Branche associée<span style="color:red;">*</span></label>
+                <!--input fieldSize="small" [value]="branche_numero?.toString()" [readonly]="true" type="text" nbInput fullWidth  id="branche_numero" -->               
+                <input readonly [value]="onGetLibelleByBranche(codeBranche)" type="text" nbInput fullWidth
+                id="branche_numero">
+                <!--nb-select [(selected)]="taxe_codetaxe" (selectedChange)="onChangeTaxe($event)" fullWidth id="categ_codetaxe">                    
+                  <nb-option value="{{taxe.taxe_codetaxe}}" *ngFor="let taxe of listTaxes">{{taxe.taxe_codetaxe}}</nb-option>
+                </nb-select-->
+              </div>                    
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label  class="label">Code taxe associé<span style="color:red;">*</span></label>
+                <input fieldSize="small" formControlName="categ_codetaxe" [readonly]="true" value="onChangeTaxe($event)"  type="number" nbInput fullWidth  id="branche_numero" >               
+              </div>
+            </div>
+        </div>
+      <div class="row">          
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label  class="label">Libelle Long <span style="color:red;">*</span></label>
+            <input fieldSize="small" formControlName="categ_libellelong" type="text" nbInput fullWidth id="categ_libellelong" >
+          </div>
+        </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label  class="label">Libelle Court <span style="color:red;">*</span></label>
+              <input fieldSize="small" formControlName="categ_libellecourt" type="text" nbInput fullWidth id="categ_libellecourt" >
+            </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="" class="label">Classification Analytique</label>
+                <input fieldSize="small" min="0" formControlName="categ_classificationanalytique" type="number" nbInput fullWidth id="categ_classificationanalytique" >
+              </div>
+          </div> 
+      </div>
+    </div>  
+      <input type="radio" name="tabs" id="tabtwo">
+      <label for="tabtwo" class="lab">Autres</label>
+      <div class="tab">
+        <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="" class="label">Code commission associé</label>
+                <nb-select [(selected)]="comm_code" (selectedChange)="onChangeCommission($event)" fullWidth id="categ_codecommission">                    
+                  <nb-option value="{{commission.comm_code}}" *ngFor="let commission of listCommissions">{{commission.comm_code}}</nb-option>
+                </nb-select>
+              </div>                       
+           </div>
+        </div>
+        <div class="row">
+           
+          <div class="col-sm-4">
+            <div class="form-group">
+                <label for="" class="label">Date de Comptabilisatione <span style="color:red;">*</span></label>
+                <input fieldSize="small" formControlName="categ_datecomptabilisation" type="datetime-local" nbInput fullWidth id="categ_datecomptabilisation" >                
+            </div>              
+        </div>                                
+        </div>
+    </div>        
+</div>
+      
+      <br>
+      
+      
+      <div>
+        <button nbButton status="success" (click)="submit()" [disabled]='!modifForm.valid'>Modifier</button>
+        &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+    </div>
+    </form>
+  </div>
+  
+  <div *ngIf="check_fonct('u_categorie')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+  </div>

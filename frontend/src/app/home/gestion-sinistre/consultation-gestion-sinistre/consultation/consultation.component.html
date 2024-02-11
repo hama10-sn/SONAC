@@ -1,0 +1,255 @@
+<div *ngIf="check_fonct('l_sinistre')">
+  <form [formGroup]="addForm">
+    <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">
+          Les critères de recherche des sinistres
+        </nb-card-header>
+      </nb-card>
+    </div>
+    <div class="d-flex justify-content-between">
+      <div class="col-lg-4 col-md-4">
+        <p>
+          <mat-checkbox (change)="branche" #branche>Branche</mat-checkbox>
+        </p>
+        <div class="form-group" *ngIf="branche.checked">
+          <label class="label">Branche </label>
+          <mat-select class="form-control" [formControl]="brancheCtrl" placeholder="choisir une branche"
+            (selectionChange)="onChangeBranche($event)" fullWidth #singleSelect>
+            <mat-option>
+              <ngx-mat-select-search [formControl]="brancheFilterCtrl" placeholderLabel="recherche..."
+                noEntriesFoundLabel="aucune corespondance ..">
+              </ngx-mat-select-search>
+            </mat-option>
+
+            <mat-option value="{{branche.branche_numero}}" *ngFor="let branche of filteredBranche  | async">
+              {{branche.branche_numero}} : {{branche.branche_libelleLong}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <p>
+          <mat-checkbox (change)="produit" #produit>Produit</mat-checkbox>
+        </p>
+        <div class="form-group" *ngIf="produit.checked">
+          <label class="label">Produit </label>
+          <mat-select class="form-control" [formControl]="produitCtr" placeholder="choisir un produit"
+            (selectionChange)="onChangeProduit($event)" fullWidth #singleSelect>
+            <mat-option>
+              <ngx-mat-select-search [formControl]="produitFilterCtrl" placeholderLabel="recherche..."
+                noEntriesFoundLabel="aucune corespondance ..">
+              </ngx-mat-select-search>
+            </mat-option>
+
+            <mat-option value="{{produit.prod_numero}}" *ngFor="let produit of filteredProduit  | async">
+              {{produit.prod_numero}} : {{produit.prod_denominationlong}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <p>
+          <mat-checkbox (change)="client" #client>Client</mat-checkbox>
+        </p>
+        <div class="form-group" *ngIf="client.checked">
+          <label class="label">Client </label>
+          <mat-select class="form-control" [formControl]="clientCtr" placeholder="choisir un client"
+            (selectionChange)="onChangeClient($event)" fullWidth #singleSelect>
+            <mat-option>
+              <ngx-mat-select-search [formControl]="clientFilterCtrl" placeholderLabel="recherche..."
+                noEntriesFoundLabel="aucune corespondance ..">
+              </ngx-mat-select-search>
+            </mat-option>
+
+            <mat-option value="{{client.clien_numero}}" *ngFor="let client of filteredClient  | async">
+              {{client.clien_numero}} : {{client.clien_denomination}} {{client.clien_prenom}} {{client.clien_nom}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-between">
+      <div class="col-lg-4 col-md-4">
+        <p>
+          <mat-checkbox (change)="police" #police>Police</mat-checkbox>
+        </p>
+        <div class="form-group" *ngIf="police.checked">
+          <label class="label">Police </label>
+          <mat-select class="form-control" [formControl]="policeCtr" placeholder="choisir une police"
+            (selectionChange)="onChangePolice($event)" fullWidth #singleSelect>
+            <mat-option>
+              <ngx-mat-select-search [formControl]="policeFilterCtrl" placeholderLabel="recherche..."
+                noEntriesFoundLabel="aucune corespondance ..">
+              </ngx-mat-select-search>
+            </mat-option>
+
+            <mat-option value="{{police.poli_numero}}" *ngFor="let police of filteredPolice  | async">
+              {{police.poli_numero}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div class="col-lg-8 col-md-8">
+        <p>
+          <mat-checkbox (change)="periode" #periode>Période</mat-checkbox>
+        </p>
+        <p class="paraProblemeSaisi" *ngIf="problemeDate">La date de début doit être inférieure ou égale à la
+          date de fin
+        </p>
+        <p class="paraProblemeSaisi" *ngIf="problemeDateFin">La date de fin doit être inférieure ou égale à la
+          date du jour
+        </p>
+        <div class="row" *ngIf="periode.checked">
+          <div class="col-lg-4 col-md-4">
+            <div class="form-group">
+              <label class="label">Début </label>
+              <input type="date" formControlName="debut" nbInput fullWidth (focusout)="onFocusOutEventDate($event)"
+                [ngStyle]="{border: getColorDate()}">
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <div class="form-group">
+              <label class="label">Fin </label>
+              <input type="date" formControlName="fin" nbInput fullWidth (focusout)="onFocusOutEventDate($event)"
+                [ngStyle]="{border: getColorDate()}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button nbButton status="success" [disabled]='erreur' (click)="onConsulter()">Consulter</button>&nbsp;&nbsp;
+      <button nbButton status="danger" (click)="onReinitialiser()">Réinitialiser</button>&nbsp;&nbsp;
+    </div>
+    <div class="row">
+      <br><br>
+      <div class='contenu_resultat' *ngIf="check_fonct('l_sinistre')">
+        <div fxLayout fxLayoutAlign="center center">
+
+          <mat-card-header class="card-header">
+            <span class="header">{{ title }}</span>
+
+            <div>
+              <button class="buttons_export" mat-button [matMenuTriggerFor]="menu">Export</button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="onExport('pdf')">
+                  PDF
+                </button>
+                <button mat-menu-item (click)="onExport('excel')">
+                  EXCEL
+                </button>
+              </mat-menu>
+            </div>
+          </mat-card-header>
+        </div>
+        <table mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="sin_client">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Client </th>
+            <td mat-cell *matCellDef="let sinistre"> {{onGetClientByCode(sinistre.sini_souscripteur)}} </td>
+          </ng-container>
+          <ng-container matColumnDef="sin_police">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Police</th>
+            <td mat-cell *matCellDef="let sinistre"> {{sinistre.sini_police}} </td>
+          </ng-container>
+          <ng-container matColumnDef="sin_branche">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Branche </th>
+            <td mat-cell *matCellDef="let sinistre"> {{sinistre.branche_libelle_long}} </td>
+          </ng-container>
+          <ng-container matColumnDef="sin_produits">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Produits </th>
+            <td mat-cell *matCellDef="let sinistre"> {{sinistre.prod_denominationlong}} </td>
+          </ng-container>
+          <ng-container matColumnDef="sin_acheteur">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Acheteur </th>
+            <td mat-cell *matCellDef="let sinistre"> {{sinistre.achet_prenom}} {{sinistre.achet_nom}} </td>
+          </ng-container>
+          <ng-container matColumnDef="sin_num">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro Sinistre </th>
+            <td mat-cell *matCellDef="let sinistre"> {{sinistre.sini_num}} </td>
+          </ng-container>
+          <ng-container matColumnDef="sin_type_sinistre">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Type Mouvement </th>
+            <td mat-cell *matCellDef="let sinistre"> {{sinistre.mvts_typemvt}} </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let sinistre">
+              <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">
+                <mat-icon class="mat-18">more_vert</mat-icon>
+              </button>
+              <mat-menu #detail="matMenu">
+                <button mat-menu-item (click)="onOpen(dialog,sinistre)">
+                  <mat-icon>visibility</mat-icon> Détail
+                </button>
+              </mat-menu>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]">
+        </mat-paginator>
+        <ng-template #dialog let-sinistre let-ref="dialogRef">
+          <nb-card>
+            <nb-card-header class="col-lg-12">DETAILS DU SINISTRE</nb-card-header>
+            <nb-card-body>
+              <div class="row">
+                <div class="col-sm-6">
+                  <h5 class="grid-h">Infos Sinistre</h5>
+                  <div><span class="detail">Numéro sinistre :</span>
+                    {{ sinistre.sini_num }}
+                  </div><br>
+                  <div><span class="detail">Type sinistre :</span>
+                    {{ sinistre.sini_typesinistre }}
+                  </div><br>
+                  <div><span class="detail">Date survenance : </span>
+                    {{ sinistre.sini_datesurvenance | date: 'dd-MM-yyyy'}}
+                  </div><br>
+                  <div><span class="detail">Date déclaration : </span>
+                    {{ sinistre.sini_datedeclaration | date: 'dd-MM-yyyy'}}
+                  </div><br>
+                  <div><span class="detail">Date saisie : </span>
+                    {{ sinistre.sini_datesaisie | date: 'dd-MM-yyyy'}}
+                  </div><br>
+                  <div><span class="detail">Type mouvement :</span>
+                    {{ sinistre.mvts_typemvt }}
+                  </div><br>
+                </div>
+
+                <div class="col-sm-6">
+                  <h5 class="grid-h">Infos 2</h5>
+                  <div><span class="detail">Branche :</span>
+                    {{ sinistre.branche_libelle_long }}
+                  </div><br>
+                  <div><span class="detail">Police :</span>
+                    {{ sinistre.sini_police }}
+                  </div><br>
+                  <div><span class="detail">Produit : </span>
+                    {{ sinistre.prod_denominationlong }}
+                  </div><br>
+                  <div><span class="detail">Client :</span>
+                    {{onGetClientByCode(sinistre.sini_souscripteur)}}
+                  </div><br>
+                  <div><span class="detail">Acheteur :</span>
+                    {{sinistre.achet_prenom}} {{sinistre.achet_nom}}
+                  </div><br>
+                  <div><span class="detail">Lieu :</span>
+                    {{ sinistre.sini_lieu }}
+                  </div><br>
+                </div>
+              </div>
+            </nb-card-body>
+            <nb-card-footer>
+              <button nbButton (click)="ref.close()" status="danger" class="btn btn-primary">Fermer</button>
+            </nb-card-footer>
+          </nb-card>
+        </ng-template>
+      </div>
+    </div>
+  </form>
+</div>
+<div *ngIf="check_fonct('l_sinistre')==false">
+  <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

@@ -1,0 +1,557 @@
+<form [formGroup]="myReglementFinancierForm">
+  <div class="col-lg-4">
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Règlement financier
+      </nb-card-header>
+    </nb-card>
+  </div>
+  <br>
+  <div class="tabs">
+    <input type="radio" name="tabs" id="tabone" checked="checked">
+    <label for="tabone" class="lab">INFOS REGLEMENT FINANCIER</label>
+    <div class="tab">
+
+      <!-- ======================= REGLEMENT PRINCIPAL UNIQUEMENT ==================== -->
+      <fieldset class="fieldset" formGroupName="reglementForm" *ngIf="typeReglement == 1">
+        <legend class="tailleLegend">Reglement Principal</legend><br>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Code réglement<span class="obligatoire">*</span></label>
+              <nb-select fullWidth (selectedChange)="onChangeCodeReglement($event)" formControlName="regl_codereglement"
+                id="regl_codereglement">
+                <nb-option value="C">Chèque</nb-option>
+                <nb-option value="T">Traite</nb-option>
+                <nb-option value="V">Virement</nb-option>
+                <nb-option value="E">Espèces</nb-option>
+              </nb-select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Code banque<span *ngIf="showObligatoireCodeBanque"
+                  class="obligatoire">*</span></label>
+              <mat-select class="form-control" [formControl]="banqueCtrl" placeholder="choisir une banque"
+                (selectionChange)="onChangeBanque($event)" fullWidth id="regl_codebanque" #singleSelect>
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="banqueFilterCtrl" placeholderLabel="recherche..."
+                    noEntriesFoundLabel="aucune corespondance">
+                  </ngx-mat-select-search>
+                </mat-option>
+                <mat-option value="{{banque.banq_codebanque}}" *ngFor="let banque of filteredBanque | async">
+                  {{banque.banq_codebanque}} : {{banque.banq_codenormalise}} : {{banque.banq_denomination}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Numéro chéque<span *ngIf="showObligatoireNumCheque"
+                  class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="regl_numcheque" type="text" nbInput fullWidth
+                id="regl_numcheque" (focusout)="onFocusOutEventNumCheque($event)"
+                [ngStyle]="{border: getColorNumCheque()}">
+              <p class="paraProblemeSaisi" *ngIf="problemeMemeNumCheque">
+                {{messageExistanceCheque}}
+              </p>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant règlement principal</label>
+              <input readonly fieldSize="small" type="text" [value]="montantReglementPrincipal" nbInput fullWidth
+                id="mvts_montantprincipal">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Bénéficiaire</label>
+              <input readonly fieldSize="small" [value]="benificiaire" type="text" nbInput fullWidth
+                id="mvts_beneficiaire">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Adresse bénéficiaire</label>
+              <input readonly fieldSize="small" [value]="adresseBeneficiaire" type="text" nbInput fullWidth
+                id="mvts_beneficiaire">
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- ======================= REGLEMENT FRAIS UNIQUEMENT ==================== -->
+      <fieldset class="fieldset" *ngIf="typeReglement == 2">
+        <legend class="tailleLegend">Reglement Frais</legend><br>
+        <div class="row" formGroupName="reglementForm">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Code réglement<span class="obligatoire">*</span></label>
+              <nb-select fullWidth (selectedChange)="onChangeCodeReglement($event)" formControlName="regl_codereglement"
+                id="regl_codereglement">
+                <nb-option value="C">Chèque</nb-option>
+                <nb-option value="T">Traite</nb-option>
+                <nb-option value="V">Virement</nb-option>
+                <nb-option value="E">Espèces</nb-option>
+              </nb-select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Code banque<span *ngIf="showObligatoireCodeBanque"
+                  class="obligatoire">*</span></label>
+              <mat-select class="form-control" [formControl]="banqueCtrl" placeholder="choisir une banque"
+                (selectionChange)="onChangeBanque($event)" fullWidth id="regl_codebanque" #singleSelect>
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="banqueFilterCtrl" placeholderLabel="recherche..."
+                    noEntriesFoundLabel="aucune corespondance">
+                  </ngx-mat-select-search>
+                </mat-option>
+                <mat-option value="{{banque.banq_codebanque}}" *ngFor="let banque of filteredBanque | async">
+                  {{banque.banq_codebanque}} : {{banque.banq_codenormalise}} : {{banque.banq_denomination}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Numéro chéque<span *ngIf="showObligatoireNumCheque"
+                  class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="regl_numcheque" type="text" nbInput fullWidth
+                id="regl_numcheque" (focusout)="onFocusOutEventNumCheque($event)"
+                [ngStyle]="{border: getColorNumCheque()}">
+              <p class="paraProblemeSaisi" *ngIf="problemeMemeNumCheque">
+                {{messageExistanceCheque}}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row" formGroupName="mvtsinistreForm">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant règlement frais</label>
+              <input readonly fieldSize="small" type="text" [value]="montantReglementFrais" nbInput fullWidth
+                id="mvts_montantfrais">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Nom & prénom bénéficiaire<span *ngIf="showObligatoireAutreBeneficiaire"
+                  class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="mvts_autrebeneficiaire" type="text" nbInput fullWidth
+                id="mvts_beneficiaire">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Adresse bénéficiaire</label>
+              <input fieldSize="small" formControlName="mvts_adresseautrebeneficiaire" type="text" nbInput fullWidth
+                id="mvts_beneficiaire">
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- ======================= REGLEMENT HONORAIRES UNIQUEMENT ==================== -->
+      <fieldset class="fieldset" *ngIf="typeReglement == 3">
+        <legend class="tailleLegend">Reglement Honoraires</legend><br>
+        <div class="row" formGroupName="reglementForm">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Code réglement<span class="obligatoire">*</span></label>
+              <nb-select fullWidth (selectedChange)="onChangeCodeReglement($event)" formControlName="regl_codereglement"
+                id="regl_codereglement">
+                <nb-option value="C">Chèque</nb-option>
+                <nb-option value="T">Traite</nb-option>
+                <nb-option value="V">Virement</nb-option>
+                <nb-option value="E">Espèces</nb-option>
+              </nb-select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Code banque<span *ngIf="showObligatoireCodeBanque"
+                  class="obligatoire">*</span></label>
+              <mat-select class="form-control" [formControl]="banqueCtrl" placeholder="choisir une banque"
+                (selectionChange)="onChangeBanque($event)" fullWidth id="regl_codebanque" #singleSelect>
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="banqueFilterCtrl" placeholderLabel="recherche..."
+                    noEntriesFoundLabel="aucune corespondance">
+                  </ngx-mat-select-search>
+                </mat-option>
+                <mat-option value="{{banque.banq_codebanque}}" *ngFor="let banque of filteredBanque | async">
+                  {{banque.banq_codebanque}} : {{banque.banq_codenormalise}} : {{banque.banq_denomination}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Numéro chéque<span *ngIf="showObligatoireNumCheque"
+                  class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="regl_numcheque" type="text" nbInput fullWidth
+                id="regl_numcheque" (focusout)="onFocusOutEventNumCheque($event)"
+                [ngStyle]="{border: getColorNumCheque()}">
+              <p class="paraProblemeSaisi" *ngIf="problemeMemeNumCheque">
+                {{messageExistanceCheque}}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row" formGroupName="mvtsinistreForm">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant règlement honoraires</label>
+              <input readonly fieldSize="small" type="text" [value]="montantReglementHonoraire" nbInput fullWidth
+                id="mvts_montanthonoraire">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Nom & prénom bénéficiaire<span *ngIf="showObligatoireAutreBeneficiaire"
+                  class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="mvts_autrebeneficiaire" type="text" nbInput fullWidth
+                id="mvts_beneficiaire">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Adresse bénéficiaire</label>
+              <input fieldSize="small" formControlName="mvts_adresseautrebeneficiaire" type="text" nbInput fullWidth
+                id="mvts_beneficiaire">
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- ======================= REGLEMENT PRINCIPAL & FRAIS =========================== -->
+      <fieldset class="fieldset" formGroupName="reglementForm" *ngIf="typeReglement == 4">
+        <legend class="tailleLegend">Reglement Principal & Frais</legend><br>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Code règlement<span class="obligatoire">*</span></label>
+              <nb-select fullWidth (selectedChange)="onChangeCodeReglement($event)" formControlName="regl_codereglement"
+                id="regl_codereglement">
+                <nb-option value="C">Chèque</nb-option>
+                <nb-option value="T">Traite</nb-option>
+                <nb-option value="V">Virement</nb-option>
+                <nb-option value="E">Espèces</nb-option>
+              </nb-select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Code banque<span *ngIf="showObligatoireCodeBanque"
+                  class="obligatoire">*</span></label>
+              <mat-select class="form-control" [formControl]="banqueCtrl" placeholder="choisir une banque"
+                (selectionChange)="onChangeBanque($event)" fullWidth id="regl_codebanque" #singleSelect>
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="banqueFilterCtrl" placeholderLabel="recherche..."
+                    noEntriesFoundLabel="aucune corespondance">
+                  </ngx-mat-select-search>
+                </mat-option>
+                <mat-option value="{{banque.banq_codebanque}}" *ngFor="let banque of filteredBanque | async">
+                  {{banque.banq_codebanque}} : {{banque.banq_codenormalise}} : {{banque.banq_denomination}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Numéro chéque<span *ngIf="showObligatoireNumCheque"
+                  class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="regl_numcheque" type="text" nbInput fullWidth
+                id="regl_numcheque" (focusout)="onFocusOutEventNumCheque($event)"
+                [ngStyle]="{border: getColorNumCheque()}">
+              <p class="paraProblemeSaisi" *ngIf="problemeMemeNumCheque">
+                {{messageExistanceCheque}}
+              </p>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant règlement principal</label>
+              <input readonly fieldSize="small" type="text" [value]="montantReglementPrincipal" nbInput fullWidth
+                id="mvts_montantprincipal">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant règlement frais</label>
+              <input readonly fieldSize="small" type="text" [value]="montantReglementFrais" nbInput fullWidth
+                id="mvts_montantfrais">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Bénéficiaire</label>
+              <input readonly fieldSize="small" [value]="benificiaire" type="text" nbInput fullWidth
+                id="mvts_beneficiaire">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Adresse bénéficiaire</label>
+              <input readonly fieldSize="small" [value]="adresseBeneficiaire" type="text" nbInput fullWidth
+                id="mvts_beneficiaire">
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- ======================= REGLEMENT PRINCIPAL & HONORAIRES =========================== -->
+      <fieldset class="fieldset" formGroupName="reglementForm" *ngIf="typeReglement == 5">
+        <legend class="tailleLegend">Reglement Principal & Honoraires</legend><br>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Code règlement<span class="obligatoire">*</span></label>
+              <nb-select fullWidth (selectedChange)="onChangeCodeReglement($event)" formControlName="regl_codereglement"
+                id="regl_codereglement">
+                <nb-option value="C">Chèque</nb-option>
+                <nb-option value="T">Traite</nb-option>
+                <nb-option value="V">Virement</nb-option>
+                <nb-option value="E">Espèces</nb-option>
+              </nb-select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Code banque<span *ngIf="showObligatoireCodeBanque"
+                  class="obligatoire">*</span></label>
+              <mat-select class="form-control" [formControl]="banqueCtrl" placeholder="choisir une banque"
+                (selectionChange)="onChangeBanque($event)" fullWidth id="regl_codebanque" #singleSelect>
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="banqueFilterCtrl" placeholderLabel="recherche..."
+                    noEntriesFoundLabel="aucune corespondance">
+                  </ngx-mat-select-search>
+                </mat-option>
+                <mat-option value="{{banque.banq_codebanque}}" *ngFor="let banque of filteredBanque | async">
+                  {{banque.banq_codebanque}} : {{banque.banq_codenormalise}} : {{banque.banq_denomination}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Numéro chéque<span *ngIf="showObligatoireNumCheque"
+                  class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="regl_numcheque" type="text" nbInput fullWidth
+                id="regl_numcheque" (focusout)="onFocusOutEventNumCheque($event)"
+                [ngStyle]="{border: getColorNumCheque()}">
+              <p class="paraProblemeSaisi" *ngIf="problemeMemeNumCheque">
+                {{messageExistanceCheque}}
+              </p>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant règlement principal</label>
+              <input readonly fieldSize="small" type="text" [value]="montantReglementPrincipal" nbInput fullWidth
+                id="mvts_montantprincipal">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant règlement honoraires</label>
+              <input readonly fieldSize="small" type="text" [value]="montantReglementHonoraire" nbInput fullWidth
+                id="mvts_montanthonoraire">
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Bénéficiaire</label>
+              <input readonly fieldSize="small" [value]="benificiaire" type="text" nbInput fullWidth
+                id="mvts_beneficiaire">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Adresse bénéficiaire</label>
+              <input readonly fieldSize="small" [value]="adresseBeneficiaire" type="text" nbInput fullWidth
+                id="mvts_beneficiaire">
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- ==================== REGLEMENT FRAIS & HONORAIRES ================ -->
+      <fieldset class="fieldset" *ngIf="typeReglement == 6">
+        <legend class="tailleLegend">Reglement Frais & Honoraires</legend><br>
+        <div class="row" formGroupName="reglementForm">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Code réglement<span class="obligatoire">*</span></label>
+              <nb-select fullWidth (selectedChange)="onChangeCodeReglement($event)" formControlName="regl_codereglement"
+                id="regl_codereglement">
+                <nb-option value="C">Chèque</nb-option>
+                <nb-option value="T">Traite</nb-option>
+                <nb-option value="V">Virement</nb-option>
+                <nb-option value="E">Espèces</nb-option>
+              </nb-select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Code banque<span *ngIf="showObligatoireCodeBanque"
+                  class="obligatoire">*</span></label>
+              <mat-select class="form-control" [formControl]="banqueCtrl" placeholder="choisir une banque"
+                (selectionChange)="onChangeBanque($event)" fullWidth id="regl_codebanque" #singleSelect>
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="banqueFilterCtrl" placeholderLabel="recherche..."
+                    noEntriesFoundLabel="aucune corespondance">
+                  </ngx-mat-select-search>
+                </mat-option>
+                <mat-option value="{{banque.banq_codebanque}}" *ngFor="let banque of filteredBanque | async">
+                  {{banque.banq_codebanque}} : {{banque.banq_codenormalise}} : {{banque.banq_denomination}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Numéro chéque<span *ngIf="showObligatoireNumCheque"
+                  class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="regl_numcheque" type="text" nbInput fullWidth
+                id="regl_numcheque" (focusout)="onFocusOutEventNumCheque($event)"
+                [ngStyle]="{border: getColorNumCheque()}">
+              <p class="paraProblemeSaisi" *ngIf="problemeMemeNumCheque">
+                {{messageExistanceCheque}}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" formGroupName="mvtsinistreForm">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant règlement frais</label>
+              <input readonly fieldSize="small" type="text" [value]="montantReglementFrais" nbInput fullWidth
+                id="mvts_montantfrais">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant règlement honoraires</label>
+              <input readonly fieldSize="small" type="text" [value]="montantReglementHonoraire" nbInput fullWidth
+                id="mvts_montanthonoraire">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Nom & prénom bénéficiaire<span *ngIf="showObligatoireAutreBeneficiaire"
+                  class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="mvts_autrebeneficiaire" type="text" nbInput fullWidth
+                id="mvts_beneficiaire">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Adresse bénéficiaire</label>
+              <input fieldSize="small" formControlName="mvts_adresseautrebeneficiaire" type="text" nbInput fullWidth
+                id="mvts_beneficiaire">
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+
+      <!-- ======================= REGLEMENT GLOBAL =========================== -->
+      <fieldset class="fieldset" formGroupName="reglementForm" *ngIf="typeReglement == 7">
+        <legend class="tailleLegend">Reglement Global</legend><br>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Code règlement<span class="obligatoire">*</span></label>
+              <nb-select fullWidth (selectedChange)="onChangeCodeReglement($event)" formControlName="regl_codereglement"
+                id="regl_codereglement">
+                <nb-option value="C">Chèque</nb-option>
+                <nb-option value="T">Traite</nb-option>
+                <nb-option value="V">Virement</nb-option>
+                <nb-option value="E">Espèces</nb-option>
+              </nb-select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Code banque<span *ngIf="showObligatoireCodeBanque"
+                  class="obligatoire">*</span></label>
+              <mat-select class="form-control" [formControl]="banqueCtrl" placeholder="choisir une banque"
+                (selectionChange)="onChangeBanque($event)" fullWidth id="regl_codebanque" #singleSelect>
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="banqueFilterCtrl" placeholderLabel="recherche..."
+                    noEntriesFoundLabel="aucune corespondance">
+                  </ngx-mat-select-search>
+                </mat-option>
+                <mat-option value="{{banque.banq_codebanque}}" *ngFor="let banque of filteredBanque | async">
+                  {{banque.banq_codebanque}} : {{banque.banq_codenormalise}} : {{banque.banq_denomination}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Numéro chéque<span *ngIf="showObligatoireNumCheque"
+                  class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="regl_numcheque" type="text" nbInput fullWidth
+                id="regl_numcheque" (focusout)="onFocusOutEventNumCheque($event)"
+                [ngStyle]="{border: getColorNumCheque()}">
+              <p class="paraProblemeSaisi" *ngIf="problemeMemeNumCheque">
+                {{messageExistanceCheque}}
+              </p>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant règlement principal</label>
+              <input readonly fieldSize="small" type="text" [value]="montantReglementPrincipal" nbInput fullWidth
+                id="mvts_montantprincipal">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant règlement frais</label>
+              <input readonly fieldSize="small" type="text" [value]="montantReglementFrais" nbInput fullWidth
+                id="mvts_montantfrais">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant règlement honoraires</label>
+              <input readonly fieldSize="small" type="text" [value]="montantReglementHonoraire" nbInput fullWidth
+                id="mvts_montanthonoraire">
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Bénéficiaire</label>
+              <input readonly fieldSize="small" [value]="benificiaire" type="text" nbInput fullWidth
+                id="mvts_beneficiaire">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Adresse bénéficiaire</label>
+              <input readonly fieldSize="small" [value]="adresseBeneficiaire" type="text" nbInput fullWidth
+                id="mvts_beneficiaire">
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+    </div>
+  </div>
+  <br>
+
+  <div>
+    <button nbButton status="success" (click)="onSubmit()"
+      [disabled]='!myReglementFinancierForm.valid || erreur'>Valider</button>
+    &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="onCancel()">Retour</button>
+  </div>
+</form>

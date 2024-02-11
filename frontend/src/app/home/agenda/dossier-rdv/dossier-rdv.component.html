@@ -1,0 +1,41 @@
+<div class="col-lg-4">
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Dossier {{rdv?.type}} : {{rdv?.titre}}</nb-card-header>
+    </nb-card>
+</div> 
+<div class="navigation" >
+  <a style="color: rgb(63, 94, 126) ; cursor:pointer;" (click)="cancel()" class="link" aria-label="back">Retour à l'agenda<br><i style="font-size: 3rem" class="boutons" class="icon nb-arrow-thin-left"></i></a>
+</div>
+
+
+
+<br>
+<br>
+
+  
+  <div class="col-lg-12" >
+    <nb-card>
+        <nb-card-body>
+            <button status="success" nbButton (click)="openAjout()"><mat-icon>file_upload</mat-icon> joindre documents</button>
+            <br>
+            <div *ngIf="displayButtonUpload">
+                <br>
+                <span style="color: green;">Vous pouvez selectionner un ou plusieurs documents  </span><br><br>
+                <input type="file" (change)="onFileSelected($event)" multiple name="files" id=""><br>
+                <br><button size="small" status="primary" nbButton (click)="onClickUpload()" ><mat-icon>file_upload</mat-icon>upload</button>
+            </div>
+            <br>
+            <nb-progress-bar *ngIf="displayprogress" [value]="progress" [displayValue]="true" status="primary"></nb-progress-bar>
+            <br>
+            <h2>Liste des documents joints</h2>
+            <nb-list>
+                <nb-list-item *ngFor="let filename of filenames" >
+                  {{filename}} &nbsp;&nbsp;&nbsp;<button size="tiny" (click)="onClickDownload(filename)"  status="success" nbButton ><mat-icon>file_download</mat-icon>Télécharger</button>
+                  &nbsp;<button size="tiny" (click)="onClickDelete(filename)"  status="danger" nbButton ><mat-icon>delete</mat-icon>supprimer</button>
+                </nb-list-item>
+              </nb-list>
+        </nb-card-body>
+    </nb-card>
+  </div>
+
+

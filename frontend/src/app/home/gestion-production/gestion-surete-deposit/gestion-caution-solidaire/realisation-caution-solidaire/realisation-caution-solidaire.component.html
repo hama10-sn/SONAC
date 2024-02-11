@@ -1,0 +1,194 @@
+<div *ngIf="check_fonct('u_surete')">
+    <form [formGroup]="realisationForm">
+        <div class="col-lg-4">
+            <nb-card>
+                <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Réalisation caution solidaire
+                </nb-card-header>
+            </nb-card>
+        </div>
+        <br>
+        <div class="tabs">
+            <input type="radio" name="tabs" id="tabone" checked="checked">
+            <label for="tabone" class="lab">INFORMATION</label>
+            <div class="tab">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Numéro sûreté<span style="color:red;">*</span></label>
+                            <input fieldSize="small" readonly formControlName="surete_numero" type="text" nbInput
+                                fullWidth id="surete_numero">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Numéro Police<span style="color:red;">*</span></label>
+                            <input fieldSize="small" readonly formControlName="surete_numpoli" type="text" nbInput
+                                fullWidth id="surete_numpoli">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Client</label>
+                            <input fieldSize="small" readonly [value]="ClientByPolice" nbInput fullWidth id="lib">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Numéro engagement<span style="color:red;">*</span></label>
+                            <input fieldSize="small" readonly formControlName="surete_numeroengagement" type="text"
+                                nbInput fullWidth id="surete_numeroengagement">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Numéro Avenant<span style="color:red;">*</span></label>
+                            <input fieldSize="small" readonly formControlName="surete_numeroavenant" type="text" nbInput
+                                fullWidth id="surete_numeroavenant">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Numéro Acte<span style="color:red;">*</span></label>
+                            <input fieldSize="small" readonly formControlName="surete_numeroacte" type="text" nbInput
+                                fullWidth id="surete_numeroacte">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="radio" name="tabs" id="tabtwo">
+            <label for="tabtwo" class="lab">Sureté</label>
+            <div class="tab">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Type de Sureté<span style="color:red;">*</span></label>
+                            <input fieldSize="small" readonly [value]="value_typeSurete" type="text" nbInput fullWidth
+                                id="surete_typesurete">
+                            <!-- <mat-select class="form-control" [formControl]="typesCtrl" placeholder="choisir type de sureté"
+                                (selectionChange)="onChangeTypeSurete($event)" fullWidth id="surete_typesurete"
+                                #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="typesFilterCtrl" placeholderLabel="recherche..."
+                                        noEntriesFoundLabel="aucune corespondance">
+                                    </ngx-mat-select-search>
+                                </mat-option>
+    
+                                <mat-option value="{{type.id}}" *ngFor="let type of filteredTypes | async">
+                                    {{type.id}}: {{type.value}}
+                                </mat-option>
+                            </mat-select> -->
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Identification TF/Autres<span *ngIf="displaytype"
+                                    style="color:red;">*</span></label>
+                            <input readonly fieldSize="small" formControlName="surete_identificationtitre" type="text"
+                                nbInput fullWidth id="surete_identificationtitre">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Localisation</label>
+                            <!-- <span *ngIf="displaytype" style="color:red;">*</span></label> -->
+                            <input readonly fieldSize="small" formControlName="surete_localisation" type="text" nbInput
+                                fullWidth id="surete_localisation">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Adresse de géolocalisation</label>
+                            <input readonly fieldSize="small" formControlName="surete_adressegeolocalisation"
+                                type="text" nbInput fullWidth id="surete_adressegeolocalisation">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Caution solidaire<span *ngIf="displayCaution"
+                                    style="color:red;">*</span></label>
+                            <input readonly [value]="value_CautionSolidaire" fieldSize="small" type="text" nbInput
+                                fullWidth id="surete_cautionsolidaire">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Retenu déposit<span *ngIf="displaytypedepo"
+                                    style="color:red;">*</span></label>
+                            <input [readonly]="nonModifierChamps" [value]="retenuDeposit" fieldSize="small" type="text"
+                                nbInput fullWidth id="surete_retenudeposit">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Date du Déposit<span *ngIf="displaytypedepo"
+                                    style="color:red;">*</span></label>
+                            <input readonly fieldSize="small" (focusout)="onChangeFocusDateDeposit($event)"
+                                formControlName="surete_datedeposit" type="datetime-local" nbInput fullWidth
+                                id="surete_datedeposit">
+                            <!-- <div *ngIf="!verifDeposite" class="col-sm-8">
+                                <span>La date doit être comprise entre la date prise d'effet:
+                                    <span style="color:red">{{effet | date: 'dd-MM-yyyy'}}</span>
+                                    et d'echeance de la police:
+                                    <span style="color: red">{{dateEcheance | date: 'dd-MM-yyyy'}}</span>
+                                </span>
+                            </div> -->
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Montant libéré<span style="color:red;">*</span></label>
+                            <input fieldSize="small" [value]="montantLibere" type="text" nbInput fullWidth
+                                id="surete_montantlibere" (focusout)="onFocusOutEventMontantLibere($event)"
+                                [ngStyle]="{border: getColorMontantLibere()}">
+                            <div>
+                                <span *ngIf="problemeMontantLibere" style="color:red;">
+                                    Le montant à libérer doit-être inférieure au retenu déposit
+                                </span>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Déposit libéré<span style="color:red;">*</span></label>
+                            <input readonly fieldSize="small" [value]="depositLibere"
+                                formControlNam="surete_depositlibere" type="text" nbInput fullWidth
+                                id="surete_depositlibere">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Date de libération déposit<span style="color:red;">*</span></label>
+                            <input readonly fieldSize="small" formControlName="surete_dateliberation"
+                                type="datetime-local" nbInput fullWidth id="surete_dateliberation">
+                        </div>
+                    </div> -->
+                    <!-- <div class="col-sm-4" *ngIf="!nonModifierChamps">
+                        <div class="form-group">
+                            <label class="label">Caution solidaire<span *ngIf="displayCaution"
+                                    style="color:red;">*</span></label>
+                            <nb-select [(selected)]="cautionSolidaire" (selectedChange)="onChangeCaution($event)" fullWidth
+                                id="surete_cautionsolidaire">
+                                <nb-option value="{{type.id}}" *ngFor="let type of listTypeCausions">{{type.id}}:
+                                    {{type.value}}</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                -->
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <div>
+            <button nbButton status="success" (click)="submit()" [disabled]="!realisationForm.valid">Valider</button>
+            &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="check_fonct('u_surete')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

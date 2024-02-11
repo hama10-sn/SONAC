@@ -1,0 +1,149 @@
+[{
+    "CAUTIONNEMENT": 
+        {
+            "les cautions sur marches":[
+                {
+                    "garantie": "Garantie de soumission normale",
+                    "taux_prime_ht": 1 ,
+                    "frais_de_dossier": 25000,
+                    "taxes_assurances": 10,
+                    "deposit" : 0
+                },
+                {
+                    "garantie": "Garantie de soumission express",
+                    "taux_prime_ht": 1.5 ,
+                    "frais_de_dossier": 25000,
+                    "taxes_assurances": 10,
+                    "deposit" : 0
+                },
+                {
+                    "garantie": "Garantie d'avance de demarrage",
+                    "taux_prime_ht": 3 ,
+                    "frais_de_dossier": 0,
+                    "taxes_assurances": 10,
+                    "deposit" : 10
+                },
+                {
+                    "garantie": "Garantie d'avance de demarrage pour cabinet , etc",
+                    "taux_prime_ht": 3 ,
+                    "frais_de_dossier": 0,
+                    "taxes_assurances": 10,
+                    "deposit" : 10
+                },
+                {
+                    "garantie": "Garantie de bonne de execution",
+                    "taux_prime_ht": 3 ,
+                    "frais_de_dossier": 0,
+                    "taxes_assurances": 10,
+                    "deposit" : 0
+                },
+                {
+                    "garantie": "Garantie de retenue de garantie",
+                    "taux_prime_ht": 3 ,
+                    "frais_de_dossier": 0,
+                    "taxes_assurances": 10,
+                    "deposit" : 0
+                },
+                {
+                    "garantie": "Garantie definitive",
+                    "taux_prime_ht": 3 ,
+                    "frais_de_dossier": 0,
+                    "taxes_assurances": 10,
+                    "deposit" : 0
+                }
+            ],
+            "Cautions professionelles":[
+                {
+                    "garantie": "Garantie financière pour les sociétés de courtage en assurance",
+                    "taux_prime_ht": 3 ,
+                    "frais_de_dossier": 25000,
+                    "taxes_assurances": 10,
+                    "deposit" : 10
+                },
+                {
+                    "garantie": "Caution douanière / Crédit d’enlèvement",
+                    "taux_prime_ht": 5 ,
+                    "frais_de_dossier": 150000,
+                    "taxes_assurances": 10,
+                    "deposit" : 9999
+                }
+            ]
+        },
+    "ASSURANCES DU CREDIT": 
+        {
+            "KAP'GARANTI":[
+                {
+                    "garantie": "KAP’GARANTI DOMESTIQUE",
+                    "taux_prime_ht": 1 ,
+                    "frais_de_dossier": 0,
+                    "taxes_assurances": 10,
+                    "deposit" : 0,
+                    "taux1": 1,
+                    "taux2": 1.5,
+                    "taux3": 2
+                },
+                {
+                    "garantie": "KAP’GARANTI EXPORT/ Risque commercial RC (privé)",
+                    "taux_prime_ht": 0 ,
+                    "frais_de_dossier": 0,
+                    "taxes_assurances": 10,
+                    "deposit" : 0,
+                    "taux1": 0.8,
+                    "taux2": 0.9,
+                    "taux3": 1.2,
+                    "taux4": 1.4
+                },
+                {
+                    "garantie": "KAP’GARANTI EXPORT/ Risque politique RP (privé)",
+                    "taux_prime_ht": 0 ,
+                    "frais_de_dossier": 0,
+                    "taxes_assurances": 10,
+                    "deposit" : 0,
+                    "taux1": 0.8,
+                    "taux2": 0.9,
+                    "taux3": 1.3,
+                    "taux4": 1.6
+                },
+                {
+                    "garantie": "KAP’GARANTI EXPORT/ Risque mixte RC & RP (privé)",
+                    "taux_prime_ht": 0 ,
+                    "frais_de_dossier": 0,
+                    "taxes_assurances": 10,
+                    "deposit" : 0,
+                    "taux1": 1.6,
+                    "taux2": 1.8,
+                    "taux3": 2.5,
+                    "taux4": 3
+                },
+                {
+                    "garantie": "KAP’GARANTI EXPORT/ Risque politique RP (public)",
+                    "taux_prime_ht": 0 ,
+                    "frais_de_dossier": 0,
+                    "taxes_assurances": 10,
+                    "deposit" : 0,
+                    "taux1": 1.5,
+                    "taux2": 1.5,
+                    "taux3": 2,
+                    "taux4": 3
+                }
+                
+                
+            ],
+            "LOCASSUR":[
+                {
+                    "garantie": "LOCASSUR",
+                    "taux_prime_ht": 5 ,
+                    "frais_de_dossier": 0,
+                    "taxes_assurances": 10,
+                    "deposit" : 0
+                }
+            ]
+        }
+    
+        
+         
+}]
+
+
+
+

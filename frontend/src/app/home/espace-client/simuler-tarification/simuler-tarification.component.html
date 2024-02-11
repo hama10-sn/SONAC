@@ -1,0 +1,210 @@
+<nb-card-body *ngIf="displayAllError" class="example-last-child-no-b-margin">
+   
+  <nb-alert status="danger">Veuillez renseigner tous les champs obligatoires * </nb-alert>
+  
+</nb-card-body>
+<div class="col-lg-12">
+    <nb-card>
+        <nb-card-header style="font-size: 20px;color: white;text-align: center;background-color: rgb(7, 66, 124);">Simuler une tarification</nb-card-header>
+        <nb-card-body>
+          
+        <div class="row">
+            <div class="col-sm-4 ">
+                <div class="form-group">
+                    <label for="" class="label">Capital <span style="color:red;">*</span></label>
+                    <input [(ngModel)]="capital"  type="number" nbInput fullWidth   >
+                    
+                </div>
+            </div>
+            
+            
+            
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="" class="label">Type d'assurance <span style="color:red;">*</span></label>
+                  <nb-select  (selectedChange)="onChangeTypeAss($event)"  fullWidth  >                   
+                  <nb-option value="{{typeAs}}" *ngFor="let typeAs of typeAss">{{typeAs}}</nb-option>  
+                  </nb-select>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="" class="label">Catégorie <span style="color:red;">*</span></label>
+                  <nb-select  [(selected)]="nettoyageP" (selectedChange)="onChangeProduit($event)"  fullWidth  >
+                    <nb-option value="{{produit}}" *ngFor="let produit of produits">{{produit}}</nb-option>  
+                  
+                  </nb-select>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="" class="label">Produit <span style="color:red;">*</span></label>
+                  <nb-select [(selected)]="nettoyageG"  (selectedChange)="onChangeGarantie($event)"  fullWidth  >
+                    <nb-option value="{{garantie.garantie}}" *ngFor="let garantie of garanties">{{garantie.garantie}}</nb-option>  
+                  
+                  </nb-select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3 " *ngIf="displayDuree">
+            <label for="" class="label">Durée <span style="color:red;">*</span></label>
+            <nb-select  [(selected)]="nettoyage1"  fullWidth (selectedChange)="onChangeDuree($event)" >                   
+              <nb-option value="1" >Inf. ou égale à 30 jours fin de mois</nb-option> 
+              <nb-option value="1">inf.ou égale à 60 jours fin de mois</nb-option> 
+              <nb-option value="2">inf. ou égale à 90 jours fin de mois</nb-option> 
+              <nb-option value="3">Sup. à 90 jours et inf. ou égale à 180 jours </nb-option> 
+               
+              </nb-select>
+          </div>
+          <div class="col-sm-3 " *ngIf="displayType" >
+            <label for="" class="label">Type <span style="color:red;">*</span></label>
+            <nb-select [(selected)]="nettoyage2" (selectedChange)="onChangeCA($event)"  fullWidth  >  
+              <nb-option value="1">CA < 500 millions</nb-option> 
+              <nb-option value="2" >CA > 500 millions</nb-option>                   
+              <nb-option value="3">CA partiel</nb-option> 
+              <nb-option value="4">CA cas/cas</nb-option> 
+               
+              </nb-select>
+          </div>
+        </div>
+        <br><br>
+        <div>
+            <button class="cancel" nbButton status="danger" (click)="cancel()">Retour</button>
+                      &nbsp;&nbsp;<button nbButton status="success" (click)="simulation()" >Lancer la simulation</button>
+                      
+                    
+          </div>    
+        </nb-card-body>
+    </nb-card>
+</div>
+
+
+<div class="col-lg-12" *ngIf="displayPrime">
+  <nb-card>
+      <nb-card-body>
+        <div class="row">
+        <div class="col-lg-5">
+          
+        </div>
+        <div class="col-lg-4">
+          <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">Prime NETTE :</p>
+          <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">FRAIS D'ETUDE DE DOSSIER (FED) :</p>
+          <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">TAXE D'ASSURANCE :</p>
+          <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">PRIME TTC :</p>
+        </div>
+        <div class="col-lg-3" style="text-align:right ;">
+          <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;"><span >{{primeht | ngxNumberWithCommas}} F CFA</span></p>
+          <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;"><span >{{frais | ngxNumberWithCommas}} F CFA</span></p>
+          <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;"><span >{{taxeAss | ngxNumberWithCommas}} F CFA</span></p>
+          <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;"><span style="font-weight: bold;">{{primettc | ngxNumberWithCommas}} F CFA</span></p>
+        </div>
+      </div>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button nbButton status="primary" [printStyle]="" [useExistingCss]="true" printSectionId="print-section" ngxPrint >Imprimer le Devis</button>
+       </nb-card-body>
+  </nb-card>
+</div>
+
+<div class="col-lg-12" *ngIf="error">
+  <nb-card>
+      <nb-card-body>
+       <p style="font-size: 25px;padding-top: 30px;padding-bottom: 10px;color:red;">{{aDeterminer}}</p>
+      </nb-card-body>
+  </nb-card>
+</div>
+
+
+<div class="col-lg-12" id="print-section"  style="display: none;">
+  <img src="../../../../assets/images/sonac.png" width="600px" height="300px">
+  <br><br>
+  <div class="row" >
+    <div class="col-lg-3" style="float: left;width: 25%;">
+      <p>N° ACTE :</p>
+      <p>BRANCHE:</p>
+      <p>QUOTITE GARANTIE:</p>
+      <p>N°COMPTE:</p>
+      <p>REF:</p>
+    </div>
+    <div class="col-lg-4" style="float: left;width: 33.3%;">
+      <p>21/108 280/CTP B</p>
+      <p>CAUTION</p>
+      <p>&nbsp;</p>
+      <p>412 422</p>
+      <p>BALLA SY/03/09/2021 15</p>
+    </div>
+    <div class="col-lg-5" style="float: left;width: 41.6%;">
+      <p style="font-weight: bold;">ASSURE</p>
+      <p>AFRIQUE CONCEPTION DISTRIBUTION SUARL </p>
+      <p>SACRE COEUR 2 RUE SC 160 VILLA 8632 G DAKAR</p>
+      <p>&nbsp;</p>
+      <p>SENEGAL</p>
+      <p>N° CLIENT 2 242</p>
+      <p style="font-weight: bold;">BENEFICIAIRE / ACHETEUR</p>
+      <p>MSAS</p>
+    </div>
+  </div><br><br>
+  <h4 style="font-weight: bold;text-align: center;">AVIS D'EMISSION DE PRIME N° 21/236 040/CTP B</h4><br><br><br>
+  <div class="row">
+    <div class="col-lg-4" style="border-right: 1px solid gray;float: left;width: 33.3%;">
+      <p><span style="font-weight: bold;">PERIODE DU </span>03/09/2021</p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight: bold;">AU </span>02/09/2022</p>
+      <br>
+      <div style="border: 1px solid black;width: 300px;display: flex;justify-content: center;align-items: center;padding: 20px;">
+      <p style="font-weight: bold;">CAPITAL XOF <br>&nbsp;&nbsp;&nbsp; 63 639 783</p>
+      
+    </div>
+    <br>
+    <p style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Arrêté à la somme de</p>
+    <br>
+    <div style="border: 1px solid black;width: 300px;display: flex;justify-content: center;align-items: center;padding: 20px;">
+      <p style="font-style: italic;">un million deux cent quinze mille cinquante sept XOF</p>
+      
+    </div>
+    </div>
+    <div class="col-lg-8" style="float: left;width: 66.6%;">
+      <div style="display: flex;justify-content: center;align-items: center;">
+        <h4 style="font-weight: bold;">DECOMPTE DE LA PRIME</h4>
+      </div><br><br><br>
+      <div class="row">
+      <div class="col-lg-6" style="float: left;width: 50%;">
+        <p style="font-weight: bold;">PRIME NETTE :</p>
+        <p>FRAIS D'ETUDE DE DOSSIER (FED) :</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p style="font-weight: bold;">PRIME TOTALE :</p>
+        <p>TAXE D4ASSURANCE :</p>
+        <p>ARRONDI :</p>
+        <p style="font-weight: bold;">PRIME TTC XOF :</p>
+      </div>
+      <div class="col-lg-6" style="text-align:right ;float: left;width: 50%;">
+        <p style="font-weight: bold;">954 596,90 </p>
+        <p>150 000,00</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p style="font-weight: bold;">1 104 596,90</p>
+        <p>110 459,69</p>
+        <p>0,42</p>
+        <p style="font-weight: bold;">1 215 057,00</p>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="row" style="font-size: 12px;font-style: italic;">
+    <div class="col-lg-12" style="float: left;width: 100%;">
+      <br><br>
+      <p>Mode de paiement:</p>
+      <p>La facture afférente à l'acte de caution est valable pour un(01) an à partir de sa date d'émission. Passé ce délai, le donneur d'ordre reste devoir à la SONAC une prime TTC calculée au prorata par trimestre jusqu'à l'obtention de la main levée totale de caution</p>
+    </div>
+  </div>
+  <br><br><br>
+  <div class="row" style="font-weight: bold;">
+    <div class="col-lg-8" style="float: left;width: 66.6%;">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>Le chargé du dossier</u>
+    </div>
+    <div class="col-lg-4" style="float: left;width: 33.3%;">
+      &nbsp;&nbsp;&nbsp;&nbsp;<u>Le service d'Arbitrage</u>
+    </div>
+  </div>
+</div>

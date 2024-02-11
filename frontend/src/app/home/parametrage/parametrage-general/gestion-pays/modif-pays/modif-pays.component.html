@@ -1,0 +1,174 @@
+<div *ngIf="check_fonct('u_pays')">
+<form [formGroup]="modifForm"> 
+    <!--nb-card>
+        <nb-card-header>Modifier un Pays</nb-card-header>        
+        
+        <nb-card-body >
+          
+          <div class="row">
+            <div class="form-group">
+              <label  class="label">Libelle long<span style="color:red;">*</span></label>
+              <input  formControlName="pays_libellelong" [readonly]="true" value="onChangeLibele($event)"  type="text" nbInput fullWidth  id="pays_libellelong" >
+                
+            </div>  
+            <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">Numero</label>                
+              <input  formControlName="pays_code" [readonly]="true" value="listPays.find(p => p.name === event)).callingCodes" type="text" nbInput fullWidth id="pays_code" >
+            </div>
+             </div>
+              
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="" class="label">Code CIMA</label>
+                  <input  formControlName="pays_codecima" [readonly]="true" value="listPays.find(p => p.name === event)).alpha2Code" type="text" nbInput fullWidth id="pays_codecima" >
+                </div>
+              </div>
+              
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="" class="label">Devise</label>
+                <input  formControlName="pays_devise" [readonly]="true" value="listPays.find(p => p.name === country.name)).currencies[0].code)" type="text" nbInput fullWidth id="pays_devise" >
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="" class="label">Libelle Court</label>
+                <input  formControlName="pays_libellecourt" [readonly]="true" value="listPays.find(p => p.name === event)).alpha2Code" type="text" nbInput fullWidth id="pays_libellecourt" >
+              </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                  <label  class="label">Multi Devise<span style="color:red;">*</span></label>
+                  <nb-select [(selected)]="multi_devise"  (selectedChange)="onChangeDevise($event)" fullWidth id="pays_multidevise" >
+                    <nb-option value="true">OUI</nb-option>
+                    <nb-option value="false">NON</nb-option>
+                  </nb-select>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                      <label  class="label">Multi langue<span style="color:red;">*</span></label>
+                      <nb-select [(selected)]="multil_langue" (selectedChange)="onChange($event)"  fullWidth id="pays_multillangue" >
+                          <nb-option value="true">OUI</nb-option>
+                          <nb-option value="false">NON</nb-option>
+                      </nb-select>
+                  </div>
+              </div> 
+              <div class="col-sm-4">                
+                <div class="form-group">
+                    <label for="" class="label">Nationalité<span style="color:red;">*</span></label>
+                    <input formControlName="pays_nationalite" [readonly]="true" value='listPays.find(p => p.name === event)).demonym' type="text" nbInput fullWidth id="pays_nationalite" >
+                </div> 
+              </div>
+                <div class="col-sm-4"> 
+                  <div class="form-group">
+                    <label for="" class="label">Date Modification</label>
+                    <input formControlName="pays_datemodification" type="datetime-local" nbInput fullWidth id="pays_datemodification" >
+                </div> 
+              </div> 
+          </div>
+          <nb-card-footer>
+            <button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+            &nbsp;&nbsp;<button nbButton status="success" (click)="submit()" [disabled]='!modifForm.valid'>Modifier</button>
+          </nb-card-footer>
+        </nb-card-body>
+      </nb-card-->
+
+
+      
+      <div class="col-lg-4">
+        <nb-card>
+          <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Modification d'un Pays</nb-card-header>
+        </nb-card>
+      </div>   
+      
+      <br>
+      
+    <div class="tabs">
+      <input type="radio" name="tabs" id="tabone" checked="checked">
+      <label for="tabone" class="lab">INFORMATION</label>
+      <div class="tab">
+        <div class="row">
+            <div class="col-sm-2">
+              <div class="form-group">
+                <label class="label">Numero</label>                
+                <input fieldSize="small" formControlName="pays_code" [readonly]="true" value="listPays.find(p => p.name === event)).callingCodes" type="text" nbInput fullWidth id="pays_code" >
+              </div>              
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label  class="label">Libelle long<span style="color:red;">*</span></label>
+                <input  formControlName="pays_libellelong" [readonly]="true" value="onChangeLibele($event)"  type="text" nbInput fullWidth  id="pays_libellelong" >
+             </div> 
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <label for="" class="label">Code CIMA</label>
+                <input fieldSize="small" formControlName="pays_codecima" [readonly]="true" value="listPays.find(p => p.name === event)).alpha2Code" type="text" nbInput fullWidth id="pays_codecima" >
+              </div>
+            </div>
+        </div>
+        <div class="row">
+          
+          <div class="col-sm-2">
+              <div class="form-group">
+                <label for="" class="label">Devise</label>
+                <input  formControlName="pays_devise" [readonly]="true" value="listPays.find(p => p.name === country.name)).currencies[0].code)" type="text" nbInput fullWidth id="pays_devise" >
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <label for="" class="label">Libelle Court</label>
+                <input  formControlName="pays_libellecourt" [readonly]="true" value="listPays.find(p => p.name === event)).alpha2Code" type="text" nbInput fullWidth id="pays_libellecourt" >
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="" class="label">Nationalité<span style="color:red;">*</span></label>
+                <input formControlName="pays_nationalite" [readonly]="true" value='listPays.find(p => p.name === event)).demonym' type="text" nbInput fullWidth id="pays_nationalite" >
+              </div>
+          </div> 
+      </div>
+    </div>  
+      <input type="radio" name="tabs" id="tabtwo">
+      <label for="tabtwo" class="lab">Autres</label>
+      <div class="tab">
+        <div class="row">
+            <div class="col-sm-2">
+              <div class="form-group">
+                <label selected="1" class="label">Multi devise <span style="color:red;">*</span></label>
+                <nb-select [(selected)]="multi_devise"  (selectedChange)="onChangeDevise($event)" fullWidth id="pays_multidevise" >
+                  <nb-option value="true">OUI</nb-option>
+                  <nb-option value="false">NON</nb-option>
+                </nb-select>
+            </div>                      
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <label  class="label">Multil langue <span style="color:red;">*</span></label>
+                <nb-select [(selected)]="multil_langue" (selectedChange)="onChange($event)"  fullWidth id="pays_multillangue" >
+                  <nb-option value="true">OUI</nb-option>
+                  <nb-option value="false">NON</nb-option>
+              </nb-select>
+              </div>                         
+           </div>
+        </div>
+        
+    </div>        
+</div>
+      
+      <br>
+      
+      
+      <div>
+        <button nbButton status="success" (click)="submit()" [disabled]='!modifForm.valid'>Modifier</button>
+        &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+    </div>
+    </form>
+</div>
+<div *ngIf="check_fonct('u_pays')==false">
+  <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

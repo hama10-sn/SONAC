@@ -1,0 +1,40 @@
+export class Dem_Pers {
+    dem_persnum: Number;
+
+    dem_typeclientpers:String;
+    dem_typetitulaire:String;
+    dem_civilitepers: Number;
+    dem_nom: String;
+    dem_prenom: String;
+    dem_adresse1: String;
+    dem_adresse2: String;
+    dem_ville: String;
+    dem_secteuractivites: Number;
+    dem_registrecommerce: String;
+    dem_ninea:String;
+    dem_comptebancaire:String;
+    dem_telephoneprincipal:String;
+    dem_telephone2: String;
+    dem_telephonemobile: String;
+    dem_email: String;
+    dem_objetdemande: String;
+    dem_produitdemande1: Number;
+    dem_produitdemande2: Number;
+    dem_produitdemande3:Number;
+    dem_soumissionarbitrage: String;
+    dem_codeutilisateur:Number;
+    dem_datemodification: Date;
+    dem_statut: String;
+    dem_categorie: Number;
+    dem_branch: Number;
+    dem_commentaire:String;
+    dem_commentaire2:String;
+    dem_montant: number;
+    dem_marche: String;
+    list_document_valide :number[];
+    list_document_lu:String [];
+    checked : boolean=false;
+    filenames : string[];
+    dem_montant2: number;
+    dem_montant3: number;
+}

@@ -1,0 +1,47 @@
+<form [formGroup]="modifForm"> 
+    <nb-card>
+        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Changer mon mot de passe</nb-card-header>
+        
+        <nb-card-body >
+           
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Ancien mot de passe <span style="color:red;">*</span></label>
+                <input  formControlName="passwordOld"  type="password" nbInput fullWidth   >
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label  class="label">Nouveau Mot de passe <span style="color:red;">*</span></label>
+                <input formControlName="passwordNew"   type="password" nbInput fullWidth  >
+                <span style="color: green;">Huit caractères au minimum, au moins une lettre majuscule, une lettre minuscule et un chiffre, un chiffre et pas de caractère special</span>
+       
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="" class="label" >Confirmation Mot de passe <span style="color:red;">*</span></label>
+                <input   type="password" nbInput fullWidth (keyup)="checkpass($event.target.value)" >
+                <span style="color: green;" *ngIf="confirm;else unconfirm">
+                  le mot de passe est identique
+                </span>
+              </div>
+            </div>
+          </div>
+          
+          
+        
+          <nb-card-footer>
+            <button nbButton status="success" (click)="submit()" [disabled]='!disable' >Modifier</button>&nbsp;&nbsp;
+            <button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+            
+          </nb-card-footer>
+        </nb-card-body>
+      </nb-card>
+    </form>
+
+
+    <ng-template style="color: red;" #unconfirm>le mot de passe n'est pas identique</ng-template>

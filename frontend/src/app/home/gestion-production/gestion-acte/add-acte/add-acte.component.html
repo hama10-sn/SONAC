@@ -1,0 +1,235 @@
+<div *ngIf="check_fonct('c_acte')">
+    <form [formGroup]="addForm">        
+                <div class="col-lg-4">
+                    <nb-card>
+                        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Ajouter acte</nb-card-header>
+                    </nb-card>
+                </div>
+                <br>
+            <div class="tabs">
+                    <input type="radio" name="tabs" id="tabone" checked="checked">
+                    <label for="tabone" class="lab">INFORMATION</label>
+                    <div class="tab">
+                        <div class="row">
+
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label  class="label">Numero Acte<span style="color:red;">*</span></label>
+                                    <input fieldSize="small" readonly min="0" formControlName="act_numero" type="number" nbInput fullWidth id="act_numero">
+                                </div>
+                            </div> 
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label  class="label">Numero Police<span style="color:red;">*</span></label>
+                                    <mat-select class="form-control" [formControl]="policesCtrl" placeholder="choisir police"
+                                    (selectionChange)="onChangePolice($event)" fullWidth 
+                                    id="act_numeropolice" #singleSelect>
+                                     <mat-option>
+                                        <ngx-mat-select-search [formControl]="policesFilterCtrl" placeholderLabel="recherche..." 
+                      noEntriesFoundLabel="aucune corespondance ..">
+                                        </ngx-mat-select-search>
+                                    </mat-option>
+    
+                                    <mat-option 
+                                        *ngFor="let police of filteredPolices | async" value="{{police.poli_numero}}">{{police.poli_numero}}
+                                    </mat-option>
+                                </mat-select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label  class="label">Type de Garantie Offerte<span style="color:red;">*</span></label>
+                                    <!--input fieldSize="small" min="0" formControlName="act_typegarantie" type="number" nbInput fullWidth id="act_typegarantie"-->
+                                    <mat-select class="form-control" [formControl]="actesCtrl" placeholder="choisir le type"
+                                    (selectionChange)="onChangeActe($event)" fullWidth
+                                    id="act_typegarantie" #singleSelect>
+                                    <mat-option>
+                                        <ngx-mat-select-search [formControl]="actesFilterCtrl" placeholderLabel="recherche..."
+                                        noEntriesFoundLabel="aucune corespondance">
+                                        </ngx-mat-select-search>
+                                    </mat-option>
+                          
+                                    <mat-option  value="{{acte.id}}"
+                                        *ngFor="let acte of filteredActes | async">
+                                        {{acte.id}}: {{acte.value}}
+                                    </mat-option>
+                                </mat-select>
+                                </div>
+                            </div>  
+                            <div class="col-sm-3">                
+                                <div class="form-group">
+                                    <label  class="label">Type de Marché </label>             
+                                    <input fieldSize="small" formControlName="act_typemarche" type="number" nbInput fullWidth id="act_typemarche">                                  
+                                </div> 
+                            </div>   
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label  class="label">Numéro Marché Public</label>
+                                    <input fieldSize="small" min="0" formControlName="act_numeromarchepublic" type="number" nbInput fullWidth id="act_numeromarchepublic">                                   
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label  class="label">Code Interne Marché</label>
+                                    <input fieldSize="small" min="0" formControlName="act_codemarche" type="number" nbInput fullWidth id="act_codemarche">                                   
+                                </div>                   
+                            </div> 
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label  class="label">Date du Marché</label>
+                                    <input fieldSize="small" formControlName="act_datemarche" type="datetime-local" nbInput fullWidth id="act_datemarche" >
+                                </div>                   
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label  class="label">Identité Contractante<span style="color:red;">*</span></label>
+                                   <!--  <input fieldSize="small"readonly formControlName="act_idcontractante" min="0" type="number" nbInput fullWidth id="act_idcontractante">  -->                                   
+                                    <input fieldSize="small" *ngIf="displayclient" readonly [value]="ClientByPolice" min="0" type="text" nbInput fullWidth id="act_idcontractante">
+                                    <input fieldSize="small" readonly *ngIf="!displayclient" type="text" nbInput fullWidth id="clie">   
+                                </div>
+                            </div>                
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label  class="label">Identité Bénéficiaire<span style="color:red;">*</span></label>
+                                    <input fieldSize="small" *ngIf="displayclient" readonly [value]="ClientByPolice" min="0" type="text" nbInput fullWidth id="act_idbeneficiaire">
+                                    <input fieldSize="small" readonly *ngIf="!displayclient" type="text" nbInput fullWidth id="prod">                 
+                                    <!-- <mat-select class="form-control" [formControl]="beneficiairesCtrl" placeholder="choisir beneficiaire"
+                                    (selectionChange)="onChangeBeneficiaire($event)" fullWidth
+                                    id="act_idbeneficiaire" #singleSelect>
+                                    <mat-option>
+                                        <ngx-mat-select-search [formControl]="beneficiairesFilterCtrl" placeholderLabel="recherche..."
+                                        noEntriesFoundLabel="aucune corespondance">
+                                        </ngx-mat-select-search>
+                                    </mat-option>
+    
+                                    <mat-option value="{{beneficiaire.benef_Num}}"
+                                        *ngFor="let beneficiaire of filteredBeneficiaires | async">{{beneficiaire.benef_Num}}: {{beneficiaire.benef_nom}} {{beneficiaire.benef_prenoms}} {{beneficiaire.benef_denom}}
+                                    </mat-option>
+                                </mat-select> -->
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label  class="label">Identité Candidat<span style="color:red;">*</span></label>
+                                    <!--input fieldSize="small" formControlName="act_idcandidat" min="0" type="number" nbInput fullWidth id="act_idcandidat"-->
+                                    <mat-select  class="form-control" [formControl]="clientsCtrl" placeholder="choisir un client"
+                                        (selectionChange)="onChangeCandidat($event)" fullWidth
+                                        id="act_idcandidat" #singleSelect>
+                                        <mat-option>
+                                            <ngx-mat-select-search [formControl]="clientsFilterCtrl">
+                                            </ngx-mat-select-search>
+                                        </mat-option>
+
+                                        <mat-option value="{{client.clien_numero}}"
+                                            *ngFor="let client of filteredClients | async">{{client.clien_numero}}: {{client.clien_nom}} 
+                                            {{client.clien_denomination}} {{client.clien_prenom}} {{ client.clien_sigle }}
+                                        </mat-option>
+                                    </mat-select>                              
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label  class="label">Description du Marché</label>
+                                        <input fieldSize="small" formControlName="act_descriptionmarche" type="text" nbInput fullWidth id="act_descriptionmarche">                                   
+                                    </div>
+                                </div>  
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label  class="label">Capital Assuré<span style="color:red;">*</span></label>
+                                        <input fieldSize="small" formControlName="act_capitalassure" min="0" type="text" (focusout)="onFocusOutEventCapitalAssure()" nbInput fullWidth id="act_capitalassure">                                   
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label  class="label">Capital SMP</label>
+                                        <input fieldSize="small" formControlName="act_capitalsmp" (focusout)="onFocusCapital()" min="0" type="texte" nbInput fullWidth id="act_capitalsmp">                                   
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label  class="label">Capital LCI</label>
+                                        <input fieldSize="small" formControlName="act_capitallci" (focusout)="onFocusCapitallci()" min="0" type="text" nbInput fullWidth id="act_capitallci">                                   
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label  class="label">Ancien numero acte</label>
+                                        <input fieldSize="small" formControlName="act_anciennumero" min="0" type="number" nbInput fullWidth id="act_anciennumero">                                   
+                                    </div>
+                                </div>
+                                <!-- <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label  class="label">Status <span style="color:red;">*</span></label>
+                                        <nb-select (selectedChange)="onChange($event)" fullWidth id="act_status" >
+                                            <nb-option value="ACTIF">ACTIF</nb-option>
+                                            <nb-option value="NON ACTIF">NON ACTIF</nb-option>
+                                          </nb-select>
+                                    </div>
+                                </div>  -->            
+                        </div>
+                    </div>
+                    <!-- <input type="radio" name="tabs" id="tabtwo" >
+                    <label for="tabtwo" class="lab">Liste Clauses</label>
+                    <div class="tab">
+                        <div class="row">                
+                             
+
+
+
+                            <div class="row">  
+                                <nb-card>
+                                    <nb-card-body>
+                                        <div class="row">
+                                           <--  <ngx-gestion-clause></ngx-gestion-clause> ->
+                                           <table mat-table [dataSource]="dataSource" matSort>
+                                                <ng-container matColumnDef="clact_numeroclause">
+                                                  <th mat-header-cell *matHeaderCellDef mat-sort-header > Numero </th>
+                                                  <td mat-cell *matCellDef="let clause"> {{clause.clact_numeroclause}} </td>
+                                                </ng-container>
+                                                <ng-container matColumnDef="clact_type">
+                                                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Type Clause </th>
+                                                  <td mat-cell *matCellDef="let clause"> {{clause.clact_type}} </td>
+                                                </ng-container> 
+                                                <ng-container matColumnDef="clact_numlot">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro de Lot </th>
+                                                    <td mat-cell *matCellDef="let clause"> {{clause.clact_numlot}} </td>
+                                                  </ng-container> 
+                                                  <ng-container matColumnDef="choix">
+                                                    <th mat-header-cell *matHeaderCellDef > Choix </th>
+                                                    
+                                                  </ng-container>
+                                                 
+                                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                                
+                                            </table>
+                                            <mat-paginator [pageSize]="6" [pageSizeOptions]="[1, 4, 6, 10, 20]">
+                                            </mat-paginator>
+                                        </div>
+                                    </nb-card-body>
+                                </nb-card>
+                            </div> 
+    
+
+
+
+                              
+                        </div>
+                    </div> -->
+    
+            </div>
+    
+            <br>
+            <div>
+               <button nbButton status="success" (click)="submit()" [disabled]='!addForm.valid'>Ajouter</button>
+               &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()" >Annuler</button>
+                
+            </div>
+    </form>
+    </div>
+    
+    <div *ngIf="check_fonct('c_acte')==false">
+        <ngx-page-not-autoriser></ngx-page-not-autoriser>
+    </div>

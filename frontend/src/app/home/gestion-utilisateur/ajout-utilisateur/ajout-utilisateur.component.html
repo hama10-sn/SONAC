@@ -1,0 +1,235 @@
+<form [formGroup]="addForm">
+
+
+
+
+<div class="col-lg-4">
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Ajout d'un nouvel utilisateur</nb-card-header>
+    </nb-card>
+  </div>   
+
+
+
+  <nb-card-body *ngIf="displayAllError" class="example-last-child-no-b-margin">
+   
+    <nb-alert status="danger">Veuillez renseigner tous les champs obligatoires * </nb-alert>
+    
+  </nb-card-body>
+
+
+<div class="tabs">
+  <input type="radio" name="tabs" id="tabone" checked="checked">
+  <label for="tabone" class="lab">INFORMATION</label>
+  <div class="tab">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label class="label">Nom <span style="color:red;">*</span></label>
+          <input  fieldSize="small" formControlName="util_nom" #input [value]="input.value.toUpperCase()"  type="text" nbInput fullWidth  id="util_nom" >
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="" class="label">Prenom <span style="color:red;">*</span></label>
+          <input fieldSize="small" formControlName="util_prenom" type="text" nbInput fullWidth id="util_prenom" >
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+          <div class="form-group">
+            <label  class="label">Denomination</label>
+            <input fieldSize="small" formControlName="util_denomination" type="text" nbInput fullWidth id="util_denomination" >
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label for="" class="label">Sigle</label>
+            <input fieldSize="small" formControlName="util_sigle" type="text" nbInput fullWidth id="util_sigle" >
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label  class="label">Email <span style="color:red;">*</span></label>
+            <input fieldSize="small" (change)="onchangeMail()"  formControlName="util_email" type="email" nbInput fullWidth id="util_email" >
+            <div *ngIf="displayMailError">
+            <span *ngIf="!errorEmail" style="color:red;">L'email n'est pas valide</span>
+            
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label  class="label">Adresse <span style="color:red;">*</span></label>
+            <input fieldSize="small" formControlName="util_adresse" type="text" nbInput fullWidth id="util_adresse" >
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label  class="label">Telephone Portable <span style="color:red;">*</span></label>
+            <ngx-intl-tel-input (change)="onchangeNumero()"  [cssClass]="'form-control'"  [preferredCountries]="[CountryISO.Senegal]"
+                    [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                    [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                    [selectedCountryISO]="CountryISO.Senegal" [maxLength]="20"
+                    [phoneValidation]="true" [separateDialCode]="true"
+                    [numberFormat]="PhoneNumberFormat.National" id="util_telephoneportable" formControlName="util_telephoneportable">
+                  </ngx-intl-tel-input><div *ngIf="displayNumeroError">
+            <span *ngIf="!errorNumero" style="color:red;">Le numero n'est pas valide</span>
+            
+          </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label  class="label">Telephone Fixe</label>
+            <ngx-intl-tel-input (change)="onchangeNumero()"  [cssClass]="'form-control'"  [preferredCountries]="[CountryISO.Senegal]"
+                    [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                    [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                    [selectedCountryISO]="CountryISO.Senegal" [maxLength]="20"
+                    [phoneValidation]="true" [separateDialCode]="true"
+                    [numberFormat]="PhoneNumberFormat.National" id="util_telephonefixe" formControlName="util_telephonefixe">
+                  </ngx-intl-tel-input>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        
+      </div>
+  </div>
+  
+  <input type="radio" name="tabs" id="tabtwo" >
+  <label for="tabtwo" class="lab">REFERENCE</label>
+  <div class="tab">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label  class="label">Type d'Utilisateur <span style="color:red;">*</span></label>
+          <nb-select  (selectedChange)="onChangeTypeUser($event)" selected="agent" fullWidth id="util_type" >
+            <nb-option  value="agent" >Agent</nb-option>
+            <nb-option  value="client" >Client</nb-option>
+          
+          </nb-select>
+        </div>
+      </div>
+            <div class="col-sm-3" *ngIf="afficheClient">
+              <div class="form-group">
+                <label  class="label">Numero Client <span style="color:red;">*</span></label>
+                <input  fieldSize="small" (change)="onchangeClient($event)" formControlName="util_numclient" type="text" nbInput fullWidth id="util_numeroclient">
+                <div *ngIf="displayClientError">
+                <span *ngIf="!errorClient" style="color:red;">Le numero de client n'est pas valide</span>
+                <span *ngIf="errorClient" style="color:green;">Le numero de client est valide</span>
+              </div>
+              </div>
+            </div>
+            <div class="col-sm-6" *ngIf="displayDetailsClient">
+              <div>
+                <p>Nom : {{client?.clien_nom}}</p>
+                <p>Prenom : {{client?.clien_prenom}}</p>
+                <p>Adresse : {{client?.clien_adresseville}} {{client?.clien_adresserue}} {{client?.clien_adressenumero}}</p>
+                <p>Tel : {{client?.clien_telephone1}}</p>
+              </div>
+            </div>
+            
+            </div>
+            
+            
+  </div>
+  
+  <input type="radio" name="tabs" id="tabthree" *ngIf="displayOrganisation">
+  <label for="tabthree" class="lab" *ngIf="displayOrganisation">ORGANISATION</label>
+  <div class="tab">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label  class="label">Direction <span *ngIf="isAgent" style="color:red;">*</span></label>
+          <input fieldSize="small" formControlName="util_direction" type="text" nbInput fullWidth id="util_direction" >
+        </div>
+      </div>
+      <div class="col-sm-3">
+          <div class="form-group">
+            <label  class="label">Departement <span *ngIf="isAgent" style="color:red;">*</span></label>
+            <input fieldSize="small" formControlName="util_departement" type="text" nbInput fullWidth id="util_departement" >
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+        <div class="form-group">
+          <label  class="label">Service <span *ngIf="isAgent" style="color:red;">*</span></label>
+          <input fieldSize="small" formControlName="util_service" type="text" nbInput fullWidth id="util_service" >
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="label">Poste <span *ngIf="isAgent" style="color:red;">*</span></label>
+          <input fieldSize="small" formControlName="util_poste" type="text" nbInput fullWidth id="putil_oste" >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <input type="radio" name="tabs" id="tabfour">
+  <label for="tabfour" class="lab">CONNEXION</label>
+  <div class="tab">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label  class="label">Login <span style="color:red;">*</span></label>
+          <input fieldSize="small" (change)="onchangeLogin($event)" formControlName="util_login" type="text" nbInput fullWidth id="util_login" >
+          <div *ngIf="showerrorLogin">
+          
+            <span *ngIf="!errorLogin" style="color: red;">Login deja utilisé</span></div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+          <div class="form-group">
+            <label  class="label">Mot de passe <span style="color:red;">*</span></label>
+            <input fieldSize="small" (keyup)="onchangepassword()" [status]="passwordOk" formControlName="util_password" type="password" nbInput fullWidth id="util_login" >
+            <span style="color: green;">Huit caractères au minimum, au moins une lettre majuscule, une lettre minuscule , un chiffre et pas de caractère special</span>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label  class="label">Confirmation Mot de passe <span style="color:red;">*</span></label>
+            <input fieldSize="small"  [status]="passwordCOk" (keyup)="onchangepasswordC($event)"  type="password" nbInput fullWidth id="util_login" >
+            <div *ngIf="displayMDPCError">
+            <span *ngIf="isIdentique" style="color: green;">Mot de passe identique</span>
+            <span *ngIf="!isIdentique" style="color: red;">Mot de passe non identique</span>
+          </div>
+          </div>
+        </div>
+      </div>
+        <div class="row">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label  class="label">Role <span style="color:red;">*</span></label>
+            <nb-select [(selected)]="nettoyage" (selectedChange)="onChange($event)" selected="1" fullWidth id="util_role" >
+                <nb-option  *ngFor="let rol of roles" value="{{rol.nom}}" >{{rol.nom}}</nb-option>
+              
+              </nb-select>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label  class="label">Status <span style="color:red;">*</span></label>
+            <nb-select (selectedChange)="onChangeStatus($event)" fullWidth id="util_status" >
+              <nb-option value="A">Activé</nb-option>
+              <nb-option value="S">Suspendu</nb-option>
+            </nb-select>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<br>
+
+
+<div >
+ <button nbButton status="success" (click)="submit()" >Ajouter</button> &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+        
+</div>
+</form>

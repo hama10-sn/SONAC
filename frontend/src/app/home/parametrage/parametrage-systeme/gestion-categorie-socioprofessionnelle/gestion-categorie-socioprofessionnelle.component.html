@@ -1,0 +1,84 @@
+<div *ngIf="check_fonct('l_categorieSocioprofessionnelle')">
+    <mat-card>
+        <div fxLayout fxLayoutAlign="center center">
+            <mat-form-field fxFlex="40%">
+                <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+            </mat-form-field>
+            <mat-card-header class="card-header">
+                <span class="header">La liste des catégories socio-professionnelles</span>
+                <div *ngIf="check_fonct('c_categorieSocioprofessionnelle')">
+                    <button mat-icon-button class="buttons" status="success" (click)="onOpenAjout()">
+                        <mat-icon class="material-icons color_green" title="Ajouter categorie socio-professionnelle">
+                            add_circle
+                        </mat-icon>
+                    </button>
+                </div>
+            </mat-card-header>
+        </div>
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="categorie_code">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Num catégorie </th>
+                <td mat-cell *matCellDef="let categorieSociopro"> {{categorieSociopro.categs_code}} </td>
+            </ng-container>
+            <ng-container matColumnDef="categorie_libelleLong">
+                <th class="libLong" mat-header-cell *matHeaderCellDef mat-sort-header>Libellé long </th>
+                <td mat-cell *matCellDef="let categorieSociopro"> {{categorieSociopro.categs_liblong}} </td>
+            </ng-container>
+            <ng-container matColumnDef="categorie_libelleCourt">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Libellé court </th>
+                <td mat-cell *matCellDef="let categorieSociopro"> {{categorieSociopro.categs_libcourt}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="details">
+                <th mat-header-cell *matHeaderCellDef> Details </th>
+                <td mat-cell *matCellDef="let categorieSociopro">
+                    <button mat-icon-button color="primary" (click)="onOpen(dialog , categorieSociopro)">
+                        <mat-icon class="mat-18">reorder</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="update">
+                <th mat-header-cell *matHeaderCellDef>
+                    <div *ngIf="check_fonct('u_categorieSocioprofessionnelle')"> Modification </div>
+                </th>
+                <td mat-cell *matCellDef="let categorieSociopro">
+                    <div *ngIf="check_fonct('u_categorieSocioprofessionnelle')">
+                        <button mat-icon-button color="green" (click)="onOpenModif(categorieSociopro)">
+                            <mat-icon class="mat-18">edit</mat-icon>
+                        </button>
+                    </div>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+
+        <mat-paginator [pageSize]="5" [pageSizeOptions]="[1, 5, 10, 15, 20]"></mat-paginator>
+
+        <ng-template #dialog let-categorie let-ref="dialogRef">
+
+            <nb-card>
+                <nb-card-header>Détails de la categorie socio-professionnelle</nb-card-header>
+                <nb-card-body>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div><span class="detail">Code catégorie :</span>{{ categorie.categs_code }}</div><br>
+                            <div><span class="detail">Sous code rattaché :</span> {{ categorie.categs_scode }}</div><br>
+                            <div><span class="detail">Libellé long :</span> {{ categorie.categs_liblong }}</div><br>
+                            <div><span class="detail">Libellé court :</span> {{ categorie.categs_libcourt }}</div><br>
+                        </div>
+                    </div>
+                </nb-card-body>
+                <nb-card-footer>
+                    <button nbButton (click)="ref.close()" status="danger" class="btn btn-primary">Fermer</button>
+                    &nbsp;&nbsp;<button nbButton (click)="onOpenModif(categorie)" (click)="ref.close()" status="success"
+                        class="btn btn-succes">Modifier</button>
+                </nb-card-footer>
+            </nb-card>
+        </ng-template>
+    </mat-card>
+</div>
+<div *ngIf="check_fonct('l_categorieSocioprofessionnelle')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

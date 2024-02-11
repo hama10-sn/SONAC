@@ -1,0 +1,117 @@
+<div *ngIf="check_fonct('c_mainleve')">
+    <form [formGroup]="modifForm">        
+                <div class="col-lg-4">
+                    <nb-card>
+                        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Modifier une Main Levée</nb-card-header>
+                    </nb-card>
+                </div>
+                <br>
+            <div class="tabs">
+                    <input type="radio" name="tabs" id="tabone" checked="checked">
+                    <label for="tabone" class="lab">INFORMATION</label>
+                    <div class="tab">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label  class="label">Numero Police<span style="color:red;">*</span></label>
+                                    <mat-select class="form-control" disabled [formControl]="policesCtrl" placeholder="choisir police"
+                                    (selectionChange)="onChangePolice($event)" fullWidth 
+                                    id="clact_numeropolice" #singleSelect>
+                                    <mat-option>
+                                      <ngx-mat-select-search [formControl]="policesFilterCtrl" placeholderLabel="recherche..."
+                                        noEntriesFoundLabel="aucune corespondance">
+                                       </ngx-mat-select-search>
+                                    </mat-option>    
+                                    <mat-option value="{{police.poli_numero}}"
+                                        *ngFor="let police of filteredPolices | async">{{police.poli_numero}}
+                                    </mat-option>
+                                </mat-select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">                
+                                <div class="form-group">
+                                    <label  class="label">Numero Avenant<span style="color:red;">*</span></label>             
+                                    <mat-select class="form-control" disabled [formControl]="avenantsCtrl" placeholder="choisir avenant"
+                                        (selectionChange)="onChangeAvenant($event)" fullWidth 
+                                        id="engag_numeroavenant" #singleSelect>
+                                        <mat-option>
+                                            <ngx-mat-select-search [formControl]="avenantsFilterCtrl" placeholderLabel="recherche..."
+                                                noEntriesFoundLabel="aucune corespondance">
+                                            </ngx-mat-select-search>
+                                        </mat-option>        
+                                        <mat-option value="{{avenant.aven_numeroavenant}}"
+                                            *ngFor="let avenant of filteredAvenants | async">{{avenant.aven_numeroavenant}}
+                                        </mat-option>
+                                    </mat-select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label  class="label">Numero Acte<span style="color:red;">*</span></label>                                   
+                                    <mat-select class="form-control" disabled [formControl]="actesCtrl" placeholder="choisir un acte"
+                                    (selectionChange)="onChangeActe($event)" fullWidth
+                                    id="clact_numeroacte" #singleSelect>
+                                    <mat-option>
+                                        <ngx-mat-select-search [formControl]="actesFilterCtrl" placeholderLabel="recherche..."
+                                        noEntriesFoundLabel="aucune corespondance">
+                                        </ngx-mat-select-search>
+                                    </mat-option>
+    
+                                    <mat-option value="{{acte.act_numero}}"
+                                        *ngFor="let acte of filteredActes | async">{{acte.act_numero}}
+                                    </mat-option>
+                                </mat-select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label  class="label">Numero Engagement<span style="color:red;">*</span></label>                                   
+                                    <mat-select class="form-control" disabled [formControl]="engagementsCtrl" placeholder="choisir un engagement"
+                                    (selectionChange)="onChangeEngagement($event)" fullWidth
+                                    id="engag_numeroengagement" #singleSelect>
+                                    <mat-option>
+                                        <ngx-mat-select-search [formControl]="engagementsFilterCtrl" placeholderLabel="recherche..."
+                                        noEntriesFoundLabel="aucune corespondance">
+                                        </ngx-mat-select-search>
+                                    </mat-option>
+    
+                                    <mat-option value="{{engagement.engag_numeroengagement}}"
+                                        *ngFor="let engagement of filteredEngagements | async">{{engagement.engag_numeroengagement}}
+                                    </mat-option>
+                                </mat-select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="label">Numéro de Main Levée<span style="color:red;">*</span></label>
+                                    <input fieldSize="small" readonly  min="0" formControlName="mainl_nummainlevee" type="number" nbInput fullWidth id="mainl_nummainlevee">                                   
+                                </div> 
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="label">montant de la main levée<span style="color:red;">*</span></label>
+                                    <input fieldSize="small"  min="0" formControlName="mainl_mtnmainlevee" type="number" nbInput fullWidth id="mainl_mtnmainlevee">                                   
+                                </div> 
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="label">Date de la Main Levée<span style="color:red;">*</span></label>
+                                    <input fieldSize="small" formControlName="mainl_datemainlevee" type="datetime-local" nbInput fullWidth id="mainl_datemainlevee">                                   
+                                </div> 
+                            </div> 
+                                          
+                        </div>
+                    </div>
+            </div>
+    
+            <br>
+            <div>
+               <button nbButton status="success" (click)="submit()" [disabled]='!modifForm.valid'>Modifier</button>
+               &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()" >Annuler</button>                
+            </div>
+    </form>
+    </div>
+    
+    <div *ngIf="check_fonct('c_mainleve')==false">
+        <ngx-page-not-autoriser></ngx-page-not-autoriser>
+    </div>

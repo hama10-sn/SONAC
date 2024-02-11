@@ -1,0 +1,118 @@
+<div>
+    
+    <div class="col-lg-4">
+      <nb-card>
+        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">{{title}}</nb-card-header>
+      </nb-card>
+    </div>
+
+    
+    <br>
+    <div class="tabs">
+
+      <input type="radio" name="tabs" id="tabonefive" checked="checked">
+      <label for="tabonefive" class="lab">ACTE  </label>
+      <div class="tab">
+
+        
+        <!--DEBUT AVANCE DE DEMARRAGE-->
+        <form [formGroup]="addForm" >
+          <!--h5>Avance de démarrage</h5-->
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="label">Numéro police<span class="obligatoire">*</span></label><br>
+              <input  cols="30" rows="4" fieldSize="small" formControlName="acte_police" type="text" nbInput fullWidth
+              id="acte_police">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="label">Numéro condition générale<span class="obligatoire">*</span></label><br>
+              <input  cols="30" rows="4" fieldSize="small" formControlName="acte_numero_conditionsg" type="text" nbInput fullWidth
+              id="acte_numero_conditionsg">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Titre<span class="obligatoire">*</span></label><br>
+              <input  cols="30" rows="4" fieldSize="small" formControlName="acte_titre" type="text" nbInput fullWidth
+              id="acte_titre">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Numéro dossier<span class="obligatoire">*</span></label><br>
+              <input  cols="30" rows="4" fieldSize="small" formControlName="acte_dossier" type="text" nbInput fullWidth
+              id="acte_dossier">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Acheteur<span class="obligatoire">*</span></label><br>
+              <input  cols="30" rows="4" fieldSize="small" formControlName="acte_acheteur" type="text" nbInput fullWidth
+              id="acte_acheteur">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Date de la demande<span class="obligatoire">*</span></label><br>
+              <input  cols="30" rows="4" fieldSize="small" formControlName="acte_date" type="date" nbInput fullWidth
+              id="acte_date">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Objet de la vente<span class="obligatoire">*</span></label><br>
+              <input  cols="30" rows="4" fieldSize="small" formControlName="acte_objet" type="text" nbInput fullWidth
+              id="acte_objet">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Durée crédit<span class="obligatoire">*</span></label><br>
+              <input  cols="30" rows="4" fieldSize="small" formControlName="acte_duree_credit" type="number" nbInput fullWidth
+              id="acte_duree_credit">
+            </div>
+          </div>
+        </div>
+       <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Taux prime<span class="obligatoire">*</span></label><br>
+              <input  cols="30" rows="4" fieldSize="small" formControlName="acte_taux_prime" type="number" nbInput fullWidth
+              id="acte_taux_prime">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Délai de carence<span class="obligatoire">*</span></label><br>
+              <input  cols="30" rows="4" fieldSize="small" formControlName="acte_delai_carence" type="text" nbInput fullWidth
+              id="acte_delai_carence">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Sanction<span class="obligatoire">*</span></label><br>
+              <input  cols="30" rows="4" fieldSize="small" formControlName="acte_sanction" type="text" nbInput fullWidth
+              id="acte_sanction">
+            </div>
+          </div>
+        </div>
+        <div>
+          
+          <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+          &nbsp;&nbsp;<button *ngIf="!haveActe" nbButton status="success" (click)="onExportActeCredit(demandeSociete)" [disabled]='!addForm.valid'  >Exporter et enregistrer acte</button>
+          &nbsp;&nbsp;<button *ngIf="haveActe" nbButton status="success"  (click)="onExportActeCredit(demandeSociete)" [disabled]='!addForm.valid'  >Exporter et modifier acte</button>
+        </div>
+      </form>
+
+      
+
+      
+    </div>
+    

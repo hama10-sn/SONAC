@@ -1,0 +1,93 @@
+<div *ngIf="check_fonct('u_taxe')">
+
+  <form [formGroup]="modifForm">
+    <div class="col-lg-14">
+      <nb-card>
+        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Modifier une taxe</nb-card-header>
+      </nb-card>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <nb-card>
+          <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Information Taxe</nb-card-header>
+          <nb-card-body>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">code taxe</label>
+                  <input formControlName="taxe_codetaxe" type="number" [readonly]="true" nbInput fullWidth
+                    id="taxe_codetaxe">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">code branche</label>
+                  <!-- <input formControlName="taxe_branch"  type="number"  [readonly]="true" nbInput fullWidth  id="taxe_branch" > -->
+                  <input readonly [value]="onGetLibelleByBranche(codeBranche)" type="text" nbInput fullWidth
+                    id="taxe_branch">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="" class="label">code categorie</label>
+                  <!-- <input formControlName="taxe_catego" type="number" [readonly]="true" nbInput fullWidth id="taxe_catego" > -->
+                  <input readonly [value]="onGetLibelleByCategorie(codeCategorie)" type="text" nbInput fullWidth
+                    id="taxe_catego">
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">code produit</label>
+                  <!-- <input formControlName="taxe_codeproduit" type="number" [readonly]="true" nbInput fullWidth id="taxe_codeproduit"> -->
+                  <input readonly [value]="onGetLibelleByProduit(codeProduit)" type="text" nbInput fullWidth
+                    id="taxe_codeproduit">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">assiette de calcul<span class="obligatoire">*</span></label>
+                  <nb-select [(selected)]="taxeAssiet" (selectedChange)="onChangeLibeleAssiet($event)" fullWidth
+                    id="taxe_codetaxe">
+                    <nb-option value="{{assiette.id}}" *ngFor="let assiette of listTypesAssiet">{{assiette.value}}
+                    </nb-option>
+                  </nb-select>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="" class="label">taux appliquée (%)<span class="obligatoire">*</span></label>
+                  <input formControlName="taxe_txappliq" type="number" nbInput fullWidth id="taxe_txappliq">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">date de prise d'effet taxe</label>
+                  <input formControlName="taxe_dateffet" type="datetime-local" nbInput fullWidth id="taxe_dateffet">
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">date de fin d'effet taxe</label>
+                  <input formControlName="taxe_datefin" type="datetime-local" nbInput fullWidth id="taxe_datefin">
+                </div>
+                <span class="help-block" style="color: red; font-style: italic" *ngIf="problemeDate">
+                  La date de fin d'effet doit être supérieure ou égale à la date de prise d'effet
+                </span>
+              </div>
+
+            </div>
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+    <div>
+      <button nbButton status="success" (click)="submit()" [disabled]='!modifForm.valid'>Modifier</button>
+      &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+    </div>
+  </form>
+</div>
+<div *ngIf="check_fonct('u_taxe')==false">
+  <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

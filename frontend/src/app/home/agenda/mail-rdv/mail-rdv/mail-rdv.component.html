@@ -1,0 +1,153 @@
+<form [formGroup]="addForm"> 
+
+  <div class="col-lg-4">
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Envoyer un mail</nb-card-header>
+    </nb-card>
+  </div> 
+  <br>
+  <p class="aide_info">Les champs en * sont obligatoires</p>
+  <p class="paraProblemeSaisi" *ngIf="problemeEmail">L'adresse email est obligatoire</p>
+  <p class="paraProblemeSaisi" *ngIf="problemeObjet">L'objet est obligatoire</p>
+  <p class="paraProblemeSaisi" *ngIf="problemeBody">Le message est obligatoire</p>
+  
+  <div class="tabs">
+    
+    <input type="radio" name="tabs" id="tabone" checked="checked">
+    <label for="tabone" class="lab">Informations destinataire</label>
+    <div class="tab"> 
+  
+      
+        
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label class="label">Adresse Email<span style="color:red;">*</span></label>
+                        <input  formControlName="address_email"  type="text" nbInput fullWidth  id="address_email"
+                        (change)="onchangeMail()"
+                        (focusout)="onFocusOutEventEmail()"
+                                [ngStyle]="{border: getColorEmail()}">
+                    </div>
+                    <div>
+                        <p class="paraProblemeSaisi" *ngIf="errorEmail">Le format de l'adresse emial n'est pas correcte</p>
+                    </div>
+                </div>
+        </div>
+        
+        <input  formControlName="infos_user"  type="hidden" nbInput fullWidth  id="infos_user">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="label">Objet <span style="color:red;">*</span></label>
+                    <input  formControlName="objet"  type="text" nbInput fullWidth  id="objet" 
+                        (focusout)="onFocusOutEventObjet()"
+                        [ngStyle]="{border: getColorObjet()}"
+                    >
+                </div>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="taille !=0">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label class="label">Email à ajouter<span style="color:red;">*</span></label>
+                        <input  formControlName="add_email"  type="text" nbInput fullWidth  id="add_email"
+                        (change)="onchangeMailBis()"
+                        (focusout)="onFocusOutEventEmailBis()">
+                    </div>
+                  <p class="paraProblemeSaisi" *ngIf="mailDejaDansListe">Cet email est déjà dans la liste</p>  
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <br>
+                    <button nbButton status="success" (click)="onAddMail()" [disabled]='problemeMail2 || problemeMail1'>Ajouter un mail</button>
+                </div>
+            </div>
+        </div>  
+        <div class="row" *ngIf="taille !=0">
+            <div class="col-sm-12">
+                <table class="table table-bordered">
+                    <thead class="text-white">
+                        <th>email</th>
+                        <th>Action</th>
+                    </thead>
+                    <ng-container *ngFor="let mail of listMail">
+                        <tr>
+                            <td>{{mail}}</td>
+                            <td class="text-center">
+                                <button mat-icon-button color="warn" (click)="onDeleteMail(mail)"> 
+                                    <mat-icon class="mat-18">delete</mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                        
+                    </ng-container>
+                </table>
+            </div> 
+        </div>   
+    </div>   
+    
+     <input type="radio" name="tabs" id="tabtwos">
+    <label for="tabtwos" class="lab">Message<span style="color:red;">*</span></label>
+    <div class="tab">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label class="label">Message<span style="color:red;">*</span></label>
+                    <textarea rows="10" cols="120" formControlName="body"
+                    (focusout)="onFocusOutEventBody()"
+                        [ngStyle]="{border: getColorBody()}"
+                    (change)="onChangebody($event)" [(ngModel)]="texte"
+                    ></textarea>
+                    <!--ckeditor [config]="{  height: '100' }" formControlName="body"
+                    (focusout)="onFocusOutEventBody()"
+                        [ngStyle]="{border: getColorBody()}"
+                    (change)="onChangebody($event)" [(ngModel)]="texte"
+                    ></ckeditor-->
+                </div>
+            </div>
+        </div> 
+    </div>
+    <input type="radio" name="tabs" id="tabthree">
+    <label for="tabthree" class="lab">Fichier</label>
+    <div class="tab">
+        <div class="row">
+            <div class="col-sm-12">
+                <nb-card>
+                    <nb-card-body>
+                        <button status="success" nbButton (click)="openAjout()"><mat-icon>file_upload</mat-icon> joindre documents</button>
+                        <br>
+                        <div *ngIf="displayButtonUpload">
+                            <br>
+                            <span style="color: green;">Vous pouvez selectionner un ou plusieurs documents  </span><br><br>
+                            <input type="file" (change)="onFileSelected($event)" multiple name="files" id=""><br>
+                            <!--br><button size="small" status="primary" nbButton (click)="onClickUpload()" ><mat-icon>file_upload</mat-icon>upload</button-->
+                        </div>
+                        <br>
+                        <nb-progress-bar *ngIf="displayprogress" [value]="progress" [displayValue]="true" status="primary"></nb-progress-bar>
+                        <br>
+                        <h2>Liste des documents joints</h2>
+                        <nb-list>
+                            <nb-list-item *ngFor="let filename of selectedFile" >
+                              {{filename.name}}
+                            </nb-list-item>
+                          </nb-list>
+                    </nb-card-body>
+                </nb-card>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<br>
+<div>
+      
+        <button nbButton status="success" (click)="onSendEmail()"  [disabled]='!addForm.valid'>Envoyer email</button>
+        &nbsp;&nbsp;<button class="cancel" (click)="cancel()" nbButton status="danger" >Annuler</button>
+      </div>
+    
+  
+</form>

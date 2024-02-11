@@ -1,0 +1,122 @@
+<mat-card>
+    <div *ngIf="check_fonct('l_devis')">
+    <div fxLayout fxLayoutAlign="center center">
+        <mat-form-field fxFlex="40%">
+          <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+        </mat-form-field>
+        <mat-card-header class="card-header">
+          <span class="header">La liste des devis</span>   
+          <div *ngIf="check_fonct('c_devis')">
+            <button mat-icon-button  class="buttons" status="success" (click)="openAjout()">
+              <mat-icon  class="material-icons color_green"  title="Ajouter devis">add_circle</mat-icon>    
+            </button>
+          </div>  
+          </mat-card-header>
+        
+    </div>
+    
+    
+      <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="devis_numero">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Numer Devis</th>
+          <td mat-cell *matCellDef="let devis"> {{devis.devis_numero}} </td>
+        </ng-container>
+        <ng-container matColumnDef="devis_date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+            <td mat-cell *matCellDef="let devis"> {{devis.devis_date}} </td>
+          </ng-container>
+          <ng-container matColumnDef="devis_souscripteur">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Souscripteur </th>
+            <td mat-cell *matCellDef="let devis"> {{devis.devis_souscripteur}} </td>
+          </ng-container>
+          <ng-container matColumnDef="devis_objet">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Objet </th>
+            <td mat-cell *matCellDef="let devis"> {{devis.devis_objet}} </td>
+          </ng-container>
+          <ng-container matColumnDef="devis_montantttc">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Montant TTC </th>
+            <td mat-cell *matCellDef="let devis"> {{devis.devis_montantttc}} </td>
+          </ng-container>
+        <ng-container matColumnDef="details">
+          <th mat-header-cell *matHeaderCellDef > Details </th>
+          <td mat-cell *matCellDef="let devis">
+            <button mat-icon-button color="primary" (click)="open(dialog,devis)">
+                <mat-icon class="mat-18">reorder</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="update">
+            <th mat-header-cell *matHeaderCellDef> Modification </th>
+            <td mat-cell *matCellDef="let devis">
+              <div *ngIf="check_fonct('u_devis')">
+              <button mat-icon-button color="green" (click)="openModif(devis)" >
+                  <mat-icon class="mat-18">edit</mat-icon>
+              </button>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="delete">
+              <th mat-header-cell *matHeaderCellDef> Delete </th>
+              <td mat-cell *matCellDef="let devis">
+                <div *ngIf="check_fonct('d_devis')">
+                <button mat-icon-button color="warn" (click)="redirectToDelete(devis.devis_numero)">
+                    <mat-icon class="mat-18">delete</mat-icon>
+                </button>
+              </div>
+              </td>
+            </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        
+      </table>
+      <mat-paginator [pageSize]="6" [pageSizeOptions]="[1, 4, 6, 10, 20]">
+      </mat-paginator>
+    
+    
+      <ng-template #dialog let-devis let-ref="dialogRef">
+    
+        <nb-card>
+          <nb-card-header>
+            details
+          </nb-card-header>
+          <nb-card-body>
+              <button size="small" nbButton status="success" (click)="openModif(devis)">Modidier ce devis</button>
+              <br><br>
+              <div class="row">
+                  <div class="col-sm-4">
+                      <div>Numero devis : {{ devis.devis_numero }}</div><br>
+                      <div>Date devis  : {{ devis.devis_date }}</div><br>
+                      <div>Numéro de proposition : {{ devis.devis_numeroproposition }}</div><br>
+                      <div>Souscripteur/Prospect : {{ devis.devis_souscripteur }}</div><br>
+                      <div>object devis : {{ devis.devis_objet }}</div><br>
+                  </div>
+                  <div class="col-sm-4">
+                    <div>Branche : {{ devis.devis_branche }}</div><br>
+                    <div>Catégorie : {{ devis.devis_categorie }}</div><br>
+                    <div>Code utilisateur : {{ devis.codeutilisateur }}</div><br>
+                    <div>date de modification : {{ devis.devis_datemodification }}</div><br>
+                    <div>Status devis: {{ devis.devis_status }}</div><br>
+                  </div>
+                  <div class="col-sm-4">
+                      <div>Montant nette : {{ devis.devis_montantnet }}</div><br>
+                      <div>accessoires compagnie : {{ devis.devis_accessoirecompagnie }}</div><br>
+                      <div>accessoires apporteur  : {{ devis.devis_accessoireapporteur }}</div><br>
+                      <div>frais accessoires : {{ devis.devis_montantfrais }}</div><br>
+                      <div>taxes : {{ devis.devis_montanttaxe }}</div><br>
+                      <div>Montant total à payer: {{ devis.devisdevis_montantttc }}</div><br>
+                  </div>
+              </div>
+             
+          </nb-card-body>
+          <nb-card-footer>
+              <button nbButton (click)="ref.close()" status="danger">Fermer</button>
+            </nb-card-footer>
+        </nb-card>
+        
+    
+    </ng-template>
+    
+    </div>
+    </mat-card>
+    
+    

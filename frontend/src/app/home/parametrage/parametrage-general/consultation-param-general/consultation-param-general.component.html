@@ -1,0 +1,72 @@
+<div *ngIf="check_fonct('l_consultation_parametrage_generale')">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <nb-card>
+                    <button nbButton style="background-color: rgb(7, 66, 124);" (click)="onOpenBranches()">
+                        <nb-card-body>
+                            <p class="parainfo">CONSULTATION BRANCHES</p>
+                        </nb-card-body>
+                    </button>
+                </nb-card>
+            </div>
+            <div class="col">
+                <nb-card>
+                    <button nbButton style="background-color: rgb(7, 66, 124);" (click)="onOpenIntermediaires()">
+                        <nb-card-body>
+                            <p class="parainfo">CONSULTATION INTERMEDIAIRES</p>
+                        </nb-card-body>
+                    </button>
+                </nb-card>
+            </div>
+        </div>
+
+        <br><br>
+        <div class="row">
+
+            <div class="col">
+                <nb-card>
+                    <button nbButton style="background-color: rgb(7, 66, 124);" (click)="onOpenCategories()">
+                        <nb-card-body>
+                            <p class="parainfo">CONSULTATION CATEGORIES</p>
+                        </nb-card-body>
+                    </button>
+                </nb-card>
+            </div>
+            <div class="col">
+                <nb-card>
+                    <button nbButton style="background-color: rgb(7, 66, 124);" (click)="onOpenCompagnie()">
+                        <nb-card-body>
+                            <p class="parainfo">CONSULTATION COMPAGNIE</p>
+                        </nb-card-body>
+                    </button>
+                </nb-card>
+            </div>
+        </div>
+
+        <br><br>
+        <div class="row">
+            <div class="col">
+                <nb-card>
+                    <button nbButton style="background-color: rgb(7, 66, 124);" (click)="onOpenProduits()">
+                        <nb-card-body>
+                            <p class="parainfo">CONSULTATION PRODUITS</p>
+                        </nb-card-body>
+                    </button>
+                </nb-card>
+            </div>
+            <div class="col">
+                <nb-card>
+                    <button nbButton style="background-color: rgb(7, 66, 124);" (click)="onOpenReassureur()">
+                        <nb-card-body>
+                            <p class="parainfo">CONSULTATION REASSUREUR</p>
+                        </nb-card-body>
+                    </button>
+                </nb-card>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="check_fonct('l_consultation_parametrage_generale')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

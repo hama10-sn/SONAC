@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Garantie_soumission" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5440d533-5b5c-4b4d-807b-983f8b8e7f5b">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sonac_bd"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[select *from dem_pers]]>
+	</queryString>
+	<field name="dem_persnum" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="dem_persnum"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_persnum"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="actif" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="actif"/>
+		<property name="com.jaspersoft.studio.field.label" value="actif"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_adresse1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_adresse1"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_adresse1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_adresse2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_adresse2"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_adresse2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_civilitepers" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="dem_civilitepers"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_civilitepers"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_codeutilisateur" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_codeutilisateur"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_codeutilisateur"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_comptebancaire" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_comptebancaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_comptebancaire"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_datemodification" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="dem_datemodification"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_datemodification"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_email"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_ninea" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_ninea"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_ninea"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_nom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_nom"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_nom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_objetdemande" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_objetdemande"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_objetdemande"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_prenom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_prenom"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_prenom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_produitdemande1" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="dem_produitdemande1"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_produitdemande1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_produitdemande2" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="dem_produitdemande2"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_produitdemande2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_produitdemande3" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="dem_produitdemande3"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_produitdemande3"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_registrecommerce" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_registrecommerce"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_registrecommerce"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_secteuractivites" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="dem_secteuractivites"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_secteuractivites"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_soumissionarbitrage" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_soumissionarbitrage"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_soumissionarbitrage"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_statut" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_statut"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_statut"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_telephone2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_telephone2"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_telephone2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_telephonemobile" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_telephonemobile"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_telephonemobile"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_telephoneprincipal" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_telephoneprincipal"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_telephoneprincipal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_typeclientpers" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_typeclientpers"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_typeclientpers"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_typetitulaire" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="dem_typetitulaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_typetitulaire"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_ville" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_ville"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_ville"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_branch" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="dem_branch"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_branch"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_categorie" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="dem_categorie"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_categorie"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_commentaire" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_commentaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_commentaire"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="312" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="-4" width="410" height="30" uuid="ce70ce6e-3b3a-4c64-86ea-ca165f19def2"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GARANTIE DE SOUMISSION N         ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="60" width="390" height="20" uuid="54ad0f64-f8bc-49c5-8a91-76caaec41a26"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Societé Nationale d'Assurance du crédit et du Cautionnement <<SONAC - SA >>]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="60" width="170" height="20" uuid="8fd4807a-094b-48b8-a695-dd6f1fb74b79"/>
+				<text><![CDATA[compagnie d'assurance au  capital de]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="80" width="560" height="30" uuid="91938f6f-b4b0-4e4f-b004-fbcd0f9c9c57"/>
+				<text><![CDATA[3.000.000 de francs CFA entièrement libéré, régie par le code CIMA et située au 55, Rue, Wagane DIOUF, Immeuble Trianon 1er étage -BP : 3939 Dakar - SENEGAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="138" width="310" height="30" uuid="81d55794-dd9e-448d-a082-38e42725b4e4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bénéficiaire : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="170" width="230" height="30" uuid="60a5952f-fa4a-4211-8027-bb45f6887005"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="190" width="537" height="60" uuid="aef6a811-8748-4a59-973f-b63e191d4c31"/>
+				<text><![CDATA[Nous avons été informés que                                         , (ci-aprés dénommé << le candidat >>) a répondu à votre appel d'Offres N                   pour                     et vous a soumis son offre en date du 21 Décembre 2021; (ci -après dénommée << l'Offre>>) .]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="260" width="540" height="30" uuid="a3d9de77-c28b-4399-b8f5-6bda1f347501"/>
+				<text><![CDATA[En vertu des dispositions du dossier d'appel d'offres, l'Offre doit être accompagnée d'une garantie de soumission]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="-4" width="100" height="18" uuid="a7ca1f5a-5dfd-4505-87b8-64806b43515b"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CTP - S]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="312" y="-4" width="90" height="18" uuid="3d59f1f9-7394-4ffc-a691-99adc27f80c6"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_persnum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="191" width="100" height="19" uuid="cb78165e-5e63-4ef0-a048-a07f807a523b"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_prenom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="138" width="100" height="30" uuid="2f5826d7-49ef-425d-b29f-92ce88b7babc"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_nom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="47" y="170" width="156" height="21" uuid="6dbf52a0-fb62-4f87-8270-3381a976fd10"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_datemodification}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="138" width="100" height="30" uuid="26cf3003-1dbb-4ab8-9952-029097e1f9db"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_prenom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="203" y="191" width="80" height="19" uuid="6108299c-5638-4717-a487-7bd9b8de0f27"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_nom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="65" y="203" width="100" height="20" uuid="959ceb1c-6e9e-4f02-b6b7-bfd851b9f90b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_persnum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="148" y="203" width="118" height="22" uuid="6eedccaf-d554-458f-ac1f-b8dbbf592bdd"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_objetdemande}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="490" splitType="Stretch">
+			<staticText>
+				<reportElement x="8" y="10" width="140" height="28" uuid="fd0cda8f-52d9-42fa-a389-a737b4750e6a"/>
+				<text><![CDATA[A la demande du Candidat,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="11" width="370" height="27" uuid="fe7a8a67-5d01-43e2-b473-28c025cb0b58"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Société Nationale  d'Assurance du Crédit et du Cautionnement  SONAC - SA ,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="10" width="30" height="29" uuid="d8b8088a-a742-45a9-9dce-badbac002290"/>
+				<text><![CDATA[nous]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="30" width="540" height="30" uuid="9cc14272-24b9-48a3-a349-8c4d96d1f3e3"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[nous engageons par la présente, sans réserve et irrévocablement, à vous payer, toutes somme d'argent que vous pourriez réclamer dans la limite de ...........(................................................) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="43" width="100" height="17" uuid="fad978d9-6bb4-4d3e-8eab-008f49bbe7be"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Francs CFA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="70" width="552" height="370" uuid="82e9d320-d477-4ed9-af2f-7d37e35de915"/>
+				<text><![CDATA[Votre demande en paiement doit être accompagnée d'une déclaration attestant que le candidat n'a pas éxécuté une des obligations auxquelles il est tenu en vertu de l'offre ou a fait l'objet de sanction pour faute commise dans le cadre de la procédure de passation du marché conformémént au articles 148 et 149 du code des marchés publics, à savoir :                   a) s'il accepte pas les modificationsnous engageons par la présente ,sans réserve et irrévocablement, à vous payer, toutes informations  son offre suite à la correction des erreurs de calcul; ou                                                                                                                                                       b) s'il retire l'Offre pendant la période de validité qu'il a spécifiée dans la lettre de soumission de l'offre, ou                                                                                                                                                  c) si, s'étant vu notifier l'acceptation de l'Offre par l'autorité contractante avant l'expiration de cette période , il :                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="455" width="220" height="35" uuid="afd6f0e6-17e8-41e1-8bbd-4c5adc6e2b7c"/>
+				<textElement>
+					<font size="11" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Fait à Dakar , le ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="400" width="548" height="30" uuid="e0fb4b48-46cf-488d-b6f5-49f3e1db5d17"/>
+				<text><![CDATA[Cette garantie est délivrée en vertu du Code des Assurances des Etats membres de la CIMA et de l'Agrément N 002513/MFB/DMC du 18/02/2021 du Ministère des Finances et du Budget qui expire au 18/02/2022 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="360" width="548" height="30" uuid="1838f0fa-5d5a-45a5-8ee0-a74e284c5d00"/>
+				<text><![CDATA[La présente garantie est régie par les Règles uniformes de la Chambre de Commerce Internationale(CCI) relatives aux garanties sur demande , Publication CCI n 458.                            ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="270" width="547" height="60" uuid="5c5d9794-d664-4f3c-a231-d43693064f73"/>
+				<text><![CDATA[La présente garantie expire (a) si le marché est octroyé au Candidat, lorsque nous recevrons une copie du marché signé et de la garantie de bonne exécution émise en votre nom, selon les Instructions du Candidat; ou (b) si le marché n'est pas octroyé au Candidat, à la première des dates suivantes: (i) lorsque nous recevrons copie de votre notification au Candidat du nom du Candidat retenu, ou (ii) vingt-huit (28) jours après l'expiration de l'Offre.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="330" width="550" height="30" uuid="1ec6bdf6-ab4d-4cda-99d5-c25e001eca67"/>
+				<text><![CDATA[ Toute demande de paiement au titre de la présente garantie doit être reçue à cette date au plus tard.  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="210" width="550" height="60" uuid="3e83fa74-58a3-4ec2-8cce-b37187e0ba91"/>
+				<text><![CDATA[d) s'il a fait l'objet d'une sanction du comité du Réglement des Différents de l'Autorité de Régulation des Marchés publics (ARMP) ou d'une juridiction administrative compétente , conduisant à la saisie des garanties qu'il a constituées dans le cadre de la passation du marché, conformément aux articles 148 et 149 du décret N 2014-1212 du 22 Septembre 2014 portant Code des Marchés publics.   ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="164" width="528" height="46" uuid="edc555b1-34f3-462d-8847-d5866f4814e2"/>
+				<text><![CDATA[1. ne signe pas le marché ; ou                                                                                                                                                                                                                                                                                  2. ne fournit pas la garantie de bonne exécution du marché , s'il est tenu de le faire ainsi qu'il est prévu dans les instructions aux candidats ; ou                                                                ]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="380" y="456" width="100" height="30" uuid="124190fa-c0ac-4192-ae7f-c66b81bb6a8b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="346" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="declaration_menace_sinistre" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eaecab74-b54d-4d4b-b977-14447a0a08f2">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="connPostgres"/>
+	<parameter name="numeroDeclaration" class="java.lang.Long"/>
+	<parameter name="beneficiaire" class="java.lang.String"/>
+	<parameter name="beneficiaireAdresse" class="java.lang.String"/>
+	<parameter name="client" class="java.lang.String"/>
+	<parameter name="clientAdresse" class="java.lang.String"/>
+	<parameter name="numeroSinistre" class="java.lang.Long"/>
+	<parameter name="dateDeclarationSinistre" class="java.util.Date"/>
+	<parameter name="dateSurvenance" class="java.util.Date"/>
+	<parameter name="description" class="java.lang.String"/>
+	<parameter name="demandeur" class="java.lang.String"/>
+	<parameter name="option" class="java.lang.String"/>
+	<parameter name="montantGlobal" class="java.lang.Long"/>
+	<parameter name="montantLettre" class="java.lang.String"/>
+	<parameter name="montantPrincipal" class="java.lang.Long"/>
+	<parameter name="montantFrais" class="java.lang.Long"/>
+	<parameter name="montantHonoraires" class="java.lang.Long"/>
+	<parameter name="documents" class="java.lang.String"/>
+	<parameter name="acheteur" class="java.lang.String"/>
+	<parameter name="tiersRecoursDenomination" class="java.lang.String"/>
+	<parameter name="dateEdition" class="java.util.Date"/>
+	<parameter name="contrat" class="java.lang.Long"/>
+	<parameter name="branche" class="java.lang.String"/>
+	<parameter name="personneTraiteDossier" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<variable name="reference" class="java.lang.String">
+		<variableExpression><![CDATA["<b>Notre Référence<b>"]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="717">
+			<image>
+				<reportElement x="-36" y="-43" width="160" height="122" uuid="3f910c88-1ac4-464c-8542-61d8cfe06260">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[System.getProperty("user.home")+"/img/SONAC.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="350" width="554" height="50" uuid="0aeb14a2-b72e-43e7-8ea2-9883e8eea480"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[		Madame, Monsieur,
+
+		Nous accusons réception de la déclaration de sinistre concernant :
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="120" y="400" width="434" height="20" uuid="35b593c3-e287-4ee6-b8f9-d6ff7c28ce26"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{option}]]></textFieldExpression>
+			</textField>
+			<rectangle radius="15">
+				<reportElement x="209" y="-10" width="340" height="78" forecolor="#00FF00" uuid="11ce95fc-0787-4929-8c30-77346bd8c7d7"/>
+			</rectangle>
+			<textField>
+				<reportElement x="219" y="0" width="320" height="68" uuid="fc50b507-fce6-415c-8b53-ac7f8b24b53c"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Black" size="23" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DECLARATION DE SINISTRE N°: "+$P{numeroSinistre}+"".toString()]]></textFieldExpression>
+			</textField>
+			<rectangle radius="15">
+				<reportElement x="269" y="80" width="280" height="78" uuid="bbbb8be6-d9a5-4b02-8a47-8754002023d4"/>
+			</rectangle>
+			<textField>
+				<reportElement x="279" y="90" width="260" height="43" uuid="5719b6d2-d7d6-4bb9-a6ec-56fab0567aec"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Black" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Bénéficiaire : "+ $P{beneficiaire}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="133" width="260" height="25" uuid="c468f501-2190-41a9-95be-0d1afb46387e"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{beneficiaireAdresse}]]></textFieldExpression>
+			</textField>
+			<rectangle radius="10">
+				<reportElement x="-1" y="195" width="150" height="23" backcolor="#DBD9D9" uuid="3736b995-7398-4a40-86f6-fcd34441063e">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="5" y="198" width="138" height="16" uuid="a1313ff9-45fb-4343-8268-d291de19f196">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Numéro de sinistre	   :]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement x="-1" y="222" width="150" height="23" backcolor="#DBD9D9" uuid="8fa5dffc-1890-47ef-a8f6-76e21bbbf439">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="5" y="225" width="138" height="16" uuid="8c21df06-d01e-45de-a9d2-3070f84f35d4">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Date de déclaration        :]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement x="-1" y="250" width="150" height="23" backcolor="#DBD9D9" uuid="84900c3f-8a99-4c2e-bdad-a792b81b485d">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="5" y="253" width="138" height="16" uuid="9375c194-3118-4a4a-8cc2-d1762e9af63e">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Date de Survenance       :]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement x="-1" y="278" width="150" height="23" backcolor="#DBD9D9" uuid="51b7194f-3a54-439d-bece-971a0f8e903a">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="5" y="282" width="138" height="16" uuid="5e16735a-cffa-4551-a44f-0fdd22240b28">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Affaire 			   :]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement x="-1" y="315" width="150" height="23" backcolor="#DBD9D9" uuid="907399ae-d765-4b81-85eb-72402d5de5ec">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="5" y="318" width="138" height="16" uuid="92bb9077-385c-4355-a90c-d0959946fd47">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Référence traitement      : ]]></text>
+			</staticText>
+			<rectangle radius="15">
+				<reportElement x="160" y="163" width="394" height="181" uuid="a04b2630-10dc-4ebf-aa6c-29ec1edbcba2">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</rectangle>
+			<textField>
+				<reportElement mode="Opaque" x="165" y="198" width="190" height="23" backcolor="#DBD9D9" uuid="35ead950-8a63-4ba4-91d9-4136f4f1eb99">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{numeroSinistre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="165" y="225" width="190" height="23" backcolor="#DBD9D9" uuid="3f57837c-7729-4b48-bef4-6abca97d34a2">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($P{dateDeclarationSinistre})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="165" y="253" width="190" height="23" backcolor="#DBD9D9" uuid="25cfc523-8c7a-47d2-b2c7-c17df006938a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($P{dateSurvenance})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="165" y="281" width="379" height="28" backcolor="#DBD9D9" uuid="a1b17a58-3b1d-4886-b190-70db724ef708">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{description} != null ? $P{description} : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="165" y="319" width="190" height="20" backcolor="#DBD9D9" uuid="47682e63-52e8-49ee-8684-18e5cd8f1eb7">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{demandeur}]]></textFieldExpression>
+			</textField>
+			<rectangle radius="15">
+				<reportElement x="4" y="80" width="260" height="78" uuid="a52aefd7-da16-45cf-a937-92a5b7dad0c1"/>
+			</rectangle>
+			<textField>
+				<reportElement x="14" y="90" width="240" height="43" uuid="fd137b15-e87b-47b6-b441-2cd6a26a8588"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Black" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Client : "+ $P{client}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="14" y="133" width="240" height="26" uuid="97072688-a382-421f-90c5-f6a3032ffddb"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{clientAdresse}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="420" width="560" height="30" uuid="ff2684b9-ab17-467e-84cd-6bfe75e900d4"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Nous l'avons enregistré sous les références (Numéro de sinistre: "+ $P{numeroSinistre} + ") que nous vous demandons de rappeler dans toute correspondance future."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="450" width="560" height="50" uuid="16438540-2c25-44c7-a10f-b989a9028116"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Notre évaluation actuelle fait ressortir un montant de sinistre évalué à "+ new java.text.DecimalFormat("#,##0").format(Double.valueOf($P{montantGlobal})) + " FCFA ( "+$P{montantLettre} + " )".toString() + " en date de survenance se décomposant comme suit:"]]></textFieldExpression>
+			</textField>
+			<rectangle radius="15">
+				<reportElement x="-1" y="500" width="555" height="90" forecolor="#00FF00" uuid="be22eefe-8838-4cdf-99c9-c5bafe0872f6"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="288" y="510" width="80" height="19" uuid="729e7d1c-841a-4ec4-9b4a-3462ff96e499"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[FCFA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="148" y="510" width="140" height="19" uuid="07248991-4e8a-4032-89e1-4dfce2ba51f5"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0").format(Double.valueOf($P{montantPrincipal}))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="9" y="510" width="139" height="19" uuid="880aa9bb-7ac8-48da-9172-58db62038497"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Montant Principal	:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="539" width="139" height="16" uuid="14a8aecc-ec49-4038-b3c4-a388937db0e3"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Montant Frais		:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="148" y="539" width="140" height="16" uuid="0e295256-ff95-479c-8f89-d4bb47ee5567"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0").format(Double.valueOf($P{montantFrais}))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="288" y="539" width="80" height="16" uuid="cafc4038-ad06-4dd7-8762-d0f280326a72"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[FCFA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="569" width="80" height="16" uuid="bf8500d2-5607-4824-adec-89e3351bd536"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[FCFA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="148" y="569" width="140" height="16" uuid="12563622-52fa-4ec9-ae5d-3121b66f57f8"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0").format(Double.valueOf($P{montantHonoraires}))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="569" width="140" height="16" uuid="f1301541-55f3-4a01-8dfa-d8834d1c0727"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Montant honoraires	:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="590" width="553" height="86" uuid="26f753a3-e8d1-4fff-b7e4-e974bb2e65d6">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{documents} +"\n\nVous en souhaitant bonne réception  de la présente, nous vous prions d’agréer Madame, Monsieur, l’expression de nos sentiments distingués."]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="400" y="676" width="124" height="20" forecolor="#0F0202" uuid="0a4bb78b-3be1-4bcd-b817-f28460032d52"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="393" y="695" width="156" height="22" uuid="1b2cdc56-8aa4-405b-b329-2eab19cfbbe9"/>
+				<textElement>
+					<font fontName="Arial Black" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pour la compagnie]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement x="-1" y="168" width="150" height="23" backcolor="#DBD9D9" uuid="48636cd4-27dc-4991-a4f0-3f348c5036d3">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="5" y="171" width="138" height="16" uuid="c7b4a26b-26a4-493b-8e91-22064bff1494">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Notre référence	   :]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="165" y="168" width="190" height="23" backcolor="#DBD9D9" uuid="3babf736-bb2f-467f-a7cb-7de443b1d74e">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Modification évaluations"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<pageFooter>
+		<band height="85">
+			<textField>
+				<reportElement x="1" y="30" width="553" height="55" uuid="3ac3cc15-4049-488e-b699-390e57bb7baa">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Société Anonyme avec Conseil d' Administration au capital de 3.000.000.000 de francs CFA entièrement libéré \n"+
+"55, Rue Wagane DIOUF, Immeuble TRIANON - BP : 3939 Dakar (Sénégal) - Compte bancaire BOA N 0103506000/3 \n"+
+"RCCM SN-DKR 97.B.1658 - NINEA 0201707 OG3 - Tél : + 221 33 889 82 10 - Fax : + 221 33 821 36 11 \n"+
+"Email: courrier@sonac.sn - Site web : www.sonac.sn \n"+
+"Entreprise régie par le Code des Assurances de la CIMA \n"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="27" width="553" height="1" forecolor="#28148F" uuid="4734127d-570c-4931-97ea-86e0b7d31f7b">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>

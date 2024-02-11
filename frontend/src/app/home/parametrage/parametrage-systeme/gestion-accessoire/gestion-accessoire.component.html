@@ -1,0 +1,215 @@
+<div *ngIf="check_fonct('l_accessoire')">
+    <mat-card>
+        <div fxLayout fxLayoutAlign="center center">
+            <mat-form-field fxFlex="40%">
+                <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+            </mat-form-field>
+            <mat-card-header class="card-header">
+                <span class="header">La liste des accessoires</span>
+                <div *ngIf="check_fonct('c_accessoire')">
+                    <button mat-icon-button class="buttons" status="success" (click)="onOpenAjout()">
+                        <mat-icon class="material-icons color_green" title="Ajouter accessoire">add_circle</mat-icon>
+                    </button>
+                </div>
+            </mat-card-header>
+        </div>
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="acces_code">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> accessoire </th>
+                <td mat-cell *matCellDef="let accessoire"> {{accessoire.acces_code}} </td>
+            </ng-container>
+            <ng-container matColumnDef="acces_codeapporteur">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> apporteur </th>
+                <td mat-cell *matCellDef="let accessoire">
+                    {{onGetDenominationByIntermediaire(accessoire.acces_codeapporteur) }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="acces_codebranche">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> branche </th>
+                <td mat-cell *matCellDef="let accessoire"> {{onGetLibelleByBranche(accessoire.acces_codebranche)}} </td>
+            </ng-container>
+            <ng-container matColumnDef="acces_codecategorie">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> catégorie CIMA </th>
+                <td mat-cell *matCellDef="let accessoire"> {{onGetLibelleByCategorie(accessoire.acces_codecategorie)}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="acces_codeproduit">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> produit </th>
+                <td mat-cell *matCellDef="let accessoire"> {{onGetDenominationByProduit(accessoire.acces_codeproduit)}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let accessoire">
+                    <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">
+                        <mat-icon class="mat-18">more_vert</mat-icon>
+                    </button>
+                    <mat-menu #detail="matMenu">
+                        <button mat-menu-item (click)="onOpen(dialog , accessoire)">
+                            <mat-icon>visibility</mat-icon> Détail
+                        </button>
+                        <div *ngIf="check_fonct('u_accessoire')">
+                            <button mat-menu-item (click)="onOpenModif(accessoire)">
+                                <mat-icon color="primary">edit</mat-icon> Modifier
+                            </button>
+                        </div>
+                    </mat-menu>
+                </td>
+            </ng-container>
+            
+            <!-- <ng-container matColumnDef="details">
+                <th mat-header-cell *matHeaderCellDef> Details </th>
+                <td mat-cell *matCellDef="let accessoire">
+                    <button mat-icon-button color="primary" (click)="onOpen(dialog , accessoire)">
+                        <mat-icon class="mat-18">reorder</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="update">
+                <th mat-header-cell *matHeaderCellDef>
+                    <div *ngIf="check_fonct('u_accessoire')"> Modification</div>
+                </th>
+                <td mat-cell *matCellDef="let accessoire">
+                    <div *ngIf="check_fonct('u_accessoire')">
+                        <button mat-icon-button color="green" (click)="onOpenModif(accessoire)">
+                            <mat-icon class="mat-18">edit</mat-icon>
+                        </button>
+                    </div>
+                </td>
+            </ng-container> -->
+            <!-- <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef>
+                    <div *ngIf="check_fonct('d_accessoire')">Suppression</div>
+                </th>
+                <td mat-cell *matCellDef="let accessoire">
+                    <div *ngIf="check_fonct('d_accessoire')">
+                        <button mat-icon-button color="warn" (click)="onOpen(dialogdel, accessoire)">
+                            <mat-icon class="mat-18">delete</mat-icon>
+                        </button>
+                    </div>
+                </td>
+            </ng-container> -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]"></mat-paginator>
+
+        <ng-template #dialog let-accessoire let-ref="dialogRef">
+
+            <nb-card>
+                <nb-card-header>Détails de l'accessoire</nb-card-header>
+                <nb-card-body>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <h5 class="grid-h">INFO</h5>
+                            <div><span class="detail">Code :</span> {{ accessoire.acces_code }}</div><br>
+                            <div><span class="detail">Code apporteur :</span> {{ onGetCodeAndDenominationByIntermediaire(accessoire.acces_codeapporteur) }}</div>
+                            <br>
+                            <div><span class="detail">Code branche :</span> {{ onGetCodeAndLibelleByBranche(accessoire.acces_codebranche) }}</div><br>
+                            <div><span class="detail">Code catégorie :</span> {{ onGetCodeAndLibelleByCategorie(accessoire.acces_codecategorie) }}</div>
+                            <br>
+                        </div>
+                        <div class="col-sm-2">
+                            <h5 class="grid-h">Suite INFO</h5>
+                            <div><span class="detail">Code produit :</span> {{ onGetCodeAndDenominationByProduit(accessoire.acces_codeproduit) }}</div><br>
+                            <div><span class="detail">Code garantie :</span> {{ accessoire.acces_codegarantie }}</div>
+                            <br>
+                        </div>
+                        <div class="col-sm-2">
+                            <h5 class="grid-h">intervalle 1-2</h5>
+                            <div><span class="detail">intervalle 1 :</span> {{ accessoire.acces_interv1 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">intervalle 2 :</span> {{ accessoire.acces_interv2 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">compagnie :</span> {{ accessoire.acces_compagnie1 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">apporteur :</span> {{ accessoire.acces_apporteur1 | ngxNumberWithCommas}}</div><br>
+                        </div>
+                        <div class="col-sm-2">
+                            <h5 class="grid-h">intervalle 3-4</h5>
+                            <div><span class="detail">intervalle 3 :</span> {{ accessoire.acces_interv3 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">intervalle 4 :</span> {{ accessoire.acces_interv4 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">compagnie :</span> {{ accessoire.acces_compagnie2 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">apporteur :</span> {{ accessoire.acces_apporteur2 | ngxNumberWithCommas}}</div><br>
+                        </div>
+                        <div class="col-sm-2">
+                            <h5 class="grid-h">intervalle 5-6</h5>
+                            <div><span class="detail">intervalle 5 :</span> {{ accessoire.acces_interv5 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">intervalle 6 :</span> {{ accessoire.acces_interv6 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">compagnie :</span> {{ accessoire.acces_compagnie3 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">apporteur :</span> {{ accessoire.acces_apporteur3 | ngxNumberWithCommas}}</div><br>
+                        </div>
+                        <div class="col-sm-2">
+                            <h5 class="grid-h">intervalle 7-8</h5>
+                            <div><span class="detail">intervalle 7 :</span> {{ accessoire.acces_interv7 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">intervalle 8 :</span> {{ accessoire.acces_interv8 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">compagnie :</span> {{ accessoire.acces_compagnie4 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">apporteur :</span> {{ accessoire.acces_apporteur4 | ngxNumberWithCommas}}</div><br>
+                        </div>
+                        <div class="col-sm-2">
+                            <h5 class="grid-h">intervalle 9-10</h5>
+                            <div><span class="detail">intervalle 9 :</span> {{ accessoire.acces_interv9 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">intervalle 10 :</span> {{ accessoire.acces_interv10 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">compagnie :</span> {{ accessoire.acces_compagnie5 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">apporteur :</span> {{ accessoire.acces_apporteur5 | ngxNumberWithCommas}}</div><br>
+                        </div>
+                        <div class="col-sm-2">
+                            <h5 class="grid-h">intervalle 11-12</h5>
+                            <div><span class="detail">intervalle 11 :</span> {{ accessoire.acces_interv11 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">intervalle 12 :</span> {{ accessoire.acces_interv12 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">compagnie :</span> {{ accessoire.acces_compagnie6 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">apporteur :</span> {{ accessoire.acces_apporteur6 | ngxNumberWithCommas}}</div><br>
+                        </div>
+                        <div class="col-sm-2">
+                            <h5 class="grid-h">intervalle 13-14</h5>
+                            <div><span class="detail">intervalle 13 :</span> {{ accessoire.acces_interv13 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">intervalle 14 :</span> {{ accessoire.acces_interv14 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">compagnie :</span> {{ accessoire.acces_compagnie7 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">apporteur :</span> {{ accessoire.acces_apporteur7 | ngxNumberWithCommas}}</div><br>
+                        </div>
+                        <div class="col-sm-2">
+                            <h5 class="grid-h">Date</h5>
+                            <div><span class="detail">Date prise effet :</span> {{ accessoire.acces_datepriseffet |
+                                date: 'dd-MM-yyyy HH:mm:ss' }}
+                            </div><br>
+                            <div><span class="detail">Date fin effet :</span> {{ accessoire.acces_datefineffet | date:
+                                'dd-MM-yyyy HH:mm:ss' }}
+                            </div><br>
+                        </div>
+                    </div>
+                </nb-card-body>
+                <nb-card-footer>
+                    <button nbButton (click)="onOpenModif(accessoire)" (click)="ref.close()" status="success"
+                        class="btn btn-succes">Modifier</button>&nbsp;&nbsp;
+                    <button nbButton (click)="ref.close()" status="danger" class="btn btn-primary">Fermer</button>
+                </nb-card-footer>
+            </nb-card>
+        </ng-template>
+
+        <!-- Dialog de confirmation pour la suppression -->
+        <ng-template #dialogdel let-accessoire let-ref="dialogRef">
+
+            <nb-card>
+                <nb-card-header>
+                    SUPPRESSION
+                </nb-card-header>
+                <nb-card-body>
+                    <h5 class="grid-h">Merci de confirmer la suppression</h5>
+                    <div class="row">
+                        <div class="col-sm-16">
+                            <div></div><br>
+                        </div>
+                    </div>
+                </nb-card-body>
+                <nb-card-footer>
+                    <button nbButton (click)="redirectToDelete(accessoire.acces_code)" (click)="ref.close()"
+                        status="success">Confirmer</button>&nbsp;&nbsp;
+                    <button nbButton (click)="ref.close()" status="danger">Annuler</button>
+                </nb-card-footer>
+            </nb-card>
+        </ng-template>
+    </mat-card>
+</div>
+<div *ngIf="check_fonct('l_accessoire')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

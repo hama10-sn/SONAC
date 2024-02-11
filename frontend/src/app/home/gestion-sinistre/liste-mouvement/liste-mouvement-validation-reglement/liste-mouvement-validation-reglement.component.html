@@ -1,0 +1,114 @@
+<div *ngIf="check_fonct('l_sinistre')">
+  <mat-card>
+    <div fxLayout fxLayoutAlign="center center">
+      <mat-form-field fxFlex="40%">
+        <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+      </mat-form-field>
+
+      <mat-card-header class="card-header">
+        <span class="header">La liste des Mouvements de validation réglement encaissé</span>
+      </mat-card-header>
+    </div>
+
+    <table mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="mvts_poli">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro police </th>
+        <td mat-cell *matCellDef="let mvts"> {{mvts.mvts_poli}} </td>
+      </ng-container>
+      <ng-container matColumnDef="mvts_datemvt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date mouvement</th>
+        <td mat-cell *matCellDef="let mvts"> {{mvts.mvts_datemvt | date: "dd/MM/yyyy"}} </td>
+      </ng-container>
+      <ng-container matColumnDef="mvts_num">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro mouvement </th>
+        <td mat-cell *matCellDef="let mvts"> {{mvts.mvts_num}}</td>
+      </ng-container>
+      <ng-container matColumnDef="mvts_montantprincipal">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Montant principal </th>
+        <td mat-cell *matCellDef="let mvts"> {{mvts.mvts_montantprincipal | ngxNumberWithCommas}} </td>
+      </ng-container>
+      <ng-container matColumnDef="mvts_montantfrais">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Montant frais </th>
+        <td mat-cell *matCellDef="let mvts"> {{mvts.mvts_montantfrais | ngxNumberWithCommas}} </td>
+      </ng-container>
+      <ng-container matColumnDef="mvts_montanthonoraire">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Montant honoraire </th>
+        <td mat-cell *matCellDef="let mvts"> {{mvts.mvts_montanthonoraire | ngxNumberWithCommas}} </td>
+      </ng-container>
+      <ng-container matColumnDef="mvts_montantmvt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Montant global </th>
+        <td mat-cell *matCellDef="let mvts"> {{mvts.mvts_montantmvt | ngxNumberWithCommas}} </td>
+      </ng-container>
+      <ng-container matColumnDef="mvts_typemvt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Statut </th>
+        <td mat-cell *matCellDef="let mvts"> {{onGetLibelleByStatus(mvts.mvts_typemvt)}} </td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let mvts">
+          <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">
+            <mat-icon class="mat-18">more_vert</mat-icon>
+          </button>
+          <mat-menu #detail="matMenu">
+            <button mat-menu-item (click)="onOpen(dialog,mvts)">
+              <mat-icon>visibility</mat-icon> Détail
+            </button>
+          </mat-menu>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]">
+    </mat-paginator>
+    <ng-template #dialog let-mvts let-ref="dialogRef">
+      <nb-card>
+        <nb-card-header class="col-lg-12">DETAILS DU MOUVEMENT</nb-card-header>
+        <nb-card-body>
+          <div class="row">
+            <div class="col-sm-3">
+              <h5 class="grid-h">Infos Mouvement</h5>
+              <div><span class="detail">Numéro mouvement :</span>
+                {{ mvts.mvts_num }}
+              </div><br>
+              <div><span class="detail">Type mouvement :</span>
+                {{ onGetLibelleByStatus(mvts.mvts_typemvt) }}
+              </div><br>
+              <div><span class="detail">Date mouvement : </span>
+                {{ mvts.mvts_datemvt | date: "dd/MM/yyyy"}}
+              </div><br>
+              <div><span class="detail">Numéro sinistre : </span>
+                {{ mvts.mvts_numsinistre }}
+              </div><br>
+              <div><span class="detail">Police : </span>
+                {{ mvts.mvts_poli }}
+              </div><br>
+              <div><span class="detail">Bénéficiaire : </span>
+                {{ onGetBeneficiaireByCode(mvts.mvts_beneficiaire) }}
+              </div><br>
+            </div>
+
+            <div class="col-sm-3">
+              <h5 class="grid-h">Info montant</h5>
+              <div><span class="detail">Montant principal du mouvement :</span>
+                {{ mvts.mvts_montantprincipal | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">Montant frais du mouvement :</span>
+                {{ mvts.mvts_montantfrais | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">Montant honoraires du mouvement : </span>
+                {{ mvts.mvts_montanthonoraire | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">Montant globale du mouvement :</span>
+                {{mvts.mvts_montantmvt | ngxNumberWithCommas }}
+              </div><br>
+            </div>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <button nbButton (click)="ref.close()" status="danger" class="btn btn-primary">Fermer</button>
+        </nb-card-footer>
+      </nb-card>
+    </ng-template>
+  </mat-card>
+</div>

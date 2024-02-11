@@ -1,0 +1,333 @@
+<div *ngIf="check_fonct('u_acheteur')">
+    <form [formGroup]="modifForm">
+        <div class="col-sm-4">
+            <nb-card>
+                <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Modification Acheteur
+                </nb-card-header>
+            </nb-card>
+        </div>
+
+        <br>
+
+        <div class="tabs">
+            <input type="radio" name="tabs" id="tabone" checked="checked">
+            <label for="tabone" class="lab">INFORMATION</label>
+            <div class="tab">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">code achereur<span style="color:red;">*</span></label>
+                            <input fieldSize="small" [readonly]="true" formControlName="achet_numero" type="number"
+                                nbInput fullWidth id="achet_numero">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">numero client<span style="color:red;">*</span></label>
+                            <!-- [value]="cliendenom" -->
+                            <input fieldSize="small" [readonly]="true" formControlName="achet_numeroclient"
+                                type="number" nbInput fullWidth id="achet_numeroclient">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">code police<span style="color:red;">*</span></label>
+                            <input fieldSize="small" readonly formControlName="achet_numeroaffaire" type="number"
+                                nbInput fullWidth id="achet_numeroaffaire">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Type acheteur<span style="color:red;">*</span></label>
+                            <input fieldSize="small" readonly formControlName="achet_type" [readonly]="true" type="text"
+                                nbInput fullWidth id="achet_type">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">chiffre d'affaires
+                                <!-- <span style="color:red;">*</span> -->
+                            </label>
+                            <input fieldSize="small" readonly formControlName="achet_chiffreaffaire" type="text" nbInput
+                                fullWidth id="achet_chiffreaffaire">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Dénomination court
+                                <!-- <span style="color:red;">*</span> -->
+                            </label>
+                            <input fieldSize="small" readonly formControlName="achet_incidentpaiement" type="text"
+                                nbInput fullWidth id="achet_incidentpaiement">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">montant incident paiement</label>
+                            <input fieldSize="small" readonly formControlName="achet_incidentpaiement" type="text"
+                                nbInput fullWidth id="achet_incidentpaiement">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">montant paiement recuperer</label>
+                            <input fieldSize="small" readonly formControlName="achet_montantpaiementrecup" type="text"
+                                nbInput fullWidth id="achet_montantpaiementrecup">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">dispersion<span style="color:red;">*</span></label>
+                            <input fieldSize="small" formControlName="achet_dispersion" type="text" nbInput fullWidth
+                                id="achet_dispersion">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">qualite</label>
+                            <input fieldSize="small" readonly formControlName="achet_qualite" type="text" nbInput
+                                fullWidth id="achet_qualite">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">credit en cours
+                                <!-- <span style="color:red;">*</span> -->
+                            </label>
+                            <input fieldSize="small" readonly formControlName="achet_creditencours" type="text" nbInput
+                                fullWidth id="achet_creditencours">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">typologie<span style="color:red;">*</span></label>
+                            <!-- <input fieldSize="small" formControlName="achet_typologie" type="text" nbInput fullWidth id="achet_typologie" >          -->
+                            <nb-select (selectedChange)="onChangeTypologie($event)" [(selected)]="typologie" fullWidth
+                                id="reass_horsgroupe">
+                                <nb-option value="O">OUI</nb-option>
+                                <nb-option value="N">NON</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <input type="radio" name="tabs" id="tabtwo">
+            <label for="tabtwo" class="lab">Info complementaire</label>
+            <div class="tab">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">montant credit</label>
+                            <input fieldSize="small" readonly formControlName="achet_montantcredit" type="text" nbInput
+                                fullWidth id="achet_montantcredit">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">montant remboursé</label>
+                            <input fieldSize="small" readonly formControlName="achet_montantcredit" type="text" nbInput
+                                fullWidth id="achet_montantcredit">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">montant échéance</label>
+                            <input fieldSize="small" readonly formControlName="achet_montantecheance" type="text"
+                                nbInput fullWidth id="achet_montantecheance">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">nombre d'échéance crédit
+                                <!-- <span style="color:red;">*</span> -->
+                            </label>
+                            <input fieldSize="small" readonly formControlName="achet_montantecheancecredit" type="text"
+                                nbInput fullWidth id="achet_montantecheancecredit">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">nombre cheance impaye</label>
+                            <input fieldSize="small" formControlName="achet_montantecheanceimpaye" type="text" nbInput
+                                fullWidth id="achet_montantecheanceimpaye">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">montant de l'impayé</label>
+                            <input fieldSize="small" formControlName="achet_montantimpaye" type="text" nbInput fullWidth
+                                id="achet_montantimpaye">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">montant recouvre</label>
+                            <input fieldSize="small" readonly formControlName="achet_montantrecouvre" type="text"
+                                nbInput fullWidth id="achet_montantrecouvre">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">nom</label>
+                            <input fieldSize="small" readonly formControlName="achet_nom" type="text" nbInput fullWidth
+                                id="achet_nom">
+                        </div>
+                    </div>
+                    <div class="row">
+
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">prenom</label>
+                                <input fieldSize="small" readonly formControlName="achet_prenom" type="text" nbInput
+                                    fullWidth id="achet_prenom">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">compte bancaire </label>
+                                <input fieldSize="small" readonly formControlName="achet_comptebancaire" type="text"
+                                    nbInput fullWidth id="achet_comptebancaire">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">client chez institution</label>
+                                <input fieldSize="small" readonly formControlName="achet_numclien_institu" type="text"
+                                    nbInput fullWidth id="achet_numclien_institu">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Duree </label>
+                                <input fieldSize="small" readonly formControlName="achet_duree" type="number" nbInput
+                                    fullWidth id="achet_duree">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <input type="radio" name="tabs" id="tabthree">
+            <label for="tabthree" class="lab">Autre</label>
+            <div class="tab">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">avis </label>
+                            <input fieldSize="small" readonly formControlName="achet_avis" type="text" nbInput fullWidth
+                                id="achet_avis">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Date avis </label>
+                            <input fieldSize="small" readonly formControlName="achet_date_avis" type="datetime-local"
+                                nbInput fullWidth id="achet_date_avis">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">bon_commande </label>
+                            <input fieldSize="small" readonly formControlName="achet_bon_commande" type="text" nbInput
+                                fullWidth id="achet_bon_commande">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">numero facture </label>
+                            <input fieldSize="small" readonly formControlName="achet_numero_facture" type="text" nbInput
+                                fullWidth id="achet_numero_facture">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">date facture</label>
+                            <input fieldSize="small" readonly formControlName="achet_date_facture" type="datetime-local"
+                                nbInput fullWidth id="achet_date_facture">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">chiffre affaires confié</label>
+                            <input fieldSize="small" readonly formControlName="achet_chiffreaffaire_confie" type="text"
+                                nbInput fullWidth id="achet_chiffreaffaire_confie">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">type couverture</label>
+                            <input fieldSize="small" readonly formControlName="achet_typecouverture" type="text" nbInput
+                                fullWidth id="achet_typecouverture">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">bail</label>
+                            <input fieldSize="small" readonly formControlName="achet_bail" type="text" nbInput fullWidth
+                                id="achet_bail">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">duree bail</label>
+                            <input fieldSize="small" readonly formControlName="achet_duree_bail" type="number" nbInput
+                                fullWidth id="achet_duree_bail">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">montant loyer</label>
+                            <input fieldSize="small" readonly formControlName="achet_montant_loyer" type="text" nbInput
+                                fullWidth id="achet_montant_loyer">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">date debut credit</label>
+                            <input fieldSize="small" readonly formControlName="achet_date_debut_credit"
+                                type="datetime-local" nbInput fullWidth id="achet_date_debut_credit">
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <br>
+
+
+        <div>
+            <button nbButton status="success" (click)="onSubmit()" [disabled]='!modifForm.valid'>Modifier</button>
+            &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="Cancel()">Annuler</button>
+        </div>
+
+
+    </form>
+</div>
+<div *ngIf="check_fonct('u_acheteur')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

@@ -1,0 +1,219 @@
+<form [formGroup]="mySinistreForm">
+  <div class="col-lg-4">
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124); color: white">Modification menace de sinistre
+      </nb-card-header>
+    </nb-card>
+  </div>
+  <br />
+  <div class="tabs">
+    <input type="radio" name="tabs" id="tabone" checked="checked" />
+    <label for="tabone" class="lab">INFORMATION</label>
+    <div class="tab">
+      <fieldset class="fieldset" formGroupName="creditForm" *ngIf="afficherCredit">
+        <legend class="tailleLegend">Crédit</legend>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Numéro crédit</label>
+              <input readonly fieldSize="small" formControlName="credit_numero" type="number" nbInput fullWidth
+                id="credit_numero" />
+              <!-- <nb-select [(selected)]="codeCredit" (selectedChange)="onChangeCredit($event)" fullWidth
+                        id="credit_numero">
+                        <nb-option value="{{credit.credit_numero}}" *ngFor="let credit of credits">
+                            {{credit.credit_numero}}
+                        </nb-option>
+                    </nb-select> -->
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant crédit</label>
+              <input readonly fieldSize="small" [value]="montantCredit" type="text" nbInput fullWidth
+                id="credit_mtncredit" />
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Nbre écheances accordées</label>
+              <input readonly fieldSize="small" formControlName="credit_nbecheanceaccorde" type="number" nbInput
+                fullWidth id="credit_nbecheanceaccorde" />
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Nbre écheances en retard</label>
+              <input fieldSize="small" formControlName="credit_nbechenaceretard" type="number" nbInput fullWidth
+                id="credit_nbechenaceretard" (focusout)="onChangeFocusNombreEcheanceRetard($event)"
+                [ngStyle]="{ border: getColorNbreEcheanceRetard() }" />
+              <div *ngIf="erreurNbreEcheanceRetard" class="col-sm-8">
+                <span style="color: red; font-style: italic">
+                  Cette valeur ne peut pas dépasser le nombre d'échéances
+                  accordées
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Nbre écheances impayées</label>
+              <input readonly fieldSize="small" formControlName="credit_nbecheanceimpaye" type="number" nbInput
+                fullWidth id="credit_nbecheanceimpaye" />
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant menace</label>
+              <input readonly fieldSize="small" [value]="montantMenace" type="text" nbInput fullWidth />
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <br />
+      <fieldset class="fieldset" formGroupName="risque_locatifForm" *ngIf="afficherRiskLocatif">
+        <legend class="tailleLegend">Risque locatif</legend>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Numéro risque locatif</label>
+              <input readonly fieldSize="small" formControlName="riskl_numero" type="number" nbInput fullWidth
+                id="riskl_numero" />
+              <!-- <nb-select [(selected)]="codeRisqueLocatif" (selectedChange)="onChangeRisqueLocatif($event)"
+                        fullWidth id="riskl_numero">
+                        <nb-option value="{{risqueLocatif.riskl_numero}}"
+                            *ngFor="let risqueLocatif of risqueLocatifs">
+                            {{risqueLocatif.riskl_numero}}
+                        </nb-option>
+                    </nb-select> -->
+            </div>
+          </div>
+          <!-- <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="label">Acheteur</label>
+                    <input readonly fieldSize="small" [value]="acheteurChoisi" type="text" nbInput fullWidth>
+                </div>
+            </div> -->
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant Loyer</label>
+              <input readonly fieldSize="small" [value]="montantLoyer" type="text" nbInput fullWidth
+                id="riskl_mtnloyer" />
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Nbre Loyers impayés</label>
+              <input fieldSize="small" formControlName="riskl_nombreloyerimpaye" type="number" nbInput fullWidth
+                id="riskl_nombreloyerimpaye" (focusout)="onChangeFocusNombreLoyersImpayes($event)"
+                [ngStyle]="{ border: getColorNbreLoyerImpayees() }" />
+              <div *ngIf="erreurNbreLoyerImpaye" class="col-sm-8">
+                <span style="color: red; font-style: italic">
+                  Cette valeur ne peut pas dépasser 4
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant Loyers impayés</label>
+              <input readonly fieldSize="small" [value]="montantLoyerImpaye" type="text" nbInput fullWidth
+                id="riskl_mtnloyerimpaye" />
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <br />
+
+      <!--
+      <fieldset class="fieldset" formGroupName="mvtsinistreForm">
+        <legend class="tailleLegend">Evaluation</legend>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant principal</label>
+              <input
+                readonly
+                fieldSize="small"
+                [value]="montantPrincipal"
+                type="text"
+                nbInput
+                fullWidth
+                id="mvts_montantprincipal"
+                (focusout)="onChangeFocusMontantPrincipal($event)"
+                [ngStyle]="{ border: getColorMontantPrincipal() }"
+              />
+
+              // ====== A commenter
+               <input fieldSize="small" formControlName="mvts_montantprincipal" type="text" nbInput fullWidth
+                            id="mvts_montantprincipal" (focusout)="onChangeFocusMontantPrincipal($event)"
+                            [ngStyle]="{border: getColorMontantPrincipal()}">
+              // ==============
+            </div>
+
+            // ======== A commenter
+             <div *ngIf="problemeMontantPrincipalCredit" class="col-sm-8">
+                        <span style="color:red; font-style: italic;">
+                            Le montant principal doit-être inférieur ou égal au montant sinistre
+                        </span>
+                    </div>
+                    <div *ngIf="problemeMontantPrincipalRiskLocatif" class="col-sm-8">
+                        <span style="color:red; font-style: italic;">
+                            Le montant principal doit-être inférieur ou égal au montant loyer impayé
+                        </span>
+                    </div>
+                    <div *ngIf="problemeMontantPrincipalCaution" class="col-sm-8">
+                        <span style="color:red; font-style: italic;">
+                            Le montant principal doit-être inférieur ou égal au capital restant
+                        </span>
+                    </div>
+            // ===============
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant frais</label>
+              <input
+                readonly
+                fieldSize="small"
+                [value]="montantFrais"
+                type="text"
+                nbInput
+                fullWidth
+                id="mvts_montantfrais"
+                (focusout)="onChangeFocusMontantFrais($event)"
+              />
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant honoraires</label>
+              <input
+                readonly
+                fieldSize="small"
+                [value]="montantHonoraire"
+                type="text"
+                nbInput
+                fullWidth
+                id="mvts_montanthonoraire"
+                (focusout)="onChangeFocusMontantHonoraire($event)"
+              />
+            </div>
+          </div>
+        </div>
+      </fieldset> -->
+    </div>
+  </div>
+  <br />
+  <div>
+    <button nbButton status="success" (click)="onSubmit()" [disabled]="!mySinistreForm.valid || erreur">
+      Valider
+    </button>
+    &nbsp;&nbsp;<button nbButton status="danger" (click)="onCancel()">
+      Annuler
+    </button>
+  </div>
+</form>

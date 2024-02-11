@@ -1,0 +1,162 @@
+<div *ngIf="check_fonct('l_commission')">
+    <mat-card>
+        <div fxLayout fxLayoutAlign="center center">
+            <mat-form-field fxFlex="40%">
+                <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+            </mat-form-field>
+            <mat-card-header class="card-header">
+                <span class="header">La liste des commissions</span>
+                <div *ngIf="check_fonct('c_commission')">
+                    <button mat-icon-button class="buttons" status="success" (click)="onOpenAjout()">
+                        <mat-icon class="material-icons color_green" title="Ajouter commission">add_circle</mat-icon>
+                    </button>
+                </div>
+            </mat-card-header>
+        </div>
+
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="comm_code">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> commission </th>
+                <td mat-cell *matCellDef="let commission"> {{commission.comm_code}} </td>
+            </ng-container>
+            <ng-container matColumnDef="comm_codeapporteur">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> apporteur </th>
+                <td mat-cell *matCellDef="let commission"> {{onGetDenominationByIntermediaire(commission.comm_codeapporteur) }} </td>
+            </ng-container>
+            <ng-container matColumnDef="comm_codebranche">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> branche </th>
+                <td mat-cell *matCellDef="let commission"> {{onGetLibelleByBranche(commission.comm_codebranche)}} </td>
+            </ng-container>
+            <ng-container matColumnDef="comm_codecategorie">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> catégorie CIMA </th>
+                <td mat-cell *matCellDef="let commission"> {{onGetLibelleByCategorie(commission.comm_codecategorie)}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="comm_codeproduit">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> produit </th>
+                <td mat-cell *matCellDef="let commission"> {{onGetDenominationByProduit(commission.comm_codeproduit)}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let commission">
+                    <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">
+                        <mat-icon class="mat-18">more_vert</mat-icon>
+                    </button>
+                    <mat-menu #detail="matMenu">
+                        <button mat-menu-item (click)="onOpen(dialog , commission)">
+                            <mat-icon>visibility</mat-icon> Détail
+                        </button>
+                        <div *ngIf="check_fonct('u_commission')">
+                            <button mat-menu-item (click)="onOpenModif(commission)">
+                                <mat-icon color="primary">edit</mat-icon> Modifier
+                            </button>
+                        </div>
+                    </mat-menu>
+                </td>
+            </ng-container>
+
+            <!-- <ng-container matColumnDef="details">
+                <th mat-header-cell *matHeaderCellDef> Details </th>
+                <td mat-cell *matCellDef="let commission">
+                    <button mat-icon-button color="primary" (click)="onOpen(dialog , commission)">
+                        <mat-icon class="mat-18">reorder</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="update">
+                <th mat-header-cell *matHeaderCellDef>
+                    <div *ngIf="check_fonct('u_commission')">Modification</div>
+                </th>
+                <td mat-cell *matCellDef="let commission">
+                    <div *ngIf="check_fonct('u_commission')">
+                        <button mat-icon-button color="green" (click)="onOpenModif(commission)">
+                            <mat-icon class="mat-18">edit</mat-icon>
+                        </button>
+                    </div>
+                </td>
+            </ng-container> -->
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]"></mat-paginator>
+
+        <ng-template #dialog let-commission let-ref="dialogRef">
+
+            <nb-card>
+                <nb-card-header>Détails de la commission</nb-card-header>
+                <nb-card-body>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h5 class="grid-h">INFO</h5>
+                            <div><span class="detail">Code commission :</span> {{ commission.comm_code }}</div><br>
+                            <div><span class="detail">Code apporteur :</span> {{ onGetCodeAndDenominationByIntermediaire(commission.comm_codeapporteur) }}</div><br>
+                            <div><span class="detail">Code branche :</span> {{ onGetCodeAndLibelleByBranche(commission.comm_codebranche) }}</div><br>
+                            <div><span class="detail">Code catégorie :</span> {{ onGetCodeAndLibelleByCategorie(commission.comm_codecategorie) }}</div><br>
+                        </div>
+                        <div class="col-sm-3">
+                            <h5 class="grid-h">Suite INFO</h5>
+                            <div><span class="detail">Code produit :</span> {{ onGetCodeAndDenominationByProduit(commission.comm_codeproduit) }}</div><br>
+                            <div><span class="detail">Code garantie :</span> {{ commission.comm_codegarantie }}</div><br>
+                            <div><span class="detail">Type de Calcul :</span> {{ commission.comm_typecalcul }}</div><br>
+                        </div>
+                        <div class="col-sm-3">
+                            <h5 class="grid-h">intervalle 1-2</h5>
+                            <div><span class="detail">intervalle 1 :</span> {{ commission.comm_interv1 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">intervalle 2 :</span> {{ commission.comm_interv2 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">Taux de commission 1-2 :</span> {{ commission.comm_tauxcommission12 }}</div><br>
+                            <div><span class="detail">Montant forfait 1-2 :</span> {{ commission.comm_montantforfait12 | ngxNumberWithCommas}}</div><br>
+                        </div>
+                        <div class="col-sm-3">
+                            <h5 class="grid-h">intervalle 3-4</h5>
+                            <div><span class="detail">intervalle 3 :</span> {{ commission.comm_interv3 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">intervalle 4 :</span> {{ commission.comm_interv4 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">Taux de commission 3-4 :</span> {{ commission.comm_tauxcommission34 }}</div><br>
+                            <div><span class="detail">Montant forfait 3-4 :</span> {{ commission.comm_montantforfait34 | ngxNumberWithCommas}}</div><br>
+                        </div>
+                        <div class="col-sm-3">
+                            <h5 class="grid-h">intervalle 5-6</h5>
+                            <div><span class="detail">intervalle 5 :</span> {{ commission.comm_interv5 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">intervalle 6 :</span> {{ commission.comm_interv6 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">Taux de commission 5-6 :</span> {{ commission.comm_tauxcommission56 }}</div><br>
+                            <div><span class="detail">Montant forfait 5-6 :</span> {{ commission.comm_montantforfait56 | ngxNumberWithCommas}}</div><br>
+                        </div>
+                        <div class="col-sm-3">
+                            <h5 class="grid-h">intervalle 7-8</h5>
+                            <div><span class="detail">intervalle 7 :</span> {{ commission.comm_interv7 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">intervalle 8 :</span> {{ commission.comm_interv8 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">Taux de commission 7-8 :</span> {{ commission.comm_tauxcommission78 }}</div><br>
+                            <div><span class="detail">Montant forfait 7-8 :</span> {{ commission.comm_montantforfait78 | ngxNumberWithCommas}}</div><br>
+                        </div>
+                        <div class="col-sm-3">
+                            <h5 class="grid-h">intervalle 9-10</h5>
+                            <div><span class="detail">intervalle 9 :</span> {{ commission.comm_interv9 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">intervalle 10 :</span> {{ commission.comm_interv10 | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">Taux de commission 9-10 :</span> {{ commission.comm_tauxcommission910 }}</div><br>
+                            <div><span class="detail">Montant forfait 9-10 :</span> {{ commission.comm_montantforfait910 | ngxNumberWithCommas}}</div><br>
+                        </div>
+                        <div class="col-sm-3">
+                            <h5 class="grid-h">Date</h5>
+                            <div><span class="detail">Date prise effet :</span> {{ commission.comm_datepriseffet | date: 'dd-MM-yyyy HH:mm:ss' }}
+                            </div><br>
+                            <div><span class="detail">Date fin effet :</span> {{ commission.comm_datefineffet | date: 'dd-MM-yyyy HH:mm:ss' }}
+                            </div><br>
+                        </div>
+                    </div>
+                </nb-card-body>
+                <nb-card-footer>
+                    <button nbButton (click)="onOpenModif(commission)" (click)="ref.close()"
+                        status="success" class="btn btn-succes">Modifier</button>&nbsp;&nbsp;
+                    <button nbButton (click)="ref.close()" status="danger" class="btn btn-primary">Fermer</button>
+                </nb-card-footer>
+            </nb-card>
+        </ng-template>
+    </mat-card>
+</div>
+<div *ngIf="check_fonct('l_commission')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

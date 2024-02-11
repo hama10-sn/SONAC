@@ -1,0 +1,100 @@
+<div *ngIf="check_fonct('l_pleins')">
+    <mat-card>
+        <div fxLayout fxLayoutAlign="center center">
+            <mat-form-field fxFlex="40%">
+                <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+            </mat-form-field>
+            <mat-card-header class="card-header">
+                <span class="header">{{ title }}</span>
+                <div *ngIf="check_fonct('c_pleins')">
+                    <button mat-icon-button class="buttons" status="success" (click)="onAddPleins()">
+                        <mat-icon class="material-icons color_green" title="Ajouter pleins">add_circle</mat-icon>
+                    </button>
+                </div>
+            </mat-card-header>
+        </div>
+
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="pleins_exercice">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> EXERCICE </th>
+                <td mat-cell *matCellDef="let pleins"> {{pleins.pleins_exercice}} </td>
+            </ng-container>
+            <ng-container matColumnDef="pleins_branche">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> BRANCHE </th>
+                <td mat-cell *matCellDef="let pleins"> {{onGetLibelleByBranche(pleins.pleins_branche)}} </td>
+            </ng-container>
+            <ng-container matColumnDef="pleins_categorie">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> CATEGORIE </th>
+                <td mat-cell *matCellDef="let pleins"> {{onGetLibelleByCategorie(pleins.pleins_categorie)}} </td>
+            </ng-container>
+            <ng-container matColumnDef="pleins_produit">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> PRODUIT </th>
+                <td mat-cell *matCellDef="let pleins"> {{onGetLibelleByProduit(pleins.pleins_produit)}} </td>
+            </ng-container>
+            <ng-container matColumnDef="pleins_capacite">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> MONTANT CAPACITE </th>
+                <td mat-cell *matCellDef="let pleins"> {{pleins.pleins_capacite | ngxNumberWithCommas}} </td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let pleins">
+                    <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">
+                        <mat-icon class="mat-18">more_vert</mat-icon>
+                    </button>
+                    <mat-menu #detail="matMenu">
+                        <button mat-menu-item (click)="onOpen(dialog , pleins)">
+                            <mat-icon>visibility</mat-icon> Détail
+                        </button>
+                        <div *ngIf="check_fonct('u_pleins')">
+                            <button mat-menu-item (click)="onUpdatePleins(pleins)">
+                                <mat-icon color="primary">edit</mat-icon> Modifier
+                            </button>
+                        </div>
+                    </mat-menu>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]"></mat-paginator>
+
+        <ng-template #dialog let-pleins let-ref="dialogRef" class="agrandir">
+            <nb-card>
+                <nb-card-header>DETAILS PLEINS</nb-card-header>
+                <nb-card-body>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h5 class="grid-h">INFO 1</h5>
+                            <div><span class="detail">Exercice :</span> {{ pleins.banq_codebanque }}</div><br>
+                            <div><span class="detail">Branche :</span> {{onGetLibelleByBranche(pleins.pleins_branche)}}</div><br>
+                            <div><span class="detail">Catégorie :</span> {{onGetLibelleByCategorie(pleins.pleins_categorie)}}</div><br>
+                            <div><span class="detail">Produit :</span> {{onGetLibelleByProduit(pleins.pleins_produit)}}</div><br>
+
+                            <br><br><br><br><br><br>
+                        </div>
+                        <div class="col-sm-6">
+                            <h5 class="grid-h">INFO 2</h5>
+                            <div><span class="detail">Montant capacité :</span> {{ pleins.pleins_capacite | ngxNumberWithCommas }}</div><br>
+                            <div><span class="detail">Open cover 1 :</span> {{pleins.pleins_opcover1}}</div><br>
+                            <div><span class="detail">Open cover 2 :</span> {{pleins.pleins_opcover2}}</div><br>
+                            <div><span class="detail">Date création :</span> {{ pleins.pleins_datecreation | date:
+                                'dd-MM-yyyy HH:mm:ss'}}
+                            </div>
+                            <br><br><br><br><br><br>
+                        </div>
+                    </div>
+                </nb-card-body>
+                <nb-card-footer>
+                    <button nbButton (click)="onUpdatePleins(pleins)" (click)="ref.close()" status="success"
+                        class="btn btn-succes">Modifier</button>&nbsp;&nbsp;
+                    <button nbButton (click)="ref.close()" status="danger" class="btn btn-primary">Fermer</button>
+                </nb-card-footer>
+            </nb-card>
+        </ng-template>
+    </mat-card>
+</div>
+<div *ngIf="check_fonct('l_pleins')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

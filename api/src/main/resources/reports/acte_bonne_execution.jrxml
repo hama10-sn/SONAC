@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="acte_avance_demarrage" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3989ed85-d099-4db7-b28e-215510327390">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="titre" class="java.lang.String"/>
+	<parameter name="dao" class="java.lang.String"/>
+	<parameter name="beneficiaire" class="java.lang.String"/>
+	<parameter name="date" class="java.lang.String"/>
+	<parameter name="client" class="java.lang.String"/>
+	<parameter name="adresse_client" class="java.lang.String"/>
+	<parameter name="numero_marche" class="java.lang.String"/>
+	<parameter name="date_info" class="java.lang.String"/>
+	<parameter name="description_travaux" class="java.lang.String"/>
+	<parameter name="montant_demande" class="java.lang.String"/>
+	<parameter name="montant_lettre" class="java.lang.String"/>
+	<parameter name="numero_compte" class="java.lang.String"/>
+	<parameter name="banque" class="java.lang.String"/>
+	<parameter name="numero_agrement" class="java.lang.String"/>
+	<parameter name="date_expiration" class="java.lang.String"/>
+	<parameter name="lots" class="java.lang.String"/>
+	<parameter name="date_fin_garantie" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="781" splitType="Stretch">
+			<textField>
+				<reportElement x="30" y="10" width="490" height="30" uuid="7c269b7e-2892-45d9-be2f-9e963b97a29e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["GARANTIE DE BONNE EXECUTION - N°"+$P{titre}+"CTP – B"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="80" width="360" height="20" uuid="9af14a91-6e29-4844-9cbe-5fb3cf593a15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Société Nationale d’Assurances du Crédit et du Cautionnement « SONAC » SA » ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="80" width="134" height="20" uuid="95773c05-db8f-4bb5-8f98-283345c33f1b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12"/>
+				</textElement>
+				<text><![CDATA[- Compagnie d’Assurances au ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="100" width="494" height="30" uuid="83419beb-3611-431b-a203-fd631d681abd"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Narrow" size="12"/>
+				</textElement>
+				<text><![CDATA[capital de 3.000.000.000 de Francs CFA entièrement libéré, régie par le Code CIMA et située au 55, Rue Wagane DIOUF, Immeuble Trianon 1er étage – BP : 3939 - Dakar – SENEGAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="140" width="70" height="20" uuid="3917f9af-2227-45ed-812b-246feb64d3c1"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Narrow" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bénéficiaire :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="140" width="424" height="40" uuid="36340603-8efb-4c2b-9efc-6603f3d38b7d"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Narrow" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{beneficiaire}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="190" width="30" height="20" uuid="dc7144d3-d385-4a14-90d7-23ffd3ae5eab"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="60" y="190" width="464" height="20" uuid="e847ee30-13a0-433d-927b-a1b73f70442d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="424" y="630" width="100" height="61" uuid="b59e3462-ee51-4557-a1da-f6f515e62ae1"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Le Directeur Général 
+                                                                                                                     
+                                                                                                                                                                         
+       Gora MANGANE
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="354" y="580" width="70" height="30" uuid="c7c6f0d3-21d6-48fa-8285-6ab426eb8a86"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12"/>
+				</textElement>
+				<text><![CDATA[Fait à Dakar, le]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="424" y="580" width="100" height="30" uuid="f5ec5759-c35c-4809-bac2-5eb80f2f88a3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("EEE,d MMM , yyyy").format(new Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="220" width="494" height="350" uuid="b671d422-98ad-4c73-bf46-6612655b8c43"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Nous avons été informés que "+$P{client}.toString()+" –"+$P{adresse_client}.toString()+" ; (ci-après dénommé « le Titulaire ») a conclu avec vous, le Marché N° "+$P{numero_marche}+" en date du "+$P{date_info}+"  relatif au  "+$P{description_travaux}+"; (ci-après dénommé « le Marché ») :\n"+
+
+"\n"+$P{lots}+"\n"+
+
+"\nA la demande du Titulaire, nous Société Nationale d’Assurance du Crédit et du Cautionnement « SONAC – SA », nous engageons par la présente, à vous payer, toutes sommes d’argent que vous pourriez réclamer dans la limite de "+$P{montant_demande}+" "+"("+$P{montant_lettre}+") Francs CFA. Votre demande en paiement doit être accompagnée d’une déclaration attestant que le Candidat ne se conforme pas aux conditions du Marché. \n"+
+
+"\nLa présente garantie expire au plus tard le "+$P{date_fin_garantie}+", et toute demande de paiement au titre de la présente garantie doit être reçue à cette date au plus tard.\n"+
+
+"\nLa présente garantie est régie par les Règles uniformes de la Chambre de Commerce Internationale (CCI) relatives aux garanties sur demande, Publication CCI n° 458.\n"+
+
+"\nCette garantie est délivrée en vertu du Code des Assurances des Etats membres de la CIMA et de l’Agrément N°"+$P{numero_agrement}+" du 14/02/2019 du Ministère de l’Economie, des Finances et du Plan qui expire au "+$P{date_expiration}+"."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="50" width="490" height="20" uuid="1ec1ce33-3b59-4adc-950b-f7f847431aa9"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DAO N°"+$P{dao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

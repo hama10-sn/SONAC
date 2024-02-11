@@ -1,0 +1,123 @@
+
+<div *ngIf="check_fonct('l_cimacodificationcompagnie')">
+  <mat-card>
+<div fxLayout fxLayoutAlign="center center">
+    <mat-form-field fxFlex="60%">
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+    </mat-form-field>
+  </div>
+    <mat-card-header class="card-header">
+      <span class="header">La liste des codes CIMA</span>  
+      <div *ngIf="check_fonct('c_cimacodificationcompagnie')">
+        <button mat-icon-button  class="buttons" status="success" (click)="openAjout()">
+            <mat-icon style="margin-bottom: 15px;" class="material-icons color_green"  title="Ajouter cima_compagnie">add_circle</mat-icon>    
+          </button>
+        </div>  
+      </mat-card-header>
+    
+ 
+  
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> id </th>
+      <td mat-cell *matCellDef="let cimaCompagne"> {{cimaCompagne.id}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="code_cima_compagnie">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> code cima </th>
+      <td mat-cell *matCellDef="let cimaCompagne"> {{cimaCompagne.code_cima_compagnie}}</td>
+    </ng-container>
+    <ng-container matColumnDef="denomination">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Denomination </th>
+      <td mat-cell *matCellDef="let cimaCompagne"> {{cimaCompagne.denomination}}</td>
+    </ng-container>
+    <!-- <ng-container matColumnDef="details">
+      <th mat-header-cell *matHeaderCellDef > Details </th>
+      <td mat-cell *matCellDef="let cimaCompagne">
+        <button mat-icon-button color="primary" (click)="open(dialog ,cimaCompagne)">
+            <mat-icon class="mat-18">reorder</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="update">
+        <div *ngIf="check_fonct('u_cimacodificationcompagnie')">
+        <th mat-header-cell *matHeaderCellDef> Modification </th>
+        </div>
+        <td mat-cell *matCellDef="let cimaCompagne">
+          <div *ngIf="check_fonct('u_cimacodificationcompagnie')">
+            <button mat-icon-button color="green" (click)="openModif(cimaCompagne)">
+                <mat-icon class="mat-18">edit</mat-icon>
+            </button>
+        </div>
+        </td>
+      </ng-container> -->
+      
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef>        
+          <div *ngIf="check_fonct('l_cimacodificationcompagnie')"> Action </div>        
+        </th>        
+        <td mat-cell *matCellDef="let cimaCompagne">        
+          <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">        
+            <mat-icon class="mat-18">more_vert</mat-icon>        
+          </button>        
+          <mat-menu #detail="matMenu">        
+            <button mat-menu-item color="primary" (click)="open(dialog ,cimaCompagne)">        
+              <mat-icon>reorder</mat-icon>Détail        
+            </button>
+            <div *ngIf="check_fonct('u_cimacodificationcompagnie')">
+            <button mat-menu-item (click)="openModif(cimaCompagne)" >        
+              <mat-icon color="primary">edit         
+              </mat-icon>Modification        
+            </button>
+          </div>  
+          </mat-menu>        
+        </td>        
+      </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+  </table>
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]">
+  </mat-paginator>
+  
+  
+    <ng-template #dialog let-cimaCompagne let-ref="dialogRef">
+  
+            <nb-card>
+              <nb-card-header>
+                Details de CIMA Compognie
+              </nb-card-header>
+              <nb-card-body>
+                  <h5 class="grid-h">Information</h5>
+                  <div class="row">
+                      <div class="col-sm-20">
+                          <div><span class="detail">ID  :</span> {{ cimaCompagne.id }}</div><br>
+                          
+                      </div>                      
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-20">
+                        <div><span class="detail">Code  :</span> {{ cimaCompagne.code_cima_compagnie }}</div><br>
+                    </div>                      
+                </div>
+                <div class="row">
+                  <div class="col-sm-20">
+                      <div><span class="detail">Denomination  :</span> {{ cimaCompagne.denomination }}</div><br>
+                  </div>                      
+              </div>
+              </nb-card-body>
+              <nb-card-footer>                
+                  <button nbButton (click)="ref.close()" status="danger">Fermer</button>&nbsp;&nbsp;                  
+                    <button nbButton status="success" (click)="openModif(cimaCompagne)" (click)="ref.close()"><div *ngIf="check_fonct('u_cima')">modifier</div></button>                 
+                </nb-card-footer>
+            </nb-card>
+            
+  
+    </ng-template>
+
+</mat-card>
+</div>
+        
+<div *ngIf="check_fonct('l_cimacodificationcompagnie')==false">
+  <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

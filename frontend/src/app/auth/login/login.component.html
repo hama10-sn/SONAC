@@ -1,0 +1,71 @@
+<h1 id="title"  style="display: inline-flex !important;width: 100%;"><img src="../assets/images/sonac.png" alt="" style="margin-left: -250px;"><img style="margin-top: 55px;margin-left: 400px;" src="../assets/images/logo.jpg" alt="" width="300" height="80"></h1>
+
+
+<nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
+  <p class="alert-title"><b>Oh !</b></p>
+  <ul class="alert-message-list">
+    <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
+  </ul>
+</nb-alert>
+
+<nb-alert *ngIf="showMessages.success && messages?.length && !submitted" outline="success" role="alert">
+  <p class="alert-title"><b>Bravo !</b></p>
+  <ul class="alert-message-list">
+    <li *ngFor="let message of messages" class="alert-message">{{ message }}</li>
+  </ul>
+</nb-alert>
+
+<form (ngSubmit)="login()" #form="ngForm" aria-labelledby="title">
+
+  <div class="form-control-group">
+    <label class="label" for="input-email">Nom d'utilisateur:</label>
+    <input nbInput
+           fullWidth
+           [(ngModel)]="user.util_login"
+           #email="ngModel"
+           name="email"
+           id="input-email"
+           
+           placeholder="Nom d'utilisateur"
+           fieldSize="large"
+           autofocus
+           >
+    
+  </div>
+
+  <div class="form-control-group">
+    <span class="label-with-link">
+      <label class="label" for="input-password">Mot de passe:</label>
+     
+    </span>
+    <input nbInput
+           fullWidth
+           [(ngModel)]="user.util_password"
+           #password="ngModel"
+           name="password"
+           type="password"
+           id="input-password"
+           placeholder="Mot de passe"
+           fieldSize="large"
+           >
+    
+  </div>
+  <div class="form-control-group accept-group">
+    <!-- <nb-checkbox name="rememberMe" [(ngModel)]="user.rememberMe" *ngIf="rememberMe">Remember me</nb-checkbox> -->
+    <a class="forgot-password" routerLink="/auth/request-password"><span style="color: rgb(13, 0, 128);">mot de passe oublié </span></a>
+  </div>
+  
+
+  <button nbButton
+          fullWidth
+          status="primary"
+          size="large"
+          [disabled]="submitted || !form.valid"
+          [class.btn-pulse]="submitted">
+    Se connecter
+  </button>
+</form>
+
+
+
+

@@ -1,0 +1,112 @@
+<div *ngIf="check_fonct21('u_role')">
+<mat-card>
+<div fxLayout fxLayoutAlign="center center">
+    <mat-form-field fxFlex="40%">
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+    </mat-form-field>
+  </div>
+  <mat-card-header class="card-header">
+    <span class="header">Gabarit du rôle: {{ name_role }}</span>    
+    </mat-card-header>
+
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="entite">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Entite </th>
+        <td mat-cell *matCellDef="let fonctionnalite"> {{fonctionnalite.entite}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="creer">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Creation </th>
+        <td mat-cell *matCellDef="let fonctionnalite"> <nb-checkbox  [checked]="check_fonct(fonctionnalite.creer)" value="{{fonctionnalite.creer}}" status="success" (change)="onSelection_fonctionnalite($event,fonctionnalite.creer)"></nb-checkbox> </td>
+        
+      </ng-container>
+    
+      <ng-container matColumnDef="modif">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Modification </th>
+        <td mat-cell *matCellDef="let fonctionnalite"><nb-checkbox [checked]="check_fonct(fonctionnalite.modif)" value="{{fonctionnalite.modif}}" status="warning" (change)="onSelection_fonctionnalite($event,fonctionnalite.modif)"></nb-checkbox>  </td>
+      </ng-container>
+
+      <ng-container matColumnDef="listing">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> lister </th>
+        <td mat-cell *matCellDef="let fonctionnalite"><nb-checkbox [checked]="check_fonct(fonctionnalite.listing)" value="{{fonctionnalite.listing}}" status="basic" (change)="onSelection_fonctionnalite($event,fonctionnalite.listing)"></nb-checkbox> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="sup">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Supprimer </th>
+        <td mat-cell *matCellDef="let fonctionnalite"><nb-checkbox [checked]="check_fonct(fonctionnalite.sup)" value="{{fonctionnalite.sup}}" status="danger" (change)="onSelection_fonctionnalite($event,fonctionnalite.sup)"></nb-checkbox></td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+  </table>
+  <br> 
+  <button nbButton status="warning" (click)="onAjout()">Sauvegarder</button> 
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <button nbButton class="pull-right" status="danger" (click)="onAnnuler()">Annuler</button>
+  
+  <mat-paginator [pageSize]="6" [pageSizeOptions]="[1, 4, 6, 10, 20]">
+  </mat-paginator>
+  
+  
+    <ng-template #dialog let-fonctionnalite let-ref="dialogRef">
+  
+            <nb-card>
+              <nb-card-header>
+                details
+              </nb-card-header>
+              <nb-card-body>
+                  <h5 class="grid-h">Information generale</h5>
+                  <div class="row">
+                      <div class="col-sm-16">
+                          <div>Entite : {{ fonctionnalite.entite }}</div><br>
+                          <div>Listing  : {{ fonctionnalite.listing }}</div><br>
+                         
+                      </div>
+                 
+                  </div>
+                  
+                 
+              </nb-card-body>
+              <nb-card-footer>
+                  <button nbButton (click)="ref.close()" status="danger">Fermer</button>
+                </nb-card-footer>
+            </nb-card>
+            
+  
+    </ng-template>
+
+
+    <ng-template #dialogdel let-fonctionnalite let-ref="dialogRef">
+  
+      <nb-card>
+        <nb-card-header>
+          SUPPRESSION
+        </nb-card-header>
+        <nb-card-body>
+            <h5 class="grid-h">Merci de confirmer la suppression</h5>
+            <div class="row">
+                <div class="col-sm-16">
+                    <div></div><br>
+                  
+                   
+                </div>
+           
+            </div>
+            
+           
+        </nb-card-body>
+        <nb-card-footer>
+          <button nbButton (click)="onDeleteFonctionnalite(fonctionnalite.id)" (click)="ref.close()" status="success">Confirmer</button>
+            <button nbButton (click)="ref.close()" status="danger">Annuler</button>
+          </nb-card-footer>
+      </nb-card>
+      
+
+</ng-template>
+</mat-card>
+</div>
+<div *ngIf="check_fonct21('u_role')==false">
+  <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

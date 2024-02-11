@@ -1,0 +1,78 @@
+/**
+ * Tabs
+ */
+ .tabs {
+	display: flex;
+	flex-wrap: wrap; // make sure it wraps
+}
+.tabs .lab {
+	order: 1; // Put the labels first
+	display: block;
+	padding: 1rem 2rem;
+	margin-right: 0.2rem;
+    margin-bottom: 0;
+	cursor: pointer;
+    color: white;
+  background: rgb(7, 66, 124);
+  font-weight: bold;
+  transition: background ease 0.2s;
+   border-top-left-radius: 20px;
+   border-top-right-radius: 20px;
+
+}
+.tabs .tab {
+  order: 99; // Put the tabs last
+  flex-grow: 1;
+	width: 100%;
+	display: none;
+  padding: 1rem;
+  background: #fff;
+  //border-radius: 10px;
+}
+.tabs input[type="radio"] {
+	display: none;
+}
+.tabs input[type="radio"]:checked + label {
+	background: #fff;
+    color: rgb(7, 66, 124);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+.tabs input[type="radio"]:checked + label + .tab {
+	display: block;
+}
+
+@media (max-width: 45em) {
+  .tabs .tab,
+  .tabs label {
+    order: initial;
+  }
+  .tabs label {
+    width: 100%;
+    margin-right: 0;
+    margin-top: 0.2rem;
+  }
+}
+.paraProblemeSaisi{
+  color: red;
+  font-style: italic;
+}
+.aide_info{
+    color: green;
+    font-style: italic;
+    font-weight: bold;
+  }
+  thead{
+    background: rgb(7, 66, 124);
+  }
+
+
+
+
+
+
+
+
+
+
+

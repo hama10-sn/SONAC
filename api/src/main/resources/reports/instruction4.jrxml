@@ -1,0 +1,768 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="instructioncredit" pageWidth="595" pageHeight="3000" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0e5b1400-df2e-48f4-9dbe-6d4d836f3b97">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Dataset1" uuid="6548fd87-6dcc-4237-acae-1854aaaca4e1">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="nom" class="java.lang.String"/>
+		<field name="prenom" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="demandeur" class="java.lang.String"/>
+	<parameter name="raisonsociale" class="java.lang.String"/>
+	<parameter name="anneerelation" class="java.lang.String"/>
+	<parameter name="soumission" class="java.lang.String"/>
+	<parameter name="avancedemarrage" class="java.lang.String"/>
+	<parameter name="bonneexcution" class="java.lang.String"/>
+	<parameter name="retenuegarantie" class="java.lang.String"/>
+	<parameter name="nomgerant" class="java.lang.String"/>
+	<parameter name="definitive" class="java.lang.String"/>
+	<parameter name="cmttotale" class="java.lang.String"/>
+	<parameter name="soumissionencours" class="java.lang.String"/>
+	<parameter name="avancedemarrageencours" class="java.lang.String"/>
+	<parameter name="bonneexecutionencours" class="java.lang.String"/>
+	<parameter name="retenuegarantieencours" class="java.lang.String"/>
+	<parameter name="definitiveencours" class="java.lang.String"/>
+	<parameter name="cmttotaleencours" class="java.lang.String"/>
+	<parameter name="policenumero" class="java.lang.String"/>
+	<parameter name="denomminationsociale" class="java.lang.String"/>
+	<parameter name="objetavenant" class="java.lang.String"/>
+	<parameter name="datesoucription" class="java.lang.String"/>
+	<parameter name="beneficiaire" class="java.lang.String"/>
+	<parameter name="montantavenant" class="java.lang.String"/>
+	<parameter name="produitpourcent" class="java.lang.String"/>
+	<parameter name="presentationgenerale" class="java.lang.String"/>
+	<parameter name="presentationtechnique" class="java.lang.String"/>
+	<parameter name="reference" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="interetdossier" class="java.lang.String"/>
+	<parameter name="conclusion" class="java.lang.String"/>
+	<parameter name="primenette" class="java.lang.String"/>
+	<parameter name="primettc" class="java.lang.String"/>
+	<parameter name="mainlevee" class="java.lang.String"/>
+	<parameter name="taxeassurance" class="java.lang.String"/>
+	<parameter name="fed" class="java.lang.String"/>
+	<parameter name="date" class="java.lang.String"/>
+	<parameter name="c1" class="java.lang.String"/>
+	<parameter name="c2" class="java.lang.String"/>
+	<parameter name="c3" class="java.lang.String"/>
+	<parameter name="c4" class="java.lang.String"/>
+	<parameter name="ml1" class="java.lang.String"/>
+	<parameter name="ml2" class="java.lang.String"/>
+	<parameter name="ml3" class="java.lang.String"/>
+	<parameter name="ml4" class="java.lang.String"/>
+	<parameter name="ml5" class="java.lang.String"/>
+	<parameter name="montantavenent2" class="java.lang.String"/>
+	<parameter name="montantavenent3" class="java.lang.String"/>
+	<parameter name="produitpourcent2" class="java.lang.String"/>
+	<parameter name="produitpourcent3" class="java.lang.String"/>
+	<parameter name="avisaarbitrage" class="java.lang.String"/>
+	<parameter name="aviscommerciale" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="2721" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="30" y="13" width="490" height="17" backcolor="#F0F0F2" uuid="7a0a4a41-d530-4a49-8c1a-4e97d456fe6a"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[INSTRUCTION PERTES PECUNIAIRES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="50" width="90" height="18" uuid="c84e71d8-e5c7-4591-84e9-80849ada687f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EXPLOITANT:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="120" width="120" height="20" uuid="c75645e1-5263-4aee-89fa-461ca9bb5ed4"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Assuré]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="140" width="120" height="20" uuid="d15c4096-98f5-4b5c-b9fa-cf30aaad4f09"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Branche]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="160" width="120" height="20" uuid="ee4595cb-f871-466e-a941-6cecdd8f7bbb"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Revenus Locatifs]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="30" y="230" width="460" height="60" uuid="809bb8cc-47ff-4bd4-bd60-904d085adabd">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Dataset1" uuid="1ae7ebe9-2818-474e-a517-679949e8939f">
+						<dataSourceExpression><![CDATA[$P{reference}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="180" uuid="20810c7f-b460-4d72-9ec3-593eef6c5392">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Colonne1"/>
+						<jr:tableHeader style="Table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="180" height="30" uuid="1b98580b-fd0d-49f9-be59-d6237d3aa454"/>
+								<box>
+									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Bookman Old Style" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[NOM]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="180" height="30" uuid="152ceb5e-33a1-4db5-a4a5-410c0577442d"/>
+								<box>
+									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Bookman Old Style" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{nom}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="280" uuid="ac6f8798-fdb5-48ed-8ab6-afb4728ede21">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Colonne2"/>
+						<jr:tableHeader style="Table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="280" height="30" uuid="32969eda-b8ed-4ef8-8185-846000f6b5e9"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Bookman Old Style" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[PRENOM]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="280" height="30" uuid="5e83ae3c-2bd2-495b-b8ab-5d7735128fe9"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Bookman Old Style" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{prenom}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<textField>
+				<reportElement x="120" y="50" width="400" height="18" uuid="245cf53d-8ab0-408f-be42-5a881dbe81bd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Bookman Old Style"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{demandeur}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="120" width="320" height="20" uuid="8bd6d1a7-148a-4214-be04-5b6bf4ffdf15"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{denomminationsociale}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="160" width="320" height="20" uuid="01c97d50-973f-48e2-830e-86f2d3fc755d"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{soumission}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement x="150" y="140" width="320" height="20" uuid="2784e46f-78ba-44ae-afa6-bc8b38f6ada1"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textField>
+					<reportElement x="0" y="0" width="320" height="20" uuid="41c22005-2583-4ca0-a342-4e84c956c1ab"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Bookman Old Style" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{c2}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<staticText>
+				<reportElement x="25" y="1750" width="195" height="30" uuid="c596a040-2286-4ebe-9828-765b3d4a7667"/>
+				<textElement>
+					<font fontName="Bookman Old Style" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LA DIRECTION DE L’ARBIBRAGE  ET DE LA GESTION DU RISQUE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="1750" width="170" height="30" uuid="d2aeaa19-d119-4074-a888-3d4a558d632c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" isBold="true"/>
+				</textElement>
+				<text><![CDATA[L’EXPLOITANT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="2010" width="523" height="20" uuid="2fbbfad5-d564-41f2-8f6e-ecb2f89ecc46"/>
+				<textElement>
+					<font fontName="Bookman Old Style" isBold="true"/>
+				</textElement>
+				<text><![CDATA[I.	AVIS DE LA  DIRECTION COMMERCIALE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="2200" width="530" height="20" uuid="f73bc6ec-3795-4734-90c9-ce2138872baf"/>
+				<textElement>
+					<font fontName="Bookman Old Style" isBold="true"/>
+				</textElement>
+				<text><![CDATA[II.	AVIS DE LA  DIRECTION DES AFFAIRES JURIDIQUES ET DES PRESTATIONS DE SERVICES ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="2390" width="489" height="20" uuid="6599b18a-b9dd-4f61-b686-5a154b47dcbc"/>
+				<textElement>
+					<font fontName="Bookman Old Style" isBold="true"/>
+				</textElement>
+				<text><![CDATA[III.	AVIS DU CONTROLE INTERNE/ CHARGE DE LA LCB-FTP ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="2600" width="480" height="20" uuid="68d948ca-a620-4287-bf9b-7d33305a9b55"/>
+				<textElement>
+					<font fontName="Bookman Old Style" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IV.	DECISION DE LA  DIRECTION GENERALE ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="80" width="490" height="18" uuid="2f41c3d9-228c-4275-8142-a86d60fd684a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[I – CARACTERISTIQUES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="200" width="490" height="18" uuid="e1b159b6-bc51-46fc-8e38-c613cd8eaa89"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LOCATAIRES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="500" width="490" height="18" uuid="1871e854-d646-4e50-91a4-3b1ef21e8660"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[*  ENGAGEMENTS DU DONNEUR D’ORDRE EN COURS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="545" width="160" height="30" uuid="40b34848-446d-4f4f-b966-5412bff952a3"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ECHEANCE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="545" width="160" height="30" uuid="a9c21f5e-d3f7-49cf-8cca-0cc2f845921d"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MONTANT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="545" width="165" height="30" uuid="a1e12e62-3273-493e-8867-af32fa0d8cd1"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NATURE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="575" width="165" height="25" uuid="dea140e5-b876-46a0-9a45-6ad65e0470f1"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1. Soumission]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="190" y="575" width="160" height="25" uuid="7a563af9-74b7-4540-9a26-283be650cef2"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{soumissionencours}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="350" y="575" width="160" height="25" uuid="89b524cf-7be1-4be0-8eb2-31fd2a66059a"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="600" width="160" height="25" uuid="61c78e99-8cc8-4b5c-9361-e427aab9a6c1"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="190" y="600" width="160" height="25" uuid="4d3ab945-99df-4815-a5bd-6244896d6bb3"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{avancedemarrageencours}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="25" y="600" width="165" height="25" uuid="53d78f8f-3c82-404e-a361-f9228c04a220"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[2. Avance de démarrage]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="625" width="160" height="25" uuid="66f49e22-8470-4894-bdb0-6f8cdf9d4dc0"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="190" y="625" width="160" height="25" uuid="caebc52a-059d-46b7-9f49-fbbde829576a"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{bonneexecutionencours}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="25" y="625" width="165" height="25" uuid="ef2b502c-0c1d-4da1-902c-baaac91c6730"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[3. Bonne exécution]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="650" width="160" height="25" uuid="eb633ed0-bb2f-4a89-9098-e1b2943fd335"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="190" y="650" width="160" height="25" uuid="3be7de44-6aec-4839-a410-5b5b922ac481"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{retenuegarantieencours}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="25" y="650" width="165" height="25" uuid="b9e9c3de-89a2-4f73-bbe1-c3c09c6e1a5b"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[4. retenue de garantie]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="675" width="160" height="25" uuid="d344845d-689a-4ffd-bd9b-6bc3566d4bc1"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="190" y="675" width="160" height="25" uuid="fb36511b-0d85-403f-a887-531bcdd129c4"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{definitiveencours}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="25" y="675" width="165" height="25" uuid="14a3e2a7-0c1b-4eb5-8a59-c0e16658777a"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[5. Définitive]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="700" width="160" height="25" uuid="f61657ed-1777-48b4-a162-8f63a4adef4b"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="190" y="700" width="160" height="25" uuid="b6d16583-c7c0-4c95-8fed-d819fcfc7c7f"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cmttotale}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="25" y="700" width="165" height="25" uuid="ef005bb6-43b3-4e76-9f44-e45e33467b4f"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[6. LOCASSUR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="725" width="160" height="35" uuid="4a945505-e24b-4a4d-8566-9097c0ba4ee1"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="190" y="725" width="160" height="35" uuid="93c34f3f-08bf-4a07-812b-0a07a6f3a5c5"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cmttotaleencours}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="25" y="725" width="165" height="35" uuid="bc53eba2-7344-424d-83d5-7d178659cc3a"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="790" width="490" height="18" uuid="d738797b-d389-4149-9bd7-28a23301423d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ANALYSE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="24" y="820" width="486" height="700" uuid="af3f655f-1249-4e7c-a32b-2ddec7c4937d"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{presentationgenerale}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="1540" width="490" height="18" uuid="a4c354f8-3369-4fb6-bb0f-6cd40686012a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Condition d’assurance]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="1578" width="249" height="22" uuid="e7c35c90-7ff0-44be-893b-73a6646bad34"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Revenus locatif annuels : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="270" y="1578" width="240" height="22" uuid="647664d7-c640-4b59-a821-97e1d7f63aac"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cmttotaleencours}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="1600" width="240" height="22" uuid="c2ddbca3-95a9-4edf-b88e-6f82733e866e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{produitpourcent}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="1600" width="249" height="22" uuid="a0d6e5f1-452d-41ee-8235-4f0d75b5c7e6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<text><![CDATA[Taux de prime : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="270" y="1622" width="240" height="22" uuid="f05277ed-4684-409f-8768-4da65614f33f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{primenette}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="1622" width="249" height="22" uuid="ad62cc92-7c0e-4a70-bc4d-8d5be6635dbe"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<text><![CDATA[Montant Prime Nette: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="270" y="1644" width="240" height="22" uuid="f3f345b9-e1f6-4049-9ef2-d10b04c212be"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fed}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="1644" width="249" height="22" uuid="3b29c7a4-465f-41ee-810d-036735028c5a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<text><![CDATA[FED :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="270" y="1666" width="240" height="22" uuid="4f8229ef-9878-4c7c-8e00-16e4c16a5017"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{taxeassurance}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="1666" width="249" height="22" uuid="a61fed3a-3b4b-49b6-8ebb-acc0b58c2da5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<text><![CDATA[Taxe d’assurance : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="270" y="1688" width="240" height="22" backcolor="#FFFF00" uuid="0e361012-2c07-476c-8ca2-5b8bf2003223"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{primettc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="1688" width="249" height="22" uuid="84ceecfd-3e50-4b6d-bbe0-a3f5d59248b2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11"/>
+				</textElement>
+				<text><![CDATA[Prime TTC :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="25" y="1874" width="485" height="86" uuid="60127c15-4571-47c6-9d0c-04df6484afac"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="11" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{avisaarbitrage}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="2050" width="485" height="86" uuid="1700f861-2ee9-443c-b5e0-be0e41a3e54d"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="11" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{aviscommerciale}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,168 @@
+
+
+    <div *ngIf="check_fonct('l_clause')">
+        <mat-card>
+            <div fxLayout fxLayoutAlign="center center">
+                <mat-form-field fxFlex="40%">
+                  <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+                </mat-form-field>
+                <mat-card-header class="card-header">
+        
+                  <span class="header">La liste des clauses</span> 
+                  <div *ngIf="aff">
+                  <div *ngIf="check_fonct('c_clause')">
+                    <button mat-icon-button  class="buttons" status="success" (click)="openAjout()">
+                        <mat-icon  class="material-icons color_green"  title="Ajouter Clause">add_circle</mat-icon>    
+                      </button>
+                  </div>
+                </div>
+                  </mat-card-header>
+                
+              </div>
+              <table mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="clact_numeroclause">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header > Numero </th>
+                  <td mat-cell *matCellDef="let clause_acte"> {{clause_acte.cla_numeroclause}} </td>
+                </ng-container>
+                <ng-container matColumnDef="clact_type">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Type Clause </th>
+                  <td mat-cell *matCellDef="let clause_acte"> {{onGetLibelleByType((clause_acte?.cla_type)?.toString())}} </td>
+                </ng-container> 
+                <!-- <ng-container matColumnDef="clact_numlot">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro de Produit </th>
+                    <td mat-cell *matCellDef="let clause_acte"> {{clause_acte.clact_numlot}} > </td>
+                  </ng-container>  --><!-- 
+                  <ng-container matColumnDef="clact_datecomptabilisation">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Comptabilisation </th>
+                    <td mat-cell *matCellDef="let clause_acte"> {{clause_acte.clact_datecomptabilisation | date:'dd-MM-yyyy'}} </td>
+                  </ng-container> -->
+                <!-- <ng-container matColumnDef="details">
+                  <th mat-header-cell *matHeaderCellDef > Details </th>
+                  <td mat-cell *matCellDef="let clause_acte">
+                    <button mat-icon-button color="primary" (click)="open(dialog,clause_acte)">
+                        <mat-icon class="mat-18">reorder</mat-icon>
+                    </button>
+                  </td>
+                </ng-container> -->
+                <ng-container matColumnDef="details">
+                  <th mat-header-cell *matHeaderCellDef>        
+                     Action        
+                  </th>        
+                  <td mat-cell *matCellDef="let clause_acte">        
+                    <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">        
+                      <mat-icon class="mat-18">more_vert</mat-icon>        
+                    </button>        
+                    <mat-menu #detail="matMenu">        
+                      <button mat-menu-item color="primary"  (click)="open(dialog,clause_acte)">        
+                        <mat-icon>reorder</mat-icon>Détail        
+                      </button>
+                      
+                    </mat-menu>        
+                  </td>        
+                </ng-container>
+               <!--  <ng-container matColumnDef="update">
+                    <th mat-header-cell *matHeaderCellDef><div *ngIf="aff"><div *ngIf="check_fonct('u_clause')"> Modification </div></div></th>
+                    <td mat-cell *matCellDef="let clause_acte">
+                      <div *ngIf="aff">
+                      <div *ngIf="check_fonct('u_clause')">
+                      <button mat-icon-button color="green" (click)="openModif(clause_acte)">
+                          <mat-icon class="mat-18">edit</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="delete">
+                      <th mat-header-cell *matHeaderCellDef><div *ngIf="aff"><div *ngIf="check_fonct('d_clause')"> Delete </div></div></th>
+                      <td mat-cell *matCellDef="let clause_acte">
+                        <button mat-icon-button color="warn" (click)="open(dialogdel ,clause)">
+                            <mat-icon class="mat-18"><div *ngIf="aff"><div *ngIf="check_fonct('d_clause')"> delete </div></div></mat-icon>
+                        </button>
+                      </td>
+                    </ng-container> -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                
+              </table>
+              <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]">
+              </mat-paginator>
+              
+              <ng-template #dialog let-clause_acte let-ref="dialogRef">  
+                <nb-card>
+                  <nb-card-header>
+                    Details clause
+                  </nb-card-header>
+                  <nb-card-body>
+                      <div class="row">
+                          <div class="col-sm-20">
+                            <h5 class="grid-h">Information</h5>
+                              <div><span class="detail">Numero  :</span> {{ clause_acte.cla_numeroclause }}</div><br>
+                              <div><span class="detail">Code Marché :</span> {{ clause_acte.cla_codemarche }}</div><br>
+                              <div><span class="detail">Type Clause :</span> {{ onGetLibelleByType((clause_acte?.cla_type)?.toString() )}}</div><br>
+                              <div><span class="detail">Numero Lot :</span> {{ clause_acte.cla_numerolot }}</div><br>
+                              <div><span class="detail">Intitulé Lot :</span> {{ clause_acte.clact_intitulelot }}</div><br>
+                            </div>
+                          
+                      </div>
+                  </nb-card-body>
+                  <nb-card-footer>
+                      <button nbButton (click)="ref.close()" status="danger">Fermer</button>&nbsp;&nbsp;
+                      <!-- <button nbButton status="success" (click)="ref.close()" (click)="openModif(clause)"><div *ngIf="check_fonct('u_clause')">modifier</div></button>      
+                    --> </nb-card-footer>
+                </nb-card>
+                
+            
+            </ng-template>
+        
+            <ng-template #dialogdel let-clause let-ref="dialogRef">
+          
+           
+              <!--nb-card>
+                <nb-card-header>
+                  SUPPRESSION
+                </nb-card-header>
+                <nb-card-body>
+                  <div *ngIf="onChechId(acte.cont_numero,acte.cont_numeroclient,acte.cont_leader)==1">
+        
+                    <h5  class="grid-h">Confirmation de la suppression</h5>
+                  </div>
+                  <div *ngIf="onChechId(acte.cont_numero,acte.cont_numeroclient,acte.cont_leader)==2">
+        
+                    <h5  class="grid-h">Impossible de supprimer crée un acte leader d'abord</h5>
+                  </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <br>
+            
+                            <div></div><br>
+                           
+                        </div>
+                   
+                    </div>
+                    
+                   
+                </nb-card-body>
+                  <nb-card-footer>
+                    <div *ngIf="onChechId(acte.cont_numero,acte.cont_numeroclient,acte.cont_leader)==1">
+                    <button nbButton (click)="onDeleteacteClient(acte.cont_numero,acte.cont_numeroclient,acte.cont_leader)" (click)="ref.close()" status="success">Confirmer</button>&nbsp;&nbsp; 
+                      <button nbButton (click)="ref.close()" status="danger">Annuler</button>
+                    </div>
+                    <div *ngIf="onChechId(acte.cont_numero,acte.cont_numeroclient,acte.cont_leader)==2">
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <button nbButton (click)="ref.close()" status="danger">OK</button>
+                      </div>
+                    </nb-card-footer>
+              </nb-card-->
+            
+              
+            </ng-template>
+         
+            </mat-card>
+          </div>
+          
+          <div *ngIf="check_fonct('l_clause')==false">
+            <ngx-page-not-autoriser></ngx-page-not-autoriser>
+          </div>

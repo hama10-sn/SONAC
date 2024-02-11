@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="client" pageWidth="1250" pageHeight="595" orientation="Landscape" columnWidth="1210" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c441d9a-b089-4fdb-b74e-506a9646f74f">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="connPostgres"/>
+	<parameter name="title" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{title}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="demandeur" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select * from police]]>
+	</queryString>
+	<field name="poli_numero" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="clien_numero"/>
+	</field>
+	<field name="prod_denominationlong" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="clien_nom"/>
+	</field>
+	<field name="inter_denomination" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="clien_denomination"/>
+	</field>
+	<field name="clien_nom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="clien_prenom"/>
+	</field>
+	<field name="clien_prenom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="clien_sigle"/>
+	</field>
+	<field name="clien_denomination" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="clien_nature"/>
+	</field>
+	<field name="clien_sigle" class="java.lang.String"/>
+	<field name="poli_primenetreference" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="clien_date_relation"/>
+	</field>
+	<field name="poli_primebruttotal" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="clien_telephone1"/>
+	</field>
+	<field name="poli_dateeffetencours" class="java.sql.Timestamp"/>
+	<field name="poli_dateecheance" class="java.sql.Timestamp"/>
+	<field name="poli_datemodification" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="60">
+			<staticText>
+				<reportElement x="0" y="17" width="100" height="40" forecolor="#006699" backcolor="#FAFCFC" uuid="2f63fb7b-f79e-4bf5-a845-e3d8d8d1e34d"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Num 
+police]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="17" width="170" height="40" forecolor="#006699" backcolor="#FAFCFC" uuid="9a95f278-0199-4b64-8766-bad1e044452b"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Produit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="17" width="170" height="40" forecolor="#006699" backcolor="#FAFCFC" uuid="78b95e91-5d44-4099-8719-ca6cae87bcb1"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Intermédiaire]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="17" width="180" height="40" forecolor="#006699" backcolor="#FAFCFC" uuid="9d55c33b-c85c-4717-8c25-8220ee22ed37"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Client]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="620" y="17" width="110" height="40" forecolor="#006699" backcolor="#FAFCFC" uuid="c80382ef-873a-4770-a06a-db21e1ea817d"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mnt prime nette ref]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="730" y="17" width="110" height="40" forecolor="#006699" backcolor="#FAFCFC" uuid="b4dbb46a-df11-4f17-b539-dd43ed366ebf"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mnt prime brute totale]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="840" y="17" width="130" height="40" forecolor="#006699" backcolor="#FAFCFC" uuid="307e86c0-e24b-40ca-81d2-c15a2e1d8e7a"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date effet]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="970" y="17" width="130" height="40" forecolor="#006699" backcolor="#FAFCFC" uuid="29eeab1f-2e08-4160-938d-ce246831e106"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date échéance]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1100" y="17" width="130" height="40" forecolor="#006699" backcolor="#FAFCFC" uuid="2fe9c274-67a8-4de3-9416-de1d02b056a1"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date modification]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="31" uuid="21556c70-ad0b-4049-bb0b-8526955e691b"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{poli_numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="170" height="31" uuid="3f0625ee-8f30-4b9d-be10-a6f5c2a79fa7"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{prod_denominationlong} != null ? $F{prod_denominationlong} : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="0" width="170" height="31" uuid="0c923e2e-c431-4315-8d12-77d06fc68abd"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{inter_denomination} != null ? $F{inter_denomination} : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="0" width="180" height="31" uuid="3890b307-49b0-4902-9765-775e4437d825"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{clien_nom} != null ? $F{clien_nom} : "") + (" ") + ($F{clien_prenom} != null ? $F{clien_prenom} : "")  + (" ") + ($F{clien_denomination}  != null ? $F{clien_denomination} : "")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="620" y="0" width="110" height="31" uuid="51f837f3-9e8a-441f-91e0-5e78b472cda1"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{poli_primenetreference} != null ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($F{poli_primenetreference})) : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="730" y="0" width="110" height="31" uuid="f62f1768-b229-4e0d-8e6c-5c0d460239bf"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{poli_primebruttotal} != null ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($F{poli_primebruttotal})) : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="840" y="0" width="130" height="31" uuid="8db290ce-996f-41aa-a93d-16ec40ea0074"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{poli_dateeffetencours} != null ? $F{poli_dateeffetencours} : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="970" y="0" width="130" height="31" uuid="8ce2d05f-1880-4a02-b095-3c26fa2343b8"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{poli_dateecheance} != null ? $F{poli_dateecheance} : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1100" y="0" width="130" height="31" uuid="66e8a5b9-e269-4ae3-87fe-2ba698cd9dee"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{poli_datemodification} != null ? $F{poli_datemodification} : ""]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

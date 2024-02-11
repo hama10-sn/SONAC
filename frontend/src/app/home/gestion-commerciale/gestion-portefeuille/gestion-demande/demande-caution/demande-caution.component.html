@@ -1,0 +1,37 @@
+
+    <mat-card>
+        <mat-card-header class="card-header">
+          <span class="header">Fichier a fournir pour une demande de cautionnement</span>    
+          </mat-card-header>
+          <div class="col-lg-4">
+  
+            </div> 
+            <nb-card>
+              <nb-card-header >Ajout d'un ou plusieurs documents</nb-card-header>
+              <nb-card-body>
+                    <span style="color: green;">Vous pouvez selectionner un ou plusieurs documents  </span><br><br>
+                    <input type="file"  id=""><br>
+                    <br><button size="small" status="primary" nbButton (click)="onClickUpload()" ><mat-icon>file_upload</mat-icon>upload</button>
+                <br>
+                <nb-progress-bar *ngIf="displayprogress" [value]="progress" [displayValue]="true" status="primary"></nb-progress-bar>
+                <br>
+            </nb-card-body>
+            </nb-card>
+          <nb-card-body class="example-items-rows"><br> 
+              <nb-checkbox status="info">Demande adressée au Directeur Général</nb-checkbox><br> 
+              <nb-checkbox status="info">Une copie de l’avis et des données particulières d’appel d’offres</nb-checkbox><br> 
+              <nb-checkbox status="info">Le modèle de cautionnement</nb-checkbox><br> 
+              
+            </nb-card-body>
+        <br> 
+        <button nbButton status="warning" (click)="onAjout()">Sauvegarder</button> 
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button nbButton class="pull-right" status="danger" (click)="onAnnuler()">Annuler</button>
+        
+  
+        
+      </mat-card>
+   
+      <!-- <div *ngIf="check_fonct21('u_role')==false">
+        <ngx-page-not-autoriser></ngx-page-not-autoriser>
+      </div> -->

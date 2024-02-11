@@ -1,0 +1,492 @@
+<div *ngIf="check_fonct('u_commission')">
+    <form [formGroup]="modifForm">
+
+        <div class="col-lg-4">
+            <nb-card>
+                <nb-card-header id="titre_entete">Modifier une commission</nb-card-header>
+            </nb-card>
+        </div>
+
+        <!-- ======================= Gestion du controle de saisi ============================ -->
+        <p class="paraProblemeSaisi" *ngIf="problemeInterv1">L'intervalle 1 est obligatoire </p>
+        <p class="paraProblemeSaisi" *ngIf="problemeInterv2">L'intervalle 2 est obligatoire </p>
+
+        <!-- ================================================================================= -->
+
+        <p class="paraProblemeSaisi" *ngIf="problemeInterv12">L'intervalle 2 doit être supérieur à l'intervalle 1
+        </p>
+        <p class="paraProblemeSaisi" *ngIf="problemeInterv34">L'intervalle 4 doit être supérieur à l'intervalle 3
+        </p>
+        <p class="paraProblemeSaisi" *ngIf="problemeInterv56">L'intervalle 6 doit être supérieur à l'intervalle 5
+        </p>
+        <p class="paraProblemeSaisi" *ngIf="problemeInterv78">L'intervalle 8 doit être supérieur à l'intervalle 7
+        </p>
+        <p class="paraProblemeSaisi" *ngIf="problemeInterv910">L'intervalle 10 doit être supérieur à l'intervalle 9
+        </p>
+        <p class="paraProblemeSaisi" *ngIf="problemeInterv3">L'intervalle 3 doit être supérieur à l'intervalle 2
+        </p>
+        <p class="paraProblemeSaisi" *ngIf="problemeInterv5">L'intervalle 5 doit être supérieur à l'intervalle 4
+        </p>
+        <p class="paraProblemeSaisi" *ngIf="problemeInterv7">L'intervalle 7 doit être supérieur à l'intervalle 6
+        </p>
+        <p class="paraProblemeSaisi" *ngIf="problemeInterv9">L'intervalle 9 doit être supérieur à l'intervalle 8
+        </p>
+        <p class="paraProblemeSaisi" *ngIf="problemeTaux12">Le taux de commission de l'intervalle 1 et 2 est
+            obligatoire pour type calcul = 1 et doit être positif et inférieur à 100 </p>
+        <p class="paraProblemeSaisi" *ngIf="problemeMontant12">Le Montant forfait de l'intervalle 1 et 2 est
+            obligatoire pour type calcul = 2</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeTaux34">Le taux de commission de l'intervalle 3 et 4 est
+            obligatoire pour type calcul = 1 et doit être positif et inférieur à 100</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeMontant34">Le Montant forfait de l'intervalle 3 et 4 est
+            obligatoire pour type calcul = 2</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeTaux56">Le taux de commission de l'intervalle 5 et 6 est
+            obligatoire pour type calcul = 1 et doit être positif et inférieur à 100</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeMontant56">Le Montant forfait de l'intervalle 5 et 6 est
+            obligatoire pour type calcul = 2</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeTaux78">Le taux de commission de l'intervalle 7 et 8 est
+            obligatoire pour type calcul = 1 et doit être positif et inférieur à 100</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeMontant78">Le Montant forfait de l'intervalle 7 et 8 est
+            obligatoire pour type calcul = 2</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeTaux910">Le taux de commission de l'intervalle 9 et 10 est
+            obligatoire pour type calcul = 1 et doit être positif et inférieur à 100</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeMontant910">Le Montant forfait de l'intervalle 9 et 10 est
+            obligatoire pour type calcul = 2</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeDate">La date de fin d'effet doit être supérieure ou égale à la
+            date de prise d'effet</p>
+
+        <div class="tabs">
+            <input type="radio" name="tabs" id="tabone" checked="checked">
+            <label for="tabone" class="lab">COMMISSION</label>
+            <div class="tab">
+                <div class="row">
+                    <!-- <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Code commission <span class="obligatoire">*</span></label>
+                            <input readonly formControlName="comm_code" type="number" nbInput fullWidth id="comm_code">
+                        </div>
+                    </div> -->
+                    <input hidden formControlName="comm_code" type="number" nbInput fullWidth id="comm_code">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Code apporteur <span class="obligatoire">*</span></label>
+                            <input readonly [value]="onGetDenominationByIntermediaire(codeIntermediaire)" type="text"
+                                nbInput fullWidth id="comm_codeapporteur">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">code branche <span class="obligatoire">*</span></label>
+                            <input readonly [value]="onGetLibelleByBranche(codeBranche)" type="text" nbInput fullWidth
+                                id="comm_codebranche">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">code catégorie <span class="obligatoire">*</span></label>
+                            <input readonly [value]="onGetLibelleByCategorie(codeCategorie)" type="text" nbInput
+                                fullWidth id="comm_codecategorie">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Code produit <span class="obligatoire">*</span></label>
+                            <input readonly [value]="onGetLibelleByProduit(codeProduit)" type="text" nbInput fullWidth
+                                id="comm_codeproduit">
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="label">Code garantie <span class="obligatoire">*</span></label>
+                        <input readonly formControlName="comm_codegarantie" type="number" nbInput fullWidth
+                            id="comm_codegarantie">
+                    </div>
+                </div> -->
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Type de Calcul <span class="obligatoire">*</span></label>
+                            <nb-select (selectedChange)="onChange($event)" selected="1" [(selected)]="typeCalcul"
+                                fullWidth id="comm_typecalcul">
+                                <nb-option value="1">1 : par taux</nb-option>
+                                <nb-option value="2">2 : par intervalle et forfait</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input type="radio" name="tabs" id="tabtwo">
+            <label for="tabtwo" class="lab">INTER 1-2</label>
+            <div class="tab">
+                <div class="row">
+                    <!-- intervalle à bloquer à lecture seule si la valeur était déjà renseignée -->
+                    <div class="col-sm-4" *ngIf="afficheInterv1ReadOnly">
+                        <div class="form-group">
+                            <label class="label">intervalle 1 <span class="obligatoire">*</span></label>
+                            <input readonly min="0" maxlength="11" formControlName="comm_interv1" type="number" nbInput
+                                fullWidth id="comm_interv1" (focusout)="onFocusOutEventInterv12($event)"
+                                [ngStyle]="{border: getColorInterv12()}">
+                        </div>
+                    </div>
+                    <!-- intervalle à afficher à si la valeur n'était pas renseignée -->
+                    <div class="col-sm-4" *ngIf="afficheInterv1">
+                        <div class="form-group">
+                            <label class="label">intervalle 1 <span class="obligatoire">*</span></label>
+                            <input min="0" maxlength="11" formControlName="comm_interv1" type="number" nbInput fullWidth
+                                id="comm_interv1" (focusout)="onFocusOutEventInterv12($event)"
+                                [ngStyle]="{border: getColorInterv12()}">
+                        </div>
+                    </div>
+                    <!-- intervalle à bloquer à lecture seule si la valeur était déjà renseignée -->
+                    <div class="col-sm-4" *ngIf="afficheInterv2ReadOnly">
+                        <div class="form-group">
+                            <label class="label">intervalle 2 <span class="obligatoire">*</span></label>
+                            <input readonly min="0" maxlength="11" formControlName="comm_interv2" type="number_format"
+                                nbInput fullWidth id="comm_interv2" (focusout)="onFocusOutEventInterv12($event)"
+                                [ngStyle]="{border: getColorInterv12()}">
+
+                            <span *ngIf="valeurMaxAtteint2" style="color:green;">Vous avez atteint le nombre max,
+                                voulez-vous valider ?</span>
+                        </div>
+                    </div>
+                    <!-- intervalle à afficher à si la valeur n'était pas renseignée -->
+                    <div class="col-sm-4" *ngIf="afficheInterv2">
+                        <div class="form-group">
+                            <label class="label">intervalle 2 <span class="obligatoire">*</span></label>
+                            <input min="0" maxlength="11" formControlName="comm_interv2" type="number_format" nbInput
+                                fullWidth id="comm_interv2" (focusout)="onFocusOutEventInterv12($event)"
+                                [ngStyle]="{border: getColorInterv12()}">
+
+                            <span *ngIf="valeurMaxAtteint2" style="color:green;">Vous avez atteint le nombre max,
+                                voulez-vous valider ?</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Taux de commission (en %)</label>
+                            <input min="0" formControlName="comm_tauxcommission12" type="number" nbInput fullWidth
+                                id="comm_tauxcommission12" (focusout)="onFocusOutEventTaux12($event)"
+                                [ngStyle]="{border: getColorTaux12()}">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Montant forfait</label>
+                            <input [value]="montantForfait12" type="text" nbInput fullWidth id="comm_montantforfait12"
+                                (focusout)="onFocusOutEventMontant12($event)" [ngStyle]="{border: getColorMontant12()}">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <input type="radio" name="tabs" id="tabthree" [disabled]="nonAfficheInterv34">
+            <label for="tabthree" class="lab">INTER 3-4</label>
+            <div class="tab">
+                <div class="row">
+                    <!-- intervalle à bloquer à lecture seule si la valeur était déjà renseignée -->
+                    <div class="col-sm-4" *ngIf="afficheInterv3ReadOnly">
+                        <div class="form-group">
+                            <label class="label">intervalle 3</label>
+                            <input readonly min="0" maxlength="11" formControlName="comm_interv3" type="number" nbInput
+                                fullWidth id="comm_interv3" (focusout)="onFocusOutEventInterv3($event)"
+                                [ngStyle]="{border: getColorInterv3()}">
+                        </div>
+                    </div>
+                    <!-- intervalle à afficher à si la valeur n'était pas renseignée -->
+                    <div class="col-sm-4" *ngIf="afficheInterv3">
+                        <div class="form-group">
+                            <label class="label">intervalle 3</label>
+                            <input min="0" maxlength="11" formControlName="comm_interv3" type="number" nbInput fullWidth
+                                id="comm_interv3" (focusout)="onFocusOutEventInterv3($event)"
+                                [ngStyle]="{border: getColorInterv3()}">
+                        </div>
+                    </div>
+                    <!-- intervalle à bloquer à lecture seule si la valeur était déjà renseignée -->
+                    <div class="col-sm-4" *ngIf="afficheInterv4ReadOnly">
+                        <div class="form-group">
+                            <label class="label">intervalle 4</label>
+                            <input readonly min="0" maxlength="11" formControlName="comm_interv4" type="number_format"
+                                nbInput fullWidth id="comm_interv4" (focusout)="onFocusOutEventInterv34($event)"
+                                [ngStyle]="{border: getColorInterv34()}">
+
+                            <span *ngIf="valeurMaxAtteint4" style="color:green;">Vous avez atteint le nombre max,
+                                voulez-vous valider ?</span>
+                        </div>
+                    </div>
+                    <!-- intervalle à afficher à si la valeur n'était pas renseignée -->
+                    <div class="col-sm-4" *ngIf="afficheInterv4">
+                        <div class="form-group">
+                            <label class="label">intervalle 4</label>
+                            <input min="0" maxlength="11" formControlName="comm_interv4" type="number_format" nbInput
+                                fullWidth id="comm_interv4" (focusout)="onFocusOutEventInterv34($event)"
+                                [ngStyle]="{border: getColorInterv34()}">
+
+                            <span *ngIf="valeurMaxAtteint4" style="color:green;">Vous avez atteint le nombre max,
+                                voulez-vous valider ?</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Taux de commission (en %)</label>
+                            <input min="0" formControlName="comm_tauxcommission34" type="number" nbInput fullWidth
+                                id="comm_tauxcommission34" (focusout)="onFocusOutEventTaux34($event)"
+                                [ngStyle]="{border: getColorTaux34()}">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Montant forfait</label>
+                            <input [value]="montantForfait34" type="text" nbInput fullWidth id="comm_montantforfait34"
+                                (focusout)="onFocusOutEventMontant34($event)" [ngStyle]="{border: getColorMontant34()}">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <input type="radio" name="tabs" id="tabfour" [disabled]="nonAfficheInterv56">
+            <label for="tabfour" class="lab">INTER 5-6 </label>
+            <div class="tab">
+                <div class="row">
+                    <!-- intervalle à bloquer à lecture seule si la valeur était déjà renseignée -->
+                    <div class="col-sm-4" *ngIf="afficheInterv5ReadOnly">
+                        <div class="form-group">
+                            <label class="label">intervalle 5</label>
+                            <input readonly min="0" maxlength="11" formControlName="comm_interv5" type="number" nbInput
+                                fullWidth id="comm_interv5" (focusout)="onFocusOutEventInterv5($event)"
+                                [ngStyle]="{border: getColorInterv5()}">
+                        </div>
+                    </div>
+                    <!-- intervalle à afficher à si la valeur n'était pas renseignée -->
+                    <div class="col-sm-4" *ngIf="afficheInterv5">
+                        <div class="form-group">
+                            <label class="label">intervalle 5</label>
+                            <input min="0" maxlength="11" formControlName="comm_interv5" type="number" nbInput fullWidth
+                                id="comm_interv5" (focusout)="onFocusOutEventInterv5($event)"
+                                [ngStyle]="{border: getColorInterv5()}">
+                        </div>
+                    </div>
+                    <!-- intervalle à bloquer à lecture seule si la valeur était déjà renseignée -->
+                    <div class="col-sm-4" *ngIf="afficheInterv6ReadOnly">
+                        <div class="form-group">
+                            <label class="label">intervalle 6</label>
+                            <input readonly min="0" maxlength="11" formControlName="comm_interv6" type="number_format"
+                                nbInput fullWidth id="comm_interv6" (focusout)="onFocusOutEventInterv56($event)"
+                                [ngStyle]="{border: getColorInterv56()}">
+
+                            <span *ngIf="valeurMaxAtteint6" style="color:green;">Vous avez atteint le nombre max,
+                                voulez-vous valider ?</span>
+                        </div>
+                    </div>
+                    <!-- intervalle à afficher à si la valeur n'était pas renseignée -->
+                    <div class="col-sm-4" *ngIf="afficheInterv6">
+                        <div class="form-group">
+                            <label class="label">intervalle 6</label>
+                            <input min="0" maxlength="11" formControlName="comm_interv6" type="number_format" nbInput
+                                fullWidth id="comm_interv6" (focusout)="onFocusOutEventInterv56($event)"
+                                [ngStyle]="{border: getColorInterv56()}">
+
+                            <span *ngIf="valeurMaxAtteint6" style="color:green;">Vous avez atteint le nombre max,
+                                voulez-vous valider ?</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Taux de commission (en %)</label>
+                            <input min="0" formControlName="comm_tauxcommission56" type="number" nbInput fullWidth
+                                id="comm_tauxcommission56" (focusout)="onFocusOutEventTaux56($event)"
+                                [ngStyle]="{border: getColorTaux56()}">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Montant forfait</label>
+                            <!-- <input min="0" formControlName="comm_montantforfait56" type="number" nbInput fullWidth
+                                id="comm_montantforfait56" (focusout)="onFocusOutEventMontant56($event)"
+                                [ngStyle]="{border: getColorMontant56()}"> -->
+
+                            <input [value]="montantForfait56" type="text" nbInput fullWidth id="comm_montantforfait56"
+                                (focusout)="onFocusOutEventMontant56($event)" [ngStyle]="{border: getColorMontant56()}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input type="radio" name="tabs" id="tabfive" [disabled]="nonAfficheInterv78">
+            <label for="tabfive" class="lab">INTER 7-8 </label>
+            <div class="tab">
+                <div class="row">
+                    <!-- intervalle à bloquer à lecture seule si la valeur était déjà renseignée -->
+                    <div class="col-sm-4" *ngIf="afficheInterv7ReadOnly">
+                        <div class="form-group">
+                            <label class="label">intervalle 7</label>
+                            <input readonly min="0" maxlength="11" formControlName="comm_interv7" type="number" nbInput
+                                fullWidth id="comm_interv7" (focusout)="onFocusOutEventInterv7($event)"
+                                [ngStyle]="{border: getColorInterv7()}">
+                        </div>
+                    </div>
+                    <!-- intervalle à afficher à si la valeur n'était pas renseignée -->
+                    <div class="col-sm-4" *ngIf="afficheInterv7">
+                        <div class="form-group">
+                            <label class="label">intervalle 7</label>
+                            <input min="0" maxlength="11" formControlName="comm_interv7" type="number" nbInput fullWidth
+                                id="comm_interv7" (focusout)="onFocusOutEventInterv7($event)"
+                                [ngStyle]="{border: getColorInterv7()}">
+                        </div>
+                    </div>
+                    <!-- intervalle à bloquer à lecture seule si la valeur était déjà renseignée -->
+                    <div class="col-sm-4" *ngIf="afficheInterv8ReadOnly">
+                        <div class="form-group">
+                            <label class="label">intervalle 8</label>
+                            <input readonly min="0" maxlength="11" formControlName="comm_interv8" type="number_format"
+                                nbInput fullWidth id="comm_interv8" (focusout)="onFocusOutEventInterv78($event)"
+                                [ngStyle]="{border: getColorInterv78()}">
+
+                            <span *ngIf="valeurMaxAtteint8" style="color:green;">Vous avez atteint le nombre max,
+                                voulez-vous valider ?</span>
+                        </div>
+                    </div>
+                    <!-- intervalle à afficher à si la valeur n'était pas renseignée -->
+                    <div class="col-sm-4" *ngIf="afficheInterv8">
+                        <div class="form-group">
+                            <label class="label">intervalle 8</label>
+                            <input min="0" maxlength="11" formControlName="comm_interv8" type="number_format" nbInput
+                                fullWidth id="comm_interv8" (focusout)="onFocusOutEventInterv78($event)"
+                                [ngStyle]="{border: getColorInterv78()}">
+
+                            <span *ngIf="valeurMaxAtteint8" style="color:green;">Vous avez atteint le nombre max,
+                                voulez-vous valider ?</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Taux de commission (en %)</label>
+                            <input min="0" formControlName="comm_tauxcommission78" type="number" nbInput fullWidth
+                                id="comm_tauxcommission78" (focusout)="onFocusOutEventTaux78($event)"
+                                [ngStyle]="{border: getColorTaux78()}">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Montant forfait</label>
+                            <input [value]="montantForfait78" type="text" nbInput fullWidth id="comm_montantforfait78"
+                                (focusout)="onFocusOutEventMontant78($event)" [ngStyle]="{border: getColorMontant78()}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input type="radio" name="tabs" id="tabsixe" [disabled]="nonAfficheInterv910">
+            <label for="tabsixe" class="lab">INTER 9-10 </label>
+            <div class="tab">
+                <div class="row">
+                    <!-- intervalle à bloquer à lecture seule si la valeur était déjà renseignée -->
+                    <div class="col-sm-4" *ngIf="afficheInterv9ReadOnly">
+                        <div class="form-group">
+                            <label class="label">intervalle 9</label>
+                            <input readonly min="0" maxlength="11" formControlName="comm_interv9" type="number" nbInput
+                                fullWidth id="comm_interv9" (focusout)="onFocusOutEventInterv9($event)"
+                                [ngStyle]="{border: getColorInterv9()}">
+                        </div>
+                    </div>
+                    <!-- intervalle à afficher à si la valeur n'était pas renseignée -->
+                    <div class="col-sm-4" *ngIf="afficheInterv9">
+                        <div class="form-group">
+                            <label class="label">intervalle 9</label>
+                            <input min="0" maxlength="11" formControlName="comm_interv9" type="number" nbInput fullWidth
+                                id="comm_interv9" (focusout)="onFocusOutEventInterv9($event)"
+                                [ngStyle]="{border: getColorInterv9()}">
+                        </div>
+                    </div>
+                    <!-- intervalle à bloquer à lecture seule si la valeur était déjà renseignée -->
+                    <div class="col-sm-4" *ngIf="afficheInterv10ReadOnly">
+                        <div class="form-group">
+                            <label class="label">intervalle 10</label>
+                            <input readonly min="0" maxlength="11" formControlName="comm_interv10" type="number_format"
+                                nbInput fullWidth id="comm_interv10" (focusout)="onFocusOutEventInterv910($event)"
+                                [ngStyle]="{border: getColorInterv910()}">
+
+                            <span *ngIf="valeurMaxAtteint10" style="color:green;">Vous avez atteint le nombre max,
+                                voulez-vous valider ?</span>
+                        </div>
+                    </div>
+                    <!-- intervalle à afficher à si la valeur n'était pas renseignée -->
+                    <div class="col-sm-4" *ngIf="afficheInterv10">
+                        <div class="form-group">
+                            <label class="label">intervalle 10</label>
+                            <input min="0" maxlength="11" formControlName="comm_interv10" type="number_format" nbInput
+                                fullWidth id="comm_interv10" (focusout)="onFocusOutEventInterv910($event)"
+                                [ngStyle]="{border: getColorInterv910()}">
+
+                            <span *ngIf="valeurMaxAtteint10" style="color:green;">Vous avez atteint le nombre max,
+                                voulez-vous valider ?</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Taux de commission (en %)</label>
+                            <input min="0" formControlName="comm_tauxcommission910" type="number" nbInput fullWidth
+                                id="comm_tauxcommission910" (focusout)="onFocusOutEventTaux910($event)"
+                                [ngStyle]="{border: getColorTaux910()}">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Montant forfait</label>
+                            <!-- <input min="0" formControlName="comm_montantforfait910" type="number" nbInput fullWidth
+                                id="comm_montantforfait910" (focusout)="onFocusOutEventMontant910($event)"
+                                [ngStyle]="{border: getColorMontant910()}"> -->
+
+                            <input [value]="montantForfait910" type="text" nbInput fullWidth id="comm_montantforfait910"
+                                (focusout)="onFocusOutEventMontant910($event)" [ngStyle]="{border: getColorMontant910()}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input type="radio" name="tabs" id="tabseven">
+            <label for="tabseven" class="lab">DATE </label>
+            <div class="tab">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Date de prise d'effet <span class="obligatoire">*</span></label>
+                            <input formControlName="comm_datepriseffet" type="datetime-local" nbInput fullWidth
+                                id="comm_datepriseffet" (focusout)="onFocusOutEventDate($event)"
+                                [ngStyle]="{border: getColorDate()}">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Date de fin d'effet </label>
+                            <input formControlName="comm_datefineffet" type="datetime-local" nbInput fullWidth
+                                id="comm_datefineffet" (focusout)="onFocusOutEventDate($event)"
+                                [ngStyle]="{border: getColorDate()}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <nb-card-footer>
+            <button nbButton status="success" (click)="onSubmit()"
+                [disabled]='!modifForm.valid || erreur'>Modifier</button>
+            &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="onCancel()">Annuler</button>
+        </nb-card-footer>
+    </form>
+</div>
+<div *ngIf="check_fonct('u_commission')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

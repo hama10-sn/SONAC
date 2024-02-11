@@ -1,0 +1,151 @@
+<form [formGroup]="mySinistreForm">
+  <div class="col-lg-4">
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Réouvrir un sinistre</nb-card-header>
+    </nb-card>
+  </div>
+  <br>
+  <div class="tabs">
+    <input type="radio" name="tabs" id="tabone" checked="checked">
+    <label for="tabone" class="lab">INFO SINISTRE</label>
+    <div class="tab">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Numéro sinistre</label>
+            <input fieldSize="small" readonly [value]="numeroSinistre" type="text" nbInput fullWidth id="sini_num">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Client</label>
+            <input fieldSize="small" readonly [value]="clientChoisi" type="text" nbInput fullWidth id="sini_souscripteur">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Police</label>
+            <input fieldSize="small" readonly [value]="policeChoisie" type="text" nbInput fullWidth id="sini_police">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Donneur d'ordre</label>
+            <input fieldSize="small" readonly [value]="donneurOrdre" type="text" nbInput fullWidth id="sini_donneurdordre">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Bénéficiaire</label>
+            <input fieldSize="small" readonly [value]="beneficiaireChoisi" type="text" nbInput fullWidth id="sini_beneficiaire">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Code intermédiaire</label>
+            <input fieldSize="small" readonly [value]="codeIntermediaire" type="text" nbInput fullWidth id="sini_intermediaire">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Code branche</label>
+            <input fieldSize="small" readonly [value]="brancheChoisie" type="text" nbInput fullWidth id="sini_branche">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Code produit</label>
+            <input fieldSize="small" readonly [value]="codeProduit" type="text" nbInput fullWidth id="sini_produit">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Numéro risque</label>
+            <input fieldSize="small" readonly [value]="numeroRisque" type="text" nbInput fullWidth id="sini_risque">
+          </div>
+        </div>
+      </div>
+    </div>
+    <input type="radio" name="tabs" id="tabtwo">
+    <label for="tabtwo" class="lab">INFORMATION COUVERTURE</label>
+    <div class="tab">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Type sinistre</label>
+            <input fieldSize="small" readonly [value]="typeSinistre" type="text" nbInput fullWidth id="sini_typesinistre">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Date survenance</label>
+            <input fieldSize="small" readonly [value]="dateSurvenance" type="text" nbInput fullWidth id="sini_datesurvenance">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Date déclaration</label>
+            <input fieldSize="small" readonly [value]="dateDeclaration" type="text" nbInput fullWidth id="sini_datedeclaration">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Date saisie</label>
+            <input fieldSize="small" readonly [value]="dateSaisie" type="text" nbInput fullWidth id="sini_datesaisie">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Lieu sinistre</label>
+            <input fieldSize="small" readonly [value]="lieuSinistre" type="text" nbInput fullWidth id="sini_lieu">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Description</label>
+            <input fieldSize="small" readonly [value]="descriptionSinistre" type="text" nbInput fullWidth id="sini_description">
+          </div>
+        </div>
+      </div>
+    </div>
+    <input type="radio" name="tabs" id="tabthree">
+    <label for="tabthree" class="lab">REOUVRIR SINISTRE</label>
+    <div class="tab">
+      <fieldset class="fieldset" formGroupName="mvtsinistreForm">
+        <legend class="tailleLegend">Evaluation</legend>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant principal</label>
+              <input fieldSize="small" [value]="montantPrincipal" type="text" nbInput fullWidth id="mvts_montantprincipal" (focusout)="onChangeFocusMontantPrincipal($event)">
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant frais</label>
+              <input fieldSize="small" [value]="montantFrais" type="text" nbInput fullWidth id="mvts_montantfrais" (focusout)="onChangeFocusMontantFrais($event)">
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant honoraires</label>
+              <input fieldSize="small" [value]="montantHonoraire" type="text" nbInput fullWidth id="mvts_montanthonoraire" (focusout)="onChangeFocusMontantHonoraire($event)">
+            </div>
+          </div>
+        </div>
+    </fieldset>
+    </div>
+  </div>
+  <br>
+  <div>
+    <button nbButton status="success" (click)="onSubmit()" [disabled]="!mySinistreForm.valid">Valider</button>
+  </div>
+</form>

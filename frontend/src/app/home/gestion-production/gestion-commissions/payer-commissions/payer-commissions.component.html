@@ -1,0 +1,424 @@
+<div *ngIf="check_fonct('c_payerCommission')">
+<form [formGroup]="FormCom"> 
+<div class="col-lg-4">
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white"> Paiement des commissions</nb-card-header>
+    </nb-card>
+</div> 
+
+
+<div class="tabs">
+    <input type="radio" name="tabs" id="tabone" checked="checked">
+    <label for="tabone" class="lab">Période</label>
+    <div class="tab">
+      <div class="row">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="label">date Debut : </label>
+              <input fieldSize="small" formControlName="date_debut"  type="date" nbInput fullWidth    >
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="label">date Fin : </label>
+              <input fieldSize="small" formControlName="date_fin"  type="date" nbInput fullWidth    >
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+                <label class="label">Par Intermediaire : </label>
+                <nb-select  (selectedChange)="onChangeMode($event)"  fullWidth  >
+                    <nb-option  value="1" >Par intermédiaire</nb-option>
+                    <nb-option  value="2" >l’ensemble des intermédiaires</nb-option>
+                  </nb-select>
+            </div>
+          </div>
+          <div class="col-sm-3" *ngIf="showIntermediaire">
+            <div class="form-group">
+              <label class="label">intermediare : </label>
+              <mat-select  class="form-control" [formControl]="intermediaireCtrl" placeholder="choisir un intermediaire"
+              (selectionChange)="onChangeIntermediaire($event)" fullWidth
+              id="cont_numerointermediare" #singleSelect>
+              <mat-option>
+                  <ngx-mat-select-search placeholderLabel="recherche..." 
+                  noEntriesFoundLabel="aucune corespondance .." [formControl]="intermediaireFilterCtrl">
+                  </ngx-mat-select-search>
+              </mat-option>
+
+              <mat-option value="{{intermediare.inter_numero}}"
+                  *ngFor="let intermediare of filteredIntermediaire | async">{{intermediare.inter_numero}}: {{intermediare.inter_denomination}}
+                  
+              </mat-option>
+          </mat-select>
+            </div>
+          </div>
+          
+        </div>
+
+
+
+        
+      
+
+        
+        
+  
+    </div>
+    
+   
+    
+    
+  </div>
+  <div><br>
+    <button nbButton status="success" (click)="submit()" [disabled]='!FormCom.valid' >Valider</button>
+              
+            
+  </div>
+  <br><br>
+
+
+  <div class="col-lg-12" *ngIf="showListFacture">
+    <mat-card>
+        <div fxLayout fxLayoutAlign="center center">
+            <mat-form-field fxFlex="40%">
+              <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+            </mat-form-field>
+            
+            <mat-card-header class="card-header">
+    
+              <span class="header">La liste des factures</span> 
+              
+              </mat-card-header>
+            
+          </div>
+          <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="fact_numacte">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header > Numero </th>
+              <td mat-cell *matCellDef="let facture"> {{facture.fact_numacte}} </td>
+            </ng-container>
+            <ng-container matColumnDef="fact_numeropolice">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>  Police</th>
+              <td mat-cell *matCellDef="let facture"> {{facture.fact_numeropolice}}  </td>
+            </ng-container>
+            <ng-container matColumnDef="fact_numeroacte">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Acte </th>
+              <td mat-cell *matCellDef="let facture"> {{facture.fact_numeroacte}} </td>
+            </ng-container>
+            <ng-container matColumnDef="fact_numerosouscripteurcontrat">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Souscripteur </th>
+              <td mat-cell *matCellDef="let facture"> {{facture.fact_numerosouscripteurcontrat}} </td>
+            </ng-container> 
+            <ng-container matColumnDef="fact_montantttc">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Montant Facture</th>
+              <td mat-cell *matCellDef="let facture" > {{facture.fact_montantttc | ngxNumberWithCommas}} F  </td>
+            </ng-container>
+            <ng-container matColumnDef="fact_dateeffetcontrat">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Date d'effet </th>
+              <td mat-cell *matCellDef="let facture"> {{facture.fact_dateeffetcontrat | date: 'dd-MM-yyyy HH:mm'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="fact_dateecheancecontrat">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Date d'echeance </th>
+              <td mat-cell *matCellDef="let facture"> {{facture.fact_dateecheancecontrat | date: 'dd-MM-yyyy HH:mm'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="fact_commissionapporteur">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Montant Commission </th>
+              <td mat-cell *matCellDef="let facture" style="color:green">  {{facture.fact_commissionapporteur | ngxNumberWithCommas}} F</td>
+            </ng-container>
+            <ng-container matColumnDef="details">
+              <th mat-header-cell *matHeaderCellDef > Details </th>
+              <td mat-cell *matCellDef="let facture">
+                <button mat-icon-button color="primary" (click)="open(dialog,facture)">
+                    <mat-icon class="mat-18">reorder</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            
+          </table>
+          <mat-paginator [pageSize]="6" [pageSizeOptions]="[1, 4, 6, 10, 20]">
+          </mat-paginator>
+          
+          <ng-template #dialog let-facture let-ref="dialogRef">  
+            <nb-card>
+              <nb-card-header>
+                Details d'une facture
+              </nb-card-header>
+              <nb-card-body>
+                  <div class="row">
+                      <div class="col-sm-3">
+                        <h5 class="grid-h">Information</h5>
+                          <div><span class="detail">Numero  :</span> {{ facture.fact_numacte }}</div><br>
+                          <div><span class="detail">Numero Police :</span> {{ facture.fact_numeropolice }}</div><br>
+                          <div><span class="detail">Date Facture :</span> {{ facture.fact_datefacture | date: 'dd-MM-yyyy' }}</div><br>
+                          <div><span class="detail">Numero Acte :</span> {{ facture.fact_numeroacte }}</div><br>
+                          <div><span class="detail">Quittance :</span> {{ facture.fact_numeroquittance }}</div><br>
+                          <div><span class="detail">Identification Marché :</span> {{ facture.fact_marche }}</div><br>
+                          <div><span class="detail">Souscripteur :</span> {{ facture.fact_numerosouscripteurcontrat }}</div><br>
+                        </div>
+                      <div class="col-sm-3">
+                        <h5 class="grid-h">Info Complementaire</h5>
+                        <div><span class="detail">Acheteur :</span> {{ facture.fact_numeoracheteur }}</div><br>
+                        <div><span class="detail">Assuré :</span> {{ facture.fact_numeroassure }}</div><br>
+                        <div><span class="detail">Bénéficiaire :</span> {{ facture.fact_numerobeneficiaire }}</div><br>
+                        <div><span class="detail">Object de la Facture :</span> {{ facture.fact_objetfacture }}</div><br>   
+                        <div><span class="detail">Montant Prime Net :</span> {{ facture.fact_montantprimenet | ngxNumberWithCommas}}</div><br>
+                        <div><span class="detail">Frais et Accessoires Cie :</span> {{ facture.fact_montantaccescompagnie | ngxNumberWithCommas}}</div><br>
+                      <div><span class="detail">Fais et Accessoires Apporteur :</span> {{ facture.fact_montantaccesapporteur | ngxNumberWithCommas}}</div><br>
+                      <div><span class="detail">Taxes Calculées :</span> {{ facture.fact_montanttaxe | ngxNumberWithCommas}}</div><br>   
+                                 
+                    </div> 
+                    <div class="col-sm-3">
+                      <h5 class="grid-h">Info Produit</h5>
+                      <div><span class="detail">montant arrondi :</span> {{ facture.fact_montantarrondi | ngxNumberWithCommas}}</div><br>
+                      <div><span class="detail">date de comptabilisation :</span> {{ facture.fact_datecomptabilisation | date: 'dd-MM-yyyy' }}</div><br>
+                      <div><span class="detail">Montant facture :</span> {{ facture.fact_montantttc | ngxNumberWithCommas }}</div><br>                          
+                      <div><span class="detail">Branche :</span> {{ facture.fact_numerobranche }}</div><br>   
+                      <div><span class="detail">Numéro catégorie :</span> {{ facture.fact_numerocategorie }}</div><br>
+                      <div><span class="detail">date d'effet :</span> {{ facture.fact_dateeffetcontrat | date: 'dd-MM-yyyy HH:mm' }}</div><br>
+                      <div><span class="detail">date d'echeance :</span> {{ facture.fact_dateecheancecontrat | date: 'dd-MM-yyyy HH:mm' }}</div><br>
+                      <div><span class="detail">capital assuré :</span> {{ facture.fact_capitalassure }}</div><br>                                    
+                  </div>
+                  <div class="col-sm-3">
+                    <h5 class="grid-h">Autres</h5>
+                    <div><span class="detail">capital SMP :</span> {{ facture.fact_capitalsmp }}</div><br>
+                    <div><span class="detail">capital LCI :</span> {{ facture.fact_capitallci }}</div><br>
+                    <div><span class="detail">Date de comptabilisation:</span> {{ facture.fact_datecomptabilisation | date: 'dd-MM-yyyy' }}</div><br>                          
+                    <div><span class="detail">status facture :</span> {{ facture.fact_etatfacture }}</div><br>   
+                    <div><span class="detail">Code annulation :</span> {{ facture.fact_codeannulation }}</div><br>
+                    <div><span class="detail">date annulation :</span> {{ facture.fact_dateannulation | date: 'dd-MM-yyyy' }}</div><br>
+                    <div><span class="detail">ancien numero de facture :</span> {{ facture.fact_anciennumerofacture }}</div><br>                    
+                 </div>
+                </div>
+              </nb-card-body>
+              
+            </nb-card>
+            
+        
+        </ng-template>
+        <br>
+        <div class="row">
+            <div class="col-lg-6">
+
+            </div>
+            <div class="col-lg-6">
+                <p style="font-size: 20px;font-weight: bold;">Montant Total de commissions à payer :&nbsp;&nbsp;  <span style="color: green;">{{ MontantCom | ngxNumberWithCommas }} F cfa</span> </p>
+            </div>
+        </div>
+     
+        </mat-card>
+        
+</div>
+
+
+
+<div class="col-lg-12" *ngIf="showInterCom">
+  <table mat-table [dataSource]="dataSource2" matSort>
+    <ng-container matColumnDef="quit_numerointermedaire">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>  Numero Intermediare</th>
+      <td mat-cell *matCellDef="let facture"> {{facture.quit_numerointermedaire}}  </td>
+    </ng-container>
+    <ng-container matColumnDef="inter_denomination">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header > Dénomination </th>
+      <td mat-cell *matCellDef="let facture"> {{facture.inter_denomination}} </td>
+    </ng-container>
+    <ng-container matColumnDef="somCommission">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Somme des Commissions </th>
+      <td mat-cell *matCellDef="let facture" style="color:green"> {{facture.somCommission | ngxNumberWithCommas}} F </td>
+    </ng-container>
+    <ng-container matColumnDef="ListeFactures">
+      <th mat-header-cell *matHeaderCellDef > Liste des factures </th>
+      <td mat-cell *matCellDef="let facture">
+        <button mat-icon-button color="primary" (click)="openListFact(dialogListFact,facture.quit_numerointermedaire)">
+            <mat-icon class="mat-18">reorder</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+    
+  </table>
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]">
+  </mat-paginator>
+
+
+
+
+
+
+  
+  <ng-template #dialogListFact let-facture let-ref="dialogRef" class="dialogcss"> 
+    
+
+      
+    <nb-card >
+
+
+      
+
+
+
+      <nb-card-body>
+        
+
+
+    <mat-card style="width: 1000px;">
+      <div fxLayout fxLayoutAlign="center center">
+          <mat-form-field fxFlex="40%">
+            <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+          </mat-form-field>
+          
+          <mat-card-header class="card-header">
+  
+            <span class="header">La liste des factures</span> 
+            
+            </mat-card-header>
+          
+        </div>
+
+    <table mat-table [dataSource]="dataSource" matSort >
+      <ng-container matColumnDef="fact_numacte">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header > Numero </th>
+        <td mat-cell *matCellDef="let facture"> {{facture.fact_numacte}} </td>
+      </ng-container>
+      <ng-container matColumnDef="fact_numeropolice">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>  Police</th>
+        <td mat-cell *matCellDef="let facture"> {{facture.fact_numeropolice}}  </td>
+      </ng-container>
+      <ng-container matColumnDef="fact_numeroacte">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Acte </th>
+        <td mat-cell *matCellDef="let facture"> {{facture.fact_numeroacte}} </td>
+      </ng-container>
+      <ng-container matColumnDef="fact_numerosouscripteurcontrat">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Souscripteur </th>
+        <td mat-cell *matCellDef="let facture"> {{facture.fact_numerosouscripteurcontrat}} </td>
+      </ng-container> 
+      <ng-container matColumnDef="fact_montantttc">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Montant Facture</th>
+        <td mat-cell *matCellDef="let facture" > {{facture.fact_montantttc | ngxNumberWithCommas}} F  </td>
+      </ng-container>
+      <ng-container matColumnDef="fact_dateeffetcontrat">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date d'effet </th>
+        <td mat-cell *matCellDef="let facture"> {{facture.fact_dateeffetcontrat | date: 'dd-MM-yyyy HH:mm'}} </td>
+      </ng-container>
+      <ng-container matColumnDef="fact_dateecheancecontrat">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date d'echeance </th>
+        <td mat-cell *matCellDef="let facture"> {{facture.fact_dateecheancecontrat | date: 'dd-MM-yyyy HH:mm'}} </td>
+      </ng-container>
+      <ng-container matColumnDef="fact_commissionapporteur">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Montant Commission </th>
+        <td mat-cell *matCellDef="let facture" style="color:green">  {{facture.fact_commissionapporteur | ngxNumberWithCommas}} F</td>
+      </ng-container>
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef > Details </th>
+        <td mat-cell *matCellDef="let facture">
+          <button mat-icon-button color="primary" >
+              <mat-icon class="mat-18">reorder</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+    </table>
+    <mat-paginator [pageSize]="6" [pageSizeOptions]="[1, 4, 6, 10, 20]">
+    </mat-paginator>
+  </mat-card>
+
+</nb-card-body>
+</nb-card>
+
+
+  </ng-template>
+
+
+
+
+</div>
+</form>
+<form [formGroup]="FormPaiement"> 
+<br>
+<div class="col-lg-12" *ngIf="showListFacture || showInterCom">
+  <nb-card>
+    <nb-card-header style="background-color: rgb(7, 66, 124);color:white"> Détails du paiement</nb-card-header>
+    <nb-card-body >
+      <div class="tab">
+        
+        <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Type Encaissement <span style="color:red;">*</span></label>
+                <nb-select  (selectedChange)="onChangeTypeEncaiss($event)"  fullWidth  >
+                  <nb-option  value="Checque" >Cheque</nb-option>
+                  <nb-option  value="Virement" >Virement</nb-option>
+                  <nb-option  value="Op Marchand" >Op Marchand</nb-option>
+                  <nb-option  value="espèce" >Espèce</nb-option>
+                </nb-select>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="" class="label">Code banque / Op.marchant <span style="color:red;">*</span></label>
+                <input fieldSize="small" formControlName="codeBanque"  type="number" nbInput fullWidth    >
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="" class="label">Numero chèque / traite<span style="color:red;">*</span></label>
+                <input fieldSize="small" formControlName="numerocheque"  type="number" nbInput fullWidth    >
+                
+              </div>
+            </div>
+          </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+              <br>
+              <p *ngIf="showInterCom">{{ ListInter[0]?.id+" : "+ListInter[0]?.denom}}</p>
+              <p *ngIf="showInterCom">Montant à payer : {{ ListInter[0]?.com | ngxNumberWithCommas }} F</p>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="" class="label">Montant  <span style="color:red;">*</span></label>
+                <input fieldSize="small" *ngIf="!showInterCom" [value]="FormPaiement.controls['montant'].value | ngxNumberWithCommas" style="{{error}}" (change)="onChangeMontPay($event.target.value)"  type="text" nbInput fullWidth    >
+                <input fieldSize="small" *ngIf="showInterCom" [value]="FormPaiement.controls['montant'].value | ngxNumberWithCommas" style="{{error}}" (change)="onChangeMontPay2($event.target.value)"  type="text" nbInput fullWidth    >
+                <span *ngIf="showErrorMontantPay" style="color: red;"> le montant ne doit pas etre supérieur</span>
+              </div>
+            </div>
+            
+          </div>
+          
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                
+              </div>
+            </div>
+            
+            <div class="col-sm-4">
+              <div class="form-group">
+               
+                
+              </div>
+            </div>
+          </div>
+                
+      </div>
+    </nb-card-body>
+  </nb-card><br>
+  <button nbButton status="success" *ngIf="!showInterCom" (click)="payer1()" [disabled]="!FormPaiement.valid" >Valider</button>
+  <button nbButton status="success" *ngIf="showInterCom" (click)="payer2()" [disabled]="!FormPaiement.valid" >Valider</button>
+</div> 
+
+
+</form>
+
+</div>
+
+
+<div *ngIf="check_fonct('l_payerCommission')==false">
+  <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

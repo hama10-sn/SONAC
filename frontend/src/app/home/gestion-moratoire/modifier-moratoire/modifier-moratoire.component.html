@@ -1,0 +1,88 @@
+<form [formGroup]="moratoireForm">
+  <div class="col-lg-6">
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Modifier un moratoire</nb-card-header>
+    </nb-card>
+  </div>
+  <br>
+  <div class="tabs">
+    <input type="radio" name="tabs" id="tabone" checked="checked">
+    <label for="tabone" class="lab">INFO MORATOIRE</label>
+    <div class="tab">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant moratoire</label><span style="color:red;">*</span>
+            <input fieldSize="small" type="text" [value]="montantMoratoire"
+              (focusout)="onChangeFocusMontantMoratoire($event)" nbInput fullWidth id="morato_mtmoratoire"
+              [ngStyle]="{border: getColorMontant()}">
+          </div>
+          <div *ngIf="problemeMontantMoratoire" class="col-sm-8">
+            <span style="color:red; font-style: italic;">
+                Le montant du recours doit-être supérieur au montant du moratoire demandé
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Type d'échéances accordées</label><span style="color:red;">*</span>
+            <nb-select (selectedChange)="onChangeTypeEcheance($event)" fullWidth formControlName="morato_typecheanc" id="morato_typecheanc">
+              <nb-option value="M">Mensuel</nb-option>
+              <nb-option value="B">Bimestriel</nb-option>
+              <nb-option value="T">Trimestriel</nb-option>
+            </nb-select>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Nbre échéances accordées</label><span style="color:red;">*</span>
+            <input fieldSize="small" type="number" [value]="nbreEcheance" nbInput fullWidth id="morato_nbrecheancacc">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant par échéance accordée</label><span style="color:red;">*</span>
+            <input fieldSize="small" type="text" [value]="montantEcheance" nbInput fullWidth id="morato_mtecheanc">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Nbre d'échéances impayées</label>
+            <input fieldSize="small" type="number" formControlName="morato_nbrecheancimp" nbInput fullWidth
+              id="morato_nbrecheancimp">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant cumulé des impayées</label>
+            <input fieldSize="small" type="text" [value]="montantCumuleImpaye"
+              (focusout)="onChangeFocusMontantCumuleImpaye($event)" nbInput fullWidth id="morato_mtnechimpayee">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Date de mise en place échéance</label><span style="color:red;">*</span>
+            <input fieldSize="small" type="date" [value]="dateEcheanche" (focusout)="onChangeDate($event)" nbInput fullWidth
+              id="morato_datemiseplace" [min]="getToday()">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Date échéance pour relancer</label><span style="color:red;">*</span>
+            <input fieldSize="small" type="date" [value]="dateRelance" (focusout)="onChangeDate($event)" nbInput fullWidth id="morato_datech"
+            (focusout)="onChangeFocusDateRelance($event)" [ngStyle]="{border: getColorDate()}" [min]="getToday()">
+          </div>
+          <div *ngIf="problemeDateRelance" class="col-sm-8">
+            <span style="color:red; font-style: italic;">
+              La date de relance doit être supérieure à la date de mise en place échéance
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+  </div>
+  <div>
+    <button nbButton status="success" (click)="onSubmit()" [disabled]='!moratoireForm.valid'>Valider</button>
+  </div>
+</form>

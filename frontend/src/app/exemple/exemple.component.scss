@@ -1,0 +1,43 @@
+//@import '../../@theme/styles/themes';
+.flex-centered {
+    margin: auto;
+  }
+  nb-card-body {
+    display: flex;
+  }
+  
+  .title {
+    text-align: center;
+  }
+  
+  .sub-title {
+    text-align: center;
+    display: block;
+    margin-bottom: 3rem;
+    background-color: rgb(55, 0, 255);
+    color : rgb(244, 245, 245);
+  }
+  
+  .home-button {
+    margin-bottom: 2rem;
+  }
+  
+  .blink {
+    animation: blinker 2s linear infinite;
+    color: #1c87c9;
+   }
+  @keyframes blinker {  
+    50% { opacity: 0; }
+   }
+   .blink-one {
+     animation: blinker-one 2s linear infinite;
+   }
+   @keyframes blinker-one {  
+     0% { opacity: 0; }
+   }
+   .blink-two {
+     animation: blinker-two 2s linear infinite;
+   }
+   @keyframes blinker-two {  
+     100% { opacity: 0; }
+   }

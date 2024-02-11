@@ -1,0 +1,299 @@
+<div *ngIf="check_fonct('l_traitementperiodique')">
+    <form [formGroup]="addForm">
+      <div class="col-lg-6">
+        <nb-card>
+          <nb-card-header style="background-color: rgb(7, 66, 124);color:white">
+            Edition du journal de production au jour le jour
+          </nb-card-header>
+        </nb-card>
+      </div>
+      <div class="tabs">
+        <input type="radio" name="tabs" id="tabone" checked="checked" (click)="onClickPeriode()">
+        <label for="tabone" class="lab">Jour</label>
+        <div class="tab">
+          <p class="paraProblemeSaisi" *ngIf="problemeDateFin">Le jour d'encaissement doit être inférieure ou égale à la
+            date du jour
+          </p>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Jour </label>
+                <input type="date" formControlName="jour" nbInput fullWidth (focusout)="onFocusOutEventDate($event)"
+                  [ngStyle]="{border: getColorDate()}">
+              </div>
+            </div>
+          </div>
+        </div>
+        <input type="radio" name="tabs" id="tabtwo" (click)="onClickPolice()">
+        <label for="tabtwo" class="lab">Police</label>
+        <div class="tab">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="" class="label">Police</label>
+                <mat-select class="form-control" [formControl]="policeCtr" placeholder="choisir une police"
+                  (selectionChange)="onChangePolice($event)" fullWidth #singleSelect>
+                  <mat-option>
+                    <ngx-mat-select-search [formControl]="policetFilterCtrl" placeholderLabel="recherche..."
+                      noEntriesFoundLabel="aucune corespondance ..">
+                    </ngx-mat-select-search>
+                  </mat-option>
+  
+                  <mat-option value="{{police.poli_numero}}" *ngFor="let police of filteredPolice | async">
+                    {{police.poli_numero}}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <input type="radio" name="tabs" id="tabthree" (click)="onClickClient()">
+        <label for="tabthree" class="lab">Client</label>
+        <div class="tab">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="" class="label">Client</label>
+                <mat-select class="form-control" [formControl]="clientCtrl" placeholder="choisir un client"
+                  (selectionChange)="onChangeClient($event)" fullWidth #singleSelect>
+                  <mat-option>
+                    <ngx-mat-select-search [formControl]="clientFilterCtrl" placeholderLabel="recherche..."
+                      noEntriesFoundLabel="aucune corespondance ..">
+                    </ngx-mat-select-search>
+                  </mat-option>
+  
+                  <mat-option value="{{client.clien_numero}}" *ngFor="let client of filteredClient | async">
+                    {{client.clien_numero}} : {{client.clien_prenom}} : {{client.clien_nom}} : {{client.clien_denomination}}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <input type="radio" name="tabs" id="tabfour" (click)="onClickBranche()">
+        <label for="tabfour" class="lab">Branche</label>
+        <div class="tab">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="" class="label">Branche</label>
+                <mat-select class="form-control" [formControl]="brancheCtrl" placeholder="choisir une branche"
+                  (selectionChange)="onChangeBranche($event)" fullWidth #singleSelect>
+                  <mat-option>
+                    <ngx-mat-select-search [formControl]="brancheFilterCtrl" placeholderLabel="recherche..."
+                      noEntriesFoundLabel="aucune corespondance ..">
+                    </ngx-mat-select-search>
+                  </mat-option>
+  
+                  <mat-option value="{{branche.branche_numero}}" *ngFor="let branche of filteredBranche | async">
+                    {{branche.branche_numero}} : {{branche.branche_libelleLong}}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <input type="radio" name="tabs" id="tabfive" (click)="onClickProduit()">
+        <label for="tabfive" class="lab">Produit</label>
+        <div class="tab">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="" class="label">Produit</label>
+                <mat-select class="form-control" [formControl]="produitCtrl" placeholder="choisir un produit"
+                  (selectionChange)="onChangeProduit($event)" fullWidth #singleSelect>
+                  <mat-option>
+                    <ngx-mat-select-search [formControl]="produitFilterCtrl" placeholderLabel="recherche..."
+                      noEntriesFoundLabel="aucune corespondance ..">
+                    </ngx-mat-select-search>
+                  </mat-option>
+  
+                  <mat-option value="{{produit.prod_numero}}" *ngFor="let produit of filteredProduit | async">
+                    {{produit.prod_numero}} : {{produit.prod_denominationlong}}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <input type="radio" name="tabs" id="tabsixe" (click)="onClickIntermediaire()">
+        <label for="tabsixe" class="lab">Intermédiaire</label>
+        <div class="tab">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="" class="label">Intermédiaire</label>
+                <mat-select class="form-control" [formControl]="intermediaireCtrl" placeholder="choisir un intermédiaire"
+                  (selectionChange)="onChangeIntermediaire($event)" fullWidth #singleSelect>
+                  <mat-option>
+                    <ngx-mat-select-search [formControl]="intermediaireFilterCtrl" placeholderLabel="recherche..."
+                      noEntriesFoundLabel="aucune corespondance ..">
+                    </ngx-mat-select-search>
+                  </mat-option>
+  
+                  <mat-option value="{{intermediaire.inter_numero}}" *ngFor="let intermediaire of filteredIntermediaire | async">
+                    {{intermediaire.inter_numero}} : {{intermediaire.inter_denomination}}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <input type="radio" name="tabs" id="tabseven" *ngIf="!check">
+        <input type="radio" name="tabs" id="tabseven" checked="checked" *ngIf="check">
+        <label for="tabseven" class="lab">Résultat</label>
+        <div class="tab">
+          <div class="row">
+            <br><br>
+            <div class='contenu_resultat' *ngIf="check_fonct('l_sinistre')">
+              <div fxLayout fxLayoutAlign="center center">
+  
+                <mat-card-header class="card-header">
+                  <span class="header">{{ title }}</span>
+  
+                  <div>
+                    <button class="buttons_export" mat-button [matMenuTriggerFor]="menu">Export</button>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item (click)="onExport('pdf')">
+                        PDF
+                      </button>
+                      <button mat-menu-item (click)="onExport('excel')">
+                        EXCEL
+                      </button>
+                    </mat-menu>
+                  </div>
+                </mat-card-header>
+              </div>
+              <table mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="encai_numeroquittance">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro quittance </th>
+                  <td mat-cell *matCellDef="let encaissement"> {{ encaissement.encai_numeroquittance }} </td>
+                </ng-container>
+                <ng-container matColumnDef="encai_numeroencaissement">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro encaissement </th>
+                  <td mat-cell *matCellDef="let encaissement"> {{ encaissement.encai_numeroencaissement }} </td>
+                </ng-container>
+                <ng-container matColumnDef="encai_numerosouscripteur">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Client </th>
+                  <td mat-cell *matCellDef="let encaissement"> {{onGetClientByCode(encaissement.encai_numerosouscripteur)}} </td>
+                </ng-container>
+                <ng-container matColumnDef="encai_numeropolice">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro police </th>
+                  <td mat-cell *matCellDef="let encaissement"> {{encaissement.encai_numeropolice}} </td>
+                </ng-container>
+                <ng-container matColumnDef="encai_mtnquittance">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Montant quittance </th>
+                  <td mat-cell *matCellDef="let encaissement"> {{encaissement.encai_mtnquittance}} </td>
+                </ng-container>
+                <ng-container matColumnDef="encai_mtnpaye">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Montant payé </th>
+                  <td mat-cell *matCellDef="let encaissement"> {{encaissement.encai_mtnpaye}} </td>
+                </ng-container>
+                <ng-container matColumnDef="encai_datepaiement">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Date paiement </th>
+                  <td mat-cell *matCellDef="let encaissement"> {{encaissement.encai_datepaiement | date: 'dd-MM-yyyy' }} </td>
+                </ng-container>
+                <ng-container matColumnDef="encai_typencaissement">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Type encaissement </th>
+                  <td mat-cell *matCellDef="let encaissement"> {{encaissement.encai_typencaissement}} </td>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef> Action </th>
+                  <td mat-cell *matCellDef="let encaissement">
+                    <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">
+                      <mat-icon class="mat-18">more_vert</mat-icon>
+                    </button>
+                    <mat-menu #detail="matMenu">
+                      <button mat-menu-item (click)="onOpen(dialog,encaissement)">
+                        <mat-icon>visibility</mat-icon> Détail
+                      </button>
+                    </mat-menu>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+  
+              <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]">
+              </mat-paginator>
+              <ng-template #dialog let-encaissement let-ref="dialogRef">
+                <nb-card>
+                  <nb-card-header class="col-lg-12">DETAILS DE L'ENCAISSEMENT</nb-card-header>
+                  <nb-card-body>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <h5 class="grid-h">Info encaissement</h5>
+                        <div><span class="detail">Encaissement numéro :</span>
+                          {{ encaissement.encai_numeroencaissement }}
+                        </div><br>
+                        <div><span class="detail">Numéro intermédiaire :</span>
+                          {{ encaissement.encai_numerointermediaire }}
+                        </div><br>
+                        <div><span class="detail">Numéro police :</span>
+                          {{ encaissement.encai_numeropolice }}
+                        </div><br>
+                        <div><span class="detail">Montant quittance :</span>
+                          {{ encaissement.encai_mtnquittance }}
+                        </div><br>
+                        <div><span class="detail">Montant payé :</span>
+                          {{ encaissement.encai_mtnpaye }}
+                        </div><br>
+                        <div><span class="detail">Type encaissement :</span>
+                          {{ encaissement.encai_typencaissement }}
+                        </div><br>
+                        <div><span class="detail">Code banque :</span>
+                          {{ encaissement.encai_codebanque }}
+                        </div><br>   
+                        <div><span class="detail">Numéro chèque :</span>
+                          {{ encaissement.encai_numerocheque }}
+                        </div><br>                        
+                        <div><span class="detail">Date paiement :</span>
+                          {{ encaissement.encai_datepaiement | date: 'dd-MM-yyyy' }}
+                        </div><br>
+                      </div>
+  
+                      <div class="col-sm-6">
+                        <h5 class="grid-h">Info facture</h5>
+                        <div><span class="detail">Numéro facture :</span>
+                          {{ encaissement.encai_numerofacture }}
+                        </div><br>
+                        <div><span class="detail">Capital assuré :</span>
+                          {{ encaissement.fact_capitalassure }}
+                        </div><br>
+                        <div><span class="detail">Montant compagnie :</span>
+                          {{ encaissement.fact_montantaccescompagnie }}
+                        </div><br>
+                        <div><span class="detail">Montant prime net :</span>
+                          {{ encaissement.fact_montantprimenet }}
+                        </div><br>
+                        <div><span class="detail">Montant ttc :</span>
+                          {{ encaissement.fact_montantttc }}
+                        </div><br>
+                        <div><span class="detail">Montant taxe :</span>
+                          {{ encaissement.fact_montanttaxe }}
+                        </div><br>                        
+                        <div><span class="detail">Date facture :</span>
+                          {{ encaissement.fact_datefacture | date: 'dd-MM-yyyy' }}
+                        </div><br>
+                      </div>
+                    </div>
+                  </nb-card-body>
+                  <nb-card-footer>
+                    <button nbButton (click)="ref.close()" status="danger" class="btn btn-primary">Fermer</button>
+                  </nb-card-footer>
+                </nb-card>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button nbButton status="success" [disabled]='erreur' (click)="onConsulter()">Consulter</button>&nbsp;&nbsp;
+        <button nbButton status="danger" (click)="onReinitialiser()">Réinitialiser</button>&nbsp;&nbsp;
+      </div>
+    </form>
+  </div>
+  <div *ngIf="check_fonct('l_traitementperiodique')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+  </div>
+  

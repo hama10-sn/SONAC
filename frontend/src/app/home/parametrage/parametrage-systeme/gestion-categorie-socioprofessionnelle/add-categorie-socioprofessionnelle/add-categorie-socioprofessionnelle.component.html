@@ -1,0 +1,57 @@
+<div *ngIf="check_fonct('c_categorieSocioprofessionnelle')">
+    <form [formGroup]="addForm">
+        <div class="col-lg-6">
+            <nb-card>
+                <nb-card-header id="titre_entete">Ajouter une Catégorie Socioprofessionnelle</nb-card-header>
+            </nb-card>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <nb-card>
+                    <nb-card-header>Catégorie Socioprofessionnelle</nb-card-header>
+                    <nb-card-body>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="label">Code catégorie <span class="obligatoire">*</span></label>
+                                    <input min="0" fieldSize="small" formControlName="categs_code" type="number" nbInput
+                                        id="categs_code">
+                                </div>
+                            </div>
+                            <!-- <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Sous code rattaché <span class="obligatoire">*</span></label>
+                                <input fieldSize="small" formControlName="categs_scode" type="number" nbInput
+                                    id="categs_scode">
+                            </div>
+                        </div> -->
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="" class="label">Libellé long <span class="obligatoire">*</span></label>
+                                    <input fieldSize="small" formControlName="categs_liblong" type="text" nbInput
+                                        id="categs_liblong">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="" class="label">Libellé court <span class="obligatoire">*</span></label>
+                                    <input fieldSize="small" formControlName="categs_libcourt" type="text" nbInput
+                                        id="categs_libcourt">
+                                </div>
+                            </div>
+                        </div>
+                    </nb-card-body>
+                    <nb-card-footer>
+                        <button nbButton status="success" (click)="onSubmit()" [disabled]='!addForm.valid'>
+                            Ajouter
+                        </button>&nbsp;&nbsp;
+                        <button class="cancel" nbButton status="danger" (click)="onCancel()">Annuler</button>
+                    </nb-card-footer>
+                </nb-card>
+            </div>
+        </div>
+    </form>
+</div>
+<div *ngIf="check_fonct('c_categorieSocioprofessionnelle')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

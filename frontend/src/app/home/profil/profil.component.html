@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-md-12">
+      <nb-card>
+        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">
+          Mon Compte
+        </nb-card-header>
+        <nb-card-body>
+            <button nbButton status="success" (click)="openModif()">Changer mon mot de passe</button>
+            <br>
+            <br>
+            <img [src]="image" width="150" height="150">
+            <br>
+            <br>
+            <button nbButton size="tiny" status="primary" (click)="openModifPhoto()" >Changer de photo de profil</button>
+            <br>
+            <br>
+            <h5 class="grid-h" style="color: rgb(7, 66, 124);">Information generale</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <div><b> Nom d'utilisateur :</b> {{ user?.util_login }}</div><br>
+                    <div><b>Numero  :</b>  {{ user?.util_numero }}</div><br>
+                    <div><b>Nom  :</b> {{ user?.util_nom }}</div><br>
+                    <div><b>Prenom :</b> {{ user?.util_prenom }}</div><br>
+                    <div><b>Denomination :</b> {{ user?.util_denomination }}</div><br>
+                </div>
+                <div class="col-md-6">
+                    <div><b>Numero Client :</b> {{ user?.util_numclient }}</div><br>
+                    <div><b>Telephone Portable :</b> {{ user?.util_telephoneportable }}</div><br>
+                    <div><b>Telephone Fixe  :</b> {{ user?.util_telephonefixe }}</div><br>
+                    <div><b>Adresse :</b> {{ user?.util_adresse }}</div><br>
+                    <div><b>Email :</b> {{ user?.util_email }}</div><br>
+                </div>
+            </div>
+            <h5 class="grid-h" style="color: rgb(7, 66, 124);">Service</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <div><b>Direction :</b> {{ user?.util_direction }}</div><br>
+                    <div><b>Departement  :</b> {{ user?.util_departement }}</div><br>
+                    <div><b>Service  :</b> {{ user?.util_service }}</div><br>
+                    <div><b>Sigle :</b> {{ user?.util_sigle }}</div><br>
+                </div>
+                <div class="col-md-6">
+                    <div><b>Type :</b> {{ user?.util_type }}</div><br>
+                    <div><b>Poste :</b> {{ user?.util_poste }}</div><br>
+                    <div><b>Statut :</b> {{ user?.util_status }}</div><br>
+                </div>
+            </div>
+        </nb-card-body>
+      </nb-card>
+      
+    </div>
+</div>

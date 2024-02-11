@@ -1,0 +1,197 @@
+
+
+    <div *ngIf="check_fonct('l_facture')">
+        <mat-card>
+            <div fxLayout fxLayoutAlign="center center">
+                <mat-form-field fxFlex="40%">
+                  <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+                </mat-form-field>
+                <button class="facture_annuler" (click)="factureAnnuer()">
+                  Facture Annulée
+              </button>
+              <button class="facture_prod" (click)="factureProd()">
+                Facture En cours Production
+            </button><br>
+                <mat-card-header class="card-header">
+        
+                  <span class="header">La liste des factures</span> 
+                  
+                  </mat-card-header>
+                
+              </div>
+              <table mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="fact_numacte">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header > Numero </th>
+                  <td mat-cell *matCellDef="let facture"> {{facture.fact_numacte}} </td>
+                </ng-container>
+                <ng-container matColumnDef="fact_numeropolice">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>  Police</th>
+                  <td mat-cell *matCellDef="let facture"> {{facture.fact_numeropolice}}  </td>
+                </ng-container>
+                <ng-container matColumnDef="fact_numeroacte">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Acte </th>
+                  <td mat-cell *matCellDef="let facture"> {{facture.fact_numeroacte}} </td>
+                </ng-container>
+                <ng-container matColumnDef="fact_numerosouscripteurcontrat">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Souscripteur </th>
+                  <td mat-cell *matCellDef="let facture"> {{facture.fact_numerosouscripteurcontrat}} : {{ onGetClientLibelle(facture.fact_numerosouscripteurcontrat) }} {{ onGetClientLibelle2(facture.fact_numerosouscripteurcontrat) }}</td>
+                </ng-container>
+                <ng-container matColumnDef="fact_datefacture">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Date facture </th>
+                  <td mat-cell *matCellDef="let facture"> {{facture.fact_datefacture | date: 'dd-MM-yyyy '}} </td>
+                </ng-container>
+                <ng-container matColumnDef="fact_dateeffetcontrat">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Date d'effet </th>
+                  <td mat-cell *matCellDef="let facture"> {{facture.fact_dateeffetcontrat | date: 'dd-MM-yyyy HH:mm'}} </td>
+                </ng-container>
+                <ng-container matColumnDef="fact_dateecheancecontrat">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Date d'echeance </th>
+                  <td mat-cell *matCellDef="let facture"> {{facture.fact_dateecheancecontrat | date: 'dd-MM-yyyy HH:mm'}} </td>
+                </ng-container>
+                <ng-container matColumnDef="fact_montantttc">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Montant </th>
+                  <td mat-cell *matCellDef="let facture" > {{facture.fact_montantttc | ngxNumberWithCommas}} F  </td>
+                </ng-container>
+                <ng-container matColumnDef="fact_etatfacture">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Etat </th>
+                  <td mat-cell *matCellDef="let facture" >  <nb-tag *ngIf="facture.fact_etatfacture == 'S'" status="success" appearance="outline" text="payée"></nb-tag> <nb-tag *ngIf="facture.fact_etatfacture == 'V'" status="primary" appearance="outline" text="Impayée"></nb-tag> <nb-tag *ngIf="facture.fact_etatfacture == 'AC'" status="warning" appearance="outline" text="Acompte"></nb-tag> </td>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef>Actions</th>
+                  <td mat-cell *matCellDef="let facture">
+                    <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">
+                      <mat-icon class="mat-18">more_vert</mat-icon>
+                    </button>
+                    <mat-menu #detail="matMenu">
+                      <button mat-menu-item  (click)="open(dialog ,facture)">
+                        <mat-icon>reorder</mat-icon>Détail
+                      </button>
+                        
+                    </mat-menu>
+                  </td>
+                </ng-container>
+                
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                
+              </table>
+              <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]">
+              </mat-paginator>
+              
+              <ng-template #dialog let-facture let-ref="dialogRef">  
+                <nb-card>
+                  <nb-card-header>
+                    Details d'une facture
+                  </nb-card-header>
+                  <nb-card-body>
+                      <div class="row">
+                          <div class="col-sm-3">
+                            <h5 class="grid-h">Information</h5>
+                              <div><span class="detail">Numero  :</span> {{ facture.fact_numacte }}</div><br>
+                              <div><span class="detail">Numero Police :</span> {{ facture.fact_numeropolice }}</div><br>
+                              <div><span class="detail">Date Facture :</span> {{ facture.fact_datefacture | date: 'dd-MM-yyyy' }}</div><br>
+                              <div><span class="detail">Numero Acte :</span> {{ facture.fact_numeroacte }}</div><br>
+                              <div><span class="detail">Quittance :</span> {{ facture.fact_numeroquittance }}</div><br>
+                              <div><span class="detail">Identification Marché :</span> {{ facture.fact_marche }}</div><br>
+                              <div><span class="detail">Souscriptuer :</span> {{ facture.fact_numerosouscripteurcontrat }}  : {{ onGetClientLibelle(facture.fact_numerosouscripteurcontrat) }} {{ onGetClientLibelle2(facture.fact_numerosouscripteurcontrat) }}</div><br>
+                            </div>
+                          <div class="col-sm-3">
+                            <h5 class="grid-h">Info Complementaire</h5>
+                            <div><span class="detail">Acheteur :</span> {{ facture.fact_numeoracheteur }}</div><br>
+                            <div><span class="detail">Assuré :</span> {{ facture.fact_numeroassure }}</div><br>
+                            <div><span class="detail">Bénéficiaire :</span> {{ facture.fact_numerobeneficiaire }}</div><br>
+                            <div><span class="detail">Object de la Facture :</span> {{ facture.fact_objetfacture }}</div><br>   
+                            <div><span class="detail">Montant Prime Net :</span> {{ facture.fact_montantprimenet | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">Frais et Accessoires Cie :</span> {{ facture.fact_montantaccescompagnie | ngxNumberWithCommas}}</div><br>
+                          <div><span class="detail">Fais et Accessoires Apporteur :</span> {{ facture.fact_montantaccesapporteur | ngxNumberWithCommas}}</div><br>
+                          <div><span class="detail">Taxes Calculées :</span> {{ facture.fact_montanttaxe | ngxNumberWithCommas}}</div><br>   
+                                     
+                        </div> 
+                        <div class="col-sm-3">
+                          <h5 class="grid-h">Info Produit</h5>
+                          <div><span class="detail">montant arrondi :</span> {{ facture.fact_montantarrondi | ngxNumberWithCommas}}</div><br>
+                          <div><span class="detail">date de comptabilisation :</span> {{ facture.fact_datecomptabilisation | date: 'dd-MM-yyyy' }}</div><br>
+                          <div><span class="detail">Montant facture :</span> {{ facture.fact_montantttc | ngxNumberWithCommas }}</div><br>                          
+                          <div><span class="detail">Branche :</span> {{ facture.fact_numerobranche }}</div><br>   
+                          <div><span class="detail">Numéro catégorie :</span> {{ facture.fact_numerocategorie }}</div><br>
+                          <div><span class="detail">date d'effet :</span> {{ facture.fact_dateeffetcontrat | date: 'dd-MM-yyyy HH:mm' }}</div><br>
+                          <div><span class="detail">date d'echeance :</span> {{ facture.fact_dateecheancecontrat | date: 'dd-MM-yyyy HH:mm' }}</div><br>
+                          <div><span class="detail">capital assuré :</span> {{ facture.fact_capitalassure | ngxNumberWithCommas }}</div><br>                                    
+                      </div>
+                      <div class="col-sm-3">
+                        <h5 class="grid-h">Autres</h5>
+                        <div><span class="detail">capital SMP :</span> {{ facture.fact_capitalsmp | ngxNumberWithCommas}}</div><br>
+                        <div><span class="detail">capital LCI :</span> {{ facture.fact_capitallci | ngxNumberWithCommas }}</div><br>
+                        <div><span class="detail">Date de comptabilisation:</span> {{ facture.fact_datecomptabilisation | date: 'dd-MM-yyyy' }}</div><br>                          
+                        <div><span class="detail">status facture :</span> {{ facture.fact_etatfacture }}</div><br>   
+                        <div><span class="detail">Code annulation :</span> {{ facture.fact_codeannulation }}</div><br>
+                        <div><span class="detail">date annulation :</span> {{ facture.fact_dateannulation | date: 'dd-MM-yyyy' }}</div><br>
+                        <div><span class="detail">ancien numero de facture :</span> {{ facture.fact_anciennumerofacture }}</div><br>                    
+                     </div>
+                    </div>
+                  </nb-card-body>
+                  <nb-card-footer>
+                      <button nbButton (click)="ref.close()" status="danger">Fermer</button>&nbsp;&nbsp;                  
+                      &nbsp;&nbsp; <ngx-imprimer-facture [numero_facture]="facture.fact_numacte"></ngx-imprimer-facture>
+                     </nb-card-footer>
+                </nb-card>
+                
+            
+            </ng-template>
+        
+            <ng-template #dialogdel let-facture let-ref="dialogRef">
+          
+           
+              <!--nb-card>
+                <nb-card-header>
+                  SUPPRESSION
+                </nb-card-header>
+                <nb-card-body>
+                  <div *ngIf="onChechId(facture.cont_numero,facture.cont_numeroclient,facture.cont_leader)==1">
+        
+                    <h5  class="grid-h">Confirmation de la suppression</h5>
+                  </div>
+                  <div *ngIf="onChechId(facture.cont_numero,facture.cont_numeroclient,facture.cont_leader)==2">
+        
+                    <h5  class="grid-h">Impossible de supprimer crée une facture leader d'abord</h5>
+                  </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <br>
+            
+                            <div></div><br>
+                           
+                        </div>
+                   
+                    </div>
+                    
+                   
+                </nb-card-body>
+                  <nb-card-footer>
+                    <div *ngIf="onChechId(facture.cont_numero,facture.cont_numeroclient,facture.cont_leader)==1">
+                    <button nbButton (click)="onDeletefactureClient(facture.cont_numero,facture.cont_numeroclient,facture.cont_leader)" (click)="ref.close()" status="success">Confirmer</button>&nbsp;&nbsp; 
+                      <button nbButton (click)="ref.close()" status="danger">Annuler</button>
+                    </div>
+                    <div *ngIf="onChechId(facture.cont_numero,facture.cont_numeroclient,facture.cont_leader)==2">
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <button nbButton (click)="ref.close()" status="danger">OK</button>
+                      </div>
+                    </nb-card-footer>
+              </nb-card-->
+            
+              
+            </ng-template>
+         
+            </mat-card>
+          </div>
+          
+          <div *ngIf="check_fonct('l_facture')==false">
+            <ngx-page-not-autoriser></ngx-page-not-autoriser>
+          </div>
+
+
+
+        

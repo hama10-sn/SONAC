@@ -1,0 +1,117 @@
+
+
+    <div *ngIf="check_fonct('l_mainleve')">
+        <mat-card>
+            <div fxLayout fxLayoutAlign="center center">
+                <mat-form-field fxFlex="40%">
+                  <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+                </mat-form-field>
+                <mat-card-header class="card-header">
+        
+                  <span class="header">La liste des mains leve de l'engagement {{numero}}</span> 
+                 <!--  <div *ngIf="check_fonct('c_mainleve')">
+                    <button mat-icon-button  class="buttons" status="success" (click)="openAjout()">
+                        <mat-icon  class="material-icons color_green"  title="Ajouter Main leve">add_circle</mat-icon>    
+                      </button>
+                </div> -->
+                  </mat-card-header>
+                  <div class="navigation" >
+                    <a style="color: rgb(7, 66, 124) ; cursor:pointer;" (click)="cancel()" class="link" aria-label="back">Retour a la liste engagements<br><i style="font-size: 3rem" class="boutons" class="icon nb-arrow-thin-left"></i></a>
+                  </div>
+              </div>
+              <table mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="mainl_numpoli">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>  Police</th>
+                  <td mat-cell *matCellDef="let mainleve"> {{mainleve.mainl_numpoli}}  </td>
+                </ng-container>
+                <ng-container matColumnDef="mainl_numeroacte">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>  Acte </th>
+                  <td mat-cell *matCellDef="let mainleve"> {{mainleve.mainl_numeroacte}} </td>
+                </ng-container><!-- 
+                    <ng-container matColumnDef="mainl_numeroengagement">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header > Engagement </th>
+                      <td mat-cell *matCellDef="let mainleve"> {{mainleve.mainl_numeroengagement}} </td>
+                    </ng-container> -->
+                    <ng-container matColumnDef="mainl_nummainlevee">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Main Leve  </th>
+                      <td mat-cell *matCellDef="let mainleve"> {{mainleve.mainl_nummainlevee}} </td>
+                    </ng-container> 
+                <ng-container matColumnDef="mainl_mtnmainlevee">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Montant Main Leve </th>
+                    <td mat-cell *matCellDef="let mainleve"> {{mainleve.mainl_mtnmainlevee | ngxNumberWithCommas}} </td>
+                  </ng-container> 
+                <ng-container matColumnDef="details">
+                  <th mat-header-cell *matHeaderCellDef > Details </th>
+                  <td mat-cell *matCellDef="let mainleve">
+                    <button mat-icon-button color="primary" (click)="open(dialog,mainleve)">
+                        <mat-icon class="mat-18">reorder</mat-icon>
+                    </button>
+                  </td>
+                </ng-container><!-- 
+                <ng-container matColumnDef="update">
+                    <th mat-header-cell *matHeaderCellDef><div *ngIf="check_fonct('u_mainleve')"> Modification </div></th>
+                    <td mat-cell *matCellDef="let mainleve">
+                      <div *ngIf="check_fonct('u_mainleve')">
+                      <button mat-icon-button color="green" (click)="openModif(mainleve)">
+                          <mat-icon class="mat-18">edit</mat-icon>
+                      </button>
+                    </div>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="delete">
+                      <th mat-header-cell *matHeaderCellDef><div *ngIf="check_fonct('d_mainleve')"> Delete </div></th>
+                      <td mat-cell *matCellDef="let mainleve">
+                        <button mat-icon-button color="warn" (click)="open(dialogdel ,mainleve)">
+                            <mat-icon class="mat-18"><div *ngIf="check_fonct('d_mainleve')"> delete </div></mat-icon>
+                        </button>
+                      </td>
+                    </ng-container> -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                
+              </table>
+              <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]">
+              </mat-paginator>
+              
+              <ng-template #dialog let-mainleve let-ref="dialogRef">  
+                <nb-card>
+                  <nb-card-header>
+                    Details d'une main leve
+                  </nb-card-header>
+                  <nb-card-body>
+                      <div class="row">
+                          <div class="col-sm-5">
+                            <h5 class="grid-h">Information</h5>
+                              <div><span class="detail">Numero  :</span> {{ mainleve.mainl_numpoli }}</div><br>
+                              <div><span class="detail">Numero Police :</span> {{ mainleve.mainl_numeroavenant }}</div><br>
+                              <div><span class="detail">Numero Avenant   :</span> {{ mainleve.mainl_numeroacte }}</div><br>
+                              <div><span class="detail">Numero Acte :</span> {{ mainleve.mainl_numeroengagement }}</div><br>
+                              <div><span class="detail">Code Interne Marché  :</span> {{ mainleve.mainl_nummainlevee }}</div><br>
+                              <div><span class="detail">Montant Main Levée :</span> {{ mainleve.mainl_mtnmainlevee | ngxNumberWithCommas}}</div><br>
+                            </div>
+                          <div class="col-sm-5">
+                            <h5 class="grid-h">Info Complementaire</h5>
+                            <div><span class="detail">Date de la Main Levée :</span> {{ mainleve.engag_datemainleve | date: 'dd-MM-yyyy' }}</div><br>
+                            <div><span class="detail">Date de Saisie :</span> {{ mainleve.mainl_datesasisie | date: 'dd-MM-yyyy'}}</div><br>
+                            <!-- <div><span class="detail">Status :</span> {{ mainleve.mainl_status }}</div><br> -->
+
+                            
+                        </div> 
+                       
+                      </div>
+                  </nb-card-body>
+                  <nb-card-footer>
+                      <button nbButton (click)="ref.close()" status="danger">Fermer</button>&nbsp;&nbsp;                  
+                     <!--  <button nbButton status="success" (click)="ref.close()" (click)="openModif(mainleve)"><div *ngIf="check_fonct('u_mainleve')">modifier</div> </button>   -->   
+                    </nb-card-footer>
+                </nb-card>
+                
+            
+            </ng-template>
+         
+            </mat-card>
+          </div>
+          
+          <div *ngIf="check_fonct('l_mainleve')==false">
+            <ngx-page-not-autoriser></ngx-page-not-autoriser>
+          </div>

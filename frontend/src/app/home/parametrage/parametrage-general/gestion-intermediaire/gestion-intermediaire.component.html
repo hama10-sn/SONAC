@@ -1,0 +1,201 @@
+<div *ngIf="check_fonct('l_intermediaire')">
+    <mat-card>
+        <div fxLayout fxLayoutAlign="center center">
+            <mat-form-field fxFlex="40%">
+                <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+            </mat-form-field>
+            <mat-card-header class="card-header">
+                <span class="header">La liste des intermédiaires</span>
+                <div *ngIf="check_fonct('c_intermediaire')">
+                    <button mat-icon-button class="buttons" status="success" (click)="onOpenAjout()">
+                        <mat-icon class="material-icons color_green" title="Ajouter intermédiaire">add_circle</mat-icon>
+                    </button>
+                </div>
+
+                <div>
+                    <button class="buttons_export" mat-button [matMenuTriggerFor]="menu">Export</button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="onExport('pdf')">
+                            PDF
+                        </button>
+                        <button mat-menu-item (click)="onExport('excel')">
+                            EXCEL
+                        </button>
+                    </mat-menu>
+                </div>
+            </mat-card-header>
+        </div>
+
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="inter_numero">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> intermédiaire </th>
+                <td mat-cell *matCellDef="let intermediaire"> {{intermediaire.inter_numero}} </td>
+            </ng-container>
+            <ng-container matColumnDef="inter_type">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> type </th>
+                <td mat-cell *matCellDef="let intermediaire"> {{intermediaire.inter_type}}</td>
+            </ng-container>
+            <ng-container matColumnDef="inter_denomination">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> dénomination </th>
+                <td mat-cell *matCellDef="let intermediaire"> {{intermediaire.inter_denomination}} </td>
+            </ng-container>
+            <ng-container matColumnDef="inter_portable">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> numéro mobile </th>
+                <td mat-cell *matCellDef="let intermediaire"> {{intermediaire.inter_portable}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let intermediaire">
+                    <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">
+                        <mat-icon class="mat-18">more_vert</mat-icon>
+                    </button>
+                    <mat-menu #detail="matMenu">
+                        <button mat-menu-item (click)="onOpen(dialog ,intermediaire)">
+                            <mat-icon>visibility</mat-icon> Détail
+                        </button>
+                        <button mat-menu-item (click)="OpenDossier(intermediaire)">
+                            <mat-icon color="primary">folder_open</mat-icon> Dossier
+                        </button>
+                        <div *ngIf="check_fonct('d_intermediaire')">
+                            <button mat-menu-item (click)="openTestDel(dialogEchec, dialogdel, intermediaire)">
+                                <mat-icon color="warn">delete</mat-icon> Suppimer
+                            </button>
+                        </div>
+                    </mat-menu>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]"></mat-paginator>
+
+        <ng-template #dialog let-intermediaire let-ref="dialogRef">
+
+            <nb-card>
+                <nb-card-header>Détails de l'intermédiaire</nb-card-header>
+                <nb-card-body>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <h5 class="grid-h">Intermédiaire</h5>
+                            <div><span class="detail">Numéro intermédiaire:</span> {{ intermediaire.inter_numero }}
+                            </div><br>
+                            <div><span class="detail">Type intermédiaire :</span> {{ intermediaire.inter_type }}</div>
+                            <br>
+                            <div><span class="detail">Dénomination :</span> {{ intermediaire.inter_denomination }}</div>
+                            <br>
+                            <div><span class="detail">Dénomination court :</span> {{
+                                intermediaire.inter_denominationcourt }}</div><br>
+                            <div><span class="detail">Code commission :</span> {{ intermediaire.inter_codecommission }}
+                            </div><br>
+                            <div><span class="detail">Numero Agrément :</span> {{ intermediaire.inter_numagrement }}
+                            </div><br>
+                            <div><span class="detail">Date debut carte agrément :</span> {{
+                                intermediaire.inter_datedebutcarteagrement }}
+                            </div><br>
+                            <div><span class="detail">Autorisation :</span> {{ intermediaire.inter_autorisation }}
+                            </div><br>
+                            <div><span class="detail">Année exercice :</span> {{ intermediaire.inter_anneeexercice }}
+                            </div><br>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <h5 class="grid-h">Contact</h5>
+                            <div><span class="detail">Boîte Postale :</span> {{ intermediaire.inter_boitepostale }}
+                            </div><br>
+                            <div><span class="detail">Rue :</span> {{ intermediaire.inter_rue }}</div><br>
+                            <div><span class="detail">Quartier et Ville :</span> {{ intermediaire.inter_quartierville }}
+                            </div><br>
+                            <div><span class="detail">Téléphone 1 :</span> {{ intermediaire.inter_telephone1 }}</div>
+                            <br>
+                            <div><span class="detail">Téléphone 2 :</span> {{ intermediaire.inter_telephone2 }}</div>
+                            <br>
+                            <div><span class="detail">Numéro mobile :</span> {{ intermediaire.inter_portable }}</div>
+                            <br>
+                            <div><span class="detail">Email :</span> {{ intermediaire.inter_email }}</div><br>
+                        </div>
+                        <div class="col-sm-4">
+                            <h5 class="grid-h">Autres</h5>
+                            <div><span class="detail">Classification métier :</span> {{
+                                onGetLibelleByClassification(intermediaire.inter_classificationmetier) }}</div><br>
+                            <div><span class="detail">Objectif chiffre d'affaire :</span> {{
+                                intermediaire.inter_objectifcaannuel | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">Chiffre d'affaire (porte feuille) :</span> {{
+                                intermediaire.inter_caportefeuille | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">Montant des sinistres :</span> {{ intermediaire.inter_sinistralite
+                                | ngxNumberWithCommas
+                                }}</div><br>
+                            <div><span class="detail">Montant des arriérés :</span> {{ intermediaire.inter_arriere |
+                                ngxNumberWithCommas}}
+                            </div><br>
+                            <div><span class="detail">Durée moyenne des arriérés :</span> {{
+                                intermediaire.inter_dureemoyenne }}</div><br>
+                            <div><span class="detail">Montant commissions annuel :</span> {{
+                                intermediaire.inter_montantcommission | ngxNumberWithCommas}}</div><br>
+                            <div><span class="detail">Date d'entrer en relation :</span> {{
+                                intermediaire.inter_datentrerelation | date:'dd-MM-yyyy'}}</div><br>
+                        </div>
+                    </div>
+                </nb-card-body>
+                <nb-card-footer>
+                    <button nbButton (click)="onOpenModif(intermediaire)" (click)="ref.close()" status="success"
+                        class="btn btn-succes">Modifier</button>&nbsp;&nbsp;
+                    <button nbButton (click)="ref.close()" status="danger" class="btn btn-primary">Fermer</button>
+                </nb-card-footer>
+            </nb-card>
+        </ng-template>
+
+        <!-- Dialog de confirmation pour la suppression -->
+        <ng-template #dialogdel let-intermediaire let-ref="dialogRef">
+
+            <nb-card>
+                <nb-card-header>
+                    SUPPRESSION
+                </nb-card-header>
+                <nb-card-body>
+                    <h5 class="grid-h">Merci de confirmer la suppression</h5>
+                    <div class="row">
+                        <div class="col-sm-16">
+                            <div></div><br>
+                        </div>
+                    </div>
+                </nb-card-body>
+                <nb-card-footer>
+                    <button nbButton (click)="redirectToDelete(intermediaire.inter_numero)" (click)="ref.close()"
+                        status="success">Confirmer</button>&nbsp;&nbsp;
+                    <button nbButton (click)="ref.close()" status="danger">Annuler</button>
+                </nb-card-footer>
+            </nb-card>
+        </ng-template>
+
+        <!-- Dialog d'information pour la suppression -->
+        <ng-template #dialogEchec let-intermediaire let-ref="dialogRef">
+
+            <nb-card>
+                <nb-card-header style="background-color: rgb(7, 66, 124);color:white">
+                    SUPPRESSION
+                </nb-card-header>
+                <nb-card-body>
+                    <h5 class="grid-h">suppréssion impossible: cet intermédiaire est relié à une police</h5>
+                    <div class="row">
+                        <div class="col-sm-16">
+
+                        </div>
+                    </div>
+                </nb-card-body>
+                <nb-card-footer>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button nbButton (click)="ref.close()" status="success">OK</button>
+                </nb-card-footer>
+            </nb-card>
+        </ng-template>
+    </mat-card>
+</div>
+<div *ngIf="check_fonct('l_intermediaire')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

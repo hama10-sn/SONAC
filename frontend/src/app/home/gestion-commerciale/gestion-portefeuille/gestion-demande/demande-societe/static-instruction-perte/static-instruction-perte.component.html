@@ -1,0 +1,388 @@
+<div>
+    <form [formGroup]="addForm">
+      <!-- <div class="col-lg-4">
+        <nb-card>
+          <nb-card-header id="titre_entete">Ajout d'un nouvel client</nb-card-header>
+        </nb-card>
+      </div> -->
+      <div class="col-lg-4">
+        <nb-card>
+          <nb-card-header style="background-color: rgb(7, 66, 124);color:white">{{titre}}</nb-card-header>
+        </nb-card>
+      </div>
+  
+     
+      <br>
+      <div class="tabs">
+
+        <input type="radio" name="tabs" id="tabonefive" checked="checked">
+        <label for="tabonefive" class="lab">EXPLOITANT / CARACTERISTIQUES </label>
+        <div class="tab">
+          <div class="row">
+
+
+            <div class="col-sm-3">
+               
+                <div><span class="detail"></span> </div><br>
+                <div><span class="detail"></span> </div><br>
+                <div><span class="detail"></span> </div><br>
+                <!--div><span class="detail">Numéro Titulaire :</span> {{ demandeSociete.dem_clienttitulaire }}</div><br-->
+                <div><span class="detail"></span> </div><br>
+              </div>
+          <br>
+          <br>
+          <div class="col-sm-3">
+            <h5 class="grid-h">Exploitant</h5>
+            <div><span class="detail">Nom  :</span> {{ nom }}</div><br>
+            <div><span class="detail">Prenom :</span> {{ prenom }}</div><br>
+            <div><span class="detail"></span> </div><br>
+            
+
+          </div>
+
+          <div class="col-sm-6">
+            <h5 class="grid-h">Caractéristiques</h5>
+            <div><span class="detail">Assuré :</span> {{ demandeur}}</div><br>
+            <div><span class="detail">Branche :</span> {{ c2 }}</div><br>
+            <div><span class="detail">Revenus locatif :</span> {{ formatNumer(demandeSociete.dem_montant)}} F CFA</div><br>
+          </div>
+
+          
+        </div>
+        <div class="row">
+            <div class="col-sm-3"></div>
+       
+        <div class="col-sm-9">
+            <form [formGroup]="locataireForm">
+                <h5>Ajouter un locataire</h5>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                        <label class="label">Nom</label><br>
+                        <input fieldSize="small" formControlName="nom" type="text" nbInput fullWidth
+                        id="nom" >
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                        <label class="label">Prenom</label><br>
+                        <input fieldSize="small" formControlName="prenom" type="text" nbInput fullWidth
+                        id="nom">
+                        </div>
+                    </div>
+                </div>
+            
+                <button style="background-color: rgb(7, 66, 124);" status="primary" nbButton (click)="ajoutReference()" [disabled]='!locataireForm.valid'>Ajouter un locataire</button>
+            </form>
+            <div class="row">
+                <div class="col-sm-9">
+                <h5>Liste des locataires<span style="color:red;">*</span></h5>
+                <table class="table table-bordered">
+                    <thead class="text-white" style="background-color: rgb(7, 66, 124);">
+                    
+                        <th class="text-center">Nom</th>
+                        <th class="text-center">Prenom</th>
+                        <th class="text-center">Action</th>
+                    
+                    </thead>
+                    <tbody  *ngFor="let ref of referenceTech">
+                    <tr>
+                        <td class="text-center">{{ref.nom}}</td>
+                        <td class="text-center">{{ref.prenom}}</td>
+                        <td class="text-center">
+                        <button mat-icon-button color="warn" (click)="onDeleteRef(ref)"> 
+                            <mat-icon class="mat-18">delete</mat-icon>
+                        </button>
+                    </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+    </div>
+        </div>
+
+        <!--input type="radio" name="tabs" id="tabo">
+        <label for="tabo" class="lab">REFEFERENCES <br> TECHNIQUES</label> 
+        <div class="tab">
+            <form [formGroup]="locataireForm">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                        <label class="label">Nom</label><br>
+                        <input fieldSize="small" formControlName="nom" type="text" nbInput fullWidth
+                        id="nom" >
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                        <label class="label">Prenom</label><br>
+                        <input fieldSize="small" formControlName="prenom" type="text" nbInput fullWidth
+                        id="nom">
+                        </div>
+                    </div>
+                </div>
+            
+                <button style="background-color: rgb(7, 66, 124);" status="primary" nbButton (click)="ajoutReference()">Ajouter references</button>
+            </form>
+            <div class="row">
+                <div class="col-sm-9">
+                <h5>Liste des locataires</h5>
+                <table class="table table-bordered">
+                    <thead class="text-white" style="background-color: rgb(7, 66, 124);">
+                    
+                        <th class="text-center">Nom</th>
+                        <th class="text-center">Prenom</th>
+                        <th class="text-center">Action</th>
+                    
+                    </thead>
+                    <tbody  *ngFor="let ref of referenceTech">
+                    <tr>
+                        <td class="text-center">{{ref.nom}}</td>
+                        <td class="text-center">{{ref.prenom}}</td>
+                        <td class="text-center">
+                        <button mat-icon-button color="warn" (click)="onDeleteRef(ref)"> 
+                            <mat-icon class="mat-18">delete</mat-icon>
+                        </button>
+                    </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div-->
+
+        <input type="radio" name="tabs" id="tabthree" >
+        <label for="tabthree" class="lab">ENGAGEMENTS DU DONNEUR D’ORDRE EN COURS</label>
+        <div class="tab">
+          <div class="row">
+            <div class="col-sm-3">
+              <div><span class="detail"></span> </div><br>
+              <div><span class="detail"></span> </div><br>
+              <div><span class="detail"></span> </div><br>
+              <div><span class="detail"></span> </div><br>
+            </div>
+            <br>
+            <br>
+            <div class="col-sm-6">
+              <h5 class="grid-h">Engagements du donneur d'ordre en cours</h5>
+              <div><span class="detail">soumission  :</span> {{ formatNumer(temp1) }} F CFA</div><br>
+              <div><span class="detail">Avance de démarrage :</span> {{ formatNumer(temp2) }} F CFA</div><br>
+              <div><span class="detail">Bonne execution :</span> {{ formatNumer(temp3) }} F CFA</div><br>
+              <div><span class="detail">Retenue de garantie :</span> {{ formatNumer(temp4) }} F CFA</div><br>
+              <div><span class="detail">Définitive :</span> {{ formatNumer(temp5)}} F CFA</div><br>
+              <div><span class="detail">Locassur :</span> {{ formatNumer(cmttotale)}} F CFA</div><br>
+              <div><span class="detail">Total mains levées :</span> {{ formatNumer(tempmainLeve)}} F CFA</div><br>
+              <div><span class="detail">TOTAL ENGAGEMENT:</span> {{ formatNumer(temp1+temp2+temp3+temp4+temp5+cmttotale)}} F CFA</div><br>
+              <div></div><br>
+              <div></div><br>
+              <div></div><br>
+            </div>
+          </div>       
+        </div>
+
+        
+        <!--input type="radio" name="tabs" id="tabseven" >
+        <label for="tabseven" class="lab">ENGAGE <br> MENT<br>DEMANDE</label>
+        <div class="tab">
+          <div class="row">
+            <div class="col-sm-3">
+              <div><span class="detail"></span> </div><br>
+              <div><span class="detail"></span> </div><br>
+              <div><span class="detail"></span> </div><br>
+              <div><span class="detail"></span> </div><br>
+            </div>
+            <br>
+            <br>
+            <div class="col-sm-6">
+              <h5 class="grid-h">Engagement demandé</h5>
+              <div><span class="detail">soumission  :</span> {{ formatNumer(soumission) }}</div><br>
+              <div><span class="detail">Avance de démarrage :</span> {{ formatNumer(avancedemarrage) }}</div><br>
+              <div><span class="detail">Bonne execution :</span> {{ formatNumer(bonneexcution )}}</div><br>
+              <div><span class="detail">Retenue de garantie :</span> {{ formatNumer(retenuegarantie) }}</div><br>
+              <div><span class="detail">Définitive:</span> {{ formatNumer(definitive) }}</div><br>
+              <div><span class="detail">TOTAL ENGAGEMENT:</span> {{ formatNumer(cmttotale) }}</div><br>
+              <div></div><br>
+              <div></div><br>
+              <div></div><br>
+            </div>
+          </div>
+        </div>
+
+        <input type="radio" name="tabs" id="tabone" >
+        <label for="tabone" class="lab">MARCHE</label>
+        <div class="tab">
+  
+          <div class="row">
+            <!- <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label"> type client<span class="obligatoire">*</span></label>
+                <input readonly fieldSize="small" formControlName="clien_typeclient" type="text" nbInput fullWidth
+                  id="clien_typeclient">
+                 <nb-select (selectedChange)="onChangeLibeleType($event)" fullWidth>
+                  <nb-option value="{{type.id}}" *ngFor="let type of listType">{{type.value}}</nb-option>
+                </nb-select> 
+              </div>
+            </div> ->
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Object avenant<span class="obligatoire">*</span></label> <br>
+                <textarea name="instruct_objet_avenant" formControlName="instruct_objet_avenant" id="instruct_objet_avenant" cols="50" rows="5"></textarea>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date de Souscription<span class="obligatoire">*</span></label>
+                <input fieldSize="small" formControlName="instruct_date_souscript" type="date" nbInput fullWidth
+                  id="instruct_date_souscript">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Beneficiaire<span class="obligatoire">*</span></label>
+                <input fieldSize="small" formControlName="instruct_beneficiaire" type="text"  nbInput fullWidth
+                  id="instruct_beneficiaire">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Taux pour le produit 1<span class="obligatoire">*</span></label>
+                <input fieldSize="small" formControlName="instruct_taux" type="number"  nbInput fullWidth
+                  id="instruct_taux">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Taux pour le produit 2 <span class="obligatoire">*</span></label>
+                <input fieldSize="small" formControlName="instruct_taux2" type="number"  nbInput fullWidth
+                  id="instruct_taux2">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Taux pour le produit 3 <span class="obligatoire">*</span></label>
+                <input fieldSize="small" formControlName="instruct_taux3" type="number"  nbInput fullWidth
+                  id="instruct_taux3">
+              </div>
+            </div>
+          </div>
+        </div-->
+  
+        <input type="radio" name="tabs" id="tabtwo" >
+        <label for="tabtwo" class="lab">ANALYSE</label>
+        <div class="tab">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label class="label">Analyse <span class="obligatoire">*</span></label><br>
+                <textarea name="instruct_analyse" formControlName="instruct_analyse" id="instruct_analyse" cols="30" rows="10" placeholder="par ici l'analyse" nbInput fullWidth></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <input type="radio" name="tabs" id="tabsix" >
+        <label for="tabsix" class="lab">CONDITION D'ASSURANCE</label>
+        <div class="tab">
+          <div class="row">
+            <div class="col-sm-3">
+              <div><span class="detail"></span> </div><br>
+              <div><span class="detail"></span> </div><br>
+              <div><span class="detail"></span> </div><br>
+              <div><span class="detail"></span> </div><br>
+            </div>
+            <br>
+            <br>
+            <div class="col-sm-6">
+              <h5 class="grid-h">Condition d'assurance</h5>
+              <div class="grid-h"><span class="grid-h">Revenus locatif annuels :</span> {{ formatNumer(temp1+temp2+temp3+temp4+temp5+cmttotale)}} F CFA</div><br>
+              <div><span class="detail">Taux prime :</span> 5% </div><br>
+              <div><span class="detail">Montant prime :</span> {{ formatNumer(primenette)}} F CFA</div><br>
+              <div><span class="detail">Frais d'étude:</span> {{formatNumer(fed)}} F CFA</div><br>
+              <div class="grid-h"><span class="grid-h">Prime TTC :</span> <span style="background-color:yellow ;">{{ formatNumer(primettc) }} F CFA</span></div><br>
+            </div>
+          </div>
+        </div>
+
+        
+  
+        <!--input type="radio" name="tabs" id="tabone3">
+        <label for="tabone3" class="lab">ANALYSE DE RISQUE <br> CONCLUSION</label>
+        <div class="tab">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Analyse de risque<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="instruct_interetdossier" type="text" nbInput fullWidth
+                id="instruct_interetdossier"></textarea>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Conclusion</label> <br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="instruct_conclusion" type="text" nbInput fullWidth
+                id="instruct_conclusion"></textarea>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+  
+        <!-input type="radio" name="tabs" id="tabone4">
+        <label for="tabone4" class="lab">CONDITIONS <br> FINANCIERES</label>
+        <div class="tab">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <!- <label class="label">Commentaire</label> ->
+                <textarea id=""  rows="10" cols="100"
+                  placeholder="Vous pouvez mettre votre commentaire ici !">
+                </textarea>
+                <!- <ckeditor [config]="{  height: '150' }" formControlName="clien_commentaire"></ckeditor> ->
+              </div>
+            </div>
+          </div>
+        </div-->
+  
+        <!-- 
+        <input type="radio" name="tabs" id="tabone4">
+        <label for="tabone4" class="lab">STATUS</label>
+        <div class="tab">
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Status</label>
+                <nb-select (selectedChange)="onChangeStatus($event)" type="text" fullWidth id="clien_status">
+                  <nb-option value="1">Valide</nb-option>
+                  <nb-option value="2">En attente</nb-option>
+                </nb-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        -->
+  
+      </div>
+  
+      <br>
+      <div class="col-sm-6">
+        <label style="font-size: 15px;color:green" class="label">Mémo Direction Arbitrage<span class="obligatoire">*</span></label><br>
+        <textarea  cols="30" rows="4" fieldSize="small" formControlName="instruct_memo" type="text" nbInput fullWidth
+         id="instruct_memo"       ></textarea>
+      </div>
+      <div>
+  
+        <button class="cancel" nbButton status="danger" (click)="close()" >Annuler</button>
+        &nbsp;&nbsp;<button *ngIf="!haveInstruction && candidateToModifyInstruct" nbButton status="success" (click)="onExportConditionInstruction(demandeSociete)" [disabled]='!addForm.valid || !tailleRef'  >Exporter et enregistrer</button>
+        &nbsp;&nbsp;<button *ngIf="haveInstruction && candidateToModifyInstruct" nbButton status="success" (click)="onExportConditionInstruction(demandeSociete)" [disabled]='!addForm.valid || !tailleRef'  >Exporter et modifier</button>
+        &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success" (click)="onExportInstruction(demandeSociete)" [disabled]='!addForm.valid || !tailleRef'  >Exporter</button>
+      </div>
+  
+    </form>
+  </div>
+  <!--div *ngIf="check_fonct('c_client')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+  </div-->

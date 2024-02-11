@@ -1,0 +1,153 @@
+<div *ngIf="check_fonct('l_utilisateur')">
+<mat-card>
+<div fxLayout fxLayoutAlign="center center">
+   <mat-form-field fxFlex="40%">
+    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+  </mat-form-field>
+
+<mat-card-header class="card-header">
+  <span class="header">La liste des utilisateurs</span>    
+  <div *ngIf="check_fonct('c_utilisateur')">
+  <button mat-icon-button   class="buttons" status="success" (click)="openAjout()">
+    <mat-icon style="margin-bottom: 15px;" class="material-icons color_green"  title="Ajouter utilisateur">add_circle</mat-icon>    
+  </button></div>
+  </mat-card-header>
+</div>
+<!--button nbButton status="success" (click)="openAjout()">Ajouter</button>
+<br><br-->
+<table mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="util_nom">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> nom </th>
+    <td mat-cell *matCellDef="let user"> {{user.util_nom}} </td>
+  </ng-container>
+  <ng-container matColumnDef="util_prenom">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Prenom </th>
+    <td mat-cell *matCellDef="let user"> {{user.util_prenom}} </td>
+  </ng-container>
+  <ng-container matColumnDef="util_email">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+    <td mat-cell *matCellDef="let user"> {{user.util_email}} </td>
+  </ng-container>
+  <ng-container matColumnDef="util_type">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+    <td mat-cell *matCellDef="let user"> {{user.util_type}} </td>
+  </ng-container>
+  <ng-container matColumnDef="util_service">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Service </th>
+    <td mat-cell *matCellDef="let user"> {{user.util_service}} </td>
+  </ng-container>
+  <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let user">
+          <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">
+            <mat-icon class="mat-18">more_vert</mat-icon>
+          </button>
+          <mat-menu #detail="matMenu">
+            <button mat-menu-item  (click)="open(dialog ,user)">
+              <mat-icon>reorder</mat-icon>Détail
+            </button>
+              <button mat-menu-item *ngIf="check_fonct('u_utilisateur')"  (click)="openModif(user)">
+                  <mat-icon>edit
+                  </mat-icon>Modifier
+              </button>
+            <button *ngIf="check_fonct('d_utilisateur')" mat-menu-item (click)="open(dialogdel ,user)">
+              <mat-icon color="warn">delete
+              </mat-icon>Suppimer
+            </button>
+          </mat-menu>
+        </td>
+      </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+</table>
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]">
+</mat-paginator>
+
+
+  <ng-template #dialog let-user let-ref="dialogRef" >
+
+          <nb-card>
+            <nb-card-header style="background-color: rgb(7, 66, 124);color:white">
+              details
+            </nb-card-header>
+            <nb-card-body>
+              <div class="row">
+                <div class="col-sm-6">
+                  <h5 class="grid-h" style="color: rgb(7, 66, 124);">Information generale</h5>
+                </div>
+                <div class="col-sm-6">
+                  <h5 class="grid-h" style="color: rgb(7, 66, 124);">Service</h5>
+                </div>
+              </div>
+              <div class="row">
+                
+                 
+                    <div class="col-sm-3">
+                      
+                        <div><span class="detail">Nom d'utilisateur :</span> {{ user.util_login }}</div><br>
+                        <div><span class="detail">Numero  : </span>{{ user.util_numero }}</div><br>
+                        <div><span class="detail">Nom  :</span> {{ user.util_nom }}</div><br>
+                        <div><span class="detail">Prenom : </span>{{ user.util_prenom }}</div><br>
+                        <div><span class="detail">Denomination : </span>{{ user.util_denomination }}</div><br>
+                    </div>
+                    <div class="col-sm-3">
+                        <div><span class="detail">Numero Client : </span>{{ user.util_numclient }}</div><br>
+                        <div><span class="detail">Telephone Portable :</span> {{ user.util_telephoneportable }}</div><br>
+                        <div><span class="detail">Telephone Fixe  :</span> {{ user.util_telephonefixe }}</div><br>
+                        <div><span class="detail">Adresse :</span> {{ user.util_adresse }}</div><br>
+                        <div><span class="detail">Email : </span>{{ user.util_email }}</div><br>
+                    </div>
+                
+                
+                
+                    <div class="col-sm-3">
+                      
+                        <div><span class="detail">Direction :</span> {{ user.util_direction }}</div><br>
+                        <div><span class="detail">Departement  :</span> {{ user.util_departement }}</div><br>
+                        <div><span class="detail">Service  :</span> {{ user.util_service }}</div><br>
+                        <div><span class="detail">Sigle :</span> {{ user.util_sigle }}</div><br>
+                    </div>
+                    <div class="col-sm-3">
+                        <div><span class="detail">Type : </span>{{ user.util_type }}</div><br>
+                        <div><span class="detail">Poste : </span>{{ user.util_poste }}</div><br>
+                        <div><span class="detail">Statut : </span>{{ user.util_status }}</div><br>
+                        <div><span class="detail">Profil : </span>{{ user.util_profil }}</div><br>
+                    </div>
+                  </div>
+            </nb-card-body>
+            <nb-card-footer>
+                <button nbButton (click)="ref.close()" status="danger">Fermer</button>
+              </nb-card-footer>
+          </nb-card>
+          
+
+  </ng-template>
+
+  <ng-template #dialogdel let-user let-ref="dialogRef">
+
+    <nb-card>
+        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">
+            SUPPRESSION
+        </nb-card-header>
+        <nb-card-body>
+            <h5 class="grid-h">Merci de confirmer la suppression</h5>
+            <div class="row">
+                <div class="col-sm-16">
+                    
+                </div>
+            </div>
+        </nb-card-body>
+        <nb-card-footer>
+            <button nbButton (click)="redirectToDelete(user.util_login)" (click)="ref.close()"
+                status="success">Confirmer</button>&nbsp;&nbsp;
+            <button nbButton (click)="ref.close()" status="danger">Annuler</button>
+        </nb-card-footer>
+    </nb-card>
+  </ng-template>
+</mat-card>
+</div>
+
+<div *ngIf="check_fonct('l_utilisateur')==false">
+  <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

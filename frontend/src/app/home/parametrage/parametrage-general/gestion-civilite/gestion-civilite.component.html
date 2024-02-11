@@ -1,0 +1,108 @@
+<div *ngIf="check_fonct('l_civilite')">
+<mat-card>
+<div fxLayout fxLayoutAlign="center center">
+    <mat-form-field fxFlex="60%">
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+    </mat-form-field>
+    <mat-card-header class="card-header">
+      <span class="header">La liste des civilités</span>  
+      <div *ngIf="check_fonct('c_civilite')">
+        <button mat-icon-button  class="buttons" status="success" (click)="openAjout()">
+            <mat-icon style="margin-bottom: 15px;" class="mat-18" class="material-icons color_green"  title="Ajouter civilité">add_circle</mat-icon>    
+          </button>
+        </div>  
+      </mat-card-header>
+    
+  
+  </div>
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="civ_code">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Code civilite </th>
+      <td mat-cell *matCellDef="let civilite"> {{civilite.civ_code}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="civ_libellelong">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> libelle long </th>
+      <td mat-cell *matCellDef="let civilite"> {{civilite.civ_libellelong}} </td>
+    </ng-container>
+    <ng-container matColumnDef="civ_libellecourt">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> libelle court </th>
+      <td mat-cell *matCellDef="let civilite"> {{civilite.civ_libellecourt}} </td>
+    </ng-container>
+    <!-- <ng-container matColumnDef="details">
+      <th mat-header-cell *matHeaderCellDef > Details </th>
+      <td mat-cell *matCellDef="let civilite">
+        <button mat-icon-button color="primary" (click)="open(dialog ,civilite)">
+            <mat-icon class="mat-18">reorder</mat-icon>
+        </button>
+      </td>
+    </ng-container> -->
+    <!--ng-container matColumnDef="update">
+        <div *ngIf="check_fonct('u_civilite')">
+        <th mat-header-cell *matHeaderCellDef> Modification </th>
+    </div>
+        <td mat-cell *matCellDef="let civilite">
+        <div *ngIf="check_fonct('u_civilite')">
+            <button mat-icon-button color="green" (click)="openModif(civilite)">
+                <mat-icon class="mat-18">edit</mat-icon>
+            </button>
+        </div>
+        </td>
+      </ng-container-->
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef>        
+          <div *ngIf="check_fonct('l_civilite')"> Action </div>        
+        </th>        
+        <td mat-cell *matCellDef="let civilite">        
+          <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">        
+            <mat-icon class="mat-18">more_vert</mat-icon>        
+          </button>        
+          <mat-menu #detail="matMenu">        
+            <button mat-menu-item color="primary"  (click)="open(dialog,civilite)">        
+              <mat-icon>reorder</mat-icon>Détail        
+            </button>
+            
+          </mat-menu>        
+        </td>        
+      </ng-container>
+      
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+  </table>
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]">
+  </mat-paginator>
+  
+  
+    <ng-template #dialog let-civilite let-ref="dialogRef">
+  
+            <nb-card>
+              <nb-card-header>
+                Details de la Civilité
+              </nb-card-header>
+              <nb-card-body>
+                  <h5 class="grid-h">Information</h5>
+                  <div class="row">
+                      <div class="col-sm-20">
+                          <div><span class="detail">code  :</span> {{ civilite.civ_code }}</div><br>
+                          
+                      </div>                      
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-20">
+                        <div><span class="detail">Libelle long  :</span> {{ civilite.civ_libellelong }}</div><br>
+                        <div><span class="detail">Libelle court :</span> {{ civilite.civ_libellecourt }}</div><br>
+                    </div>                      
+                </div>
+              </nb-card-body>
+              <nb-card-footer>
+                  <button nbButton (click)="ref.close()" status="danger">Fermer</button>&nbsp;&nbsp;                  
+                  <!--button nbButton status="success" (click)="openModif(civilite)" (click)="ref.close()"><div *ngIf="check_fonct('u_civilite')">modifier</div></button-->
+                </nb-card-footer>
+            </nb-card>
+    </ng-template>
+</mat-card>
+</div>
+<div *ngIf="check_fonct('l_civilite')==false">
+  <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

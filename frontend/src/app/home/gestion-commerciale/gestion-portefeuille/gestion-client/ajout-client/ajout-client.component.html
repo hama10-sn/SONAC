@@ -1,0 +1,810 @@
+<div *ngIf="check_fonct('c_client')">
+  <form [formGroup]="addForm">
+    <!-- <div class="col-lg-4">
+      <nb-card>
+        <nb-card-header id="titre_entete">Ajout d'un nouvel client</nb-card-header>
+      </nb-card>
+    </div> -->
+    <div class="col-lg-4">
+      <nb-card>
+        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Ajout d'un client</nb-card-header>
+      </nb-card>
+    </div>
+
+    <p class="paraProblemeSaisi" *ngIf="problemeDate">
+      La date de création doit-être inférieure ou égale à la date d'entrée en relation
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeCategoriesociopro">
+      La catégorie socioprofessionnelle est obligatoire pour une personne physique
+    </p>
+    <!-- <p class="indication" *ngIf="problemePersonnePhysique">
+      Le Nom et Prénom sont obligatoires pour une personne physique
+    </p> -->
+    <p class="indication" *ngIf="problemePersonnePhysique">
+      Les champs en * sur l'onglet "PERS PHYSIQUE" sont obligatoires
+    </p>
+    <p class="indication" *ngIf="problemePersonneMorale">
+      Les champs en * sur l'onglet "PERS MORALE" sont obligatoires
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeNom">
+      Le Nom est obligatoire pour une personne physique
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemePrenom">
+      Le Prénom est obligatoire pour une personne physique
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeDirigeant">
+      Le nom du principal dirigeant est obligatoire si activité commerciale = OUI
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeDenomination">
+      La Dénomination est obligatoire pour une personne morale ou personne physique avec activité commerciale = OUI
+    </p>
+    <!-- <p class="paraProblemeSaisi" *ngIf="problemeSigle">
+      Le Sigle est obligatoire pour une personne morale
+    </p> -->
+    <p class="paraProblemeSaisi" *ngIf="problemeSite">
+      Le site web est obligatoire pour une personne morale
+    </p>
+    <!-- <p class="paraProblemeSaisi" *ngIf="problemeCodeNinea">
+      Le Code NINEA est obligatoire
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeRC">
+      Le numéro Registre de commerce est obligatoire
+    </p> -->
+    <p class="paraProblemeSaisi" *ngIf="problemeRCetNINEA">
+      Le Code NINEA et le Registre de commerce sont obligatoires
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeTypeSociete">
+      Le type de société est obligatoire pour une personne morale
+    </p>
+    <p class="indication" *ngIf="problemeDenominationdouble">
+      La Dénomination existe déjà
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeMemeNinea">
+      Un client de même ninéa existe déjà
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeMemeRc">
+      Un client de même régistre de commerce existe déjà
+    </p>
+    <!-- <p class="paraProblemeSaisi" *ngIf="problemeMemeRcNinea">
+      Un client de même régistre de commerce et ninéa existe déjà
+    </p> -->
+    <p class="paraProblemeSaisi" *ngIf="problemeNumClient">
+      Le numéro de client existe déjà
+    </p>
+    <p class="indication" *ngIf="problemeMemeNomPrenom">
+      Un client de même nom et prénom existe déjà
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeAdresseTel">
+      Ce client existe déjà
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeContactPrincip2">
+      Le numéro de contact principal n'est pas valide
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeContactPrincip">
+      Le contact principal est obligaoire
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeTelephone1">
+      Le numéro téléphone1 n'est pas valide
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeTelephone11">
+      Le numéro téléphone1 est obligatoire
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeTelephone2">
+      Le numéro téléphone2 n'est pas valide
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemePortable">
+      Le numéro portable n'est pas valide
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeportable11">
+      Le numéro portable est obligatoire
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeEmail1">
+      L'email est obligatoire
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeEmail">
+      L'email n'est pas valide
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeRue">
+      Le numéro de rue est obligatoire
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeVille">
+      La ville est obligatoire
+    </p>
+    <p class="indication" *ngIf="problemePersonnePhysiCivilite">
+      Les champs en * sur l'onglet "PERSONNE MORALE" sont obligatoires pour un Gérant
+    </p>
+    <!-- <p class="paraProblemeSaisi" *ngIf="problemeDenominationGerant">
+      La Dénomination est obligatoire pour une personne physique de type Gérant
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeSigleGerant">
+      Le Sigle est obligatoire pour une personne physique de type Gérant
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeSiteGerant">
+      Le site web est obligatoire pour une personne physique de type Gérant
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeRCGerant">
+      Le numéro Registre de commerce est obligatoire une personne physique de type Gérant
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeCodeNineaGerant">
+      Le Code NINEA est obligatoire pour une personne physique de type Gérant
+    </p> -->
+    <p class="paraProblemeSaisi" *ngIf="problemeClassificationSecteur">
+      La classification métier est obligatoire pour une personne morale
+    </p>
+    <!-- <p class="paraProblemeSaisi" *ngIf="problemeCIN">
+      Le CIN est obligatoire si absence de passeport pour une personne physique
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemePasseport">
+      Le passeport est obligatoire si absence de CIN pour une personne physique
+    </p> -->
+    <p class="paraProblemeSaisi" *ngIf="problemeCINouPasseport">
+      Le CIN ou le passeport est obligatoire pour une personne physique qui n'a pas une activité commerciale
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="porblemeLongeurCIN">
+      Le CIN est constitué de 17 chiffres
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeChiffreAffaireActivite">
+      Le chiffre d'affaires annuel (activités) est obligatoire pour une personne morale
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeChargeSinistre">
+      La charge de sinistre est obligaoire pour une personne morale
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeCapitalSocial">
+      Le capital social est obligatoire pou une personne morale
+    </p>
+    <p class="paraProblemeSaisi" *ngIf="problemeFormatNinea">
+      Le format du Ninea n'est pas valide:<br>
+      Les 7 premiers caractères du NINEA c'est du numérique <br>
+      Le 8 ème caractère est un chiffre: 0, 1 ou 2 <br>
+      Le 9 ème caractère est une lettre: A à Z <br>
+      Le 10 ème caractère est un chiffre: 0 à 9 <br>
+    </p>
+
+    <br>
+    <div class="tabs">
+      <input type="radio" name="tabs" id="tabone" checked="checked">
+      <label for="tabone" class="lab">INFOS CLIENT</label>
+      <div class="tab">
+
+        <div class="row">
+          <!-- <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label"> type client<span class="obligatoire">*</span></label>
+              <input readonly fieldSize="small" formControlName="clien_typeclient" type="text" nbInput fullWidth
+                id="clien_typeclient">
+               <nb-select (selectedChange)="onChangeLibeleType($event)" fullWidth>
+                <nb-option value="{{type.id}}" *ngFor="let type of listType">{{type.value}}</nb-option>
+              </nb-select> 
+            </div>
+          </div> -->
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Nature Client<span class="obligatoire">*</span></label>
+              <!-- <input fieldSize="small" formControlName="clien_nature" type="text" nbInput fullWidth id="clien_nature" > -->
+              <nb-select (selectedChange)="onChangePersonne($event)" type="number" fullWidth id="clien_nature">
+                <nb-option value="1">Personne physique</nb-option>
+                <nb-option value="2">Personne morale</nb-option>
+              </nb-select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Date d'entrée en relation<span class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="clien_date_relation" type="date" nbInput fullWidth
+                id="clien_date_relation" (focusout)="onFocusOutEventDate()" [ngStyle]="{border: getColorDate()}"
+                [max]="getToday()">
+              <!-- <input fieldSize="small" formControlName="clien_date_relation" type="date" nbInput fullWidth
+                id="clien_date_relation"> -->
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">activité commerciale ?<span class="obligatoire">*</span>
+              </label>
+              <!-- <input fieldSize="small" formControlName="clien_activitecommercante" type="text" nbInput fullWidth
+                id="clien_activitecommercante"> -->
+              <nb-select (selectedChange)="onChangeActiviteCommercante($event)" type="text" fullWidth
+                id="clien_activitecommercante">
+                <nb-option value="1">OUI</nb-option>
+                <nb-option value="2">NON</nb-option>
+              </nb-select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Numéro Client Solvabilité</label> -->
+          <input hidden fieldSize="small" formControlName="clien_numerosolvabilite" type="number" min="0" nbInput
+            fullWidth id="clien_numerosolvabilite">
+          <!-- </div>
+          </div> -->
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Catégorie Socio-pro<span *ngIf="showObligatoireCategSociopro"
+                  class="obligatoire">*</span></label>
+              <mat-select class="form-control" [formControl]="categSocioproCtrl" placeholder="choisir une catégorie"
+                (selectionChange)="onChangeCategorieSociopro($event)" fullWidth id="clien_categsocioprof" #singleSelect
+                (focusout)="onFocusOutEventCategorieSociopro()" [ngStyle]="{border: getColorCategorieSociopro()}">
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="categSocioproFilterCtrl">
+                  </ngx-mat-select-search>
+                </mat-option>
+
+                <mat-option value="{{categoriesociopro.categs_code}}"
+                  *ngFor="let categoriesociopro of filteredCategSociopro | async">
+                  {{categoriesociopro.categs_code}} : {{categoriesociopro.categs_liblong}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Date de création / naissance<span *ngIf="showObligatoire"
+                  class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="clien_datenaissance" type="date" nbInput fullWidth
+                id="clien_datenaissance" (focusout)="onFocusOutEventDate()" [ngStyle]="{border: getColorDate()}"
+                [max]="getToday()">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Ancien numéro client</label>
+              <input fieldSize="small" formControlName="clien_anciennumero" type="number" min="0" nbInput fullWidth
+                id="clien_anciennumero">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!-- <div class="col-sm-3">
+            <div class="form-group">
+              <label class="label">Date souscription<span class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="clien_datesouscription1" type="datetime-local" nbInput fullWidth
+                id="clien_datesouscription1">
+            </div>
+          </div> -->
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Code regroupement gestion</label>
+              <nb-select (selectedChange)="onChangeGroupe($event)" fullWidth>
+                <nb-option value="{{groupe.group_code}}" *ngFor="let groupe of listGroupes">{{groupe.group_code}} :
+                  {{groupe.group_liblong}}</nb-option>
+              </nb-select>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Pays de résidence</label>
+              <nb-select (selectedChange)="onChangePaysResidence($event)" type="text" fullWidth
+                id="clien_paysresidence">
+                <nb-option value="SN">SENEGAL</nb-option>
+                <nb-option value="HORS_SN">HORS SENEGAL</nb-option>
+              </nb-select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <input type="radio" name="tabs" id="tabtwo" [disabled]="bloquerPersPhysique">
+      <label for="tabtwo" class="lab">PERS PHYSIQUE</label>
+      <div class="tab">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Nom<span class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="clien_nom" type="text" nbInput fullWidth id="clien_nom"
+                (focusout)="onFocusOutEventNom()" [ngStyle]="{border: getColorNom()}">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Prénom<span class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="clien_prenom" type="text" nbInput fullWidth id="clien_prenom"
+                (focusout)="onFocusOutEventPrenom()" [ngStyle]="{border: getColorPrenom()}">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Civilité<span *ngIf="showObligatoireCivilite" class="obligatoire">*</span></label>
+              <nb-select [(selected)]="clien_titreCivilite" (selectedChange)="onChangeCivilite($event)" fullWidth>
+                <nb-option value="{{civilite.civ_code}}" *ngFor="let civilite of listCivilite">{{civilite.civ_code}} :
+                  {{civilite.civ_libellelong}}</nb-option>
+              </nb-select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">CIN<span *ngIf="showObligatoireCINetPasseport" class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="clien_CIN" type="text" nbInput fullWidth id="clien_CIN"
+                (focusout)="onFocusOutEventCIN()" [ngStyle]="{border: getColorCIN()}">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Passeport<span *ngIf="showObligatoireCINetPasseport"
+                  class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="clien_passeport" type="text" nbInput fullWidth
+                id="clien_passeport" (focusout)="onFocusOutEventPasseport()" [ngStyle]="{border: getColorPasseport()}">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Nom principal dirigeant<span *ngIf="showObligatoirePrincipalDirigeant"
+                  class="obligatoire">*</span>
+              </label>
+              <input fieldSize="small" formControlName="clien_princdirigeant" type="text" nbInput fullWidth
+                id="clien_princdirigeant" (focusout)="onFocusOutEventNomPrincipDirigeant()"
+                [ngStyle]="{border: getColorNomPrincipDirigeant()}">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Numero Ninea<span *ngIf="showObligatoireRCetNinea"
+                  class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="clien_ninea" type="text" nbInput fullWidth id="clien_ninea"
+                (focusout)="onFocusOutEventNinea($event)" [ngStyle]="{border: getColorNinea()}">
+              <p class="paraProblemeSaisi" *ngIf="problemeFormatNinea">
+                Le format du Ninea n'est pas valide
+                exemple: 12345670G9
+              </p>
+
+              <!-- <div>
+                <span *ngIf="problemefirstSevenNINEA" style="color:red;">Les 7 premiers caractères du
+                  NINEA c'est du numérique</span>
+              </div>
+
+              <div>
+                <span *ngIf="problemefisrtCOFI" style="color:red;">Le 1er des 3 derniers caractères est soit: 0,
+                  1 ou 2</span>
+              </div>
+              <div>
+                <span *ngIf="problemetwoCOFI" style="color:red;">L'avant dernier caractère est une
+                  lettre alphabétique</span>
+              </div>
+              <div>
+                <span *ngIf="problemethreeCOFI" style="color:red;">Le dernier caractère est un
+                  nombre compris entre 0 et 9</span>
+              </div> -->
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Numero Registre commerce<span *ngIf="showObligatoireRCetNinea"
+                  class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="clien_registrecommerce" type="text" nbInput fullWidth
+                id="clien_registrecommerce" (focusout)="onFocusOutEventRC($event)" [ngStyle]="{border: getColorRC()}">
+              <p class="paraProblemeSaisi" *ngIf="problemeFormatRC">
+                Le format du registre de commerce n'est pas valide
+                exemple: SNDKR2015A1277
+              </p>
+            </div>
+          </div>
+
+          <!-- <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Sexe</label>
+              <nb-select [(selected)]="valueSexe" (selectedChange)="onChangeSexe($event)" type="text" fullWidth
+                id="clien_sexe">
+                <nb-option value="Masculin">Masculin</nb-option>
+                <nb-option value="Féminin">Féminin</nb-option>
+              </nb-select>
+            </div>
+          </div> -->
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="" class="label">Dénomination<span class="obligatoire" *ngIf="showObligatoireDenominationPersPhysique">*</span></label>
+              <input fieldSize="small" formControlName="clien_denomination" type="text" nbInput fullWidth
+                id="clien_denomination" (focusout)="onFocusOutEventDenomination()"
+                [ngStyle]="{border: getColorDenomination()}">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Sigle</label>
+              <input fieldSize="small" formControlName="clien_sigle" type="text" nbInput fullWidth id="clien_sigle"
+                (focusout)="onFocusOutEventSigle()" [ngStyle]="{border: getColorSigle()}">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <input type="radio" name="tabs" id="tabthree" [disabled]="bloquerPersMorale">
+      <label for="tabthree" class="lab">PERS MORALE</label>
+      <div class="tab">
+        <div class="row">
+          <!-- <div class="col-sm-4" *ngIf="problemePersonnePhysiCivilite">
+            <div class="form-group">
+              <label class="label">Type Sosiété<span class="obligatoire">*</span></label>
+              <input fieldSize="small" value="(this.listTypeSociete.find(p=>p.id ==this.typeSociete))?.value"
+                [readonly]="true" formControlName="clien_typesociete" type="text" nbInput fullWidth>
+               <nb-select [(selected)]="civile" (selectedChange)="onChangeTypeSociete($event)" fullWidth>
+                  <nb-option value="{{type.id}}" *ngFor="let type of listTypeSociete">{{type.value}}</nb-option>
+                </nb-select>  
+
+            </div>
+          </div> -->
+          <!-- <div class="col-sm-4" *ngIf="problemePersonneMorale"> -->
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Type Société<span class="obligatoire">*</span></label>
+              <input readonly [value]="valueTypeSociete" fieldSize="small" type="text" nbInput fullWidth
+                id="clien_typesociete" (focusout)="onFocusOutEventTypeSociete()"
+                [ngStyle]="{border: getColorTypeSociete()}" *ngIf="afficheTypeSocieteONG">
+
+              <nb-select [(selected)]="valueTypeSociete" (selectedChange)="onChangeTypeSociete($event)" fullWidth
+                *ngIf="!afficheTypeSocieteONG">
+                <nb-option value="{{typesoc.id}}" *ngFor="let typesoc of listTypeSociete">{{typesoc.value}}</nb-option>
+              </nb-select>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="" class="label">Dénomination<span class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="clien_denomination" type="text" nbInput fullWidth
+                id="clien_denomination" (focusout)="onFocusOutEventDenomination()"
+                [ngStyle]="{border: getColorDenomination()}">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Sigle</label>
+              <input fieldSize="small" formControlName="clien_sigle" type="text" nbInput fullWidth id="clien_sigle"
+                (focusout)="onFocusOutEventSigle()" [ngStyle]="{border: getColorSigle()}">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Numero Ninea<span *ngIf="showObligatoireRCetNinea"
+                  class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="clien_ninea" type="text" nbInput fullWidth id="clien_ninea"
+                (focusout)="onFocusOutEventNinea($event)" [ngStyle]="{border: getColorNinea()}">
+              <p class="paraProblemeSaisi" *ngIf="problemeFormatNinea">
+                Le format du Ninea n'est pas valide
+                exemple: 12345670G9
+              </p>
+
+              <!-- <div>
+                <span *ngIf="problemefirstSevenNINEA" style="color:red;">Les 7 premiers caractères du
+                  NINEA c'est du numérique</span>
+              </div>
+
+              <div>
+                <span *ngIf="problemefisrtCOFI" style="color:red;">Le 1er des 3 derniers caractères est soit: 0,
+                  1 ou 2</span>
+              </div>
+              <div>
+                <span *ngIf="problemetwoCOFI" style="color:red;">L'avant dernier caractère est une
+                  lettre alphabétique</span>
+              </div>
+              <div>
+                <span *ngIf="problemethreeCOFI" style="color:red;">Le dernier caractère est un
+                  nombre compris entre 0 et 9</span>
+              </div>  -->
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Numero Registre commerce<span *ngIf="showObligatoireRCetNinea"
+                  class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="clien_registrecommerce" type="text" nbInput fullWidth
+                id="clien_registrecommerce" (focusout)="onFocusOutEventRC($event)" [ngStyle]="{border: getColorRC()}">
+              <p class="paraProblemeSaisi" *ngIf="problemeFormatRC">
+                Le format du registre de commerce n'est pas valide
+                exemple: SNDKR2015B1277
+              </p>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Classification métier <span class="obligatoire">*</span></label>
+              <input readonly [value]="libelleClassifMetier" fieldSize="small" type="text" nbInput fullWidth
+                id="clien_secteur_activite" *ngIf="afficheInputClassifMetier">
+
+              <mat-select *ngIf="!afficheInputClassifMetier" class="form-control" [formControl]="classifCtrl"
+                placeholder="choisir une classification" (selectionChange)="onChangeClassification($event)" fullWidth
+                id="clien_secteur_activite" #singleSelect (focusout)="onFocusOutEventSecteurActivite()"
+                [ngStyle]="{border: getColorSecteurActivite()}">
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="classifFilterCtrl"></ngx-mat-select-search>
+                </mat-option>
+
+                <mat-option *ngFor="let classif of filteredClassif | async" value="{{classif.code}}">
+                  {{ classif.code}} : {{ classif.libelle }}
+                </mat-option>
+              </mat-select>
+
+              <!-- <mat-select class="form-control" [formControl]="classifCtrl"
+                placeholder="choisir une classification" (selectionChange)="onChangeClassification($event)" fullWidth
+                id="clien_secteur_activite" #singleSelect (focusout)="onFocusOutEventSecteurActivite()"
+                [ngStyle]="{border: getColorSecteurActivite()}">
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="classifFilterCtrl"></ngx-mat-select-search>
+                </mat-option>
+
+                <mat-option *ngFor="let classif of filteredClassif | async" value="{{classif.code}}">
+                  {{ classif.code}} : {{ classif.libelle }}
+                </mat-option>
+              </mat-select> -->
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Nom principal dirigeant<span *ngIf="showObligatoirePrincipalDirigeant"
+                  class="obligatoire">*</span>
+              </label>
+              <input fieldSize="small" formControlName="clien_princdirigeant" type="text" nbInput fullWidth
+                id="clien_princdirigeant" (focusout)="onFocusOutEventNomPrincipDirigeant()"
+                [ngStyle]="{border: getColorNomPrincipDirigeant()}">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Mode de gouvernance</label>
+              <input readonly [value]="valueModeGouver" fieldSize="small" type="text" nbInput fullWidth
+                id="clien_modegouvernance" *ngIf="afficheInputModeGouver">
+
+              <nb-select [(selected)]="valueModeGouver" (selectedChange)="onChangeModeGouvernance($event)" fullWidth
+                *ngIf="afficheInputSAModeGouver">
+                <nb-option value="2">Conseil D'Administration</nb-option>
+                <nb-option value="3">Administrateur Général</nb-option>
+              </nb-select>
+
+              <nb-select [(selected)]="valueModeGouver" (selectedChange)="onChangeModeGouvernance($event)" fullWidth
+                *ngIf="afficheInputAllModeGouver">
+                <nb-option value="{{modeGouver.id}}" *ngFor="let modeGouver of listeModeGouvernance">
+                  {{modeGouver.value}}
+                </nb-option>
+              </nb-select>
+
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Principal actionnaire</label>
+              <input fieldSize="small" formControlName="clien_principalactionnaire" type="text" nbInput fullWidth
+                id="clien_principalactionnaire">
+            </div>
+          </div>
+        </div>
+        <!-- <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Civilité<span class="obligatoire">*</span></label>
+              <nb-select [(selected)]="clien_titreCivilite" (selectedChange)="onChangeCivilite($event)" fullWidth>
+                <nb-option value="{{civilite.civ_code}}" *ngFor="let civilite of listCivilite">{{civilite.civ_code}} :
+                  {{civilite.civ_libellelong}}</nb-option>
+              </nb-select>
+            </div>
+          </div>
+        </div> -->
+
+      </div>
+
+      <input type="radio" name="tabs" id="tabo">
+      <label for="tabo" class="lab">CONTACTS CLIENT</label>
+      <div class="tab">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Numéro de rue/Quartier (adresse 1)<span class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="clien_adressenumero" type="text" nbInput fullWidth
+                id="clien_adressenumero" (focusout)="onFocusOutEventNumRue()" [ngStyle]="{border: getColorNumRue()}">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Rue/Avenue/Boulevard... (adresse 2)</label>
+              <input fieldSize="small" formControlName="clien_adresserue" type="text" nbInput fullWidth
+                id="clien_adresserue">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Ville<span class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="clien_adresseville" type="text" nbInput fullWidth
+                id="clien_adresseville" (focusout)="onFocusOutEventVille()" [ngStyle]="{border: getColorVille()}">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Numéro téléphone 1<span class="obligatoire">*</span></label>
+              <!-- <input formControlName="comp_telephone1" type="text" nbInput fullWidth id="comp_telephone1"
+              (focusout)="onFocusOutEventTelephone()" [ngStyle]="{border:getColorTelephone()}"> -->
+              <ngx-intl-tel-input (focusout)="onFocusOutEventTelephone1()" [ngStyle]="{border: getColorTelephone1()}"
+                [cssClass]="'form-control'" [preferredCountries]="[CountryISO.Senegal]" [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Name]"
+                [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Senegal" [maxLength]="15"
+                [phoneValidation]="true" [separateDialCode]="true" [numberFormat]="PhoneNumberFormat.National"
+                id="clien_telephone1" formControlName="clien_telephone1">
+              </ngx-intl-tel-input>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Numéro téléphone 2</label>
+              <!-- <input formControlName="comp_telephone1" type="text" nbInput fullWidth id="comp_telephone1"
+              (focusout)="onFocusOutEventTelephone()" [ngStyle]="{border:getColorTelephone()}"> -->
+              <ngx-intl-tel-input (focusout)="onFocusOutEventTelephone2()" [ngStyle]="{border: getColorTelephone2()}"
+                [cssClass]="'form-control'" [preferredCountries]="[CountryISO.Senegal]" [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Name]"
+                [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Senegal" [maxLength]="15"
+                [phoneValidation]="true" [separateDialCode]="true" [numberFormat]="PhoneNumberFormat.National"
+                id="clien_telephone2" formControlName="clien_telephone2">
+              </ngx-intl-tel-input>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Numéro portable<span class="obligatoire">*</span></label>
+              <!-- <input fieldSize="small" formControlName="clien_portable" type="text" nbInput fullWidth
+                id="clien_portable" (focusout)="onFocusOutEventPortable()" [ngStyle]="{border: getColorPortable()}"> -->
+              <ngx-intl-tel-input (focusout)="onFocusOutEventPortable()" [ngStyle]="{border: getColorPortable()}"
+                [cssClass]="'form-control'" [preferredCountries]="[CountryISO.Senegal]" [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Name]"
+                [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Senegal" [maxLength]="15"
+                [phoneValidation]="true" [separateDialCode]="true" [numberFormat]="PhoneNumberFormat.National"
+                id="clien_portable" formControlName="clien_portable">
+              </ngx-intl-tel-input>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!-- <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Fax</label>
+              <input fieldSize="small" formControlName="clien_fax" type="text" nbInput fullWidth id="clien_fax">
+            </div>
+          </div> -->
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Email<span *ngIf="showObligatoireEmail" class="obligatoire">*</span></label>
+              <input fieldSize="small" formControlName="clien_email" type="text" nbInput fullWidth id="clien_email"
+                (focusout)="onFocusOutEventEmail1()" [ngStyle]="{border: getColorEmail()}">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Site web</label>
+              <input fieldSize="small" formControlName="clien_website" type="text" nbInput fullWidth id="clien_website">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Facebook</label>
+              <input fieldSize="small" formControlName="clien_facebook" type="text" nbInput fullWidth
+                id="clien_facebook">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Linkdin</label>
+              <input fieldSize="small" formControlName="clien_linkdin" type="text" nbInput fullWidth id="clien_linkdin">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <input type="radio" name="tabs" id="tabone3">
+      <label for="tabone3" class="lab">FINANCE</label>
+      <div class="tab">
+        <div class="row">
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Effectif</label>
+              <input fieldSize="small" formControlName="clien_effectif" type="number" min="0" nbInput fullWidth
+                id="clien_effectif">
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Chiffe d'affaire activités<span class="obligatoire">*</span></label>
+              <input [value]="chiffreAffaireActivite" fieldSize="small" formControlName="clien_chiffreaffaireannuel"
+                type="text" min="0" nbInput fullWidth id="clien_chiffreaffaireannuel"
+                (focusout)="onFocusOutEventChiffreAffaireActivite()"
+                [ngStyle]="{border: getColorChiffreAffaireActivite()}">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">chiffre d'affaire prime</label>
+              <input readonly fieldSize="small" formControlName="clien_chiffreaffaireprime" type="number" min="0"
+                nbInput fullWidth id="clien_chiffreaffaireprime">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">charge de sinistre <span class="obligatoire">*</span></label>
+              <input readonly fieldSize="small" formControlName="clien_chargesinistre" type="number" min="0" nbInput
+                fullWidth id="clien_chargesinistre" (focusout)="onFocusOutEventChargeSinistre()"
+                [ngStyle]="{border: getColorChargeSinistre()}">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Capital social<span class="obligatoire">*</span></label>
+              <input [value]="capitalsocial" fieldSize="small" formControlName="clien_capital_social" type="text"
+                nbInput fullWidth id="clien_capital_social" (focusout)="onFocusOutEventCapitalSocial()"
+                [ngStyle]="{border: getColorCapitalSocial()}">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Code origine</label>
+              <input fieldSize="small" formControlName="clien_codeorigine" type="text" nbInput fullWidth
+                id="clien_codeorigine">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <input type="radio" name="tabs" id="tabone4">
+      <label for="tabone4" class="lab">INFOS COMPL</label>
+      <div class="tab">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <!-- <label class="label">Commentaire</label> -->
+              <textarea id="clien_commentaire" formControlName="clien_commentaire" rows="10" cols="100"
+                placeholder="Vous pouvez mettre votre commentaire ici !">
+              </textarea>
+              <!-- <ckeditor [config]="{  height: '150' }" formControlName="clien_commentaire"></ckeditor> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 
+      <input type="radio" name="tabs" id="tabone4">
+      <label for="tabone4" class="lab">STATUS</label>
+      <div class="tab">
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="label">Status</label>
+              <nb-select (selectedChange)="onChangeStatus($event)" type="text" fullWidth id="clien_status">
+                <nb-option value="1">Valide</nb-option>
+                <nb-option value="2">En attente</nb-option>
+              </nb-select>
+            </div>
+          </div>
+        </div>
+      </div>
+      -->
+
+    </div>
+
+    <br>
+
+    <div>
+
+      <button nbButton status="success" (click)="submit()" [disabled]='!addForm.valid || erreur'>Ajouter</button>
+      &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+    </div>
+
+  </form>
+</div>
+<div *ngIf="check_fonct('c_client')==false">
+  <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

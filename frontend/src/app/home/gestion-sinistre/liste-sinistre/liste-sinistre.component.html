@@ -1,0 +1,323 @@
+<div *ngIf="check_fonct('l_sinistre')">
+  <mat-card>
+    <div fxLayout fxLayoutAlign="center center">
+      <mat-form-field fxFlex="40%">
+        <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+      </mat-form-field>
+
+      <!-- <button class="menace_sinistre" (click)="openMenaceSinistre()">
+                Menaces de sinistre
+            </button><br> -->
+
+      <mat-card-header class="card-header">
+        <span class="header">La liste des sinistres</span>
+      </mat-card-header>
+    </div>
+
+    <table mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="sin_client">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro client </th>
+        <td mat-cell *matCellDef="let sinistre"> {{onGetClientByCode(sinistre.sini_souscripteur)}} </td>
+      </ng-container>
+      <ng-container matColumnDef="sin_police">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro police</th>
+        <td mat-cell *matCellDef="let sinistre"> {{sinistre.sini_police}} </td>
+      </ng-container>
+      <ng-container matColumnDef="sin_acheteur">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Acheteur / Client </th>
+        <td mat-cell *matCellDef="let sinistre"> {{onGetAcheteurByCode(sinistre.sini_acheteur)}}
+          <span *ngIf="sinistre.sini_branche == 15">{{onGetClientByCode(sinistre.sini_souscripteur)}}</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="sin_num">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro sinistre </th>
+        <td mat-cell *matCellDef="let sinistre"> {{sinistre.sini_num}} </td>
+      </ng-container>
+      <ng-container matColumnDef="sin_produits">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Produits </th>
+        <td mat-cell *matCellDef="let sinistre"> {{onGetProduitByNumero(sinistre.sini_produit)}} </td>
+      </ng-container>
+      <ng-container matColumnDef="statut">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Statut </th>
+        <td mat-cell *matCellDef="let sinistre"> {{onGetLibelleByStatus(sinistre.sini_status)}} </td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let sinistre">
+          <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">
+            <mat-icon class="mat-18">more_vert</mat-icon>
+          </button>
+          <mat-menu #detail="matMenu">
+            <button mat-menu-item (click)="onOpen(dialog,sinistre)">
+              <mat-icon>visibility</mat-icon> Détail
+            </button>
+            <div *ngIf="check_fonct('u_sinistre')">
+              <button mat-menu-item (click)="onModificationEvaluation(sinistre)"
+                *ngIf="sinistre.sini_status < 3 && sinistre.sini_status != 15">
+                <mat-icon color="primary">edit</mat-icon> Modification Evaluation
+              </button>
+              <button mat-menu-item (click)="onModificationSAP(sinistre)" *ngIf="sinistre.sini_status != 15">
+                <mat-icon color="primary">edit</mat-icon> Modification SAP
+              </button>
+              <!-- <button mat-menu-item (click)="onAddDocumentsSinistre(sinistre)">
+              <mat-icon color="primary">edit</mat-icon> Add documents sinistre
+            </button> -->
+              <button mat-menu-item (click)="onPropositionReglement(sinistre)"
+                *ngIf="sinistre.sini_status != 5 && sinistre.sini_status != 9 && sinistre.sini_status != 10 && sinistre.sini_status != 15">
+                <mat-icon color="primary">edit</mat-icon> Proposition règlement
+              </button>
+              <button mat-menu-item (click)="onExportPropositionReglement(sinistre)"
+                *ngIf="sinistre.sini_status == 5 && sinistre.sini_status != 15">
+                <mat-icon color="primary">save_alt</mat-icon> Exporter proposition règlement
+              </button>
+              <button mat-menu-item (click)="onValidationReglement(sinistre)"
+                *ngIf="sinistre.sini_status == 5 && sinistre.sini_status != 15">
+                <mat-icon class="validation_reglement">gavel</mat-icon> Validation règlement
+              </button>
+              <button mat-menu-item (click)="onExportValidationReglement(sinistre)"
+                *ngIf="sinistre.sini_status == 6 && sinistre.sini_status != 15">
+                <mat-icon color="primary">save_alt</mat-icon> Exporter règlement validé
+              </button>
+              <button mat-menu-item (click)="onAnnulationPropositionReglement(sinistre)"
+                *ngIf="sinistre.sini_status == 5 && sinistre.sini_status != 15">
+                <mat-icon color="warn">gavel</mat-icon> Annulation propostion règlement
+              </button>
+              <button mat-menu-item (click)="onAnnulationValidationReglement(sinistre)"
+                *ngIf="sinistre.sini_status == 6 && sinistre.sini_status != 15">
+                <mat-icon color="warn">gavel</mat-icon> Annulation règlement validé
+              </button>
+              <button mat-menu-item (click)="onListeMouvement(sinistre)" *ngIf="sinistre.sini_status != 15">
+                <mat-icon>visibility</mat-icon> Liste des mouvements
+              </button>
+              <button mat-menu-item (click)="onPropositionRecours(sinistre)"
+                *ngIf="sinistre.sini_status != 9 && sinistre.sini_status != 5 && sinistre.sini_status != 10 && sinistre.sini_status != 15">
+                <mat-icon>edit</mat-icon> Proposition recours à encaisser
+              </button>
+              <button mat-menu-item (click)="onExportPropositionRecours(sinistre)"
+                *ngIf="sinistre.sini_status == 9 && sinistre.sini_status != 15">
+                <mat-icon color="primary">save_alt</mat-icon> Exporter proposition recours
+              </button>
+              <button mat-menu-item (click)="onValidationPropositionRecours(sinistre)"
+                *ngIf="sinistre.sini_status == 9 && sinistre.sini_status != 15">
+                <mat-icon>gavel</mat-icon> Validation recours à encaisser
+              </button>
+              <button mat-menu-item (click)="onAnnulationPropositionRecours(sinistre)"
+                *ngIf="sinistre.sini_status == 9 && sinistre.sini_status != 15">
+                <mat-icon>restore</mat-icon> Annulation proposition recours
+              </button>
+              <button mat-menu-item (click)="onAnnulationValidationRecours(sinistre)"
+                *ngIf="sinistre.sini_status == 10 && sinistre.sini_status != 15">
+                <mat-icon>restore</mat-icon> Annulation recours
+              </button>
+            </div>
+            <!--<button mat-menu-item (click)="onValidationRecoursEncaisse(sinistre)"
+              *ngIf="sinistre.sini_status == 10 && sinistre.sini_status != 12">
+              <mat-icon>gavel</mat-icon> Encaissement recours
+            </button>
+            <button mat-menu-item (click)="onExportEncaissementRecours(sinistre)"
+              *ngIf="sinistre.sini_status == 13 && sinistre.sini_status != 14">
+              <mat-icon color="primary">save_alt</mat-icon> Exporter encaissement recours
+            </button>
+            <button mat-menu-item (click)="onAnnulationValidationRecoursEncaisse(sinistre)"
+              *ngIf="sinistre.sini_status == 13 && sinistre.sini_status != 14">
+              <mat-icon>restore</mat-icon> Annulation encaissement recours
+            </button>-->
+          </mat-menu>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]">
+    </mat-paginator>
+    <ng-template #dialog let-sinistre let-ref="dialogRef">
+      <nb-card>
+        <nb-card-header class="col-lg-12">DETAILS DU SINISTRE</nb-card-header>
+        <nb-card-body>
+          <div class="row">
+            <div class="col-sm-3">
+              <h5 class="grid-h">INFOS SINISTRE</h5>
+              <div><span class="detail">Numéro sinistre :</span>
+                {{ sinistre.sini_num }}
+              </div><br>
+              <div><span class="detail">Type sinistre :</span>
+                {{ sinistre.sini_typesinistre }}
+              </div><br>
+              <div><span class="detail">Date survenance : </span>
+                {{ sinistre.sini_datesurvenance | date: 'dd-MM-yyyy'}}
+              </div><br>
+              <div><span class="detail">Date déclaration : </span>
+                {{ sinistre.sini_datedeclaration | date: 'dd-MM-yyyy'}}
+              </div><br>
+              <div><span class="detail">Date saisie : </span>
+                {{ sinistre.sini_datesaisie | date: 'dd-MM-yyyy'}}
+              </div><br>
+            </div>
+
+            <div class="col-sm-3">
+              <h5 class="grid-h">SUITE INFOS SINISTRE</h5>
+              <div><span class="detail">Police :</span>
+                {{ sinistre.sini_police }}
+              </div><br>
+              <div><span class="detail">Client :</span>
+                {{ onGetClientByCode(sinistre.sini_souscripteur) }}
+              </div><br>
+              <div><span class="detail">Produit : </span>
+                {{ onGetProduitByNumero(sinistre.sini_produit) }}
+              </div><br>
+              <div><span class="detail">Acheteur :</span>
+                {{ onGetAcheteurByCode(sinistre.sini_acheteur) }}
+              </div><br>
+              <div><span class="detail">Lieu :</span>
+                {{ sinistre.sini_lieu }}
+              </div><br>
+            </div>
+
+            <div class="col-sm-3">
+              <h5 class="grid-h">EVALUATIONS</h5>
+              <div><span class="detail">Evaluation principale :</span>
+                {{ sinistre.sini_evaluationprincipale | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">Evaluation frais :</span>
+                {{ sinistre.sini_evaluationfrais | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">Evaluation honoraires : </span>
+                {{ sinistre.sini_evaluationhonoraires | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">Evaluation globale :</span>
+                {{sinistre.sini_evaluationglobale | ngxNumberWithCommas }}
+              </div><br>
+            </div>
+
+            <div class="col-sm-3">
+              <h5 class="grid-h">SAP</h5>
+              <div><span class="detail">SAP principal :</span>
+                {{ sinistre.sini_sapprincipale | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">SAP frais :</span>
+                {{ sinistre.sini_sapfrais | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">SAP honoraires : </span>
+                {{ sinistre.sini_saphonoraires | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">SAP globale :</span>
+                {{sinistre.sini_sapglobale | ngxNumberWithCommas }}
+              </div><br>
+            </div>
+
+            <div class="col-sm-3">
+              <h5 class="grid-h">REGLEMENT</h5>
+              <div><span class="detail">Montant principal :</span>
+                {{ sinistre.sini_reglementprincipal | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">Montant frais :</span>
+                {{ sinistre.sini_reglementfrais | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">Montant honoraires : </span>
+                {{ sinistre.sini_reglementhonoraires | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">Montant global :</span>
+                {{sinistre.sini_reglementglobal | ngxNumberWithCommas }}
+              </div><br>
+            </div>
+
+            <!-- <div class="col-sm-3">
+              <h5 class="grid-h">Infos 3</h5>
+              <div><span class="detail">Frais de recouvrement :</span>
+                {{ sinistre.sini_recoursfrais }}
+              </div><br>
+              <div><span class="detail">Frais de recouvrement encaissé :</span>
+                {{ sinistre.sini_recoursfraisencaisse }}
+              </div><br>
+              <div><span class="detail">Frais de recouvrement global : </span>
+                {{ sinistre.sini_recoursglobal }}
+              </div><br>
+              <div><span class="detail">Frais de recouvrement global encaissé :</span>
+                {{sinistre.sini_recoursglobalencaisse}}
+              </div><br>
+              <div><span class="detail">Frais de recouvrement honoraire encaissé :</span>
+                {{sinistre.sini_recourshonoraireencaisse}}
+              </div><br>
+            </div>
+
+            <div class="col-sm-3">
+              <h5 class="grid-h">Infos 4</h5>
+              <div><span class="detail">Frais de recouvrement honoraire :</span>
+                {{sinistre.sini_recourshonoraire}}
+              </div><br>
+              <div><span class="detail">Frais de recouvrement principal :</span>
+                {{ sinistre.sini_recoursprincipal }}
+              </div><br>
+              <div><span class="detail">Frais de recouvrement principal encaissé :</span>
+                {{ sinistre.sini_recoursprincipalencaisse }}
+              </div><br>
+              <div><span class="detail">Frais de réglement : </span>
+                {{ sinistre.sini_reglementfrais }}
+              </div><br>
+              <div><span class="detail">Frais de réglement global :</span>
+                {{sinistre.sini_reglementglobal}}
+              </div><br>
+              <div><span class="detail">Frais de recouvrement honoraire :</span>
+                {{sinistre.sini_recourshonoraire}}
+              </div><br>
+            </div> -->
+
+            <div class="col-sm-3" *ngIf="sinistre.sini_status == 9">
+              <h5 class="grid-h">PROPOSITIONS DE RECOURS</h5>
+              <div><span class="detail">Montant recours principal :</span>
+                {{ montantPrincipal }}
+              </div><br>
+              <div><span class="detail">Montant frais recours :</span>
+                {{ montantFrais }}
+              </div><br>
+              <div><span class="detail">Montant honoraires recours : </span>
+                {{ montantHonoraire }}
+              </div><br>
+              <div><span class="detail">Montant recours global :</span>
+                {{ montantGlobal }}
+              </div><br>
+            </div>
+
+            <div class="col-sm-3" *ngIf="sinistre.sini_status == 10">
+              <h5 class="grid-h">RECOURS VALIDÉ</h5>
+              <div><span class="detail">Montant recours principal validé :</span>
+                {{ montantPrincipal }}
+              </div><br>
+              <div><span class="detail">Montant frais recours validé :</span>
+                {{ montantFrais }}
+              </div><br>
+              <div><span class="detail">Montant honoraires recours validé : </span>
+                {{ montantHonoraire }}
+              </div><br>
+              <div><span class="detail">Montant recours global validé :</span>
+                {{ montantGlobal }}
+              </div><br>
+            </div>
+
+            <div class="col-sm-3" *ngIf="sinistre.sini_status == 13">
+              <h5 class="grid-h">RECOURS ENCAISSÉ</h5>
+              <div><span class="detail">Montant recours principal encaissé :</span>
+                {{ montantPrincipal }}
+              </div><br>
+              <div><span class="detail">Montant frais recours encaissé :</span>
+                {{ montantFrais }}
+              </div><br>
+              <div><span class="detail">Montant honoraires recours encaissé : </span>
+                {{ montantHonoraire }}
+              </div><br>
+              <div><span class="detail">Montant recours global encaissé :</span>
+                {{ montantGlobal }}
+              </div><br>
+            </div>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <button nbButton (click)="ref.close()" status="danger" class="btn btn-primary">FERMER</button>
+        </nb-card-footer>
+      </nb-card>
+    </ng-template>
+  </mat-card>
+</div>
+<div *ngIf="check_fonct('l_sinistre')==false">
+  <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

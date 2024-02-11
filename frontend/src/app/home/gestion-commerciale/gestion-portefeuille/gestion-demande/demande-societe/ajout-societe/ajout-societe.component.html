@@ -1,0 +1,495 @@
+<div *ngIf="check_fonct('c_Dem_Soc')">
+<form [formGroup]="addForm"> 
+    <div class="col-lg-4">
+        <nb-card>
+            <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Ajouter Une Demande Societe</nb-card-header>
+        </nb-card>
+    </div>
+    <br>
+    <div class="tabs">
+        <input type="radio" name="tabs" id="tabone" checked="checked">
+        <label for="tabone" class="lab">INFORMATION</label>
+        <div class="tab">
+        
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label  class="label">Type Titulaire<span style="color:red;">*</span></label>
+                        <!--input fieldSize="small" formControlName="dem_typetitulaire" type="text" nbInput fullWidth id="dem_typetitulaire" -->                    
+                        <nb-select (selectedChange)="onChangeTypeClient($event)" fullWidth id="dem_typetitulaire">                    
+                            <nb-option value="CL" >CL</nb-option>
+                            <nb-option value="PR" >PR</nb-option>
+                          </nb-select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label  class="label">Numéro Titulaire<span style="color:red;">*</span></label>
+                        <!--input fieldSize="small" formControlName="dem_clienttitulaire" type="number" nbInput fullWidth id="dem_clienttitulaire" >                    
+                        <nb-select *ngIf="titulaireClient" (selectedChange)="onChangeTitulaire($event)" fullWidth id="dem_clienttitulaire">                    
+                            <nb-option value="{{client.clien_numero}}" *ngFor="let client of clients">{{client.clien_numero}}: {{client.clien_nom}} {{client.clien_denomination}} {{client.clien_prenom}} {{ client.clien_sigle }} </nb-option>
+                        </nb-select>
+                        <nb-select *ngIf="!titulaireClient" (selectedChange)="onChangeTitulaire($event)" fullWidth id="dem_clienttitulaire">                    
+                            <nb-option value="{{prospect.prospc_numero}}" *ngFor="let prospect of prospects">{{prospect.prospc_numero}}: {{prospect.prospc_nom}} {{prospect.prospc_prenom}} {{prospect.prospc_denomination}} {{prospect.prospc_sigle}}</nb-option>
+                        </nb-select-->
+                        <mat-select *ngIf="titulaireClient" class="form-control" [formControl]="clientsCtrl" placeholder="choisir un client"
+                            (selectionChange)="onChangeTitulaire($event)" fullWidth
+                            id="cont_numeroclient" #singleSelect>
+                            <mat-option>
+                                <ngx-mat-select-search [formControl]="clientsFilterCtrl">
+                                </ngx-mat-select-search>
+                            </mat-option>
+
+                            <mat-option value="{{client.clien_numero}}"
+                                *ngFor="let client of filteredClients | async">{{client.clien_numero}}: {{client.clien_nom}} 
+                                {{client.clien_denomination}} {{client.clien_prenom}} {{ client.clien_sigle }}
+                            </mat-option>
+                        </mat-select>
+
+
+                        <mat-select *ngIf="!titulaireClient" class="form-control" [formControl]="prospectCtrl" placeholder="choisir un prospect"
+                        (selectionChange)="onChangeTitulaire($event)" fullWidth
+                        id="cont_numeroclient" #singleSelect>
+                        <mat-option>
+                            <ngx-mat-select-search [formControl]="prospectFilterCtrl">
+                            </ngx-mat-select-search>
+                        </mat-option>
+
+                        <mat-option value="{{prospect.prospc_numero}}"
+                            *ngFor="let prospect of filteredProspect | async">{{prospect.prospc_numero}}: 
+                            {{prospect.prospc_nom}} {{prospect.prospc_prenom}} {{prospect.prospc_denomination}} 
+                            {{prospect.prospc_sigle}}
+                        </mat-option>
+                    </mat-select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label  class="label">Type de societe<span style="color:red;">*</span></label>
+                        <input fieldSize="small" [value]="societe" type="text" nbInput fullWidth id="dem_typesociete" >
+                        <!--nb-select [readonly]="true"s [(selected)]="societe" (selectedChange)="onChangeLibeleType($event)" fullWidth  > 
+                            <nb-option value="{{type.id}}" *ngFor="let type of listTypes">{{type.value}}</nb-option>  
+                          </nb-select-->
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="label">Denomination<span style="color:red;">*</span></label>
+                        <input fieldSize="small" [readonly]="true" formControlName="dem_denomination"  type="text" nbInput fullWidth  id="dem_denomination" >
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label  class="label">Nom Complet DG<span style="color:red;">*</span></label>
+                        <input fieldSize="small" readonly formControlName="dem_nomprenomsdg" type="text" nbInput fullWidth id="dem_nomprenomsdg" >                   
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Secteur Activité<span style="color:red;">*</span></label>
+                        <!--input fieldSize="small" formControlName="dem_secteuractivites" type="number" nbInput fullWidth id="dem_secteuractivites" >
+                        <nb-select fieldSize="small" (selectedChange)="onChangeActivite($event)"  fullWidth id="group_classif" >
+                            <nb-option  *ngFor="let class of classifications" value="{{class.code}}" >{{class.libelle}}</nb-option>                          
+                          </nb-select-->
+                          <input fieldSize="small" [readonly]="true" [value]="activite" type="text" nbInput fullWidth
+                                id="dem_secteuractivites">
+                          <!-- <mat-select class="form-control" [formControl]="classifCtrl" placeholder="choisir une classification"
+                                (selectionChange)="onChangeActivite($event)" fullWidth
+                                id="prospc_classificationmetier" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="classifFilterCtrl"></ngx-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngFor="let classif of filteredClassif | async" value="{{classif.code}}">
+                                    {{ classif.libelle }}
+                                </mat-option>
+                            </mat-select> -->
+                     </div>                   
+                </div>                
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Capital Social<span style="color:red;">*</span></label>
+                        <input fieldSize="small" formControlName="dem_capitalsocial" type="number" nbInput fullWidth id="dem_capitalsocial" >
+                     </div>                   
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Résistre de Commerce<span style="color:red;">*</span></label>
+                        <input fieldSize="small" [readonly]="true" formControlName="dem_registrecommerce" type="text" nbInput fullWidth id="dem_registrecommerce" >
+                    </div>                   
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">NINEA<span style="color:red;">*</span></label>
+                        <input fieldSize="small" [readonly]="true" formControlName="dem_ninea" type="text" nbInput fullWidth id="dem_ninea" >
+                    </div>                   
+                </div>   
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Compte Blancaire</label>
+                        <input fieldSize="small" formControlName="dem_comptebancaire" type="text" nbInput fullWidth id="dem_comptebancaire" >
+                    </div>                   
+                </div>  
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">mandataire de la société</label>
+                        <!--input fieldSize="small" formControlName="dem_contactsociete"  type="text" nbInput fullWidth id="dem_contactsociete" -->
+                        <div  *ngIf="contactss?.length > 0">
+                        <!--nb-select fieldSize="small"  *ngIf="verifContact"  [(selected)]="mendataire" (selectedChange)="onChangeContact($event)"  fullWidth id="dem_contactsociete" >
+                            <nb-option value="">&nbsp;</nb-option> 
+                            <nb-option  *ngFor="let contact of contacts" value="{{contact.cont_numero}}" >{{contact.cont_numero}}: {{contact?.cont_nom}} {{contact?.cont_prenom}}</nb-option>                          
+                                                     
+                        </nb-select-->
+                        <mat-select *ngIf="verifContact" class="form-control" [formControl]="contactCtrl" placeholder="choisir un mandataire"
+                                (selectionChange)="onChangeContact($event)" fullWidth
+                                id="dem_contactsociete" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="contactFilterCtrl"></ngx-mat-select-search>
+                                </mat-option>
+                                <mat-option value="">&nbsp;                                   
+                                </mat-option>
+                                <mat-option *ngFor="let contact of filteredContact | async" value="{{contact.cont_numero}}">
+                                    {{contact.cont_numero}}: {{contact?.cont_nom}} {{contact?.cont_prenom}}
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                          <nb-select *ngIf="!verifContact" fieldSize="small" (selectedChange)="onChangeContact($event)"  fullWidth id="dem_contactsociete" >
+                            <!--nb-option  *ngFor="let contact of contactsP" value="{{contact.cont_numero}}" >{{contact.cont_numero}}: {{contact.cont_nom}} {{contact.cont_prenom}}</nb-option-->
+                          </nb-select>
+                        
+                    </div>    
+                </div>            
+            </div>
+        </div>
+        <input type="radio" name="tabs" id="tabtwo">
+        <label for="tabtwo" class="lab">COORDONNEES</label>
+        <div class="tab">
+            <div class="row"> 
+                <div class="col-sm-4">                
+                    <div class="form-group">
+                        <label for="" class="label">Adresse 1<span style="color:red;">*</span></label>                        
+                        <input formControlName="dem_adresse1" [readonly]="true" type="text" nbInput fullWidth id="dem_adresse1">                        
+                    </div> 
+                </div> 
+                <div class="col-sm-4">                
+                    <div class="form-group">
+                        <label for="" class="label">Adresse 2</label>                        
+                        <input formControlName="dem_adresse2" [readonly]="true" type="text" nbInput fullWidth id="dem_adresse2">                        
+                    </div> 
+                </div> 
+                <div class="col-sm-4">                
+                    <div class="form-group">
+                        <label for="" class="label">Ville<span style="color:red;">*</span></label>                        
+                        <input formControlName="dem_ville" [readonly]="true" type="text" nbInput fullWidth id="dem_ville">                        
+                    </div> 
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">télèphone principal<span style="color:red;">*</span></label>
+                        <!--input re fieldSize="small" formControlName="dem_telephoneprincipal" type="text" nbInput fullWidth id="dem_telephoneprincipal" -->
+                        <input fieldSize="small" readonly formControlName="dem_telephoneprincipal" type="text" nbInput fullWidth id="dem_telephoneprincipal">
+                        <!--ngx-intl-tel-input (focusout)="onchangeNumero()"  [cssClass]="'form-control'"  [preferredCountries]="[CountryISO.Senegal]"
+                            [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                            [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                            [selectedCountryISO]="CountryISO.Senegal" [maxLength]="15"
+                            [phoneValidation]="true" [separateDialCode]="true"
+                            [numberFormat]="PhoneNumberFormat.National" id="dem_telephoneprincipal" formControlName="dem_telephoneprincipal">
+                        </ngx-intl-tel-input-->
+                        <div *ngIf="displayErrorNumero">
+                                <span *ngIf="!errorNumero" style="color:red;">Le numero n'est pas valide</span>
+                            </div>
+                    </div>                   
+                </div> 
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">télèphone </label>
+                        <!--input fieldSize="small" formControlName="dem_telephone2" type="text" nbInput fullWidth id="dem_telephone2" -->
+                        <input fieldSize="small" readonly  formControlName="dem_telephone2" type="text" nbInput fullWidth id="dem_telephone2">
+                        <!--ngx-intl-tel-input (focusout)="onchangeNumero2()"  [cssClass]="'form-control'"  [preferredCountries]="[CountryISO.Senegal]"
+                            [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                            [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                            [selectedCountryISO]="CountryISO.Senegal" [maxLength]="15"
+                            [phoneValidation]="true" [separateDialCode]="true"
+                            [numberFormat]="PhoneNumberFormat.National" id="dem_telephone2" formControlName="dem_telephone2">
+                        </ngx-intl-tel-input-->
+                        <div *ngIf="displayErrorNumero2">
+                                <span *ngIf="!errorNumero2" style="color:red;">Le numero n'est pas valide</span>
+                            </div>
+                        
+                    </div>                   
+                </div> 
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Mobile <span style="color:red;">*</span></label>
+                        <!--input fieldSize="small" formControlName="dem_telephonemobile" type="text" nbInput fullWidth id="dem_telephonemobile" -->
+                        <input fieldSize="small" readonly formControlName="dem_telephonemobile" type="text" nbInput fullWidth id="dem_telephonemobile">
+                        <!--ngx-intl-tel-input (focusout)="onchangeMobile()"  [cssClass]="'form-control'"  [preferredCountries]="[CountryISO.Senegal]"
+                            [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                            [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                            [selectedCountryISO]="CountryISO.Senegal" [maxLength]="15"
+                            [phoneValidation]="true" [separateDialCode]="true"
+                            [numberFormat]="PhoneNumberFormat.National" id="dem_telephonemobile" formControlName="dem_telephonemobile">
+                        </ngx-intl-tel-input-->
+                            <div *ngIf="displayErrorMobile">
+                                <span *ngIf="!errorMobile" style="color:red;">Le numero n'est pas valide</span>
+                            </div>
+                    </div>    
+                </div>               
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Site Internet</label>
+                            <input fieldSize="small" *ngIf="!displaytitulaire" readonly formControlName="dem_siteinternet" type="text" nbInput fullWidth id="dem_siteinternet" >
+                            <input fieldSize="small" *ngIf="displaytitulaire"  formControlName="dem_siteinternet" type="text" nbInput fullWidth id="dem_siteinternet" >
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Email Societe<span style="color:red;">*</span></label>
+                            <!--input fieldSize="small" formControlName="dem_emailsociete" type="email" nbInput fullWidth id="dem_emailsociete" -->
+                            <input fieldSize="small"  readonly (focusout)="onchangeMailSociete()" formControlName="dem_emailsociete" type="text" nbInput fullWidth id="dem_emailsociete">
+                            <!--input fieldSize="small" *ngIf="displaytitulaire"  (focusout)="onchangeMailSociete()" formControlName="dem_emailsociete" type="text" nbInput fullWidth id="dem_emailsociete"-->
+                            <div *ngIf="displayErrorEmail">
+                                <span *ngIf="!errorEmail" style="color:red;">L'email n'est pas valide</span>
+                            </div>
+                        </div>                   
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Email Dirigeant(e)<span style="color:red;">*</span></label>
+                            <!--input fieldSize="small" formControlName="dem_emaildirigeant" type="email" nbInput fullWidth id="dem_emaildirigeant" -->
+                            <input fieldSize="small" (focusout)="onchangeMailDirigeant()" formControlName="dem_emaildirigeant" type="text" nbInput fullWidth id="dem_emaildirigeant">
+                            <div *ngIf="displayErrorEmailDG">
+                                <span *ngIf="!errorEmailDG" style="color:red;">L'email n'est pas valide</span>
+                            </div>                   
+                    </div>
+                 
+            </div>
+        </div>
+    </div>
+        
+        
+    
+        <input type="radio" name="tabs" id="tabfour">
+        <label for="tabfour" class="lab">PRODUIT(S) DEMANDE(S)</label>
+        <div class="tab">
+            <div class="row">  
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="label">code branche<span style="color:red;">*</span></label>
+                        <!--nb-select (selectedChange)="onChangeBranche($event)" fullWidth id="dem_branch">
+                            <nb-option value="{{branche.branche_numero}}" *ngFor="let branche of listeCodeBranche">
+                                {{branche.branche_numero}} : {{branche.branche_libelleLong}}
+                            </nb-option>
+                        </nb-select-->
+                        <mat-select class="form-control" [formControl]="brancheCtrl" placeholder="choisir une branche"
+                                (selectionChange)="onChangeBranche($event)" fullWidth
+                                id="dem_branch" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="brancheFilterCtrl"></ngx-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngFor="let branche of filteredBranche | async" value="{{branche.branche_numero}}">
+                                    {{branche.branche_numero}}: {{branche.branche_libelleLong}}
+                                </mat-option>
+                            </mat-select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="label">code catégorie<span style="color:red;">*</span></label>
+                        <!--nb-select [(selected)]="numCategorie" (selectedChange)="onChangeCategorie($event)"
+                            fullWidth id="dem_categorie">
+                            <nb-option value="{{categorie.categ_numero}}"
+                                *ngFor="let categorie of listeNumeroCategorie">
+                                {{categorie.categ_numero}} : {{categorie.categ_libellelong}}
+                            </nb-option>
+                        </nb-select-->
+                        <mat-select class="form-control" [formControl]="categorieCtrl" placeholder="choisir une categorie"
+                                (selectionChange)="onChangeCategorie($event)" fullWidth
+                                id="dem_categorie" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="categorieFilterCtrl"></ngx-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngFor="let categorie of filteredCategorie | async" value="{{categorie.categ_numero}}">
+                                    {{categorie.categ_numero}} : {{categorie.categ_libellelong}}
+                                </mat-option>
+                            </mat-select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Produit 1<span style="color:red;">*</span></label>
+                        <!--input fieldSize="small" formControlName="dem_produitdemande1" type="number" nbInput fullWidth id="dem_produitdemande1" >
+                        <nb-select [(selected)]="numProduit1" (selectedChange)="onChangeProiduit1($event)" fullWidth id="dem_civilitepers">                    
+                            <nb-option value="{{produit.prod_numero}}" *ngFor="let produit of listeCodeProduit">{{produit.prod_numero}}: {{produit.prod_denominationlong}} </nb-option>
+                          </nb-select-->
+                          <mat-select class="form-control" [formControl]="produitCtrl" placeholder="choisir un proiduit"
+                                (selectionChange)="onChangeProiduit1($event)" fullWidth
+                                id="dem_proiduit1" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="produitFilterCtrl"></ngx-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngFor="let produit of filteredProduit | async" value="{{produit.prod_numero}}">
+                                    {{produit.prod_numero}}: {{produit.prod_denominationlong}}
+                                </mat-option>
+                            </mat-select>
+                    </div>                   
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Montant<span style="color:red;">*</span></label>
+                        <input fieldSize="small" (focusout)="onFocusOutEventMontant()" formControlName="dem_montant" type="text" nbInput fullWidth id="dem_montant">
+                       
+                    </div>
+                </div>
+                <div class="col-sm-4" *ngIf="numProduit1==15001001 ||numProduit1==15001002 || numProduit1==15001003 || numProduit1==15001004 || numProduit1==15001005">
+                    <div class="form-group">
+                        <label for="" class="label">Produit 2</label>
+                        <!--input fieldSize="small" formControlName="dem_produitdemande2" type="number" nbInput fullWidth id="dem_produitdemande2" >
+                        <nb-select [(selected)]="numProduit2" (selectedChange)="onChangeProiduit2($event)" fullWidth id="dem_civilitepers">                    
+                            <nb-option value="{{produit.prod_numero}}" *ngFor="let produit of listeCodeProduit">{{produit.prod_numero}}: {{produit.prod_denominationlong}} </nb-option>
+                          </nb-select-->
+                          <mat-select class="form-control" [formControl]="produitCtrl" placeholder="choisir un proiduit"
+                                (selectionChange)="onChangeProiduit2($event)" fullWidth
+                                id="dem_proiduit2" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="produitFilterCtrl"></ngx-mat-select-search>
+                                </mat-option>
+
+                                <ng-container *ngFor="let produit of filteredProduit | async">
+                                    <mat-option *ngIf="numProduit1!=produit.prod_numero &&(produit.prod_numero==15001001 ||produit.prod_numero==15001002 || produit.prod_numero==15001003 || produit.prod_numero==15001004 || produit.prod_numero==15001005 )" [value]="produit.prod_numero">
+                                        {{produit.prod_numero}}: {{produit.prod_denominationlong}}
+                                    </mat-option>
+                                  </ng-container>
+                            </mat-select>
+                    </div>                   
+                </div>
+                <div class="col-sm-4" *ngIf="numProduit2!=null && numProduit2!='' ">
+                    <div class="form-group">
+                        <label for="" class="label">Montant 2<span style="color:red;">*</span></label>
+                        <input fieldSize="small" (focusout)="onFocusOutEventMontant2()" formControlName="dem_montant2" type="text" nbInput fullWidth id="dem_montant3">
+                       
+                    </div>
+                </div>
+                <div class="col-sm-4" *ngIf="(numProduit1==15001001 ||numProduit1==15001002 || numProduit1==15001003 || numProduit1==15001004 || numProduit1==15001005)&&(numProduit2==15001001 ||numProduit2==15001002 || numProduit2==15001003 || numProduit2==15001004 || numProduit2==15001005)">
+                    <div class="form-group">
+                        <label for="" class="label">Produit 3</label>
+                        <!--input fieldSize="small" formControlName="dem_produitdemande3" type="number" nbInput fullWidth id="dem_produitdemande3" >
+                        <nb-select  [(selected)]="numProduit3" (selectedChange)="onChangeProiduit3($event)" fullWidth id="dem_civilitepers">                    
+                            <nb-option value="{{produit.prod_numero}}" *ngFor="let produit of listeCodeProduit">{{produit.prod_numero}}: {{produit.prod_denominationlong}} </nb-option>
+                          </nb-select-->
+                          <mat-select class="form-control" [formControl]="produitCtrl" placeholder="choisir un proiduit"
+                                (selectionChange)="onChangeProiduit3($event)" fullWidth
+                                id="dem_proiduit3" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="produitFilterCtrl"></ngx-mat-select-search>
+                                </mat-option>
+
+                                <ng-container *ngFor="let produit of filteredProduit | async">
+                                    <mat-option *ngIf="numProduit1!=produit.prod_numero && numProduit2!=produit.prod_numero && (produit.prod_numero==15001001 ||produit.prod_numero==15001002 || produit.prod_numero==15001003 || produit.prod_numero==15001004 || produit.prod_numero==15001005)" [value]="produit.prod_numero">
+                                        {{produit.prod_numero}}: {{produit.prod_denominationlong}}
+                                    </mat-option>
+                                </ng-container>
+                            </mat-select>
+                    </div>
+                </div>
+                <div class="col-sm-4" *ngIf="numProduit3!=null && numProduit3!=''">
+                    <div class="form-group">
+                        <label for="" class="label">Montant 3<span style="color:red;">*</span></label>
+                        <input fieldSize="small" (focusout)="onFocusOutEventMontant3()" formControlName="dem_montant3" type="text" nbInput fullWidth id="dem_montant3">
+                       
+                    </div>
+                </div>              
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Object Demande<span style="color:red;">*</span></label>
+                        <input fieldSize="small" readonly formControlName="dem_objetdemande" type="text" nbInput fullWidth id="dem_objetdemande" >
+                    </div>                   
+                </div> 
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Arbitrage<span style="color:red;">*</span></label>
+                        <!--input fieldSize="small" formControlName="dem_soumissionarbitrage" type="text" nbInput fullWidth id="dem_soumissionarbitrage" -->
+                        <nb-select (selectedChange)="onChangeArbitrage($event)" fullWidth id="dem_soumissionarbitrage" >
+                            <nb-option value="O">OUI</nb-option>
+                            <nb-option value="N">NON</nb-option>
+                            <!-- <nb-option value="A">ATT</nb-option> -->
+                          </nb-select>
+                    </div>                   
+                </div> 
+                
+                
+                <div class="col-sm-4">
+                    <div  *ngIf="displaytype" class="form-group">
+                        <label for="" class="label">Marche<span style="color:red;">*</span></label>
+                        <!-- <input field Size="small" formControlName="dem_marche" type="text" nbInput fullWidth
+                            id="dem_marche"> -->
+                            <textarea nbInput fieldSize="large" fullWidth (change)="onChangeMarcher($event)"  formControlName="dem_marche"  placeholder="MARCHE"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--input type="radio" name="tabs" id="tabdoc" *ngIf="demandeEnvoye">
+        <label for="tabdoc" class="lab" *ngIf="demandeEnvoye">Documents </label>
+        <div class="tab" >
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <nb-card>
+                        <nb-card-body>
+                            <button status="success" nbButton (click)="openAjout()">
+                                <mat-icon>file_upload</mat-icon> joindre documents
+                            </button>
+                            <br>
+                            <div *ngIf="displayButtonUpload">
+                                <br>
+                                <span style="color: green;">Vous pouvez selectionner un ou plusieurs documents
+                                </span><br><br>
+                                <input type="file" (change)="onFileSelected($event)" multiple name="files"
+                                    id=""><br>
+                                <br><button size="small" status="primary" nbButton (click)="onClickUpload()">
+                                    <mat-icon>file_upload</mat-icon>upload
+                                </button>
+                            </div>
+                            <br>
+                            <nb-progress-bar *ngIf="displayprogress" [value]="progress" [displayValue]="true"
+                                status="primary"></nb-progress-bar>
+                            <br>
+                            <h2>Liste des documents joints</h2>
+                            <nb-list>
+                                <nb-list-item *ngFor="let filename of filenames">
+                                    {{filename}} &nbsp;&nbsp;&nbsp;<button size="tiny"
+                                        (click)="onClickDownload(filename)" status="success" nbButton>
+                                        <mat-icon>file_download</mat-icon>Télécharger
+                                    </button>
+                                    &nbsp;<button size="tiny" (click)="onClickDelete(filename)" status="danger"
+                                        nbButton>
+                                        <mat-icon>delete</mat-icon>supprimer
+                                    </button>
+                                </nb-list-item>
+                            </nb-list>
+                        </nb-card-body>
+                    </nb-card>
+                </div>
+
+            </div>
+        </div-->
+
+    </div>
+    
+    
+
+
+    <br>
+        <div>
+            <button nbButton status="success" (click)="submit()" [disabled]='!addForm.valid'>Ajouter</button>
+            &nbsp;&nbsp;<!--button class="cancel" *ngIf="demandeEnvoye" nbButton status="primary" (click)="cancel()">Terminer</button-->
+            &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()" >Annuler</button>
+            
+        </div>
+</form>
+</div>

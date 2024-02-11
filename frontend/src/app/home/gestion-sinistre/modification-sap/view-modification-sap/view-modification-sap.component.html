@@ -1,0 +1,127 @@
+<div class="col-lg-12">
+    <nb-card>
+        <nb-card-header id="titre_entete">Modification SAP du Sinistre N° {{ sinistreForm.sini_num || ''}}</nb-card-header>
+        <nb-card-body>
+
+            <fieldset class="fieldset">
+                <legend class="tailleLegend">Sinistre</legend>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p>Numéro : <b> {{ sinistreForm?.sini_num || ''}}</b></p>
+                        <p>Client : <b> {{ client?.clien_numero || ''}} : {{ client?.clien_prenom || '' }} {{
+                                client?.clien_nom || ''}} {{ client?.clien_denomination || ''}} {{ client?.clien_sigle
+                                || ''}}</b></p>
+                        <p>Police : <b> {{ sinistreForm?.sini_police || ''}} </b></p>
+                        <p>Acheteur : <b> {{ acheteur?.achet_numero || ''}} : {{ acheteur?.achet_prenom || '' }} {{
+                                acheteur?.achet_nom || ''}}</b></p>
+                        <p>Intermédiaire : <b> {{ intermediaire?.inter_numero || '' }} : {{
+                                intermediaire?.inter_denomination || '' }}</b></p>
+                        <p>Produit : <b>{{ produit?.prod_numero || '' }} : {{ produit?.prod_denominationlong || ''
+                                }}</b></p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p>Evaluation principale : <b>{{ sinistreForm?.sini_evaluationprincipale | ngxNumberWithCommas
+                                }}</b></p>
+                        <p>Evaluation frais : <b>{{ sinistreForm?.sini_evaluationfrais | ngxNumberWithCommas }}</b></p>
+                        <p>Evaluation honoraires : <b>{{ sinistreForm?.sini_evaluationhonoraires | ngxNumberWithCommas
+                                }}</b>
+                        </p>
+                        <p>Evaluation globale : <b>{{ sinistreForm?.sini_evaluationglobale | ngxNumberWithCommas }}</b>
+                        </p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p>SAP principale : <b>{{ sinistreForm?.sini_sapprincipale | ngxNumberWithCommas
+                                }}</b></p>
+                        <p>SAP frais : <b>{{ sinistreForm?.sini_sapfrais | ngxNumberWithCommas }}</b></p>
+                        <p>SAP honoraires : <b>{{ sinistreForm?.sini_saphonoraires | ngxNumberWithCommas }}</b>
+                        </p>
+                        <p>SAP globale : <b>{{ sinistreForm?.sini_sapglobale | ngxNumberWithCommas }}</b>
+                        </p>
+                    </div>
+                </div>
+            </fieldset><br>
+
+            <fieldset class="fieldset">
+                <legend class="tailleLegend">Mouvement Sinistre</legend>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Numéro : <b> {{ mvtsinistreForm?.mvts_num || ''}}</b></p>
+                        <p>Type mvt : <b> {{ onGetLibelleByTypeMvts(mvtsinistreForm?.mvts_typemvt) }} </b></p>
+                        <p>Date mvt : <b> {{ mvtsinistreForm?.mvts_datemvt | date: 'dd-MM-yyyy'}}</b></p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Montant principal : <b>{{ mvtsinistreForm?.mvts_montantprincipal | ngxNumberWithCommas }}</b>
+                        </p>
+                        <p>Montant frais : <b>{{ mvtsinistreForm?.mvts_montantfrais | ngxNumberWithCommas }}</b></p>
+                        <p>Montant honoraires : <b>{{ mvtsinistreForm?.mvts_montanthonoraire | ngxNumberWithCommas
+                                }}</b></p>
+                        <p>Montant mouvement : <b>{{ mvtsinistreForm?.mvts_montantmvt | ngxNumberWithCommas }}</b></p>
+                    </div>
+                </div>
+            </fieldset><br>
+            <br>
+
+            <!-- ==================== COMPLEMENT DE DOCUMENTS =========================== -->
+
+            <form [formGroup]="addForm">
+
+                <div class="col-lg-6">
+                    <nb-card>
+                        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Complément de documents
+                        </nb-card-header>
+                    </nb-card>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label class="label">Document à ajouter</label>
+                                <input formControlName="document" type="text" nbInput fullWidth id="document">
+                            </div>
+                            <p class="paraProblemeSaisi" *ngIf="documentDejaDansListe">Ce nom de document est déjà dans
+                                la liste
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <br>
+                            <button nbButton status="success" (click)="onAddDocument()">Ajouter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="listDocuments.length != 0">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered">
+                            <thead class="text-white">
+                                <th>Document</th>
+                                <th>Action</th>
+                            </thead>
+                            <ng-container *ngFor="let doc of listDocuments">
+                                <tr>
+                                    <td>{{doc}}</td>
+                                    <td class="text-center">
+                                        <button mat-icon-button color="warn" (click)="onDeleteDocument(doc)">
+                                            <mat-icon class="mat-18">delete</mat-icon>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </table>
+                    </div>
+                </div>
+                <br>
+            </form>
+
+            <!-- ============= FIN ADD COMPLEMENT DE DOCUMENT ================ -->
+            <div>
+                <button nbButton status="success" (click)="onExport()">EDITER FICHE MODIFICATION
+                    SAP</button>&nbsp;&nbsp;
+                <button class="cancel" nbButton status="danger" (click)="cancel()">FERMER</button>
+            </div><br>
+        </nb-card-body>
+    </nb-card>
+</div>

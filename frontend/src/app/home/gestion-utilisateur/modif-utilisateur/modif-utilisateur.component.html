@@ -1,0 +1,414 @@
+<form [formGroup]="modifForm">
+  <!--
+  <div class="row">
+    <div class="col-lg-12">
+      <nb-card>
+        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Information personnelle</nb-card-header>
+        <nb-card-body>
+          <div class="row">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="label">Nom</label>
+              <input fieldSize="small" formControlName="util_nom"  type="text" nbInput fullWidth  id="util_prenom" >
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="" class="label">Prenom</label>
+              <input fieldSize="small" formControlName="util_prenom" type="text" nbInput fullWidth id="util_prenom" >
+            </div>
+          </div>
+          <div class="col-sm-3">
+              <div class="form-group">
+                <label  class="label">Denomination</label>
+                <input fieldSize="small" formControlName="util_denomination" type="text" nbInput fullWidth id="util_denomination" >
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label  class="label">Email</label>
+                <input fieldSize="small" formControlName="util_email" type="email" nbInput fullWidth id="util_email" >
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label  class="label">Adresse</label>
+                <input fieldSize="small" formControlName="util_adresse" type="text" nbInput fullWidth id="util_adresse" >
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label  class="label">Telephone Fixe</label>
+                <input fieldSize="small" formControlName="util_telephonefixe" type="text" nbInput fullWidth id="util_telephonefixe" >
+              </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                  <label  class="label">Telephone Portable</label>
+                  <input fieldSize="small" formControlName="util_telephoneportable" type="text" nbInput fullWidth id="util_telephoneportable">
+                </div>
+              </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+  
+  
+  <div class="row">
+    <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Reference</nb-card-header>
+        <nb-card-body>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label  class="label">Numero Client</label>
+                <input fieldSize="small" formControlName="util_numclient" type="text" nbInput fullWidth id="util_numeroclient">
+              </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                  <label  class="label">Numero </label>
+                  <input fieldSize="small" formControlName="util_numero" type="text" nbInput fullWidth id="util_numero">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="" class="label">Sigle</label>
+                  <input fieldSize="small" formControlName="util_sigle" type="text" nbInput fullWidth id="util_sigle" >
+                </div>
+              </div>
+              <div class="col-sm-6">
+                  <div class="form-group">
+                    <label  class="label">Type</label>
+                    <input fieldSize="small" formControlName="util_type" type="text" nbInput fullWidth id="util_type" >
+                  </div>
+                </div>
+              
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  
+    <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Service</nb-card-header>
+        <nb-card-body>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label  class="label">Direction</label>
+                <input fieldSize="small" formControlName="util_direction" type="text" nbInput fullWidth id="util_direction" >
+              </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                  <label  class="label">Departement</label>
+                  <input fieldSize="small" formControlName="util_departement" type="text" nbInput fullWidth id="util_departement" >
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+              <div class="form-group">
+                <label  class="label">Service</label>
+                <input fieldSize="small" formControlName="util_service" type="text" nbInput fullWidth id="util_service" >
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Poste</label>
+                <input fieldSize="small" formControlName="util_poste" type="text" nbInput fullWidth id="putil_oste" >
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-lg-12">
+      <nb-card>
+        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Connexion</nb-card-header>
+        <nb-card-body>
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label  class="label">Nom d'utilisateur</label>
+                <input fieldSize="small" formControlName="util_login" type="text" nbInput fullWidth id="util_login" >
+              </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                  <label  class="label">Mot de passe</label>
+                  <input fieldSize="small" formControlName="util_password" type="password" nbInput fullWidth id="util_login" >
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label  class="label">Role </label>
+                  <nb-select [(selected)]="role"  (selectedChange)="onChange($event)" selected="1" fullWidth id="util_role" >
+
+                    <nb-option  *ngFor="let rol of roles" value="{{rol.nom}}" >{{rol.nom}}</nb-option>
+  
+                    </nb-select>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label  class="label">Status</label>
+                  <nb-select [(selected)]="status" (selectedChange)="onChangeStatus($event)" fullWidth id="util_status" >
+                    <nb-option value="A">Activé</nb-option>
+                    <nb-option value="S">Suspendu</nb-option>
+                  </nb-select>
+                </div>
+              </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+  
+  
+  <div >
+    <button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+          &nbsp;&nbsp;<button nbButton status="success" (click)="submit()" [disabled]='!modifForm.valid'>Modifier</button>
+  </div>
+  
+  
+  </form>
+  -->
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="col-lg-4">
+  <nb-card>
+    <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Modification d'un utilisateur</nb-card-header>
+  </nb-card>
+</div>   
+
+<nb-card-body *ngIf="displayAllError" class="example-last-child-no-b-margin">
+   
+  <nb-alert status="danger">Veuillez renseigner tous les champs obligatoires * </nb-alert>
+  
+</nb-card-body>
+
+<div class="tabs">
+<input type="radio" name="tabs" id="tabone" checked="checked">
+<label for="tabone" class="lab">INFORMATION</label>
+<div class="tab">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label class="label">Nom <span style="color:red;">*</span></label>
+        <input [readonly]="nonModifierChamps" fieldSize="small" formControlName="util_nom" #input [value]="input.value.toUpperCase()"  type="text" nbInput fullWidth  id="util_nom" >
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="" class="label">Prenom <span style="color:red;">*</span></label>
+        <input [readonly]="nonModifierChamps" fieldSize="small" formControlName="util_prenom" type="text" nbInput fullWidth id="util_prenom" >
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2">
+        <div class="form-group">
+          <label  class="label">Denomination</label>
+          <input fieldSize="small" formControlName="util_denomination" type="text" nbInput fullWidth id="util_denomination" >
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label for="" class="label">Sigle</label>
+          <input fieldSize="small" formControlName="util_sigle" type="text" nbInput fullWidth id="util_sigle" >
+        </div>
+        </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label  class="label">Email <span style="color:red;">*</span></label>
+          <input fieldSize="small" (change)="onchangeMail()" formControlName="util_email" type="email" nbInput fullWidth id="util_email" >
+            <span *ngIf="!errorEmail" style="color:red;">L'email n'est pas valide</span>
+            
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label  class="label">Adresse <span style="color:red;">*</span></label>
+          <input fieldSize="small" formControlName="util_adresse" type="text" nbInput fullWidth id="util_adresse" >
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label  class="label">Telephone Portable <span style="color:red;">*</span></label>
+          <ngx-intl-tel-input (change)="onchangeNumero()"  [cssClass]="'form-control'"  [preferredCountries]="[CountryISO.Senegal]"
+                    [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                    [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                    [selectedCountryISO]="CountryISO.Senegal" 
+                    [phoneValidation]="true" [separateDialCode]="true"
+                    [numberFormat]="PhoneNumberFormat.National" id="util_telephoneportable" formControlName="util_telephoneportable">
+                  </ngx-intl-tel-input>
+          <span *ngIf="!errorNumero" style="color:red;">Le numero n'est pas valide</span>
+           
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label  class="label">Telephone Fixe</label>
+          <ngx-intl-tel-input (change)="onchangeNumero()"  [cssClass]="'form-control'"  [preferredCountries]="[CountryISO.Senegal]"
+                    [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                    [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                    [selectedCountryISO]="CountryISO.Senegal" 
+                    [phoneValidation]="true" [separateDialCode]="true"
+                    [numberFormat]="PhoneNumberFormat.National" id="util_telephonefixe" formControlName="util_telephonefixe">
+                  </ngx-intl-tel-input>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      
+    </div>
+</div>
+
+<input type="radio" name="tabs" id="tabtwo">
+<label for="tabtwo" class="lab">REFERENCE</label>
+<div class="tab">
+  <div class="row">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label  class="label">Type d'Utilisateur <span style="color:red;">*</span></label>
+              <nb-select [(selected)]="type" disabled (selectedChange)="onChangeTypeUser($event)" selected="1" fullWidth id="util_type" >
+                <nb-option  value="agent" >Agent</nb-option>
+                <nb-option  value="client" >Client</nb-option>
+              
+              </nb-select>
+            </div>
+            
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label  class="label">Numero Client</label>
+              <input fieldSize="small" [readonly]="true" formControlName="util_numclient" type="text" nbInput fullWidth id="util_numeroclient">
+            </div>
+              
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label  class="label">Numero Utilisateur <span style="color:red;">*</span></label>
+                <input fieldSize="small" formControlName="util_numero" type="text" nbInput fullWidth id="util_numero">
+              </div>
+              
+            </div>
+            
+            
+        </div>
+</div>
+
+<input type="radio" name="tabs" id="tabthree" *ngIf="displayOrganisation">
+<label for="tabthree" class="lab" *ngIf="displayOrganisation">ORGANISATION</label>
+<div class="tab">
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label  class="label">Direction <span style="color:red;">*</span></label>
+        <input fieldSize="small" formControlName="util_direction" type="text" nbInput fullWidth id="util_direction" >
+      </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="form-group">
+          <label  class="label">Departement <span style="color:red;">*</span></label>
+          <input fieldSize="small" formControlName="util_departement" type="text" nbInput fullWidth id="util_departement" >
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+      <div class="form-group">
+        <label  class="label">Service <span style="color:red;">*</span></label>
+        <input fieldSize="small" formControlName="util_service" type="text" nbInput fullWidth id="util_service" >
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label class="label">Poste <span style="color:red;">*</span></label>
+        <input fieldSize="small" formControlName="util_poste" type="text" nbInput fullWidth id="putil_oste" >
+      </div>
+    </div>
+  </div>
+</div>
+
+<input type="radio" name="tabs" id="tabfour">
+<label for="tabfour" class="lab">CONNEXION</label>
+<div class="tab">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label  class="label">Nom d'utilisateur <span style="color:red;">*</span></label>
+        <input fieldSize="small" disabled formControlName="util_login" type="text" nbInput fullWidth id="util_login" >
+      </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+          <label  class="label">Mot de passe <span style="color:red;">*</span></label>
+          <input fieldSize="small" formControlName="util_password" type="password" nbInput fullWidth id="util_login" >
+          <span style="color: green;">Huit caractères au minimum, au moins une lettre majuscule, une lettre minuscule et un chiffre, un chiffre et pas de caractère special</span>
+        </div>
+      </div>
+    </div>
+      <div class="row">
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label  class="label">Role <span style="color:red;">*</span></label>
+          <nb-select [(selected)]="role" (selectedChange)="onChange($event)" selected="1" fullWidth id="util_role" >
+              <nb-option  *ngFor="let rol of roles" value="{{rol.nom}}" >{{rol.nom}}</nb-option>
+            
+            </nb-select>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label  class="label">Status <span style="color:red;">*</span></label>
+          <nb-select [(selected)]="status" (selectedChange)="onChangeStatus($event)" fullWidth id="util_status" >
+            <nb-option value="A">Activé</nb-option>
+            <nb-option value="S">Suspendu</nb-option>
+          </nb-select>
+        </div>
+      </div>
+  </div>
+</div>
+</div>
+
+<br>
+
+
+<div >
+  <button nbButton status="success" (click)="submit()" >Modifier</button>&nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+      
+</div>
+</form>

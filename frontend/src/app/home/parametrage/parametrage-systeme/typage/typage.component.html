@@ -1,0 +1,97 @@
+<mat-card>
+<div *ngIf="check_fonct('l_typage')">
+<div fxLayout fxLayoutAlign="center center">
+    <mat-form-field fxFlex="40%">
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+    </mat-form-field>
+  </div>
+  <mat-card-header class="card-header">
+    <span class="header">La liste des types</span>    
+    </mat-card-header>
+  <div *ngIf="check_fonct('c_typage')">
+
+    <button mat-icon-button  class="buttons" status="success" (click)="openAjout()">
+      <mat-icon  class="material-icons color_green"  title="Ajouter type">add_circle</mat-icon>    
+    </button>
+</div>
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="typ_id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+      <td mat-cell *matCellDef="let typage"> {{typage.typ_id}} </td>
+    </ng-container>
+      
+    <ng-container matColumnDef="typ_libelle_long">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> libelle long </th>
+        <td mat-cell *matCellDef="let typage"> {{typage.typ_libelle_long}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="typ_libelle_court">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> libelle court </th>
+        <td mat-cell *matCellDef="let typage"> {{typage.typ_libelle_court}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="typ_type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> type </th>
+        <td mat-cell *matCellDef="let typage"> {{typage.typ_type}} </td>
+      </ng-container>
+
+    <ng-container matColumnDef="update">
+        <th mat-header-cell *matHeaderCellDef> <div *ngIf="check_fonct('u_typage')"> Modifier</div> </th>
+        <td mat-cell *matCellDef="let typage">
+          <div *ngIf="check_fonct('u_typage')">
+          <button mat-icon-button color="green" (click)="openModif(typage,typage.typ_id)">
+              <mat-icon class="mat-18">edit</mat-icon>
+          </button>
+        </div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef> <div *ngIf="check_fonct('d_typage')"> Supprimer </div></th>
+          <td mat-cell *matCellDef="let typage">
+            <div *ngIf="check_fonct('d_typage')">
+            <button mat-icon-button color="warn" (click)="open(dialogdel ,typage)">
+                <mat-icon class="mat-18">delete</mat-icon>
+            </button>
+          </div>
+          </td>
+        </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+  </table>
+  <mat-paginator [pageSize]="6" [pageSizeOptions]="[1, 4, 6, 10, 20]">
+  </mat-paginator>
+
+
+
+    <ng-template #dialogdel let-typage let-ref="dialogRef">
+  
+      <nb-card>
+        <nb-card-header>
+          SUPPRESSION
+        </nb-card-header>
+        <nb-card-body>
+            <h5 class="grid-h">Merci de confirmer la suppression</h5>
+            <div class="row">
+                <div class="col-sm-16">
+                    <div></div><br>
+                  
+                   
+                </div>
+           
+            </div>
+            
+           
+        </nb-card-body>
+        <nb-card-footer>
+          <button nbButton (click)="onDeleteTypage(typage.typ_id)" (click)="ref.close()" status="success">Confirmer</button>
+            <button nbButton (click)="ref.close()" status="danger">Annuler</button>
+          </nb-card-footer>
+      </nb-card>
+      
+
+</ng-template>
+  
+</div>
+</mat-card>

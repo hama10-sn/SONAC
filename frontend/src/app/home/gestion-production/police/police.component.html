@@ -1,0 +1,190 @@
+<div *ngIf="check_fonct('u_client')">
+  <form [formGroup]="modifForm">
+    <!-- <div class="col-lg-6">
+            <nb-card>
+              <nb-card-header id="titre_entete">Modifcation d'un nouvel client</nb-card-header>
+            </nb-card>
+        </div>    -->
+    <div class="col-lg-4">
+      <nb-card>
+        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Recherche Client</nb-card-header>
+      </nb-card>
+    </div>
+    <br>
+
+    <div class="tabs">
+
+      <input type="radio" name="tabs" id="tabone" checked="checked">
+      <label for="tabone" class="lab">INFOS CLIENT</label>
+      <div class="tab">
+
+        <div class="row">
+
+          <!-- <div *ngIf="proposi == 2"  class="col-sm-6">
+                <div class="form-group">
+                  
+                      <label class="label"> Nature <span style="color:red;">*</span></label><br>
+                      <nb-select (selectedChange)="onChangeNature($event)" id="typetr" >
+                        <nb-option value="PR">PR</nb-option>
+                        <nb-option value="CL">CL</nb-option>
+                      </nb-select>
+                </div>
+              </div> 
+    
+              <div *ngIf="typeNature=='PR' " class="col-sm-3">
+                <div class="form-group">
+                  <label class="label">Numéro prospect</label>
+                  <mat-select class="form-control" [formControl]="prospectsCtrl" placeholder="choisir un prospect"
+                  (selectionChange)="onChangeNumPR($event)" fullWidth
+                  id="cont_numerocl" #singleSelect>
+                  <mat-option>
+                      <ngx-mat-select-search [formControl]="prospectsFilterCtrl">
+                      </ngx-mat-select-search>
+                  </mat-option>
+
+                  <mat-option value="{{prospect.prospc_numero}}"
+                      *ngFor="let prospect of filteredProspects | async">{{prospect.prospc_numero}}: {{prospect?.prospc_nom}} 
+                      {{prospect?.prospc_denomination}} {{prospect?.prospc_prenom}} {{ prospect?.prospc_sigle }}
+                  </mat-option>
+              </mat-select>
+                </div>*ngIf="typeNature=='CL' || proposi== 0"
+              </div> -->
+
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="label">Numéro client</label>
+              <!-- <input fieldSize="small" formControlName="clien_numero"   type="number" min="0"  nbInput fullWidth id="clien_numero"> -->
+
+              <mat-select class="form-control" [formControl]="clientsCtrl" placeholder="choisir un client"
+                (selectionChange)="onChangeNumCL($event)" fullWidth id="cont_numeroclient" #singleSelect>
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="clientsFilterCtrl">
+                  </ngx-mat-select-search>
+                </mat-option>
+
+                <mat-option value="{{client.clien_numero}}" *ngFor="let client of filteredClients | async">
+                  {{client.clien_numero}}: {{client.clien_nom}}
+                  {{client.clien_denomination}} {{client.clien_prenom}} {{ client.clien_sigle }}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="" class="label">Contact Principal</label>
+              <input fieldSize="small" [readonly]="true" formControlName="clien_contactprinci" type="text" nbInput
+                fullWidth id="clien_contactprinci">
+            </div>
+          </div>
+          <!-- <div class="col-sm-3">
+                <div class="form-group"> 
+                  <label  class="label">Numéro téléphone 1</label>
+                  <input fieldSize="small" formControlName="clien_telephone1" type="text" nbInput fullWidth id="clien_telephone1"
+                  [readonly]="true">
+                </div>
+              </div>
+
+              
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="label">Email</label>
+                  <input fieldSize="small" formControlName="clien_email" type="text" nbInput fullWidth id="clien_email"
+                  [readonly]="true">
+                </div>
+              </div> -->
+
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="label"> type client</label>
+              <input fieldSize="small" [readonly]="true" formControlName="clien_typeclient" type="text" nbInput
+                fullWidth id="clien_typeclient">
+
+              <!-- <nb-select [(selected)]="type_client"  [readonly]="true" (selectedChange)="onChangeLibeleType($event)" fullWidth>
+                    <nb-option value="{{type.id}}" *ngFor="let type of listType">{{type.value}}</nb-option>
+                  </nb-select> -->
+            </div>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col-sm-6" *ngIf="!natureClient">
+
+            <div class="form-group">
+              <label class="label">Nom</label>
+              <input fieldSize="small" [readonly]="true" formControlName="clien_nom" type="text" nbInput fullWidth
+                id="clien_nom">
+            </div>
+
+          </div>
+          <div class="col-sm-6" *ngIf="!natureClient">
+
+            <div class="form-group">
+              <label class="label">Prénom</label>
+              <input fieldSize="small" [readonly]="true" formControlName="clien_prenom" type="text" nbInput fullWidth
+                id="clien_prenom">
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="row">
+
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="label">Numero Ninea</label>
+              <input fieldSize="small" formControlName="clien_ninea" type="text" nbInput fullWidth id="clien_ninea"
+                [readonly]="true">
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="label">Numero Registre commerce</label>
+              <input fieldSize="small" formControlName="clien_registrecommerce" type="text" nbInput fullWidth
+                id="clien_registrecommerce" [readonly]="true">
+            </div>
+          </div>
+
+          <div class="col-sm-6" *ngIf="natureClient">
+
+            <div class="form-group">
+              <label for="" class="label">Dénomination</label>
+              <input fieldSize="small" [readonly]="true" formControlName="clien_denomination" type="text" nbInput
+                fullWidth id="clien_denomination">
+            </div>
+
+          </div>
+
+        </div>
+
+        <!--             
+            <div class="row"> 
+             <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="" class="label">Contact Principal</label>
+                  <input fieldSize="small" [readonly]="true" formControlName="clien_contactprinci" type="text" nbInput fullWidth
+                    id="clien_contactprinci">
+                </div>
+              </div>
+    
+            </div> -->
+      </div>
+
+    </div>
+    <br>
+
+    <div>
+
+      <button *ngIf="proposi == 0" nbButton status="success" (click)="findContrat2()"
+        [disabled]='!modifForm.valid'>Créer Police </button>&nbsp;&nbsp;<button nbButton *ngIf="proposi == 2"
+        status="success" (click)="proposition()" [disabled]='!modifForm.valid'>Créer proposition</button>
+    </div>
+
+  </form>
+</div>
+<div *ngIf="check_fonct('u_client')==false">
+  <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

@@ -1,0 +1,36 @@
+<form [formGroup]="lot">
+    <nb-card>
+        <nb-card-header>
+          Ajout d'un Lot
+        </nb-card-header>
+        <nb-card-body>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label class="label">Description du Lot<span class="obligatoire">*</span></label>
+                <textarea rows="2" nbInput fullWidth formControlName="lot_description"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="form-group">
+                <label class="label">Capital Assuré du Lot <span class="obligatoire">*</span></label>
+                <input min="0" fullWidth fieldSize="small" type="text" (change)="onChangeCapAss($event)" nbInput [value]="lot.get('lot_capitalass').value | ngxNumberWithCommas">
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="label">Durée du Lot (en jours)<span class="obligatoire">*</span></label>
+                <input min="0" fullWidth fieldSize="small" type="number" nbInput formControlName="lot_dureetravaux" >
+            </div>
+        </div>
+    </div>
+    
+    </nb-card-body>
+    <nb-card-footer>
+    <button nbButton  (click)="submit()" [disabled]="!lot.valid" status="success">Ajouter</button>&nbsp;&nbsp;<button nbButton  (click)="cancel()" status="danger">Fermer</button>
+    
+    </nb-card-footer>
+    </nb-card>
+    </form>

@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="instruction_particulier" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="00e4148d-d44f-40a0-b1c6-e6d3a716ebf7">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sonac_bd"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<subDataset name="Prime" uuid="4e4e456b-a7cb-421f-8264-2b4c3a171b8a">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+	</subDataset>
+	<queryString>
+		<![CDATA[select  *from dem_pers]]>
+	</queryString>
+	<field name="dem_persnum" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="dem_persnum"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_persnum"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="actif" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="actif"/>
+		<property name="com.jaspersoft.studio.field.label" value="actif"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_adresse1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_adresse1"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_adresse1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_adresse2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_adresse2"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_adresse2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_civilitepers" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="dem_civilitepers"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_civilitepers"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_codeutilisateur" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_codeutilisateur"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_codeutilisateur"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_comptebancaire" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_comptebancaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_comptebancaire"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_datemodification" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="dem_datemodification"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_datemodification"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_email"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_ninea" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_ninea"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_ninea"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_nom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_nom"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_nom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_objetdemande" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_objetdemande"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_objetdemande"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_prenom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_prenom"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_prenom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_produitdemande1" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="dem_produitdemande1"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_produitdemande1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_produitdemande2" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="dem_produitdemande2"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_produitdemande2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_produitdemande3" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="dem_produitdemande3"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_produitdemande3"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_registrecommerce" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_registrecommerce"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_registrecommerce"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_secteuractivites" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="dem_secteuractivites"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_secteuractivites"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_soumissionarbitrage" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_soumissionarbitrage"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_soumissionarbitrage"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_statut" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_statut"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_statut"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_telephone2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_telephone2"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_telephone2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_telephonemobile" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_telephonemobile"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_telephonemobile"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_telephoneprincipal" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_telephoneprincipal"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_telephoneprincipal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_typeclientpers" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_typeclientpers"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_typeclientpers"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_typetitulaire" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="dem_typetitulaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_typetitulaire"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_ville" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_ville"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_ville"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_branch" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="dem_branch"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_branch"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_categorie" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="dem_categorie"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_categorie"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_commentaire" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_commentaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_commentaire"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<field name="dem_entreprise" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dem_entreprise"/>
+		<property name="com.jaspersoft.studio.field.label" value="dem_entreprise"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dem_pers"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="180" y="10" width="280" height="50" uuid="668a8f99-456d-4de2-80c5-c27a38bf4d52"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONDITIONS PARTICULIERES
+N° 21/……………../CTP - A
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="222" y="23" width="100" height="30" uuid="7883a974-aad1-43a7-93ba-d010a7012b34"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_persnum}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="550" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="-10" width="550" height="550" forecolor="#141313" uuid="7cc3e01c-e93f-48f3-b585-e1bfc74241ed"/>
+				<textElement markup="styled">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[	La société Nationale d’Assurances du Crédit et du Cautionnement (SONAC SA) ; compagnie d’assurances régie par le code des Assurances de la Conférence Interafricaine des Marchés d’Assurances (CIMA), ayant son siège à Dakar, 55, rue Wagane DIOUF, immatriculée au Registre de commerce et du crédit mobilier de Dakar sous le N° SN DKR 97 - B - 1658, représentée aux présentes par son Directeur Général Gora MANGANE,
+											      D’une part
+Et
+
+………………. - ………………, immatriculée au Registre de commerce et du crédit mobilier de Dakar sous le N° ………………….., représentée aux présentes par son Directeur Général ……………………………,
+										        	  D’autre part 
+
+1.	Objet : Conditions Particulières 
+	Par application de l’article 2 des Conditions générales, la Société Nationale d’Assurances du Crédit et du Cautionnement (SONAC SA) a accepté de se porter caution solidaire de la société …………… aux termes d’un acte de cautionnement qui sera déposé auprès de ……………...
+
+2.	Marché objet de la garantie
+……………………..
+
+3.	Nature et montant garantie
+	Sur demande expresse de la société …………………., la SONAC SA a accepté de délivrer la garantie de remboursement d’avance N° 21/………………./CTP - A pour un montant ne dépassant pas ……………… (…………………) Francs CFA en couverture de l’avance que le bénéficiaire lui a consentie.
+
+4.	Durée de la garantie
+	La garantie de remboursement susmentionnée restera valable à partir de l’avance dans le cadre du marché jusqu’à ce que ……………….. reçoive la totalité du même montant de la société ………………..
+
+5.	Engagement de …………………….. 
+	La société ………………………..» se reconnait débiteur principal  de toutes les sommes d’argent que la SONAC pourrait payer ou qui lui seraient réclamées en référence à la caution qu’elle lui a délivrée. 
+
+	En cas d’appel en paiement de la garantie, la société ……………………… s’oblige, en qualité de débiteur principal irrévocablement et inconditionnellement, sans droit d’objection ni arguties  à mettre à la disposition de la SONAC SA, sur simple demande les sommes nécessaires à l’exécution de son obligation.
+ 
+En cas de paiement de la SONAC en référence à ladite caution, le montant payé commence à produire des intérêts au taux de 15 % à partir d’un délai de 30 jours suivant la réception par le débiteur principal de la mise en demeure ou de la demande de remboursement de la SONAC.
+
+Le donneur d’ordre prend l’engagement ferme de respecter scrupuleusement le plan de trésorerie établi pour l’exécution des travaux.
+La société ………………. conformément aux spécifications contenues dans le cahier des charges, s’engage à réaliser le marché aussi bien du point de vue technique que du point de vue du délai d’exécution.    
+6.	Prime
+La prime est l’appellation donnée à la commission due à la SONAC en rémunération de sa prestation. Elle n’est nullement remboursable et ne préjudice pas aux recours récursoires en cas de sinistre.
+
+La SONAC SA reçoit une commission TTC ………………(………………………) F CFA détaillée comme suit :
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="127" width="100" height="30" uuid="534e8eec-71a3-4a11-8804-c7c2109f9041"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_prenom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="457" y="127" width="100" height="30" uuid="59af5dac-6431-4bea-ab4c-8542de63b2f4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_nom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="252" y="323" width="100" height="30" uuid="22064948-8e22-4aad-9801-262c7a759499"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_persnum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="25" y="127" width="100" height="30" uuid="1b025a37-cce0-4753-8f13-587ec4115f37"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_registrecommerce}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="38" y="264" width="100" height="30" uuid="f79c20c6-de94-43d7-9344-f8fded3bf5d4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_entreprise}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="252" y="308" width="100" height="30" uuid="2ae1bbc1-618b-4dff-a098-0db53ae7e967"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_entreprise}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="458" width="100" height="30" uuid="e86af8d6-64ad-450a-8ea2-5ee77b40ccdd"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_entreprise}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="342" y="504" width="100" height="30" uuid="1c954a43-9ca3-48c9-be56-8571ba5ad540"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dem_entreprise}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="607">
+			<rectangle>
+				<reportElement x="-11" y="0" width="581" height="600" uuid="76f28da1-c8be-4b79-9af4-f25f602180fe"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="-8" y="20" width="570" height="50" uuid="049a7480-e941-4322-8f0f-a510f7031c7f"/>
+				<text><![CDATA[6.	Prime
+La prime est l’appellation donnée à la commission due à la SONAC en rémunération de sa prestation. Elle n’est nullement remboursable et ne préjudice pas aux recours récursoires en cas de sinistre.
+
+La SONAC SA reçoit une commission TTC ………………(………………………) F CFA détaillée comme suit :
+]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="117" width="520" height="1" uuid="7261c6b7-a790-44a6-9f70-89c7631943df"/>
+			</line>
+			<line>
+				<reportElement x="0" y="290" width="520" height="1" uuid="f3aa474a-6e3b-4ef5-bccf-b3c811eb1a20"/>
+			</line>
+			<line>
+				<reportElement x="521" y="118" width="1" height="172" uuid="0e5647a1-d910-44ca-8c58-6db721546b78"/>
+			</line>
+			<line>
+				<reportElement x="0" y="118" width="1" height="172" uuid="2f0339cd-daf5-4a46-a6e9-acb2cbac53a0"/>
+			</line>
+			<line>
+				<reportElement x="1" y="204" width="520" height="1" uuid="6f1d371a-388a-44d9-984e-8dd3b4df2a61"/>
+			</line>
+			<line>
+				<reportElement x="0" y="250" width="520" height="1" uuid="2f8ff8ac-1f1c-490a-802d-8341e361d1f8"/>
+			</line>
+			<line>
+				<reportElement x="2" y="165" width="520" height="1" uuid="6c578e98-bf9c-4aa5-83f0-65d16b62f82b"/>
+			</line>
+			<line>
+				<reportElement x="133" y="120" width="1" height="172" uuid="d0e7685e-3684-43bc-82d7-54f6fa8e7b84"/>
+			</line>
+			<staticText>
+				<reportElement x="2" y="129" width="127" height="20" uuid="e3590767-a08a-4026-bbf1-bfc4fe11d819"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Frais d’études de dossier]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="170" width="127" height="20" uuid="45016b44-9432-45c3-846f-7a9a2021fef3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Taxe d’assurance]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="260" width="122" height="20" uuid="f3b5c768-6cec-48cd-a44f-cc1d60dbbbc8"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prime TTC ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="210" width="127" height="20" uuid="b01bbd7e-6a45-4b55-82fc-cd5678187a26"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prime HT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="340" width="530" height="230" uuid="d90c267d-51ee-46c6-b57a-7ec269a74482"/>
+				<text><![CDATA[Conformément à l’article 13 du code des assurances de la Conférence Interafricaine des marchés d’assurance (CIMA), le montant de la commission est calculé sur la durée d’exécution des travaux soit quatorze (14) mois. Il doit être payé au plus tard au moment du retrait de la mise en vigueur contractuelle des actes de garantie. Après les quatorze (14) mois, il sera procédé à une nouvelle facturation cette fois ci trimestrielle. La facturation trimestrielle continuera jusqu’à l’obtention de la main levée totale de la caution. Toutefois, cette commission trimestrielle sera calculée par rapport au solde qui sera réduit progressivement par déduction des montants remboursés par la société « ………………… » comme indiqué sur copies des factures signées et estampillées par le Bénéficiaire et présentées par la société « ………………….. ». Cette commission trimestrielle sera payée sur présentation de la facture y afférente et dans un délai maximum de 30 jours. 
+
+7.	Paiement de la prime
+	Conformément à l’article 13 du code des assurances de la Conférence Interafricaine des marchés d’assurance (CIMA), le montant de la commission est annuel. Il doit être payé au plus tard au moment du retrait de la mise en vigueur contractuelle des actes de garantie.
+
+8.	Domiciliation des assurances 
+       La société « ……………… »  s’oblige à domicilier à la SONAC toutes les assurances qu’elle est appelée à souscrire personnellement ou pour le compte de ses clients.
+]]></text>
+			</staticText>
+		</band>
+		<band height="483">
+			<rectangle>
+				<reportElement x="-10" y="10" width="580" height="400" uuid="4fc53f0c-fecb-41db-933f-86e327b2962f"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="20" width="560" height="380" uuid="79c5b70d-e89b-4821-a88b-453c40340afc"/>
+				<text><![CDATA[9.	Effet du retrait de l’acte. 
+	Une fois l’acte de caution retiré, la prime ne peut être restituée.
+
+10.	Obligations d’informations.
+	Le donneur d’ordre s’oblige à transmettre à la SONAC l’ordre de service dès sa réception.
+
+	La société « ………………. » prend l’engagement d’informer régulièrement la SONAC de l’état d’avancement du marché pour l’exécution duquel la garantie objet des présentes conditions particulières est donnée. Tous les bimestres, le donneur d’ordre s’oblige, quel que soit le niveau d’exécution, à envoyer à la SONAC par courrier physique ou par voie électronique un rapport mettant en exergue le niveau de réalisation, le restant des travaux à réaliser et les principales difficultés rencontrées ou appréhendées.
+
+	Après chaque décompte la société « ……………….. » doit transmettre une copie certifiée à la SONAC au plus tard dans les 48 heures qui suivent le décompte.
+	La non transmission des documents demandés dans les délais convenus, entrainera une amende forfaitaire d’un montant de cinq cent mille (500.000) F CFA par bimestre. 
+
+11.	Visite de chantier
+	Les parties conviennent d’organiser ensemble au moins deux (02) visites de chantier par année. Ces visites sont organisées à l’initiative de la partie la plus diligente. Les charges relatives à la visite sont supportées par la société « ……………….. » pour seulement deux (02) agents de la SONAC.
+]]></text>
+			</staticText>
+		</band>
+		<band height="506">
+			<rectangle>
+				<reportElement x="-8" y="20" width="558" height="480" uuid="dd4ce422-2899-4639-90d0-e0218344ea88"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="40" width="542" height="370" uuid="abb62445-f8ba-4814-8385-5badf377d35c"/>
+				<text><![CDATA[12.	Mainlevée.
+	La société « ……………. » s’oblige à l’issue de la période de validité de la caution de diligenter par le Maitre d’ouvrage d’une lettre de mainlevée qui doit être transmise à la SONAC.
+
+13.	Restitution du déposit.
+Un déposit d’un montant de trois cent millions (300.000.000) Francs CFA a été constitué 
+dans les livres de la SONAC. La restitution se fera sur demande expresse du donneur d’ordre. Cette demande doit être accompagnée de l’original de l’acte délivré ou de l’acte de mainlevée délivré par le bénéficiaire. 
+
+	Les sommes d’argent dues par le donneur d’ordre sont d’office prélevées sur le déposit, le solde lui étant restitué.
+
+14.	Suites des conditions particulières/documents contractuels 
+	Pour les suites de leur relation qui ne seraient pas traités dans les présentes conditions particulières, les parties se référant aux conditions générales du client N° 20/………………/CTP.
+
+	Au cas où une question est évoquée sur les différents documents contractuels susvisés, la primeur est donnée aux conditions particulières puis aux conditions générales.
+
+
+				           Fait à Dakar, en deux (02) exemplaires, le ………………………………
+
+
+
+
+Pour « ………. » 						               	Pour la « SONAC SA »   
+
+]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

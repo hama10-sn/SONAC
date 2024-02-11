@@ -1,0 +1,85 @@
+<div *ngIf="check_fonct('u_pleins')">
+    <form [formGroup]="updateForm">
+
+        <div class="col-lg-4">
+            <nb-card>
+                <nb-card-header id="titre_entete">Modifier un plein</nb-card-header>
+            </nb-card>
+        </div>
+
+        <!-- <p class="paraProblemeSaisi" *ngIf="problemeExercice">
+            L'exercice est obligatoire et différent de 0
+        </p> -->
+
+        <div class="row">
+            <div class="col-lg-12">
+                <nb-card>
+                    <nb-card-header>Pleins</nb-card-header>
+                    <nb-card-body>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="label">Exercice <span class="obligatoire">*</span></label>
+                                    <input readonly formControlName="pleins_exercice" type="number" nbInput fullWidth
+                                        id="pleins_exercice">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="label">Branche <span class="obligatoire">*</span></label>
+                                    <input readonly formControlName="pleins_branche" type="number" nbInput fullWidth
+                                        id="pleins_branche">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="" class="label">Catégorie <span class="obligatoire">*</span></label>
+                                    <input readonly formControlName="pleins_categorie" type="number" nbInput fullWidth
+                                        id="pleins_categorie">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="" class="label">Produit <span class="obligatoire">*</span></label>
+                                    <input readonly formControlName="pleins_produit" type="number" nbInput fullWidth
+                                        id="pleins_produit">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="" class="label">Montant capacité</label>
+                                    <input fieldSize="small" [value]="montantCapacite" type="text" nbInput fullWidth
+                                        id="pleins_capacite" (focusout)="onChangeFocusOutMontantCapacite($event)">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="" class="label">Open cover 1</label>
+                                    <input formControlName="pleins_opcover1" type="number" nbInput fullWidth
+                                        id="pleins_opcover1">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="" class="label">Open cover 2</label>
+                                    <input formControlName="pleins_opcover2" type="number" nbInput fullWidth
+                                        id="pleins_opcover2">
+                                </div>
+                            </div>
+
+                        </div>
+                    </nb-card-body>
+                    <nb-card-footer>
+                        <button nbButton status="success" (click)="onSubmit()" [disabled]='!updateForm.valid || erreur'>
+                            MODIFIER
+                        </button>&nbsp;&nbsp;
+                        <button class="cancel" nbButton status="danger" (click)="onCancel()">ANNULER</button>
+                    </nb-card-footer>
+                </nb-card>
+            </div>
+        </div>
+    </form>
+</div>
+<div *ngIf="check_fonct('u_pleins')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

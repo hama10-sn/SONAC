@@ -1,0 +1,45 @@
+<h1 id="title"  style="display: inline-flex !important;width: 100%;"><img src="../assets/images/sonac.png" alt="" style="margin-left: -250px;"><img style="margin-top: 55px;margin-left: 400px;" src="../assets/images/logo.jpg" alt="" width="300" height="80"></h1>
+
+<form [formGroup]="addForm">
+
+
+   
+
+    
+    
+    <div class="tabs">
+      <input type="radio" name="tabs" id="tabone" checked="checked">
+      <label for="tabone" class="lab">Nous allons vous envoyer un mail avec un lien pour réinitialiser le mot de passe.</label>
+      <div class="tab">
+
+        <div class="row">
+        
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label  class="label">Entrez votre mail  <span style="color:red;">*</span></label>
+                <input fieldSize="small" (change)="onchangeMail()"  formControlName="email" type="email" nbInput fullWidth id="email" >
+                <div *ngIf="displayMailError">
+                <span *ngIf="!errorEmail" style="color:red;">L'email n'est pas valide</span>
+                
+              </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      
+      
+    
+    </div>
+    
+    <br>
+    
+    
+    <div >
+     <button nbButton status="success" (click)="submit()" [disabled]='!addForm.valid'>envoyer</button> &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+            
+    </div>
+    </form>
+
+
+
+

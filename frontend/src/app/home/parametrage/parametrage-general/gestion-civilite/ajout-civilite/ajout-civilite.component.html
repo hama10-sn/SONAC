@@ -1,0 +1,43 @@
+<div *ngIf="check_fonct('c_civilite')">
+<form [formGroup]="addForm"> 
+    <nb-card>
+        <nb-card-header>Ajouter une civilité</nb-card-header>
+        
+        <nb-card-body >
+          
+          <div class="row">  
+            <div class="col-sm-4">
+                <div class="form-group">
+                  <label  class="label">Libelle long<span style="color:red;">*</span></label>
+                  <input formControlName="civ_libellelong"  type="text" nbInput fullWidth  id="civ_libellelong" required>             
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                  <label  class="label">Libelle court<span style="color:red;">*</span></label>
+                  <input formControlName="civ_libellecourt"  type="text" nbInput fullWidth  id="civ_libellecourt" required>             
+                </div>
+            </div>
+          </div>        
+          <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label  class="label">Nature<span style="color:red;">*</span></label>
+              <nb-select (selectedChange)="onChange($event)" fullWidth id="civ_nature" >
+                <nb-option value="1">Physique</nb-option>
+                <nb-option value="2">Morale</nb-option>
+              </nb-select>             
+            </div>
+        </div>
+      </div>
+          <nb-card-footer>
+            <button nbButton status="success" (click)="submit()"  [disabled]='!addForm.valid'>Ajouter</button>
+            &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+          </nb-card-footer>
+        </nb-card-body>
+      </nb-card>
+    </form>
+  </div>
+  <div *ngIf="check_fonct('c_civilite')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+  </div>

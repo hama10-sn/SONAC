@@ -1,0 +1,252 @@
+<!-- ================= PARTIE RECHERCHE DES POLICES PAR CRITERES ========== -->
+
+<div *ngIf="check_fonct('l_encaissement')">
+    <!-- <form [formGroup]="addForm"> -->
+
+    <div class="col-lg-5">
+        <nb-card>
+            <nb-card-header style="background-color: rgb(7, 66, 124);color:white">
+                Les critères de recherche des polices
+            </nb-card-header>
+        </nb-card>
+    </div>
+
+    <div class="tabs">
+        <input type="radio" name="tabs" id="tabone" checked="checked" (click)="onClickClient()">
+        <label for="tabone" class="lab">Client</label>
+        <div class="tab">
+            <div class="row">
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Client</label>
+                        <mat-select class="form-control" [formControl]="clientsCtrl" placeholder="choisir un client"
+                            (selectionChange)="onChangeClient($event)" fullWidth #singleSelect>
+                            <mat-option>
+                                <ngx-mat-select-search [formControl]="clientsFilterCtrl" placeholderLabel="recherche..."
+                                    noEntriesFoundLabel="aucune corespondance ..">
+                                </ngx-mat-select-search>
+                            </mat-option>
+
+                            <mat-option value="{{client.clien_numero}}" *ngFor="let client of filteredClients | async">
+                                {{client.clien_numero}} : {{client.clien_nom}} {{client.clien_prenom}}
+                                {{client.clien_denomination}}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input type="radio" name="tabs" id="tabtwo" (click)="onClickProduit()">
+        <label for="tabtwo" class="lab">Produit</label>
+        <div class="tab">
+            <div class="row">
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Produit</label>
+                        <mat-select class="form-control" [formControl]="produitCtrl" placeholder="choisir un produit"
+                            (selectionChange)="onChangeProduit($event)" fullWidth #singleSelect>
+                            <mat-option>
+                                <ngx-mat-select-search [formControl]="produitFilterCtrl" placeholderLabel="recherche..."
+                                    noEntriesFoundLabel="aucune corespondance ..">
+                                </ngx-mat-select-search>
+                            </mat-option>
+
+                            <mat-option value="{{produit.prod_numero}}" *ngFor="let produit of filteredProduit | async">
+                                {{produit.prod_numero}} : {{produit.prod_denominationlong}}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input type="radio" name="tabs" id="tabthree" (click)="onClickIntermediaire()">
+        <label for="tabthree" class="lab">Intermediaire</label>
+        <div class="tab">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Numero Intermédiaire</label>
+                        <mat-select class="form-control" [formControl]="intermediaireCtrl"
+                            placeholder="choisir un Intermediaire" (selectionChange)="onChangeItermediaire($event)"
+                            fullWidth #singleSelect>
+                            <mat-option>
+                                <ngx-mat-select-search [formControl]="intermediaireFilterCtrl"
+                                    placeholderLabel="recherche..." noEntriesFoundLabel="aucune corespondance ..">
+                                </ngx-mat-select-search>
+                            </mat-option>
+
+                            <mat-option value="{{inter.inter_numero}}"
+                                *ngFor="let inter of filteredIntermediaire | async">
+                                {{inter.inter_numero}}: {{inter.inter_denomination}}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PARTIE CONSULTATION DES POLICES A EDITER ================== -->
+        <input type="radio" name="tabs" id="tabfour" *ngIf="!check">
+        <input type="radio" name="tabs" id="tabfour" checked="checked" *ngIf="check">
+        <label for="tabfour" class="lab">Résultat</label>
+        <div class="tab">
+            <div class="row">
+
+                <br><br>
+                <div class='contenu_resultat' *ngIf="check_fonct('l_encaissement')">
+                    <div>
+                        <div fxLayout fxLayoutAlign="center center">
+                            <mat-card-header class="card-header">
+                                <span class="header">{{ title }}</span>
+
+                                <div>
+                                    <button class="buttons_export" mat-button [matMenuTriggerFor]="menu">Export</button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item (click)="onExport('pdf')">
+                                            PDF
+                                        </button>
+                                        <button mat-menu-item (click)="onExport('excel')">
+                                            EXCEL
+                                        </button>
+                                    </mat-menu>
+                                </div>
+
+                                <div>
+                                    <button class="buttons_exportPorteFeuille" mat-button
+                                        [matMenuTriggerFor]="menu2">Export Porte feuille</button>
+                                    <mat-menu #menu2="matMenu">
+                                        <button mat-menu-item (click)="onExportPorteFeuillePolice('pdf')">
+                                            PDF
+                                        </button>
+                                        <button mat-menu-item (click)="onExportPorteFeuillePolice('excel')">
+                                            EXCEL
+                                        </button>
+                                    </mat-menu>
+                                </div>
+                            </mat-card-header>
+
+                        </div>
+                        <table mat-table [dataSource]="dataSource" matSort>
+                            <ng-container matColumnDef="poli_numero">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro Police </th>
+                                <td mat-cell *matCellDef="let police">
+                                    {{police.poli_numero}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="produit">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Produit </th>
+                                <td mat-cell *matCellDef="let police"> {{police.prod_denominationlong}}
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="intermediaire">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Intermediaire </th>
+                                <td mat-cell *matCellDef="let police"> {{police.inter_denomination}}
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="client">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Client</th>
+                                <td mat-cell *matCellDef="let police">
+                                    {{police.clien_nom}} {{police.clien_prenom}} {{police.clien_denomination}}
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="poli_dateeffetencours">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date effet </th>
+                                <td mat-cell *matCellDef="let police">
+                                    {{police.poli_dateeffetencours | date: 'dd-MM-yyyy h:mm:ss'}}
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="poli_dateecheance">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date échéance </th>
+                                <td mat-cell *matCellDef="let police">
+                                    {{police.poli_dateecheance | date: 'dd-MM-yyyy h:mm:ss'}}
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef> Details </th>
+                                <td mat-cell *matCellDef="let police">
+                                    <button mat-icon-button color="primary" (click)="open(dialog,police)">
+                                        <mat-icon class="mat-18">reorder</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                        </table>
+
+                        <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <button nbButton status="success" [disabled]='erreur' (click)="onConsulter()">Consulter</button>&nbsp;&nbsp;
+        <button nbButton status="danger" (click)="onReinitialiser()">Réinitialiser</button>&nbsp;&nbsp;
+    </div>
+    <!-- </form> -->
+
+    <!-- Details de la police -->
+
+    <ng-template #dialog let-police let-ref="dialogRef">
+
+        <nb-card>
+            <nb-card-header style="background-color: rgb(7, 66, 124);color:white">
+                Détails de la police
+            </nb-card-header>
+
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h5 class="grid-h">Infos générales</h5>
+                        <div><span class="detail">Numéro police:</span> {{police.poli_numero }}
+                        </div><br>
+                        <div><span class="detail">Produit :</span>
+                            {{police.prod_numero }} : {{police.prod_denominationlong}}
+                        </div><br>
+                        <div><span class="detail">Intermédiaire :</span> {{police.inter_numero }} :
+                            {{police.inter_denomination}}
+                        </div><br>
+                        <div><span class="detail">Client :</span> {{police.clien_numero }} : {{police.clien_nom}}
+                            {{police.clien_prenom}}
+                            {{police.clien_denomination}}</div><br><br>
+                        <!-- <div><span class="detail">Client :</span> {{onGetClient(police.poli_client) }}</div><br> -->
+                    </div>
+
+                    <div class="col-sm-6">
+                        <h5 class="grid-h">Dates</h5>
+                        <div><span class="detail">Date effet :</span> {{ police.poli_dateeffetencours |
+                            date:'dd-MM-yyyy à h:mm:ss'}}</div><br>
+                        <div><span class="detail">Date échéance :</span> {{ police.poli_dateecheance |
+                            date:'dd-MM-yyyy à h:mm:ss'}}</div><br>
+                        <div><span class="detail">Date modification :</span> {{ police.poli_datemodification |
+                            date:'dd-MM-yyyy à h:mm:ss'}}</div><br>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <h5 class="grid-h">Primes</h5>
+                        <div><span class="detail">Prime nette reférence:</span> {{
+                            onGetPrimeNetteRef(police.poli_primenettotal) |
+                            ngxNumberWithCommas }}</div><br>
+                        <div><span class="detail">Prime brute totale :</span> {{ police.poli_primebruttotal |
+                            ngxNumberWithCommas }}</div><br><br><br><br>
+                    </div>
+                </div>
+            </nb-card-body>
+            <nb-card-footer>
+                <div style="text-align:center">
+                    <button nbButton (click)="ref.close()" status="danger">Fermer</button>
+                </div>
+            </nb-card-footer>
+        </nb-card>
+    </ng-template>
+</div>
+<!-- Check sur les autorisations d'accès -->
+<div *ngIf="check_fonct('l_encaissement')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

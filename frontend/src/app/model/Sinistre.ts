@@ -1,0 +1,53 @@
+export class Sinistre {
+
+  sini_num: Number;
+  sini_police: Number;
+  sini_risque: Number;
+  sini_intermediaire: Number;
+  sini_codecompagnie: String;
+  sini_branche: Number;
+  sini_categorie: Number;
+  sini_produit: Number;
+  sini_typesinistre: String;
+  sini_datesurvenance: Date;
+  sini_datedeclaration: Date;
+  sini_datesaisie: Date;
+  sini_souscripteur: Number;
+  sini_beneficiaire: Number;
+  sini_acheteur: Number;
+  sini_donneurdordre: Number;
+  sini_tiersrecours: Number;
+  sini_lieu: String;
+  sini_description: Text;
+  sini_coderesponsabilite: Number;
+  sini_evaluationglobale: Number;
+  sini_evaluationprincipale: Number;
+  sini_evaluationfrais: Number;
+  sini_evaluationhonoraires: Number;
+  sini_sapglobale: Number;
+  sini_sapprincipale: Number;
+  sini_sapfrais: Number;
+  sini_saphonoraires: Number;
+  sini_reglementglobal: Number;
+  sini_reglementprincipal: Number;
+  sini_reglementfrais: Number;
+  sini_reglementhonoraires: Number;
+  sini_recoursglobal: Number;
+  sini_recoursprincipal: Number;
+  sini_recoursfrais: Number;
+  sini_recourshonoraires: Number;
+  sini_recoursglobalencaisse: Number;
+  sini_recoursprincipalencaisse: Number;
+  sini_recoursfraisencaisse: Number;
+  sini_recourshonoraieencaisse: Number;
+  sini_datederniermvt: Date;
+  sini_numderniermvt: Number;
+  sini_utilisateur: Number;
+  sini_datemodification: Date;
+  sini_codeexpert: Number;
+  sini_dateexpert: Date;
+  sini_rapport: Number; // Oui or Non
+  sini_status: Number;
+  sini_motifcloture: Number;
+  sini_datecloture: Date;
+}

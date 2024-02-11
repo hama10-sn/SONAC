@@ -1,0 +1,116 @@
+<form [formGroup]="myMoratoireForm">
+  <div class="col-lg-6">
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Ajouter un moratoire</nb-card-header>
+    </nb-card>
+  </div>
+  <br>
+  <div class="tabs">
+    <input type="radio" name="tabs" id="tabone" checked="checked">
+    <label for="tabone" class="lab">INFO RECOURS</label>
+    <div class="tab">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant recours principal</label>
+            <input fieldSize="small" readonly [value]="montant_principal" type="text" nbInput fullWidth
+              id="mvts_montantprincipal">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant recours frais</label>
+            <input fieldSize="small" readonly [value]="montant_frais" type="text" nbInput fullWidth
+              id="mvts_montantfrais">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant recours honoraires</label>
+            <input fieldSize="small" readonly [value]="montant_honoraire" type="text" nbInput fullWidth
+              id="mvts_montanthonoraire">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Bénéficiaire</label>
+            <input fieldSize="small" readonly [value]="benificiaire" type="text" nbInput fullWidth
+              id="mvts_beneficiaire">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Tiers responsable</label>
+            <input fieldSize="small" readonly [value]="tiersResponsable" type="text" nbInput fullWidth id="mvts_tiers">
+          </div>
+        </div>
+      </div>
+    </div>
+    <input type="radio" name="tabs" id="tabtwo">
+    <label for="tabtwo" class="lab">INFO MORATOIRE</label>
+    <div class="tab" formGroupName="moratoireForm">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant moratoire</label><span style="color:red;">*</span>
+            <input fieldSize="small" type="text" [value]="montantMoratoire"
+              (focusout)="onChangeFocusMontantMoratoire($event)" nbInput fullWidth id="morato_mtmoratoire"
+              [ngStyle]="{border: getColorMontant()}">
+          </div>
+          <div *ngIf="problemeMontantMoratoire" class="col-sm-8">
+            <span style="color:red; font-style: italic;">
+                Le montant du recours doit-être supérieur au montant du moratoire demandé
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Type d'échéances accordées</label><span style="color:red;">*</span>
+            <nb-select (selectedChange)="onChangeTypeEcheance($event)" fullWidth formControlName="morato_typecheanc" id="morato_typecheanc">
+              <nb-option value="M">Mensuel</nb-option>
+              <nb-option value="B">Bimestriel</nb-option>
+              <nb-option value="T">Trimestriel</nb-option>
+            </nb-select>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Nbre échéances accordées</label><span style="color:red;">*</span>
+            <input fieldSize="small" type="number" [value]="nbreEcheance" nbInput fullWidth id="morato_nbrecheancacc">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant par échéance accordée</label><span style="color:red;">*</span>
+            <input fieldSize="small" type="text" [value]="montantEcheance" nbInput fullWidth id="morato_mtecheanc">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Date de mise en place échéance</label><span style="color:red;">*</span>
+            <input fieldSize="small" formControlName="morato_datemiseplace" type="date" nbInput fullWidth
+              id="morato_datemiseplace">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Date échéance pour relancer</label>
+            <input fieldSize="small" formControlName="morato_datech" type="date" nbInput fullWidth id="morato_datech"
+            (focusout)="onChangeFocusDateRelance($event)" [ngStyle]="{border: getColorDate()}" [min]="getToday()">
+          </div>
+          <div *ngIf="problemeDateRelance" class="col-sm-8">
+            <span style="color:red; font-style: italic;">
+              La date de relance doit être supérieure à la date de mise en place échéance
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+  </div>
+  <div>
+    <button nbButton status="success" (click)="onSubmit()" [disabled]='!myMoratoireForm.valid'>Valider</button>
+  </div>
+</form>

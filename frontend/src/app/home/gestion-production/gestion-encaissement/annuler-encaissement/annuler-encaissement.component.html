@@ -1,0 +1,173 @@
+<div *ngIf="check_fonct('d_encaissement')"><form [formGroup]="addForm"> 
+    <div class="col-lg-12">
+        <nb-card>
+          <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Annuler un encaissement</nb-card-header>
+          <nb-card-body>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="label">Client : <span style="color:red;">*</span></label>
+                        <mat-select  class="form-control" [formControl]="clientsCtrl" placeholder="choisir un client"
+                        (selectionChange)="onChangeClient($event)" fullWidth
+                        id="cont_numeroclient" #singleSelect>
+                        <mat-option>
+                            <ngx-mat-select-search placeholderLabel="recherche..." 
+                            noEntriesFoundLabel="aucune corespondance .." [formControl]="clientsFilterCtrl">
+                            </ngx-mat-select-search>
+                        </mat-option>
+        
+                        <mat-option value="{{client.clien_numero}}"
+                            *ngFor="let client of filteredClients | async">{{client.clien_numero}}: {{client.clien_nom}} 
+                            {{client.clien_denomination}} {{client.clien_prenom}} {{ client.clien_sigle }}
+                        </mat-option>
+                    </mat-select>
+                      </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                      <label for="" class="label">Numero Police <span style="color:red;">*</span></label>
+                      <mat-select class="form-control" [formControl]="policeCtrl" placeholder="choisir une police"
+      
+                                      (selectionChange)="onChangePolice($event)" fullWidth
+      
+                                      id="dem_proiduit1" #singleSelect>
+      
+                                      <mat-option>
+      
+                                          <ngx-mat-select-search placeholderLabel="recherche..." 
+                                          noEntriesFoundLabel="aucune corespondance .." [formControl]="policeFilterCtrl"></ngx-mat-select-search>
+      
+                                      </mat-option>
+      
+      
+      
+                                      <mat-option *ngFor="let police of filteredPolice | async" value="{{police.poli_numero}}">
+      
+                                          {{police.poli_numero}}
+      
+                                      </mat-option>
+      
+                                  </mat-select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                      <label class="label">Numero Facture <span style="color:red;">*</span></label>
+                      <mat-select class="form-control" [formControl]="factureCtrl" placeholder="choisir une facture"
+      
+                                      (selectionChange)="onChangeFacture($event)" fullWidth
+      
+                                      id="dem_proiduit1" #singleSelect>
+      
+                                      <mat-option>
+      
+                                          <ngx-mat-select-search placeholderLabel="recherche..." 
+                                          noEntriesFoundLabel="aucune corespondance .." [formControl]="factureFilterCtrl"></ngx-mat-select-search>
+      
+                                      </mat-option>
+      
+      
+      
+                                      <mat-option *ngFor="let facture of filteredFacture | async" value="{{facture.fact_numacte}}">
+      
+                                          {{facture.fact_numacte}}
+      
+                                      </mat-option>
+      
+                                  </mat-select>
+                                  
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="form-group">
+                        <!--<label for="" class="label">Numero Quittance <span style="color:red;">*</span></label>
+                      <mat-select class="form-control" [formControl]="quittanceCtrl" placeholder="choisir une quittance"
+      
+                                      (selectionChange)="onChangeQuittance($event)" fullWidth
+      
+                                      id="quitance" #singleSelect>
+      
+                                      <mat-option>
+      
+                                          <ngx-mat-select-search placeholderLabel="recherche..." 
+                                          noEntriesFoundLabel="aucune corespondance .." [formControl]="quittanceFilterCtrl"></ngx-mat-select-search>
+      
+                                      </mat-option>
+      
+      
+      
+                                      <mat-option *ngFor="let quittance of filteredQuittance | async" value="{{quittance.quit_numero}}">
+      
+                                          {{quittance.quit_numero}}
+      
+                                      </mat-option>
+      
+                                  </mat-select>-->
+                                  <label class="label">Type d'annulation <span style="color:red;">*</span></label>
+                <nb-select  (selectedChange)="onChangeTypeAnnul($event)"  fullWidth  >
+                  <nb-option  value="1" >cheque impayé</nb-option>
+                  <nb-option  value="2" >Quittance à annuler</nb-option>
+                  <nb-option  value="5" >autres</nb-option>
+                </nb-select>
+                    </div>
+                  </div>
+            </div>
+        </nb-card-body>
+        </nb-card>
+        
+      </div> 
+      <br>
+      <h4 *ngIf="showPasEncaiss">Pas d'encaissement disponible !</h4>
+
+      <div class="col-lg-12" *ngIf="showListEncaissement">
+        <nb-card>
+          
+          <nb-card-body>
+            <nb-list>
+                <nb-list-item *ngFor="let enc of encaissements ;let i = index" >
+                    <nb-checkbox  value="" status="success" (change)="onChecked($event,enc)"></nb-checkbox> &nbsp;&nbsp;  N° Client : {{ enc.encai_numerosouscripteur }} &nbsp;&nbsp;/&nbsp;&nbsp; N° Police : {{ enc.encai_numeropolice }} &nbsp;&nbsp;/&nbsp;&nbsp;
+              N° Facture : {{ enc.encai_numerofacture }} <!-- &nbsp;&nbsp;/&nbsp;&nbsp; N° Quittance : {{ enc.encai_numeroquittance }} --> &nbsp;&nbsp;/&nbsp;&nbsp; Type encaissement : {{ enc.encai_typencaissement }} &nbsp;&nbsp;/&nbsp;&nbsp; Montant Facture : {{ enc.encai_mtnquittance | ngxNumberWithCommas }} F CFA
+              &nbsp;&nbsp;/&nbsp;&nbsp; Montant payé : {{ enc.encai_mtnpaye | ngxNumberWithCommas }} F CFA
+                   </nb-list-item>
+              </nb-list>
+        </nb-card-body>
+        </nb-card>
+        
+      </div> 
+      <div class="col-lg-12">
+        <button nbButton status="success" (click)="openDialog(dialog)" [disabled]='!validAnnul'>Annuler un encaissement</button>
+      </div>
+
+      
+             
+    </form> 
+    
+    <br><br>
+</div>
+
+<div *ngIf="check_fonct('d_encaissement')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+  </div>
+
+
+    <ng-template #dialog let-groupe let-ref="dialogRef">
+
+        <nb-card>
+            <nb-card-header style="background-color: rgb(7, 66, 124);color:white">
+                SUPPRESSION
+            </nb-card-header>
+            <nb-card-body>
+                <h5 class="grid-h">Etes-vous sur de vouloir annuler ces encaissements </h5>
+                <div class="row">
+                    <div class="col-sm-16">
+                        
+                    </div>
+                </div>
+            </nb-card-body>
+            <nb-card-footer>
+                <button nbButton (click)="submit()" (click)="ref.close()"
+                    status="success">Confirmer</button>&nbsp;&nbsp;
+                <button nbButton (click)="ref.close()" status="danger">Annuler</button>
+            </nb-card-footer>
+        </nb-card>
+      </ng-template>

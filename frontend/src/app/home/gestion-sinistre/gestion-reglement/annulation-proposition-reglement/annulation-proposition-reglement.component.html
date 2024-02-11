@@ -1,0 +1,45 @@
+<form [formGroup]="myAnnulationPropositionReglementForm">
+    <div class="col-lg-4">
+        <nb-card>
+            <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Annulation proposition de règlement
+            </nb-card-header>
+        </nb-card>
+    </div>
+    <br>
+    <div class="tabs">
+        <input type="radio" name="tabs" id="tabone" checked="checked">
+        <label for="tabone" class="lab">INFO REGLEMENT</label>
+        <div class="tab" formGroupName="mvtsinistreForm">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="label">Montant règlement principal</label>
+                        <input readonly fieldSize="small" type="text" [value]="montantReglementPrincipal" nbInput
+                            fullWidth id="mvts_montantprincipal">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="label">Montant règlement frais</label>
+                        <input readonly fieldSize="small" type="text" [value]="montantReglementFrais" nbInput fullWidth
+                            id="mvts_montantfrais">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="label">Montant règlement honoraires</label>
+                        <input readonly fieldSize="small" type="text" [value]="montantReglementHonoraire" nbInput
+                            fullWidth id="mvts_montanthonoraire">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div>
+        <button nbButton status="success" (click)="onSubmit()"
+            [disabled]='!myAnnulationPropositionReglementForm.valid'>Valider</button>
+        &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Retour</button>
+    </div>
+</form>

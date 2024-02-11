@@ -1,0 +1,63 @@
+<div *ngIf="check_fonct('u_banque')">
+    <form [formGroup]="modifForm">
+
+        <div class="col-lg-4">
+            <nb-card>
+                <nb-card-header id="titre_entete">Modifier une banque</nb-card-header>
+            </nb-card>
+        </div>
+
+        <p class="paraProblemeSaisi" *ngIf="problemeDenomination">
+            La dénomination de la banque est obligatoire
+        </p>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <nb-card>
+                    <nb-card-header>Banque</nb-card-header>
+                    <nb-card-body>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="label">Code banque <span class="obligatoire">*</span></label>
+                                    <input readonly formControlName="banq_codebanque" type="number" nbInput fullWidth
+                                        id="banq_codebanque">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="label">Code banque normalisé </label>
+                                    <input formControlName="banq_codenormalise" type="text" nbInput fullWidth
+                                        id="banq_codenormalise">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="label">Dénomination <span class="obligatoire">*</span></label>
+                                    <input formControlName="banq_denomination" type="text" nbInput fullWidth
+                                        id="banq_denomination" (focusout)="onFocusOutEventDenomination()"
+                                        [ngStyle]="{border: getColorDenomination()}">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="label">Sigle</label>
+                                    <input formControlName="banq_sigle" type="text" nbInput fullWidth id="banq_sigle">
+                                </div>
+                            </div>
+                        </div>
+                    </nb-card-body>
+                    <nb-card-footer>
+                        <button nbButton status="success" (click)="onSubmit()" [disabled]='!modifForm.valid || erreur'>
+                            MODIFIER
+                        </button>&nbsp;&nbsp;
+                        <button class="cancel" nbButton status="danger" (click)="onCancel()">ANNULER</button>
+                    </nb-card-footer>
+                </nb-card>
+            </div>
+        </div>
+    </form>
+</div>
+<div *ngIf="check_fonct('u_banque')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

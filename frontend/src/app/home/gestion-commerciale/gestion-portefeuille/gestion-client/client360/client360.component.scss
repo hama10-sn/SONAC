@@ -1,0 +1,207 @@
+table {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    min-width: 500px;
+  }
+  th.mat-header-cell {
+    text-align: left;
+    max-width: 100px;
+    background-color: rgb(7, 66, 124);
+    color: white;
+    font-weight: bold;
+    font-size: 100%;
+    font-family: "Times New Roman", Times, serif;
+    text-transform: capitalize;
+  }
+  td.mat-cell {
+    text-align: left;
+    font-weight: 500;
+    font-size: 100%;
+  }
+  
+  .icon {
+    font-size: 1500px;
+    height: 50px;
+  }
+  .mat-icon {
+    background-repeat: no-repeat;
+    display: inline-block;
+    fill: currentColor;
+    height: 50px;
+    width: 50px;
+    font-size: 25px;
+  }
+  
+  .client_attente {
+    position: absolute;
+    top: 10%;
+    right: 20px;
+    width: 100px;
+    size: 20px;
+    color: #fff;
+    background: rgb(7, 66, 124);
+    font-family: "Times New Roman", Times, serif;
+    font-weight:bold ;
+    //transform: translateY(-50%);
+  }
+  
+  .material-icons.color_green {
+    color: #00ff00;
+  }
+  .material-icons.color_white {
+    color: #ffffff;
+  }
+  .buttons {
+    position: absolute;
+    top: 32%;
+    right: 0px;
+    width: 100px;
+    size: 20px;
+    //transform: translateY(-50%);
+  }
+  .buttons_pdf {
+    position: absolute;
+    // top: 28%;  
+    right: 100px;
+    width: 100px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .buttons_excel {
+    position: absolute;
+    // top: 28%;  
+    right: 300px;
+    width: 100px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .buttons_export {
+    position: absolute;
+    top: 15%;  
+    right: 100px;
+    width: 100px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .mat-card-header {
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    border: 0;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    border-radius: 6px;
+    color: rgb(7, 66, 124);
+    background: #fff;
+    width: 100%;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    position: relative;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #eeeeee;
+    border-radius: 0.25rem;
+    font-weight: bold;
+    font-size: 150%;
+    font-family: "Times New Roman", Times, serif;
+    text-align: left;
+  }
+  span.obligatoire,
+  p.text_champs_obligatoire {
+    font-size: 15px;
+    color: red;
+  }
+  .dialog-container {
+    background-color: #000;
+    width: 250px;
+    height: 250px;
+    overflow: scroll;
+  }
+  .mat-dialog {
+    height: 400px;
+    width: 600px;
+    border-radius: 10px;
+    background: lightcyan;
+    color: #039be5;
+    overflow: scroll;
+  }
+  
+  /**
+   * Tabs
+   */
+  .tabs {
+    display: flex;
+    flex-wrap: wrap; // make sure it wraps
+  }
+  .tabs .lab {
+    order: 1; // Put the labels first
+    display: block;
+    padding: 1rem 2rem;
+    margin-right: 0.2rem;
+    margin-bottom: 0;
+    cursor: pointer;
+    color: white;
+    background: rgb(7, 66, 124);
+    font-weight: bold;
+    transition: background ease 0.2s;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+  .tabs .tab {
+    order: 99; // Put the tabs last
+    flex-grow: 1;
+    width: 100%;
+    display: none;
+    padding: 1rem;
+    background: #fff;
+    //border-radius: 10px;
+  }
+  .tabs input[type="radio"] {
+    display: none;
+  }
+  .tabs input[type="radio"]:checked + label {
+    background: #fff;
+    color: rgb(7, 66, 124);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+  .tabs input[type="radio"]:checked + label + .tab {
+    display: block;
+  }
+  
+  @media (max-width: 45em) {
+    .tabs .tab,
+    .tabs label {
+      order: initial;
+    }
+    .tabs label {
+      width: 100%;
+      margin-right: 0;
+      margin-top: 0.2rem;
+    }
+  }
+  nb-card-header {
+    font-family: "Times New Roman", Times, serif;
+    background-color: rgb(7, 66, 124);
+    color: white;
+    font-size: 130%;
+  }
+  .detail {
+    font-weight: bold;
+  }
+  
+  h5 {
+    color: rgb(7, 66, 124);
+  }
+  

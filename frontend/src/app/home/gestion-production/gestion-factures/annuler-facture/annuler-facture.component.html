@@ -1,0 +1,210 @@
+<div *ngIf="check_fonct('d_facture')">
+<form [formGroup]="addForm"> 
+<div class="col-lg-12">
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Annuler une facture</nb-card-header>
+      <nb-card-body>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="label">Client : <span style="color:red;">*</span></label>
+                    <mat-select  class="form-control" [formControl]="clientsCtrl" placeholder="choisir un client"
+                    (selectionChange)="onChangeClient($event)" fullWidth
+                    id="cont_numeroclient" #singleSelect>
+                    <mat-option>
+                        <ngx-mat-select-search placeholderLabel="recherche..." 
+                        noEntriesFoundLabel="aucune corespondance .." [formControl]="clientsFilterCtrl">
+                        </ngx-mat-select-search>
+                    </mat-option>
+    
+                    <mat-option value="{{client.clien_numero}}"
+                        *ngFor="let client of filteredClients | async">{{client.clien_numero}}: {{client.clien_nom}} 
+                        {{client.clien_denomination}} {{client.clien_prenom}} {{ client.clien_sigle }}
+                    </mat-option>
+                </mat-select>
+                  </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="" class="label">Numero Police <span style="color:red;">*</span></label>
+                  <mat-select class="form-control" [formControl]="policeCtrl" placeholder="choisir une police"
+  
+                                  (selectionChange)="onChangePolice($event)" fullWidth
+  
+                                  id="dem_proiduit1" #singleSelect>
+  
+                                  <mat-option>
+  
+                                      <ngx-mat-select-search placeholderLabel="recherche..." 
+                                      noEntriesFoundLabel="aucune corespondance .." [formControl]="policeFilterCtrl"></ngx-mat-select-search>
+  
+                                  </mat-option>
+  
+  
+  
+                                  <mat-option *ngFor="let police of filteredPolice | async" value="{{police.poli_numero}}">
+  
+                                      {{police.poli_numero}}
+  
+                                  </mat-option>
+  
+                              </mat-select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="label">Numero Facture <span style="color:red;">*</span></label>
+                  <mat-select class="form-control" [formControl]="factureCtrl" placeholder="choisir une facture"
+  
+                                  (selectionChange)="onChangeFacture($event)" fullWidth
+  
+                                  id="dem_proiduit1" #singleSelect>
+  
+                                  <mat-option>
+  
+                                      <ngx-mat-select-search placeholderLabel="recherche..." 
+                                      noEntriesFoundLabel="aucune corespondance .." [formControl]="factureFilterCtrl"></ngx-mat-select-search>
+  
+                                  </mat-option>
+  
+  
+  
+                                  <mat-option *ngFor="let facture of filteredFacture | async" value="{{facture.fact_numacte}}">
+  
+                                      {{facture.fact_numacte}}
+  
+                                  </mat-option>
+  
+                              </mat-select>
+                              <span *ngIf="showErrorProductionFacture" style="color:red;"> Cette facture est en production , on ne peut pas l'annuler</span>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <!--<label for="" class="label">Numero Quittance <span style="color:red;">*</span></label>
+                  <mat-select class="form-control" [formControl]="quittanceCtrl" placeholder="choisir une quittance"
+  
+                                  (selectionChange)="onChangeQuittance($event)" fullWidth
+  
+                                  id="quitance" #singleSelect>
+  
+                                  <mat-option>
+  
+                                      <ngx-mat-select-search placeholderLabel="recherche..." 
+                                      noEntriesFoundLabel="aucune corespondance .." [formControl]="quittanceFilterCtrl"></ngx-mat-select-search>
+  
+                                  </mat-option>
+  
+  
+  
+                                  <mat-option *ngFor="let quittance of filteredQuittance | async" value="{{quittance.quit_numero}}">
+  
+                                      {{quittance.quit_numero}}
+  
+                                  </mat-option>
+  
+                              </mat-select>-->
+                              <label class="label">Type d'annulation <span style="color:red;">*</span></label>
+                <nb-select  (selectedChange)="onChangeTypeAnnul($event)"  fullWidth  >
+                  <nb-option  value="1" >Facture erronée</nb-option>
+                  <nb-option  value="2" >Facture sans objet</nb-option>
+                  <nb-option  value="3" >capital érroné</nb-option>
+                  <nb-option  value="4" >modif Date</nb-option>
+                  <nb-option  value="5" >autres</nb-option>
+                </nb-select>
+                </div>
+              </div>
+        </div>
+    </nb-card-body>
+    </nb-card>
+    <button nbButton status="success" (click)="openDialog(dialog)" [disabled]='!addForm.valid'>Annuler la facture</button>
+  </div> 
+  
+         
+</form> 
+
+<br><br>
+
+<div class="col-sm-12" *ngIf="showFacture">
+    <nb-card>
+        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">
+          Details de la facture N° {{ facture.fact_numacte }}
+        </nb-card-header>
+        <nb-card-body>
+          <div class="row">
+              <div class="col-sm-3">
+                <h5 class="grid-h">Information</h5>
+                  <div><span class="detail">Numero  :</span> {{ facture.fact_numacte }}</div><br>
+                  <div><span class="detail">Numero Police :</span> {{ facture.fact_numeropolice }}</div><br>
+                  <div><span class="detail">Date Facture :</span> {{ facture.fact_datefacture | date: 'dd-MM-yyyy' }}</div><br>
+                  <div><span class="detail">Numero Acte :</span> {{ facture.fact_numeroacte }}</div><br>
+                  <div><span class="detail">Quittance :</span> {{ facture.fact_numeroquittance }}</div><br>
+                  <div><span class="detail">Identification Marché :</span> {{ facture.fact_marche }}</div><br>
+                  <div><span class="detail">Souscriptuer :</span> {{ facture.fact_numerosouscripteurcontrat }}  }}</div><br>
+                </div>
+              <div class="col-sm-3">
+                <h5 class="grid-h">Info Complementaire</h5>
+                <div><span class="detail">Acheteur :</span> {{ facture.fact_numeoracheteur }}</div><br>
+                <div><span class="detail">Assuré :</span> {{ facture.fact_numeroassure }}</div><br>
+                <div><span class="detail">Bénéficiaire :</span> {{ facture.fact_numerobeneficiaire }}</div><br>
+                <div><span class="detail">Object de la Facture :</span> {{ facture.fact_objetfacture }}</div><br>   
+                <div><span class="detail">Montant Prime Net :</span> {{ facture.fact_montantprimenet | ngxNumberWithCommas}}</div><br>
+                <div><span class="detail">Frais et Accessoires Cie :</span> {{ facture.fact_montantaccescompagnie | ngxNumberWithCommas}}</div><br>
+              <div><span class="detail">Fais et Accessoires Apporteur :</span> {{ facture.fact_montantaccesapporteur | ngxNumberWithCommas}}</div><br>
+              <div><span class="detail">Taxes Calculées :</span> {{ facture.fact_montanttaxe | ngxNumberWithCommas}}</div><br>   
+                         
+            </div> 
+            <div class="col-sm-3">
+              <h5 class="grid-h">Info Produit</h5>
+              <div><span class="detail">montant arrondi :</span> {{ facture.fact_montantarrondi | ngxNumberWithCommas}}</div><br>
+              <div><span class="detail">date de comptabilisation :</span> {{ facture.fact_datecomptabilisation | date: 'dd-MM-yyyy' }}</div><br>
+              <div><span class="detail">Montant facture :</span> {{ facture.fact_montantttc | ngxNumberWithCommas }}</div><br>                          
+              <div><span class="detail">Branche :</span> {{ facture.fact_numerobranche }}</div><br>   
+              <div><span class="detail">Numéro catégorie :</span> {{ facture.fact_numerocategorie }}</div><br>
+              <div><span class="detail">date d'effet :</span> {{ facture.fact_dateeffetcontrat | date: 'dd-MM-yyyy HH:mm' }}</div><br>
+              <div><span class="detail">date d'echeance :</span> {{ facture.fact_dateecheancecontrat | date: 'dd-MM-yyyy HH:mm' }}</div><br>
+              <div><span class="detail">capital assuré :</span> {{ facture.fact_capitalassure | ngxNumberWithCommas }}</div><br>                                    
+          </div>
+          <div class="col-sm-3">
+            <h5 class="grid-h">Autres</h5>
+            <div><span class="detail">capital SMP :</span> {{ facture.fact_capitalsmp | ngxNumberWithCommas}}</div><br>
+            <div><span class="detail">capital LCI :</span> {{ facture.fact_capitallci | ngxNumberWithCommas }}</div><br>
+            <div><span class="detail">Date de comptabilisation:</span> {{ facture.fact_datecomptabilisation | date: 'dd-MM-yyyy' }}</div><br>                          
+            <div><span class="detail">status facture :</span> {{ facture.fact_etatfacture }}</div><br>   
+            <div><span class="detail">Code annulation :</span> {{ facture.fact_codeannulation }}</div><br>
+            <div><span class="detail">date annulation :</span> {{ facture.fact_dateannulation | date: 'dd-MM-yyyy' }}</div><br>
+            <div><span class="detail">ancien numero de facture :</span> {{ facture.fact_anciennumerofacture }}</div><br>                    
+         </div>
+        </div>
+      </nb-card-body>
+        
+      </nb-card>
+</div>
+
+</div>
+
+<div *ngIf="check_fonct('d_facture')==false">
+  <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>
+
+<ng-template #dialog let-groupe let-ref="dialogRef">
+
+  <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white">
+          SUPPRESSION
+      </nb-card-header>
+      <nb-card-body>
+          <h5 class="grid-h">Etes-vous sur de vouloir annuler cette facture</h5>
+          <div class="row">
+              <div class="col-sm-16">
+                  
+              </div>
+          </div>
+      </nb-card-body>
+      <nb-card-footer>
+          <button nbButton (click)="submit()" (click)="ref.close()"
+              status="success">Confirmer</button>&nbsp;&nbsp;
+          <button nbButton (click)="ref.close()" status="danger">Annuler</button>
+      </nb-card-footer>
+  </nb-card>
+</ng-template>

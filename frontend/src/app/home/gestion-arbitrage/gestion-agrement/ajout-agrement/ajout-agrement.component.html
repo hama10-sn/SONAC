@@ -1,0 +1,284 @@
+<div *ngIf="check_fonct('c_dem_Pers')">
+    <form [formGroup]="addForm">
+        <div class="col-lg-4">
+            <nb-card>
+                <nb-card-header style="background-color: rgb(7, 66, 124);color:white"> Demande agrément</nb-card-header>
+            </nb-card>
+        </div>
+        <br>
+        <div class="tabs">
+            <input type="radio" name="tabs" id="tabone" checked="checked">
+            <label for="tabone" class="lab">INFORMATION</label>
+            <div class="tab">
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Type de demande<span style="color:red;">*</span></label>
+                            <!--input fieldSize="small" formControlName="dem_typeclientpers"  type="text" nbInput fullWidth  id="dem_typeclientpers" -->
+                            <nb-select (selectedChange)="onChangeTypeClient($event)" fullWidth id="dem_typeclientpers">
+                                <nb-option value="CL">Demande initiale</nb-option>
+                                <nb-option value="PR">Demande modificative</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Type agrément<span style="color:red;">*</span></label>
+                            <!--input fieldSize="small" formControlName="dem_typeclientpers"  type="text" nbInput fullWidth  id="dem_typeclientpers" -->
+                            <nb-select (selectedChange)="onChangeTypeClient($event)" fullWidth id="dem_typeclientpers">
+                                <nb-option value="CL">kap garanti Domestique</nb-option>
+                                <nb-option value="PR">Assurance du crédit intérieur</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Type Client<span style="color:red;">*</span></label>
+                            <nb-select (selectedChange)="onChangeTypeClient($event)" fullWidth id="dem_typeclientpers">                    
+                                <nb-option value="CL" >CL</nb-option>
+                                <nb-option value="PR" >PR</nb-option>
+                              </nb-select>
+                        </div>
+                    </div> -->
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Prenom<span style="color:red;">*</span></label>
+                            <input fieldSize="small" [readonly]="false" formControlName="dem_prenom" type="text" nbInput
+                                fullWidth id="dem_prenom">
+                        </div>
+                        <!-- <div class="form-group">
+                            <label for="" class="label">Numéro Titulaire<span style="color:red;">*</span></label>
+
+                            <mat-select *ngIf="titulaireClient" class="form-control" [formControl]="clientsCtrl"
+                                placeholder="choisir un client" (selectionChange)="onChangeTitulaire($event)" fullWidth
+                                id="cont_numeroclient" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="clientsFilterCtrl">
+                                    </ngx-mat-select-search>
+                                </mat-option>
+
+                                <mat-option value="{{client.clien_numero}}"
+                                    *ngFor="let client of filteredClients | async">{{client.clien_numero}}:
+                                    {{client.clien_nom}}
+                                    {{client.clien_denomination}} {{client.clien_prenom}} {{ client.clien_sigle }}
+                                </mat-option>
+                            </mat-select>
+
+
+
+                            <mat-select *ngIf="!titulaireClient" class="form-control" [formControl]="prospectCtrl"
+                                placeholder="choisir un prospect" (selectionChange)="onChangeTitulaire($event)"
+                                fullWidth id="cont_numeroclient" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="prospectFilterCtrl">
+                                    </ngx-mat-select-search>
+                                </mat-option>
+
+                                <mat-option value="{{prospect.prospc_numero}}"
+                                    *ngFor="let prospect of filteredProspect | async">{{prospect.prospc_numero}}:
+                                    {{prospect.prospc_nom}} {{prospect.prospc_prenom}} {{prospect.prospc_denomination}}
+                                    {{prospect.prospc_sigle}}
+                                </mat-option>
+                            </mat-select>
+                        </div> -->
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Nom<span style="color:red;">*</span></label>
+                            <input fieldSize="small" [readonly]="false" formControlName="dem_nom" type="text" nbInput
+                                fullWidth id="dem_nom">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Raison sociale<span style="color:red;">*</span></label>
+                            <input fieldSize="small" [readonly]="false" formControlName="raison_sociale" type="text"
+                                nbInput fullWidth id="dem_raison_sociale">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Référence bancaire<span style="color:red;">*</span></label>
+                            <input fieldSize="small" [readonly]="false" formControlName="dem_reference_bancaire"
+                                type="text" nbInput fullWidth id="dem_reference_bancaire">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+
+                        <div class="form-group">
+                            <label for="" class="label">Secteur Activité<span style="color:red;">*</span></label>
+
+                            <mat-select class="form-control" [formControl]="classifCtrl"
+                                placeholder="choisir une classification" (selectionChange)="onChangeActivite($event)"
+                                fullWidth id="prospc_classificationmetier" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="classifFilterCtrl"></ngx-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngFor="let classif of filteredClassif | async" value="{{classif.code}}">
+                                    {{ classif.libelle }}
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                  
+                    <!-- <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">NINEA</label>
+                            <input fieldSize="small" [readonly]="true" formControlName="dem_ninea" type="text" nbInput
+                                fullWidth id="dem_ninea">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Compte Bancaire</label>
+                            <input fieldSize="small" [readonly]="true" formControlName="dem_comptebancaire" type="text"
+                                nbInput fullWidth id="dem_comptebancaire">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Object Demande<span style="color:red;">*</span></label>
+                            <input fieldSize="small" formControlName="dem_objetdemande" type="text" nbInput fullWidth
+                                id="dem_objetdemande">
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <input type="radio" name="tabs" id="tabtwo">
+            <label for="tabtwo" class="lab">COORDONNEES</label>
+            <div class="tab">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Adresse <span style="color:red;">*</span></label>
+                            <input formControlName="dem_adresse1" type="text" nbInput fullWidth id="dem_adresse1">
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Téléphone<span style="color:red;">*</span></label>
+                            <input formControlName="dem_telephone1" [readonly]="false" type="text" nbInput fullWidth
+                                id="dem_telephone1">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Fixe<span style="color:red;"></span></label>
+                            <input formControlName="dem_telephone2" [readonly]="false" type="text" nbInput fullWidth
+                                id="dem_telephone2">
+                        </div>
+                    </div>
+                   
+                   
+                   
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Email<span style="color:red;">*</span></label>
+                            <div>
+                                <input *ngIf="displaytitulaire" readonly fieldSize="small" formControlName="dem_email"
+                                    type="email" nbInput fullWidth id="dem_email">
+                                <input *ngIf="!displaytitulaire" fieldSize="small" (focusout)="onchangeMail()"
+                                    formControlName="dem_email" type="email" nbInput fullWidth id="dem_email">
+                                <div *ngIf="displayErrorEmail">
+                                    <span *ngIf="!errorEmail" style="color:red;">Entrer un email valide</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+            <input type="radio" name="tabs" id="tabfour">
+            <label for="tabfour" class="lab">AUTRE</label>
+            <div class="tab">
+                <div class="row">
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Montant demandé<span style="color:red;">*</span></label>
+                            <input formControlName="dem_montant_demande" [readonly]="false" type="text" nbInput fullWidth
+                                id="dem_montant_demande">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Montant restant du<span style="color:red;">*</span></label>
+                            <input formControlName="dem_montant_du" [readonly]="false" type="text" nbInput fullWidth
+                                id="dem_montant_du">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Nature des produits<span style="color:red;">*</span></label>
+                            <input formControlName="dem_montant_du" [readonly]="false" type="text" nbInput fullWidth
+                                id="dem_montant_du">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Condition de paiement<span style="color:red;">*</span></label>
+                            <input formControlName="dem_condition_paiement" [readonly]="false" type="text" nbInput fullWidth
+                                id="dem_condition_paiement">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Crédit<span style="color:red;">*</span></label>
+                            <!--input fieldSize="small" formControlName="dem_typeclientpers"  type="text" nbInput fullWidth  id="dem_typeclientpers" -->
+                            <nb-select (selectedChange)="onChangeTypeClient($event)" fullWidth id="dem_typeclientpers">
+                                <nb-option value="credit_oui">Oui</nb-option>
+                                <nb-option value="credit_non">Non</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Comptant contre document<span style="color:red;">*</span></label>
+                            <input formControlName="dem_condition_paiement" [readonly]="false" type="text" nbInput fullWidth
+                                id="dem_condition_paiement">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Durée en jours<span style="color:red;">*</span></label>
+                            <input formControlName="dem_condition_paiement" [readonly]="false" type="text" nbInput fullWidth
+                                id="dem_condition_paiement">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="" class="label">Commentaire/Autre<span style="color:red;">*</span></label>
+                            <input formControlName="dem_commentaire" [readonly]="false" type="text" nbInput fullWidth
+                                id="dem_commentaire">
+                        </div>
+                    </div>
+                   
+                   
+                
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+        <br>
+        <div>
+            <button nbButton status="success" (click)="submit()" [disabled]='!addForm.valid'>Ajouter</button>
+            &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+
+        </div>
+    </form>
+</div>

@@ -1,0 +1,1259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="client" printOrder="Horizontal" pageWidth="1080" pageHeight="595" orientation="Landscape" columnWidth="1000" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="9c441d9a-b089-4fdb-b74e-506a9646f74f">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sonac"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="title" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{title}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="demandeur" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select * from encaissement as e, facture as f, police as p, 
+client as c, branche as b
+ where e.encai_numerofacture = f.fact_numacte
+and e.encai_numeropolice = p.poli_numero 
+and e.encai_numerosouscripteur = c.clien_numero 
+and p.poli_branche = b.branche_numero ]]>
+	</queryString>
+	<field name="encai_numeroencaissement" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="encai_numeroencaissement"/>
+		<property name="com.jaspersoft.studio.field.label" value="encai_numeroencaissement"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="active" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="active"/>
+		<property name="com.jaspersoft.studio.field.label" value="active"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="encai_codebanque" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="encai_codebanque"/>
+		<property name="com.jaspersoft.studio.field.label" value="encai_codebanque"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="encai_codetraitement" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="encai_codetraitement"/>
+		<property name="com.jaspersoft.studio.field.label" value="encai_codetraitement"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="encai_codeutilisateur" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="encai_codeutilisateur"/>
+		<property name="com.jaspersoft.studio.field.label" value="encai_codeutilisateur"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="encai_datecomptabilisation" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="encai_datecomptabilisation"/>
+		<property name="com.jaspersoft.studio.field.label" value="encai_datecomptabilisation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="encai_datemiseajour" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="encai_datemiseajour"/>
+		<property name="com.jaspersoft.studio.field.label" value="encai_datemiseajour"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="encai_datepaiement" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="encai_datepaiement"/>
+		<property name="com.jaspersoft.studio.field.label" value="encai_datepaiement"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="encai_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="encai_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="encai_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="encai_mtnpaye" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="encai_mtnpaye"/>
+		<property name="com.jaspersoft.studio.field.label" value="encai_mtnpaye"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="encai_mtnquittance" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="encai_mtnquittance"/>
+		<property name="com.jaspersoft.studio.field.label" value="encai_mtnquittance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="encai_numerocheque" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="encai_numerocheque"/>
+		<property name="com.jaspersoft.studio.field.label" value="encai_numerocheque"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="encai_numerofacture" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="encai_numerofacture"/>
+		<property name="com.jaspersoft.studio.field.label" value="encai_numerofacture"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="encai_numerointermediaire" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="encai_numerointermediaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="encai_numerointermediaire"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="encai_numeropolice" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="encai_numeropolice"/>
+		<property name="com.jaspersoft.studio.field.label" value="encai_numeropolice"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="encai_numeroquittance" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="encai_numeroquittance"/>
+		<property name="com.jaspersoft.studio.field.label" value="encai_numeroquittance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="encai_numerosouscripteur" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="encai_numerosouscripteur"/>
+		<property name="com.jaspersoft.studio.field.label" value="encai_numerosouscripteur"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="encai_solde" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="encai_solde"/>
+		<property name="com.jaspersoft.studio.field.label" value="encai_solde"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="encai_status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="encai_status"/>
+		<property name="com.jaspersoft.studio.field.label" value="encai_status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="encai_typencaissement" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="encai_typencaissement"/>
+		<property name="com.jaspersoft.studio.field.label" value="encai_typencaissement"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="encai_typquittance" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="encai_typquittance"/>
+		<property name="com.jaspersoft.studio.field.label" value="encai_typquittance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="encai_codeannulation" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="encai_codeannulation"/>
+		<property name="com.jaspersoft.studio.field.label" value="encai_codeannulation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="encai_dateannulation" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="encai_dateannulation"/>
+		<property name="com.jaspersoft.studio.field.label" value="encai_dateannulation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="encaissement"/>
+	</field>
+	<field name="fact_numacte" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="fact_numacte"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_numacte"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="COLUMN_25" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="active"/>
+		<property name="com.jaspersoft.studio.field.label" value="active"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_anciennumerofacture" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="fact_anciennumerofacture"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_anciennumerofacture"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_capitalassure" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="fact_capitalassure"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_capitalassure"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_capitallci" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="fact_capitallci"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_capitallci"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_capitalsmp" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="fact_capitalsmp"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_capitalsmp"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_codeannulation" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="fact_codeannulation"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_codeannulation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_codeutilisateur" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="fact_codeutilisateur"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_codeutilisateur"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_commissionapporteur" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="fact_commissionapporteur"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_commissionapporteur"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_dateannulation" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="fact_dateannulation"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_dateannulation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_datecomptabilisation" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="fact_datecomptabilisation"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_datecomptabilisation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_dateecheancecontrat" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="fact_dateecheancecontrat"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_dateecheancecontrat"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_dateeffetcontrat" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="fact_dateeffetcontrat"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_dateeffetcontrat"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_datefacture" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="fact_datefacture"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_datefacture"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_datemodification" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="fact_datemodification"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_datemodification"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_etatfacture" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="fact_etatfacture"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_etatfacture"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="fact_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_marche" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="fact_marche"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_marche"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_montantaccesapporteur" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="fact_montantaccesapporteur"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_montantaccesapporteur"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_montantaccescompagnie" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="fact_montantaccescompagnie"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_montantaccescompagnie"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_montantarrondi" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="fact_montantarrondi"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_montantarrondi"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_montantprimenet" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="fact_montantprimenet"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_montantprimenet"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_montanttaxe" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="fact_montanttaxe"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_montanttaxe"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_montantttc" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="fact_montantttc"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_montantttc"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_numeoracheteur" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="fact_numeoracheteur"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_numeoracheteur"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_numeroacte" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="fact_numeroacte"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_numeroacte"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_numeroassure" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="fact_numeroassure"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_numeroassure"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_numerobeneficiaire" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="fact_numerobeneficiaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_numerobeneficiaire"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_numerobranche" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="fact_numerobranche"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_numerobranche"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_numerocategorie" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="fact_numerocategorie"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_numerocategorie"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_numeropolice" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="fact_numeropolice"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_numeropolice"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_numeroquittance" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="fact_numeroquittance"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_numeroquittance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_numerosouscripteurcontrat" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="fact_numerosouscripteurcontrat"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_numerosouscripteurcontrat"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_objetfacture" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="fact_objetfacture"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_objetfacture"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="poli_numero" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_numero"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_numero"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_branche" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_branche"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_branche"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_categorie" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_categorie"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_categorie"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_clauseajustement" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_clauseajustement"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_clauseajustement"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_clauserevision" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_clauserevision"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_clauserevision"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_client" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_client"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_client"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_codecutilisateur" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="poli_codecutilisateur"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_codecutilisateur"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_codefractionnement" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_codefractionnement"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_codefractionnement"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_codegroupe" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="poli_codegroupe"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_codegroupe"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_codepays" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="poli_codepays"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_codepays"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_codeproduit" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_codeproduit"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_codeproduit"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_codetaxe" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_codetaxe"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_codetaxe"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_codetps" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_codetps"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_codetps"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_codetva" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_codetva"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_codetva"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_coefbonus" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_coefbonus"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_coefbonus"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_compagnie" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="poli_compagnie"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_compagnie"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_dateanniversaire" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="poli_dateanniversaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_dateanniversaire"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_dateecheance" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="poli_dateecheance"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_dateecheance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_dateeffet1" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="poli_dateeffet1"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_dateeffet1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_dateeffetencours" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="poli_dateeffetencours"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_dateeffetencours"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_dateindice" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="poli_dateindice"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_dateindice"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_datemodification" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="poli_datemodification"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_datemodification"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_dateremisevigueur" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="poli_dateremisevigueur"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_dateremisevigueur"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_dateresiliation" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="poli_dateresiliation"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_dateresiliation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_daterevision" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="poli_daterevision"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_daterevision"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_datesuspension" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="poli_datesuspension"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_datesuspension"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_datexoneration" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="poli_datexoneration"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_datexoneration"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_duree" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_duree"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_duree"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_exonerationtaxeenr" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="poli_exonerationtaxeenr"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_exonerationtaxeenr"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_exonerationtps" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="poli_exonerationtps"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_exonerationtps"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_exonerationtva" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="poli_exonerationtva"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_exonerationtva"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_filiale" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="poli_filiale"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_filiale"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_formulegarantie" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_formulegarantie"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_formulegarantie"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_indice" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="poli_indice"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_indice"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_intermediaire" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_intermediaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_intermediaire"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_num" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="poli_num"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_num"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_numeroattestation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="poli_numeroattestation"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_numeroattestation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_numerocertificat" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="poli_numerocertificat"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_numerocertificat"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_numerodernieravenant" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_numerodernieravenant"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_numerodernieravenant"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_numeroplancoassur" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_numeroplancoassur"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_numeroplancoassur"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_numeroplanreassfac" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_numeroplanreassfac"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_numeroplanreassfac"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_participationbenef" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="poli_participationbenef"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_participationbenef"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_policeremplacee" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_policeremplacee"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_policeremplacee"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_primebruttotal" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_primebruttotal"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_primebruttotal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_primenetreference" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_primenetreference"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_primenetreference"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_primenettotal" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_primenettotal"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_primenettotal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_remisecommerciale" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_remisecommerciale"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_remisecommerciale"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_souscripteur" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="poli_souscripteur"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_souscripteur"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_status" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="poli_status"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_tauxparticipationbenef" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_tauxparticipationbenef"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_tauxparticipationbenef"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_typecontrat" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_typecontrat"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_typecontrat"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_typefacultive" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="poli_typefacultive"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_typefacultive"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_typegestion" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_typegestion"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_typegestion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_typeindice" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="poli_typeindice"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_typeindice"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_typerevision" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_typerevision"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_typerevision"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="poli_valeurindice" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="poli_valeurindice"/>
+		<property name="com.jaspersoft.studio.field.label" value="poli_valeurindice"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="police"/>
+	</field>
+	<field name="clien_numero" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="clien_numero"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_numero"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="COLUMN_115" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="active"/>
+		<property name="com.jaspersoft.studio.field.label" value="active"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_cin" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_cin"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_cin"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_activitecommercante" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_activitecommercante"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_activitecommercante"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_adressenumero" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_adressenumero"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_adressenumero"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_adresserue" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_adresserue"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_adresserue"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_adresseville" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_adresseville"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_adresseville"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_anciennumero" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="clien_anciennumero"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_anciennumero"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_capital_social" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="clien_capital_social"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_capital_social"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_categsocioprof" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="clien_categsocioprof"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_categsocioprof"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_chargesinistre" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="clien_chargesinistre"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_chargesinistre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_chiffreaffaireannuel" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="clien_chiffreaffaireannuel"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_chiffreaffaireannuel"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_chiffreaffaireprime" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="clien_chiffreaffaireprime"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_chiffreaffaireprime"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_codeorigine" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_codeorigine"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_codeorigine"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_coderegroupgestion" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="clien_coderegroupgestion"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_coderegroupgestion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_commentaire" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_commentaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_commentaire"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_contactprinci" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_contactprinci"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_contactprinci"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_date_relation" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="clien_date_relation"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_date_relation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_datemodification" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="clien_datemodification"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_datemodification"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_datenaissance" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="clien_datenaissance"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_datenaissance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_denomination" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_denomination"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_denomination"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_effectif" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="clien_effectif"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_effectif"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_email"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_facebook" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_facebook"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_facebook"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_linkdin" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_linkdin"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_linkdin"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_modegouvernance" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_modegouvernance"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_modegouvernance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_nature" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_nature"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_nature"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_ninea" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_ninea"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_ninea"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_nom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_nom"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_nom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_numerosolvabilite" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="clien_numerosolvabilite"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_numerosolvabilite"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_passeport" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_passeport"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_passeport"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_portable" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_portable"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_portable"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_prenom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_prenom"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_prenom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_princdirigeant" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_princdirigeant"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_princdirigeant"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_principalactionnaire" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_principalactionnaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_principalactionnaire"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_registrecommerce" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_registrecommerce"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_registrecommerce"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_secteur_activite" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="clien_secteur_activite"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_secteur_activite"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_sexe" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_sexe"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_sexe"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_sigle" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_sigle"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_sigle"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_status"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_telephone1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_telephone1"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_telephone1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_telephone2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_telephone2"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_telephone2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_titre" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="clien_titre"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_titre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_typeclient" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_typeclient"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_typeclient"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_typesociete" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="clien_typesociete"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_typesociete"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_utilisateur" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="clien_utilisateur"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_utilisateur"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_website" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_website"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_website"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="client_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="client_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="client_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_numeroprospect" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="clien_numeroprospect"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_numeroprospect"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="branche_numero" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="branche_numero"/>
+		<property name="com.jaspersoft.studio.field.label" value="branche_numero"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="branche"/>
+	</field>
+	<field name="COLUMN_164" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="active"/>
+		<property name="com.jaspersoft.studio.field.label" value="active"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="branche"/>
+	</field>
+	<field name="branch_periodicite_compabilisation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="branch_periodicite_compabilisation"/>
+		<property name="com.jaspersoft.studio.field.label" value="branch_periodicite_compabilisation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="branche"/>
+	</field>
+	<field name="branche_classeanalytique" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="branche_classeanalytique"/>
+		<property name="com.jaspersoft.studio.field.label" value="branche_classeanalytique"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="branche"/>
+	</field>
+	<field name="branche_codecommission" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="branche_codecommission"/>
+		<property name="com.jaspersoft.studio.field.label" value="branche_codecommission"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="branche"/>
+	</field>
+	<field name="branche_codetaxe" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="branche_codetaxe"/>
+		<property name="com.jaspersoft.studio.field.label" value="branche_codetaxe"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="branche"/>
+	</field>
+	<field name="branche_datemodification" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="branche_datemodification"/>
+		<property name="com.jaspersoft.studio.field.label" value="branche_datemodification"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="branche"/>
+	</field>
+	<field name="branche_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="branche_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="branche_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="branche"/>
+	</field>
+	<field name="branche_libelle_long" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="branche_libelle_long"/>
+		<property name="com.jaspersoft.studio.field.label" value="branche_libelle_long"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="branche"/>
+	</field>
+	<field name="branche_libellecourt" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="branche_libellecourt"/>
+		<property name="com.jaspersoft.studio.field.label" value="branche_libellecourt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="branche"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="91">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="0" width="1080" height="90" backcolor="#006699" uuid="7b427187-25d5-41b9-bbd7-a183bff5ab60"/>
+				<box>
+					<topPen lineStyle="Solid"/>
+					<leftPen lineStyle="Solid"/>
+					<bottomPen lineStyle="Solid"/>
+					<rightPen lineStyle="Solid"/>
+				</box>
+				<textField>
+					<reportElement x="30" y="10" width="990" height="43" forecolor="#FFFFFF" uuid="ccbab735-661f-4a78-9b5c-13161e41a9ce"/>
+					<textElement>
+						<font fontName="SansSerif" size="18" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="820" y="10" width="240" height="28" forecolor="#FFFFFF" uuid="d0265494-1ff0-4f45-ac66-945907ccc0ea"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[REF: Encaissement]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="20" y="53" width="60" height="37" forecolor="#FCFCFC" backcolor="#006699" uuid="fd996833-2734-4be5-a15c-0ad7c71633da"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Num]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="80" y="53" width="70" height="37" forecolor="#FCFCFC" backcolor="#006699" uuid="bcd632f6-0c9a-4aee-a220-5c9a9bb4a98e"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Client]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="150" y="50" width="60" height="40" forecolor="#FCFCFC" backcolor="#006699" uuid="86089bc1-8e75-401a-b956-4652cc8ec6b9"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Police]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="330" y="50" width="70" height="40" forecolor="#FCFCFC" backcolor="#006699" uuid="14517dd4-5184-46c8-9b84-01c6735d708b"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Numéro facture]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="210" y="50" width="120" height="40" forecolor="#FCFCFC" backcolor="#006699" uuid="6945521e-b33d-4ca7-962a-b013ece82d50"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Branche]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="400" y="50" width="105" height="40" forecolor="#FCFCFC" backcolor="#006699" uuid="d55702ff-0499-44ce-841e-b1b327c86fa4"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Numéro quittance]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="505" y="50" width="95" height="40" forecolor="#FCFCFC" backcolor="#006699" uuid="0b1d65d6-d36b-4075-8765-c849fb553926"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Montant quittance]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="600" y="50" width="95" height="40" forecolor="#FCFCFC" backcolor="#006699" uuid="c2935085-8c50-4f32-9dd7-01ecba642605"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Montant payé]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="695" y="50" width="95" height="40" forecolor="#FCFCFC" backcolor="#006699" uuid="05cc9941-6369-42e8-83d7-20fa924e3cde"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Date 
+paiement]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="790" y="50" width="95" height="40" forecolor="#FCFCFC" backcolor="#006699" uuid="113eaf11-d82d-46cd-ab12-8b190d50a41b"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Type encaissement]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="885" y="50" width="80" height="40" forecolor="#FCFCFC" backcolor="#006699" uuid="c930a872-e468-4848-9f2e-462b05fb54c4"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Code banque]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="965" y="50" width="70" height="40" forecolor="#FCFCFC" backcolor="#006699" uuid="13ff094d-8500-42de-b7a1-00d84fbdba4d"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Numéro chèque]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
+			<textField>
+				<reportElement x="0" y="0" width="60" height="20" uuid="21556c70-ad0b-4049-bb0b-8526955e691b"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{encai_numeroencaissement}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="0" width="70" height="20" uuid="3f0625ee-8f30-4b9d-be10-a6f5c2a79fa7"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{clien_prenom} != null ? $F{clien_prenom} : "") + (" ") + ($F{clien_nom} != null ? $F{clien_nom} : "")  + (" ") + ($F{clien_denomination}  != null ? $F{clien_denomination} : "")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="0" width="60" height="20" uuid="0c923e2e-c431-4315-8d12-77d06fc68abd"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{encai_numeropolice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="0" width="120" height="20" uuid="3890b307-49b0-4902-9765-775e4437d825"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{branche_libelle_long}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="310" y="0" width="70" height="20" uuid="51f837f3-9e8a-441f-91e0-5e78b472cda1"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{encai_numerofacture}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="105" height="20" uuid="f62f1768-b229-4e0d-8e6c-5c0d460239bf"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{encai_numeroquittance}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="485" y="0" width="95" height="20" uuid="8db290ce-996f-41aa-a93d-16ec40ea0074"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{encai_mtnquittance}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="580" y="0" width="95" height="20" uuid="8ce2d05f-1880-4a02-b095-3c26fa2343b8"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{encai_mtnpaye}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="675" y="0" width="95" height="20" uuid="66e8a5b9-e269-4ae3-87fe-2ba698cd9dee"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{encai_datepaiement}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="770" y="0" width="95" height="20" uuid="b5255130-9ed8-46bd-bd72-8b84ff65ce18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{encai_typencaissement}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="865" y="0" width="80" height="20" uuid="4125f1e9-6640-4dbf-8601-36fa050175f2"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{encai_codebanque}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="945" y="0" width="70" height="20" uuid="8a955eae-aeba-4b55-be46-5b9a6ccd0a83"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{encai_numerocheque}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="55" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="829" y="0" width="124" height="20" forecolor="#0F0202" uuid="d14d8a12-5f17-4334-b08f-d2580d9c791e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="850" y="30" width="87" height="20" uuid="35c07c8b-d45b-41a0-8509-bf4bdad62c62"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="935" y="30" width="90" height="20" uuid="224e90eb-b4eb-4428-b720-386da3a54512"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" / " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm">
+				<reportElement x="957" y="0" width="71" height="20" uuid="88c84335-76ba-4df2-93f9-b76ca67dfea7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="90" y="0" width="120" height="40" uuid="e23938f1-bb60-4ac0-b4fb-8674d206dc9a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Demandé par:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="210" y="0" width="170" height="40" uuid="aef163be-87d5-4e32-ab7c-331be72f3c66">
+					<property name="com.jaspersoft.studio.element.name" value="demandeur"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{demandeur}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="10" y="2" width="70" height="50" uuid="e7e17138-f3bb-47d2-9c00-7350523bd7bc"/>
+				<imageExpression><![CDATA[System.getProperty("user.home")+"/img/SONAC.png"]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+</jasperReport>

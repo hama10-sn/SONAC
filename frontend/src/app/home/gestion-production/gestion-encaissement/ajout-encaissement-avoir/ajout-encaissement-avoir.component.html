@@ -1,0 +1,609 @@
+<div *ngIf="check_fonct('c_encaissement')">
+    <div class="col-lg-5">
+        <nb-card>
+            <nb-card-header class="entete"> Encaissement d'une facture avec avoir
+            </nb-card-header>
+        </nb-card>
+    </div>
+
+
+    <div *ngIf="noPermitAdd">
+        <nb-alert status="danger">
+            Le montant encaissé ou montant des factures inférieur ou egale à 0
+        </nb-alert>
+    </div>
+
+    <div class="col-lg-4" *ngIf="showChoixEncaiss">
+        <nb-card>
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="" class="label">Choix d'encaissement </label>
+                            <nb-select (selectedChange)="onChangeEncaissement($event)" fullWidth>
+                                <nb-option value="1">Encaissement simple</nb-option>
+                                <nb-option value="2">Encaissement multiple</nb-option>
+                            </nb-select>
+
+                        </div>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </div>
+
+
+    <div *ngIf="showEncaissementSimple">
+        <form [formGroup]="addForm">
+            <div class="tabs">
+                <input type="radio" name="tabs" id="tabone" checked="checked">
+                <label for="tabone" class="lab">Details</label>
+                <div class="tab">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="label">Client <span style="color:red;">*</span></label>
+                                <mat-select class="form-control" [formControl]="clientsCtrl"
+                                    placeholder="choisir un client" (selectionChange)="onChangeClient($event)" fullWidth
+                                    id="cont_numeroclient" #singleSelect>
+                                    <mat-option>
+                                        <ngx-mat-select-search placeholderLabel="recherche..."
+                                            noEntriesFoundLabel="aucune corespondance .."
+                                            [formControl]="clientsFilterCtrl">
+                                        </ngx-mat-select-search>
+                                    </mat-option>
+                                    <mat-option value="{{client.clien_numero}}"
+                                        *ngFor="let client of filteredClients | async">{{client.clien_numero}}:
+                                        {{client.clien_nom}}
+                                        {{client.clien_denomination}} {{client.clien_prenom}} {{ client.clien_sigle }}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="" class="label">Numero Police <span style="color:red;">*</span></label>
+                                <mat-select class="form-control" [formControl]="policeCtrl"
+                                    placeholder="choisir une police" (selectionChange)="onChangePolice($event)"
+                                    fullWidth id="dem_proiduit1" #singleSelect>
+                                    <mat-option>
+                                        <ngx-mat-select-search placeholderLabel="recherche..."
+                                            noEntriesFoundLabel="aucune corespondance .."
+                                            [formControl]="policeFilterCtrl"></ngx-mat-select-search>
+                                    </mat-option>
+                                    <mat-option *ngFor="let police of filteredPolice | async"
+                                        value="{{police.poli_numero}}">
+                                        {{police.poli_numero}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="label">Numero Facture <span style="color:red;">*</span></label>
+                                <mat-select class="form-control" [formControl]="factureCtrl"
+                                    placeholder="choisir une facture" (selectionChange)="onChangeFacture($event)"
+                                    fullWidth id="dem_proiduit1" #singleSelect>
+                                    <mat-option>
+                                        <ngx-mat-select-search placeholderLabel="recherche..."
+                                            noEntriesFoundLabel="aucune corespondance .."
+                                            [formControl]="factureFilterCtrl"></ngx-mat-select-search>
+                                    </mat-option>
+                                    <mat-option *ngFor="let facture of filteredFacture | async"
+                                        value="{{facture.fact_numacte}}">
+                                        {{facture.fact_numacte}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="" class="label">Numero Intermédiare <span
+                                        style="color:red;">*</span></label>
+                                <input fieldSize="small" readonly formControlName="encai_numerointermediaire"
+                                    type="text" nbInput fullWidth>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                {{ textfacture }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="radio" name="tabs" id="tabtwo">
+                <label for="tabtwo" class="lab">Encaissement</label>
+                <div class="tab">
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="label">Type Encaissement <span style="color:red;">*</span></label>
+                                <nb-select (selectedChange)="onChangeTypeEncaiss($event)" fullWidth>
+                                    <nb-option value="Checque">Cheque</nb-option>
+                                    <nb-option value="Virement">Virement</nb-option>
+                                    <nb-option value="Op Marchand">Op Marchand</nb-option>
+                                    <nb-option value="espèce">Espèce</nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="" class="label">Code banque</label> <span style="color:red;"
+                                    *ngIf="showObligatoireBanque">*</span>
+                                <!-- <input fieldSize="small" formControlName="encai_codebanque"  type="number" nbInput fullWidth    > -->
+                                <mat-select class="form-control" [formControl]="banqueCtrl"
+                                    placeholder="choisir une banque" (selectionChange)="onChangeBanqueSimple($event)"
+                                    fullWidth id="regl_codebanque" #singleSelect>
+                                    <mat-option>
+                                        <ngx-mat-select-search [formControl]="banqueFilterCtrl"
+                                            placeholderLabel="recherche..." noEntriesFoundLabel="aucune corespondance">
+                                        </ngx-mat-select-search>
+                                    </mat-option>
+                                    <mat-option value="{{banque.banq_codebanque}}"
+                                        *ngFor="let banque of filteredBanque | async">
+                                        {{banque.banq_codebanque}} : {{banque.banq_codenormalise}} :
+                                        {{banque.banq_denomination}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="" class="label">Numero chèque / traite / reçu</label> <span
+                                    style="color:red;">*</span>
+                                <input fieldSize="small" formControlName="encai_numerocheque" type="text" nbInput
+                                    fullWidth (change)="onChangeNumeroTitre($event)">
+                                <span *ngIf="afficheMontantAvoir" style="color: orange;">
+                                    Montant avoir = {{montantAvoir | ngxNumberWithCommas}}
+                                    <span *ngIf="afficheMessageMontantAvoirZero">, encaissement impossible</span>
+                                </span>
+                                <span *ngIf="afficheMessageNumeroTitre" style="color: red;">
+                                    Ce némuro de titre n'est pas encore utilisé pour un encaissement facture
+                                </span>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="" class="label">Montant à payer <span style="color:red;">*</span></label>
+                                <input fieldSize="small" readonly formControlName="encai_mtnquittance"
+                                    [value]="addForm.get('encai_mtnquittance').value | ngxNumberWithCommas" type="text"
+                                    nbInput fullWidth>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="" class="label">Montant Payé <span style="color:red;">*</span></label>
+                                <input fieldSize="small" class="error" (change)="onChangeMontPay($event)"
+                                    [value]="addForm.get('encai_mtnpaye').value | ngxNumberWithCommas" type="text"
+                                    nbInput fullWidth>
+                                <span *ngIf="showErrorMontantPay" style="color: red;">
+                                    Le montant payé ne doit pas etre supérieur au montant de la facture ni à celui de
+                                    l'avoir
+                                </span>
+                                <!-- <span *ngIf="showErrorMontantPay" style="color: orange;">
+                                    Le montant payé est supérieur au montant de la facture: Le reste sera utilisé comme
+                                    avoir
+                                </span> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div><br>
+                <button nbButton status="success" (click)="open(dialog)"
+                    [disabled]='!addForm.valid || erreurPaiement'>Ajouter
+                    simple</button>
+                &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+            </div>
+            <br><br>
+            <div class="col-sm-12" *ngIf="showFacture">
+                <nb-card>
+                    <nb-card-header style="background-color: rgb(7, 66, 124);color:white">
+                        Details de la facture N° {{ facture.fact_numacte }}
+                    </nb-card-header>
+                    <nb-card-body>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h5 class="grid-h">Information</h5>
+                                <div><span class="detail">Numero :</span> {{ facture.fact_numacte }}</div><br>
+                                <div><span class="detail">Numero Police :</span> {{ facture.fact_numeropolice }}</div>
+                                <br>
+                                <div><span class="detail">Date Facture :</span> {{ facture.fact_datefacture | date:
+                                    'dd-MM-yyyy' }}
+                                </div><br>
+                                <div><span class="detail">Numero Acte :</span> {{ facture.fact_numeroacte }}</div><br>
+                                <div><span class="detail">Quittance :</span> {{ facture.fact_numeroquittance }}</div>
+                                <br>
+                                <div><span class="detail">Identification Marché :</span> {{ facture.fact_marche }}</div>
+                                <br>
+                                <div><span class="detail">Souscriptuer :</span> {{
+                                    facture.fact_numerosouscripteurcontrat }}</div><br>
+                            </div>
+                            <div class="col-sm-3">
+                                <h5 class="grid-h">Info Complementaire</h5>
+                                <div><span class="detail">Acheteur :</span> {{ facture.fact_numeoracheteur }}</div><br>
+                                <div><span class="detail">Assuré :</span> {{ facture.fact_numeroassure }}</div><br>
+                                <div><span class="detail">Bénéficiaire :</span> {{ facture.fact_numerobeneficiaire }}
+                                </div><br>
+                                <div><span class="detail">Object de la Facture :</span> {{ facture.fact_objetfacture }}
+                                </div><br>
+                                <div><span class="detail">Montant Prime Net :</span> {{ facture.fact_montantprimenet |
+                                    ngxNumberWithCommas}}</div><br>
+                                <div><span class="detail">Frais et Accessoires Cie :</span> {{
+                                    facture.fact_montantaccescompagnie |
+                                    ngxNumberWithCommas}}</div><br>
+                                <div><span class="detail">Fais et Accessoires Apporteur :</span> {{
+                                    facture.fact_montantaccesapporteur |
+                                    ngxNumberWithCommas}}</div><br>
+                                <div><span class="detail">Taxes Calculées :</span> {{ facture.fact_montanttaxe |
+                                    ngxNumberWithCommas}}
+                                </div><br>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <h5 class="grid-h">Info Produit</h5>
+                                <!-- <div><span class="detail">montant arrondi :</span> {{ facture.fact_montantarrondi |
+                                    ngxNumberWithCommas}}</div><br> -->
+                                <div><span class="detail">date de comptabilisation :</span> {{
+                                    facture.fact_datecomptabilisation | date:
+                                    'dd-MM-yyyy' }}</div><br>
+                                <div><span class="detail">Montant facture :</span> {{ facture.fact_montantttc |
+                                    ngxNumberWithCommas }}
+                                </div><br>
+                                <div><span class="detail">montant encaissé :</span> {{ montantPrimeEncaisse |
+                                    ngxNumberWithCommas}}</div>
+                                <br>
+                                <div><span class="detail">Branche :</span> {{ facture.fact_numerobranche }}</div><br>
+                                <div><span class="detail">Numéro catégorie :</span> {{ facture.fact_numerocategorie }}
+                                </div><br>
+                                <div><span class="detail">date d'effet :</span> {{ facture.fact_dateeffetcontrat | date:
+                                    'dd-MM-yyyy
+                                    HH:mm' }}</div><br>
+                                <div><span class="detail">date d'echeance :</span> {{ facture.fact_dateecheancecontrat |
+                                    date:
+                                    'dd-MM-yyyy HH:mm' }}</div><br>
+                                <div><span class="detail">capital assuré :</span> {{ facture.fact_capitalassure |
+                                    ngxNumberWithCommas }}
+                                </div><br>
+                            </div>
+                            <div class="col-sm-3">
+                                <h5 class="grid-h">Autres</h5>
+                                <div><span class="detail">capital SMP :</span> {{ facture.fact_capitalsmp |
+                                    ngxNumberWithCommas}}</div>
+                                <br>
+                                <div><span class="detail">capital LCI :</span> {{ facture.fact_capitallci |
+                                    ngxNumberWithCommas }}</div>
+                                <br>
+                                <div><span class="detail">Date de comptabilisation:</span> {{
+                                    facture.fact_datecomptabilisation | date:
+                                    'dd-MM-yyyy' }}</div><br>
+                                <div><span class="detail">status facture :</span> {{ facture.fact_etatfacture }}</div>
+                                <br>
+                                <div><span class="detail">Code annulation :</span> {{ facture.fact_codeannulation }}
+                                </div><br>
+                                <div><span class="detail">date annulation :</span> {{ facture.fact_dateannulation |
+                                    date: 'dd-MM-yyyy'
+                                    }}</div><br>
+                                <div><span class="detail">ancien numero de facture :</span> {{
+                                    facture.fact_anciennumerofacture }}</div>
+                                <br>
+                            </div>
+                        </div>
+                    </nb-card-body>
+
+                </nb-card>
+            </div>
+        </form>
+    </div>
+
+
+    <div *ngIf="showEncaissementMultiple">
+        <div class="tabs">
+            <input type="radio" name="tabs" id="tabone" checked="checked">
+            <label for="tabone" class="lab">Choix Factures</label>
+            <div class="tab">
+                <form [formGroup]="addFormMultiple">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h4>Choix des factures à regler</h4>
+                            <span *ngIf="showErrorChamps" n style="color: red;">Vérifier les champs obligatoires
+                                *</span><br>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="label">Choisir par : </label>
+                                    <nb-select (selectedChange)="onChangeChoix($event)" fullWidth>
+                                        <nb-option value="1">Client</nb-option>
+                                        <nb-option value="2">Intermediaire</nb-option>
+
+                                    </nb-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div formArrayName="ligne_factures">
+                        <div class="row">
+                            <div class="col-sm-6" *ngIf="showClient">
+                                <div class="form-group">
+                                    <label class="label">Client : <span style="color:red;">*</span></label>
+                                    <mat-select class="form-control" [formControl]="clientsCtrl"
+                                        placeholder="choisir un client" (selectionChange)="onChangeClient($event)"
+                                        fullWidth id="cont_numeroclient" #singleSelect>
+                                        <mat-option>
+                                            <ngx-mat-select-search placeholderLabel="recherche..."
+                                                noEntriesFoundLabel="aucune corespondance .."
+                                                [formControl]="clientsFilterCtrl">
+                                            </ngx-mat-select-search>
+                                        </mat-option>
+
+                                        <mat-option value="{{client.clien_numero}}"
+                                            *ngFor="let client of filteredClients | async">{{client.clien_numero}}:
+                                            {{client.clien_nom}}
+                                            {{client.clien_denomination}} {{client.clien_prenom}} {{ client.clien_sigle
+                                            }}
+                                        </mat-option>
+                                    </mat-select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6" *ngIf="showIntermediaire">
+                                <div class="form-group">
+                                    <label class="label">intermediare : <span style="color:red;">*</span></label>
+                                    <mat-select class="form-control" [formControl]="intermediaireCtrl"
+                                        placeholder="choisir un intermediaire"
+                                        (selectionChange)="onChangeIntermediaire($event)" fullWidth
+                                        id="cont_numerointermediare" #singleSelect>
+                                        <mat-option>
+                                            <ngx-mat-select-search placeholderLabel="recherche..."
+                                                noEntriesFoundLabel="aucune corespondance .."
+                                                [formControl]="intermediaireFilterCtrl">
+                                            </ngx-mat-select-search>
+                                        </mat-option>
+
+                                        <mat-option value="{{intermediare.inter_numero}}"
+                                            *ngFor="let intermediare of filteredIntermediaire | async">{{intermediare.inter_numero}}:
+                                            {{intermediare.inter_denomination}}
+                                        </mat-option>
+                                    </mat-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <nb-list>
+                            <nb-list-item *ngFor="let f of factures;let i = index">
+                                <nb-checkbox [checked]="ischecked(f)" status="success" (change)="checked($event,f,i)">
+                                </nb-checkbox>&nbsp;&nbsp;
+                                N° Client : {{f.fact_numerosouscripteurcontrat }} &nbsp;&nbsp;/&nbsp;&nbsp;
+                                N° Police : {{ f.fact_numeropolice }} &nbsp;&nbsp;/&nbsp;&nbsp;
+                                N° Facture : {{ f.fact_numacte }} &nbsp;&nbsp;/&nbsp;&nbsp;
+                                Montant Facture : {{f.fact_montantttc | ngxNumberWithCommas }} F CFA &nbsp;&nbsp;
+                            </nb-list-item>
+                        </nb-list>
+                    </div><br><br>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h4>Liste des factures séléctionnées</h4>
+                            <span *ngIf="showErrorFactQuit" n style="color: red;">Facture ou Quittance deja
+                                selectionnée</span>
+                            <nb-list>
+                                <nb-list-item
+                                    *ngFor="let facture of addFormMultiple.get('ligne_factures').controls;let i = index">
+                                    N° Client : {{ facture.controls['encai_numerosouscripteur'].value }}
+                                    &nbsp;&nbsp;/&nbsp;&nbsp; N°
+                                    Police : {{ facture.controls['encai_numeropolice'].value }}
+                                    &nbsp;&nbsp;/&nbsp;&nbsp;
+                                    N° Facture : {{ facture.controls['encai_numerofacture'].value }}
+                                    &nbsp;&nbsp;/&nbsp;&nbsp; N°
+                                    Quittance : {{ facture.controls['encai_numeroquittance'].value }}
+                                    &nbsp;&nbsp;/&nbsp;&nbsp; Montant
+                                    Facture : {{ facture.controls['encai_mtnquittance'].value | ngxNumberWithCommas }} F
+                                    CFA
+                                    /&nbsp;&nbsp; Solde : {{ facture.controls['encai_mtnquittance'].value ==
+                                    facture.controls['encai_mtnpaye'].value ? 0 :
+                                    facture.controls['encai_mtnpaye'].value |
+                                    ngxNumberWithCommas }} F CFA&nbsp;&nbsp;<button nbButton status="danger"
+                                        (click)="removeOrClearFacture(i)">supprimer facture</button>
+                                </nb-list-item>
+                            </nb-list>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p style="font-size: 16px;">Montant Total des factures sélectionnées : <b>{{ SomFactures |
+                                    ngxNumberWithCommas }} F CFA </b></p>
+                        </div>
+                        <div class="col-sm-6" style="text-align:right ;">
+                            <p style="font-size: 16px;"><span> Montant Encaissé : <b>{{MontantCheque |
+                                        ngxNumberWithCommas }} F CFA</b></span></p><br>
+                            <span style="color: red;" *ngIf="showErrorMontantUp">Attention le montant des factures
+                                sélectionnées est
+                                supérieur au montant encaissé</span>
+                            <span style="color: green;" *ngIf="showErrorMontantDown">Rendu : {{ Rendu |
+                                ngxNumberWithCommas}} F
+                                CFA</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <input type="radio" name="tabs" id="tabtwo">
+            <label for="tabtwo" class="lab">Encaissement</label>
+            <div class="tab">
+                <form [formGroup]="addFormMultipleEncaiss">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="label">Type Encaissement <span style="color:red;">*</span></label>
+                                <nb-select (selectedChange)="onChangeTypeEncaiss2($event)" fullWidth>
+                                    <nb-option value="Checque">Cheque</nb-option>
+                                    <nb-option value="Virement">Virement</nb-option>
+                                    <nb-option value="Op Marchand">Op Marchand</nb-option>
+                                    <nb-option value="espèce">Espèce</nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="" class="label">Code banque </label><span style="color:red;"
+                                    *ngIf="showObligatoireBanque">*</span>
+                                <!-- <input fieldSize="small" formControlName="encai_codebanque"  type="number" nbInput fullWidth    > -->
+                                <mat-select class="form-control" [formControl]="banqueCtrl"
+                                    placeholder="choisir une banque" (selectionChange)="onChangeBanqueMultiple($event)"
+                                    fullWidth id="regl_codebanque" #singleSelect>
+                                    <mat-option>
+                                        <ngx-mat-select-search [formControl]="banqueFilterCtrl"
+                                            placeholderLabel="recherche..." noEntriesFoundLabel="aucune corespondance">
+                                        </ngx-mat-select-search>
+                                    </mat-option>
+                                    <mat-option value="{{banque.banq_codebanque}}"
+                                        *ngFor="let banque of filteredBanque | async">
+                                        {{banque.banq_codebanque}} : {{banque.banq_codenormalise}} :
+                                        {{banque.banq_denomination}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="" class="label">Numero chèque / traite / reçu</label> <span
+                                    style="color:red;">*</span>
+                                <input fieldSize="small" formControlName="encai_numerocheque" type="text" nbInput
+                                    fullWidth (change)="onChangeNumeroTitre($event)">
+                                <span *ngIf="afficheMontantAvoir" style="color: orange;">
+                                    Montant avoir = {{montantAvoir | ngxNumberWithCommas}}
+                                    <span *ngIf="afficheMessageMontantAvoirZero">, encaissement impossible</span>
+                                </span>
+                                <span *ngIf="afficheMessageNumeroTitre" style="color: red;">
+                                    Ce némuro de titre n'est pas encore utilisé pour un encaissement facture
+                                </span>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="" class="label">Montant Payé <span style="color:red;">*</span></label>
+                                <input fieldSize="small" (change)="onChangeMontPay2($event)"
+                                    [value]="addFormMultipleEncaiss.get('encai_mtnpaye').value | ngxNumberWithCommas"
+                                    type="text" nbInput fullWidth>
+                                <!-- <span style="color: red;" *ngIf="showErrorMontantUp">Attention le montant des factures
+                                    sélectionnées est supérieur au montant encaissé</span> -->
+                                <!-- <span style="color: green;" *ngIf="showErrorMontantDown">Rendu : {{ Rendu |
+                                    ngxNumberWithCommas}} F CFA</span> -->
+                                <span *ngIf="showErrorMontantPay" style="color: red;">
+                                    Le montant payé ne doit pas être supérieur au montant de la facture ni à celui de
+                                    l'avoir
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+
+                        </div>
+                        <div class="col-sm-4">
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div><br>
+            <button nbButton status="success" [disabled]='!addFormMultipleEncaiss.valid || erreurPaiement'
+                (click)="open(dialog2)">Ajouter
+                multiple</button>&nbsp;&nbsp;
+            <button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+        </div>
+    </div>
+
+    <ng-template #dialog let-ref="dialogRef">
+        <nb-card>
+            <nb-card-header>
+                Confirmation de paiement d'une facture
+            </nb-card-header>
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h5 class="grid-h">Voulez vous confirmer ?</h5>
+                    </div>
+
+                </div>
+
+            </nb-card-body>
+            <nb-card-footer>
+                <button nbButton (click)="ref.close()" status="danger">Fermer</button>&nbsp;&nbsp;
+                <button nbButton (click)="ref.close()" status="success" (click)="submit()">confirmer</button>
+            </nb-card-footer>
+        </nb-card>
+    </ng-template>
+
+    <ng-template #dialog2 let-encaissement let-ref="dialogRef">
+        <nb-card>
+            <nb-card-header>
+                Confirmation de paiement une ou plusieurs facture(s)
+            </nb-card-header>
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h5 class="grid-h">Voulez vous confirmer?</h5>
+                    </div>
+
+                </div>
+
+            </nb-card-body>
+            <nb-card-footer>
+                <button nbButton (click)="ref.close()" status="danger">Fermer</button>&nbsp;&nbsp;
+                <button nbButton (click)="ref.close()" status="success" (click)="submit2()">confirmer</button>
+            </nb-card-footer>
+        </nb-card>
+    </ng-template>
+</div>
+
+<div *ngIf="check_fonct('c_encaissement')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>
+<br>

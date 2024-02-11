@@ -1,0 +1,34 @@
+<form [formGroup]="modifForm"> 
+    <nb-card>
+        <nb-card-header>Modifier Rôle</nb-card-header>
+        
+        <nb-card-body >
+           
+          <div class="row">
+            <div class="col-sm-16">
+              <div class="form-group">
+                <label class="label">nom</label>
+                <input  formControlName="nom"  type="text" nbInput fullWidth  id="nom" >
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-16">
+              <div class="form-group">
+                <label class="label">autorisation</label>
+                <input  formControlName="autorisation" type="text" nbInput fullWidth id="autorisation" >
+              </div>
+            </div>
+          </div>
+          
+           
+
+            
+        
+          <nb-card-footer>
+            <button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+            &nbsp;&nbsp;<button nbButton status="success" (click)="submit()" [disabled]='!modifForm.valid'>Modifier</button>
+          </nb-card-footer>
+        </nb-card-body>
+      </nb-card>
+    </form>

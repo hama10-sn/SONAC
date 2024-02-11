@@ -1,0 +1,414 @@
+{
+	"TYPE_INTERMEDIAIRE": [ 
+							{"id" : "1", "value":"courtier"},
+							{"id" : "2", "value":"Agent général"},
+							{"id" : "3", "value":"Apporteur d'affaires"},
+							{"id" : "4", "value":"Agent général"}
+						  ] ,
+	"TYPE_COMPAGNIE": [ 
+							{"id" : "1", "value":"Compagnie Non Vie"},
+							{"id" : "2", "value":"Compagnie Vie"},
+							{"id" : "3", "value":"Compagnie Credit/Caution"},
+							{"id" : "3", "value":"Réassureur"},
+							{"id" : "4", "value":"Autres"}
+						  ] ,
+							  
+	"TYPE_COMMISSION": [ 
+							{"id" : "1", "value":"commission apport"},
+							{"id" : "2", "value":"commission apérition"},
+							{"id" : "3", "value":"commission réassurance"},
+							{"id" : "4", "value":"Autres"}
+						  ] ,	
+
+"TYPE_ECRITURE": [ 
+							{"id" : "1", "value":"émission quittance"},
+							{"id" : "2", "value":"emission ristourne"},
+							{"id" : "3", "value":"annulation emission"},
+							{"id" : "4", "value":"annulation ristourne"}
+						  ],
+
+"TYPE_GESTION_QUITTANCE": [ 
+							{"id" : "N", "value":"quittance normane 100% cie"},
+							{"id" : "M", "value":"quittance mére conservée"},
+							{"id" : "C", "value":"Quittance part cédée"},
+							{"id" : "R", "value":"quittance de réassurance cession"},
+							{"id" : "A", "value":"quittance d'acceptation"}
+						  ] ,
+
+
+"CLAUSES_CONTRAT": [ 
+							{"id" : "1", "value":"durée ferme"},
+							{"id" : "2", "value":"tacite reconduction"},
+							{"id" : "3", "value":"Courte Durée"},
+							{"id" : "4", "value":"police et revision"},
+							{"id" : "5", "value":"police et abonnement"},
+							{"id" : "6", "value":"Autres"}
+					],
+
+"MOTIF_CLOTURE": [ 
+							{"id" : "1", "value":"SAP = 0, totalement réglé"},
+							{"id" : "2", "value":"sinistre non du"},
+							{"id" : "3", "value":"sinistre sans objet"},
+							{"id" : "4", "value":"sinistre non garanti"},
+							{"id" : "5", "value":"Autres"}
+					],
+
+"MOTIF_RESILIATION": [ 
+							{"id" : "1", "value":"contrat sans effet"},
+							{"id" : "2", "value":"contrat avec forte sinistralité"},
+							{"id" : "3", "value":"demande client"},
+							{"id" : "4", "value":"contrat avec arriérés"},
+							{"id" : "5", "value":"disparition du risque"},
+							{"id" : "6", "value":"Autres"}
+					],
+
+					
+"MOTIF_ANNULATION_PROD": [ 
+							{"id" : "1", "value":"erreur émission"},
+							{"id" : "2", "value":"double émission"},
+							{"id" : "3", "value":"pas d'objet"},
+							{"id" : "4", "value":"divers"}
+					]	,
+
+
+"MOTIF_ANNULATION_SIN": [ 
+							{"id" : "1", "value":"erreur émission"},
+							{"id" : "2", "value":"double émission"},
+							{"id" : "3", "value":"pas d'objet"},
+							{"id" : "4", "value":"divers"}
+					],	
+
+
+"CLAUSES_REVISION": [ 
+							{"id" : "1", "value":"erreur mvt"},
+							{"id" : "2", "value":"recours non encaissé"},
+							{"id" : "3", "value":"Réglement dejà effectué"},
+							{"id" : "4", "value":"Autres"}
+					]	,
+					
+"TYPE_FRACTIONNEMENT": [ 
+							{"id" : "1", "value":"Annuel"},
+							{"id" : "2", "value":"semestriel"},
+							{"id" : "3", "value":"trimestriel"},
+							{"id" : "4", "value":"mensuel"},
+							{"id" : "5", "value":"Prorata temporis"}
+					],
+					
+"TYPE_FRANCHISE": [ 
+							{"id" : "1", "value":"Forfait"},
+							{"id" : "2", "value":"en % du sinistre"},
+							{"id" : "3", "value":"avec min et Max en % sinistre"},
+							{"id" : "4", "value":"en forfait avec min et max"},
+							{"id" : "5", "value":"Au choix facultatif"},
+							{"id" : "6", "value":"sans franchise"}
+					],
+					
+					
+"TYPE_SOUSCRIPTEUR": [ 
+							{"id" : "1", "value":"souscripteur"},
+							{"id" : "2", "value":"assuré"},
+							{"id" : "3", "value":"souscripteur & assuré"},
+							{"id" : "4", "value":"Souscripteur & donneur d'ordre"},
+							{"id" : "5", "value":"Souscripteur & débiteur"},
+							{"id" : "6", "value":"autres"}
+					],
+					
+					
+"TYPE_REVISION": [ 
+							{"id" : "1", "value":"par chiffre d'affaires"},
+							{"id" : "2", "value":"par masse salariale"},
+							{"id" : "3", "value":"par effectif"},
+							{"id" : "4", "value":"par marge brute"}
+							
+					],
+
+					
+"TYPE_GESTION": [ 
+							{"id" : "1", "value":"100% cie"},
+							{"id" : "2", "value":"Cession"},
+							{"id" : "3", "value":"Acceptation"}
+							
+					],
+					
+					
+"TYPE_FACULTATIVE": [ 
+							{"id" : "1", "value":"Facultative"},
+							{"id" : "2", "value":"Facob"}
+							
+					],
+					
+"TYPE_INDICE":     [ 
+						   {"id" : "1", "value":"Indice FFB"},
+						   {"id" : "2", "value":"indice CDC"},
+						   {"id" : "3", "value":"Indice IRL"}
+							
+					],
+					
+
+"TYPE_TAXE":       [ 
+						  {"id" : "1", "value":"Taxe TVA"},
+						  {"id" : "2", "value":"Taxe TPS"},
+						  {"id" : "3", "value":"TVA+TPS"}
+							
+					],
+					
+"TYPE_ACTE":       [ 
+						  {"id" : "1", "value":"Caution CS"},
+						  {"id" : "2", "value":"Caution AD"},
+						  {"id" : "3", "value":"Caution de BE"},
+						  {"id" : "4", "value":"Caution de RG"},
+						  {"id" : "5", "value":"Caution DE"},
+						  {"id" : "6", "value":"Caution CA"},
+						  {"id" : "7", "value":"Caution CD"},
+						  {"id" : "8", "value":"Caution CI"},
+						  {"id" : "9", "value":"Caution AV"},
+						  {"id" : "10", "value":"Caution SI"},
+						  {"id" : "11", "value":"Caution CJ"},
+						  {"id" : "12", "value":"ACTE finanssur"},
+						  {"id" : "13", "value":"ACTE KAP garanti Domestique"},  
+						  {"id" : "14", "value":"ACTE KAP garanti Export"},
+						  {"id" : "15", "value":"ACTE Locassur"}
+					],	
+					
+
+"TYPE_DECLARATION":       [ 
+						  {"id" : "1", "value":"CAP Assuré"},
+						  {"id" : "2", "value":"CAP SMP"},
+						  {"id" : "3", "value":"CAP LCI"}
+					],
+
+"TYPE_SINISTRE":    [ 
+						  {"id" : "1", "value":"Corporel"},
+						  {"id" : "2", "value":"Dommages"},
+						  {"id" : "3", "value":"Corporel & Dommages"}
+					],	
+					
+					
+"TYPE_GARANTIE":    [ 
+						  {"id" : "1", "value":"Corporel"},
+						  {"id" : "2", "value":"Dommages"},
+						  {"id" : "3", "value":"Corporel & Dommages"}
+					],							
+
+
+"TYPE_CLIENT":    [ 
+						  {"id" : "1", "value":"souscripteur"},
+						  {"id" : "2", "value":"assuré"},
+						  {"id" : "3", "value":"souscripteur & assuré"},
+						  {"id" : "4", "value":"contractante"},
+						  {"id" : "5", "value":"acheteur"},
+						  {"id" : "6", "value":"contractante & acheteur"},
+						  {"id" : "7", "value":"divers"}
+					],	
+
+					
+"TYPE_SOCIETE":    [ 
+						  {"id" : "1", "value":"SA: Société Anonyme"},
+						  {"id" : "2", "value":"SARL: Société A Responsabilité Limitée"},
+						  {"id" : "3", "value":"SUARL: Société Unipersonnelle A Responsabilité Limitée"},
+						  {"id" : "4", "value":"SNC: Société en Nom Collectif"},
+						  {"id" : "5", "value":"SCP: Société Civile Professionnelle"},
+						  {"id" : "6", "value":"SCA: Société en Commandité par Actions"},
+						  {"id" : "7", "value":"SCS: Société en Commandité Simple"},
+						  {"id" : "8", "value":"SAS: Société par Actions Simplifiées"},
+						  {"id" : "9", "value":"SP: Société en Participation"},
+						  {"id" : "10", "value":"GIE: Groupement d'Intérêt Economique"},
+						  {"id" : "11", "value":"ONG: Organisation Non Gouvernementale"},
+						  {"id" : "12", "value":"SI: Société Individuelle"},
+						  {"id" : "13", "value":"ASS: Association"}
+					],
+
+"TYPE_SOCIETE2":    	 [ 
+						{"id" : "1", "value":"SA: Société Anonyme"},
+						{"id" : "2", "value":"SARL: Société A Responsabilité Limitée"},
+						{"id" : "3", "value":"SUARL: Société Unipersonnelle A Responsabilité Limitée"},
+						{"id" : "4", "value":"SNC: Société en Nom Collectif"},
+						{"id" : "5", "value":"SCP: Société Civile Professionnelle"},
+						{"id" : "6", "value":"SCA: Société en Commandité par Actions"},
+						{"id" : "7", "value":"SCS: Société en Commandité Simple"},
+						{"id" : "8", "value":"SAS: Société par Actions Simplifiées"},
+						{"id" : "9", "value":"SP: Société en Participation"},
+						{"id" : "10", "value":"GIE: Groupement d'Intérêt Economique"},
+						{"id" : "12", "value":"SI: Société Individuelle"}
+				  ],
+
+"TYPE_SOCIETE3":    [ 
+					{"id" : "11", "value":"ONG: Organisation Non Gouvernementale"},
+					{"id" : "13", "value":"ASS: Association"}
+			  ],
+
+
+"NATURE_TRAITE":    [ 
+						  {"id" : "1", "value":"Proportionnel"},
+						  {"id" : "2", "value":"Non proportionnel"}
+					],
+
+"CODE_REGLEMENT":    [ 
+						  {"id" : "1", "value":"par espéces"},
+						  {"id" : "2", "value":"par chéque"},
+						  {"id" : "3", "value":"par effet/traite"},
+						  {"id" : "4", "value":"par compte marchand"},
+						  {"id" : "5", "value":"virement bancaire"},
+						  {"id" : "6", "value":"autres"}
+					],
+
+					
+"CODE_REPONSE":    [ 
+						  {"id" : "1", "value":"demande refusée"},
+						  {"id" : "2", "value":"demande validé"},
+						  {"id" : "3", "value":"attente instruction"},
+						  {"id" : "4", "value":"autres"}
+					],
+					
+
+"TYPE_TRAITE":    [ 
+						  {"id" : "1", "value":"quote-part"},
+						  {"id" : "2", "value":"excédent de sinistre"},
+						  {"id" : "3", "value":"excédent de perte"},
+						  {"id" : "4", "value":"excéfdent % de perte"}
+					],						
+					
+"TYPE_CREDIT":    [ 
+						  {"id" : "1", "value":"consommation"},
+						  {"id" : "2", "value":"fournisseur"},
+						  {"id" : "3", "value":"export"},
+						  {"id" : "4", "value":"interieur"},
+						  {"id" : "5", "value":"divers"}
+					],
+
+"TYPE_REASSUREUR":    [ 
+						  {"id" : "1", "value":"reassureur hors Cima"},
+						  {"id" : "2", "value":"reassureur CIMA"},
+						  {"id" : "3", "value":"réassureur local"}
+					],
+
+"ASSIETTE_CALCUL":    [ 
+						{"id" : "1", "value":"prime nette"},
+						{"id" : "2", "value":"prime nette + accessoire"},
+						{"id" : "3", "value":"diverses"}
+				  ],
+
+"TYPE_SURETE":    		[ 
+						{"id" : "1", "value":"titre foncier"},
+						{"id" : "2", "value":"déposit"},
+						{"id" : "3", "value":"caution solidaire"},
+						{"id" : "4", "value":"autres garantie"}
+					],
+
+"TYPE_CLAUSE":    		[ 
+						{"id" : "1", "value":"clause contrat"},
+						{"id" : "2", "value":"clause sinistre"},
+						{"id" : "3", "value":"clause acte"},
+						{"id" : "4", "value":"clause reglement"}
+					],
+
+"TYPE_CAUTION_SOLIDAIRE":
+					[ 
+						{"id" : "1", "value":"caution solidaire maison mere"},
+						{"id" : "2", "value":"caution solidaire personne dirigeante"}
+					],
+"TYPE_BENEFICIAIRE":
+					[ 
+						{"id" : "1", "value":"Contractante"},
+						{"id" : "2", "value":"Assuré"},
+						{"id" : "3", "value":"Tiers"},
+						{"id" : "4", "value":"Avocat"}
+					],
+"TYPE_MARCHE":
+					[ 
+						{"id" : "1", "value":"marché de travaux"},
+						{"id" : "2", "value":"Marché de Prestations"},
+						{"id" : "3", "value":"Marché de Prestations intellectuelles"},
+						{"id" : "4", "value":"Autres"}
+					],							
+"MODE_GOUVERNANCE":
+					[ 
+						{"id" : "1", "value":"Gérance"},
+						{"id" : "2", "value":"Conseil D'Administration"},
+						{"id" : "3", "value":"Administrateur Général"},
+						{"id" : "4", "value":"Présidence"},
+						{"id" : "5", "value":"Présidence ou Sécrétariat Général"},
+						{"id" : "6", "value":"Associé"}
+					],
+"TYPE_RISQUE_REGL":
+					[ 
+						{"id" : "1", "value":"Courtiers"},
+						{"id" : "2", "value":"Commissionnaires"},
+						{"id" : "3", "value":"Cabinets immobilièrs"},
+						{"id" : "4", "value":"agences de voyages"},
+						{"id" : "5", "value":"Autres"}
+						
+					],
+"TYPE_DEPOSIT":
+					[ 
+						{"id" : "1", "value":"titre foncier"},
+						{"id" : "2", "value":"déposit"},
+						{"id" : "3", "value":"caution solidaire"},
+						{"id" : "4", "value":"caution financiere "},
+						{"id" : "5", "value":"autres "}
+						
+						
+					],
+"TYPE_RISQUE_CREDIT":
+					[ 
+						{"id" : "1", "value":"Consommation"},
+						{"id" : "2", "value":"Automobile"},
+						{"id" : "3", "value":"Immobilier"},
+						{"id" : "4", "value":"Réfinancement "},
+						{"id" : "5", "value":"Investissement"},
+						{"id" : "6", "value":"Escompte effets de commerce"},
+						{"id" : "7", "value":"Biens mobiliers"},
+						{"id" : "8", "value":"Biens immobiliers"},
+						{"id" : "9", "value":"Crédit-bails "},
+						{"id" : "10", "value":"Locations de matériels"},
+						{"id" : "11", "value":"Location voitures et engins"}
+						
+						
+					],
+"TYPE_NATURE_CREDIT":
+					[ 
+						{"id" : "1", "value":"Institutions Financières"},
+						{"id" : "2", "value":"Risque Domestique"},
+						{"id" : "3", "value":"Risque Export"},
+						{"id" : "4", "value":"Risque Locatif"}
+						
+						
+					],
+"TYPE_COUVERTURE":
+					[ 
+						{"id" : "1", "value":"Avis général avec délégation de gestion"},
+						{"id" : "2", "value":"Cas par cas"}
+						
+						
+					],
+"TYPE_RISQUE_LOCATIF":
+					[ 
+						{"id" : "1", "value":"biens mobiliers"},
+						{"id" : "2", "value":"biens immobiliers"},
+						{"id" : "3", "value":"crédits-bails"},
+						{"id" : "4", "value":"location de matériels"},
+						{"id" : "5", "value":"location voitures et engins"}
+
+						
+						
+					],
+"STATUS_DEMANDE":       [ 
+						  {"id" : "1", "value":"non valide"},
+						  {"id" : "2", "value":"valide"},
+						  {"id" : "3", "value":"Prête pour arbitrage"},
+						  {"id" : "4", "value":"étape DC"},
+						  {"id" : "5", "value":"valide DC"},
+						  {"id" : "6", "value":"étape DA"},
+						  {"id" : "7", "value":"Valide DA"},
+						  {"id" : "8", "value":"étape DJ"},
+						  {"id" : "9", "value":"Valide DJ"},
+						  {"id" : "10", "value":"étape DAF"},
+						  {"id" : "11", "value":"Valide DAF"},
+						  {"id" : "12", "value":"étape DG"},
+						  {"id" : "13", "value":"Validation DG"},  
+						  {"id" : "14", "value":"Rejet DG"}
+					]
+															  
+
+						  
+}

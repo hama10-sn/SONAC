@@ -1,0 +1,665 @@
+
+    <div *ngIf="check_fonct('l_Dem_Soc')">
+        <mat-card>
+          <div fxLayout fxLayoutAlign="center center">
+              <mat-form-field fxFlex="40%">
+                <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+              </mat-form-field>
+              <button class="client_attente" (click)="openValide()">
+                Demande Valide
+              </button><br>
+              <mat-card-header class="card-header">
+      
+                <span class="header">La liste des Demandes Societe</span>
+                <div *ngIf="check_fonct('c_Dem_Soc')">
+                  <button mat-icon-button  class="buttons" status="success" (click)="openAjout()">
+                      <mat-icon  class="material-icons color_green"  title="Ajouter demande physique">add_circle</mat-icon>    
+                    </button>
+                </div>
+                </mat-card-header>        
+            </div>
+            <table mat-table [dataSource]="dataSource" matSort>
+              <ng-container matColumnDef="dem_socnum">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header > Numero </th>
+                <td mat-cell *matCellDef="let Dem_Soc"> {{Dem_Soc.dem_socnum}} </td>
+              </ng-container>
+              <ng-container matColumnDef="dem_typetitulaire">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header > Type Titulaire </th>
+                <td mat-cell *matCellDef="let Dem_Soc"> {{Dem_Soc.dem_typetitulaire}} </td>
+              </ng-container>
+              <ng-container matColumnDef="dem_clienttitulaire">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header > Client Titulaire </th>
+                <td mat-cell *matCellDef="let Dem_Soc"> {{Dem_Soc.dem_clienttitulaire}} </td>
+              </ng-container>
+              <ng-container matColumnDef="dem_denomination">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Denomination</th>
+                <td mat-cell *matCellDef="let Dem_Soc"> {{Dem_Soc.dem_denomination}} </td>
+              </ng-container>
+              <ng-container matColumnDef="dem_typesociete">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Forme Sociale </th>
+                <td mat-cell *matCellDef="let Dem_Soc"> {{onGetLibelleByType((Dem_Soc.dem_typesociete).toString())}} </td>
+              </ng-container>
+              <ng-container matColumnDef="dem_nomprenomsdg">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> nom complet DG </th>
+                <td mat-cell *matCellDef="let Dem_Soc"> {{Dem_Soc.dem_nomprenomsdg}} </td>
+              </ng-container>
+              <ng-container matColumnDef="dem_objetdemande">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Objet </th>
+                <td mat-cell *matCellDef="let Dem_Soc"> {{Dem_Soc.dem_objetdemande }} </td>
+              </ng-container>  
+                <ng-container matColumnDef="dem_registrecommerce">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Registre de Commerce </th>
+                  <td mat-cell *matCellDef="let Dem_Soc"> {{Dem_Soc.dem_registrecommerce}} </td>
+                </ng-container> 
+                <ng-container matColumnDef="dem_statut">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Statut </th>
+                  <td mat-cell *matCellDef="let Dem_Soc"> {{Dem_Soc.dem_statut }} </td>
+                </ng-container> 
+              <ng-container matColumnDef="details">
+                <!--th mat-header-cell *matHeaderCellDef > Details </th>
+                <td mat-cell *matCellDef="let Dem_Soc">
+                  <!-button mat-icon-button color="primary" (click)="open(dialog,Dem_Soc)">
+                      <mat-icon class="mat-18">reorder</mat-icon>
+                  </button*-->
+                  <th mat-header-cell *matHeaderCellDef>
+                <div *ngIf="check_fonct('d_Dem_Soc')"> Action </div>
+              </th>
+              <td mat-cell *matCellDef="let Dem_Soc">
+                  <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">
+                    <mat-icon class="mat-18">more_vert</mat-icon>
+                  </button>
+                  <mat-menu #detail="matMenu">
+                    <button mat-menu-item color="primary" (click)="open(dialog,Dem_Soc)">
+                      <mat-icon>visibility</mat-icon>Détail
+                    </button>
+                    <!-- <button mat-menu-item  (click)="open(dialogTrait1 ,Dem_Soc)">
+                      <mat-icon>touch_app
+                      </mat-icon>Traiter
+                    </button> -->
+                    <button mat-menu-item  *ngIf="Dem_Soc.dem_statut=='validé pour arbitrage'" (click)="openArbitrage(Dem_Soc)">
+                      <mat-icon>touch_app
+                      </mat-icon>Traiter Arbitrage
+                    </button>
+                    <!-- <button mat-menu-item *ngIf="Dem_Soc.dem_statut=='validé'" (click)="open(dialogTrait2 ,Dem_Soc)">
+                      <mat-icon>touch_app
+                      </mat-icon>Traiter Arbitrage
+                    </button> -->
+                    <button mat-menu-item *ngIf="Dem_Soc.dem_statut=='Rejeté'" (click)="open(dialogTrait1 ,Dem_Soc)">
+                      <mat-icon>touch_app
+                      </mat-icon>Reprendre
+                    </button>
+                    <button mat-menu-item (click)="open(dialogdel ,Dem_Soc)">
+                      <mat-icon color="warn">delete
+                      </mat-icon>Suppimer
+                    </button>
+        
+                  </mat-menu>
+        
+                </td>
+              </ng-container>
+              <!--ng-container matColumnDef="update">
+                  <th mat-header-cell *matHeaderCellDef><div *ngIf="check_fonct('u_Dem_Soc')"> Modification </div></th>
+                  <td mat-cell *matCellDef="let Dem_Soc">
+                    <div *ngIf="check_fonct('u_Dem_Soc')">
+                    <button mat-icon-button color="green" (click)="openModif(Dem_Soc)">
+                        <mat-icon class="mat-18">edit</mat-icon>
+                    </button>
+                  </div>
+                  </td>
+                </ng-container-->  
+                <!--ng-container matColumnDef="delete">
+                  <th mat-header-cell *matHeaderCellDef><div *ngIf="check_fonct('d_Dem_Soc')"> Delete </div></th>
+                  <td mat-cell *matCellDef="let Dem_Soc">
+                    <button mat-icon-button color="warn" (click)="open(dialogdel,Dem_Soc)">
+                        <mat-icon class="mat-18"><div *ngIf="check_fonct('d_Dem_Soc')"> delete </div></mat-icon>
+                    </button>
+                  </td>
+                </ng-container-->         
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              
+            </table>
+            <mat-paginator [pageSize]="6" [pageSizeOptions]="[1, 4, 6, 10, 20]">
+            </mat-paginator>
+            
+            <ng-template #dialog let-Dem_Soc let-ref="dialogRef">  
+              <nb-card>
+                <nb-card-header>
+                  details
+                </nb-card-header>
+                <nb-card-body>
+                    <div class="row">
+                      <div class="col-sm-3">                  
+                          <h5 class="grid-h">Information</h5>
+                            <div><span class="detail">Numero  :</span> {{ Dem_Soc.dem_socnum }}</div><br>
+                            <div><span class="detail">Denomination :</span> {{ Dem_Soc.dem_denomination }}</div><br>
+                            <div><span class="detail">Type Social   :</span> {{ onGetLibelleByType((Dem_Soc.dem_typesociete).toString()) }}</div><br>
+                            <div><span class="detail">Type Titulaire :</span> {{ Dem_Soc.dem_typetitulaire }}</div><br>
+                            <div><span class="detail">Numéro Titulaire :</span> {{ Dem_Soc.dem_clienttitulaire }}</div><br>
+                            <div><span class="detail">Nom Complet DG :</span> {{ Dem_Soc.dem_nomprenomsdg }}</div><br>
+                            </div><br>
+                            <div class="col-sm-3">
+                              <br>
+                              <br>
+                            <div><span class="detail">NINEA :</span> {{ Dem_Soc.dem_ninea }}</div><br>
+                            <div><span class="detail">Compte Blancaire :</span> {{ Dem_Soc.dem_comptebancaire }}</div><br>
+                            <div><span class="detail">Objet :</span> {{ Dem_Soc.dem_objetdemande}}</div><br>
+                            <div><span class="detail">Secteur D'activité :</span> {{ onGetSecteurByCode(Dem_Soc.dem_secteuractivites) }}</div><br>
+                            <div><span class="detail">Capital Social :</span> {{ Dem_Soc.dem_capitalsocial }}</div><br>
+                            <div><span class="detail">Registre :</span> {{ Dem_Soc.dem_registrecommerce}}</div><br>   
+                          </div>                
+                          
+                        <div class="col-sm-3">                    
+                    <h5 class="grid-h">Coordonnées</h5>
+                            <div><span class="detail">adresse 1 :</span> {{ Dem_Soc.dem_adresse1 }}</div><br>
+                            <div><span class="detail">adresse 2 :</span> {{ Dem_Soc.dem_adresse2 }}</div><br> 
+                            <div><span class="detail">Ville :</span> {{ Dem_Soc.dem_ville }}</div><br>
+                            <div><span class="detail">telephone 1 :</span> {{ Dem_Soc.dem_telephoneprincipal }}</div><br>
+                            <div><span class="detail">telephone 2 :</span> {{ Dem_Soc.dem_telephone2 }}</div><br>
+                            <div><span class="detail">Mobile :</span> {{ Dem_Soc.dem_telephonemobile }}</div><br>
+                            <div><span class="detail">Site internet :</span> {{ Dem_Soc.dem_siteinternet }}</div><br>
+                            <div><span class="detail">Email société :</span> {{ Dem_Soc.dem_emailsociete }}</div><br>
+                            <div><span class="detail">Email dirigeant :</span> {{ Dem_Soc.dem_emaildirigeant }}</div><br>
+                            <div><span class="detail">Email dirigeant :</span> {{ Dem_Soc.dem_contactsociete }}</div><br>
+                        </div>
+                    <div class="col-sm-2">
+                      <h5 class="grid-h">Autre</h5>
+                        <div><span class="detail">Statut:</span> {{ Dem_Soc.dem_statut }}</div><br>
+                        <div><span class="detail">Produit 1:</span> {{ Dem_Soc.dem_produitdemande1 }}</div><br>
+                        <div><span class="detail">Produit 2:</span> {{ Dem_Soc.dem_produitdemande2 }}</div><br>   
+                        <div><span class="detail">produit 3:</span> {{ Dem_Soc.dem_produitdemande3 }}</div><br>
+                        <div><span class="detail">Arbitrage :</span> {{ Dem_Soc.dem_soumissionarbitrage }}</div><br>
+                    </div>
+                    </div>              
+                </nb-card-body>
+                <nb-card-footer>
+                    <button nbButton (click)="ref.close()" status="danger">Fermer</button>&nbsp;&nbsp;                  
+                    <!--button nbButton status="success" (click)="ref.close()" (click)="openModif1(Dem_Soc.reass_code,Dem_Soc)"><div *ngIf="check_fonct('u_Dem_Soc')">modifier</div></button-->
+                  </nb-card-footer>
+              </nb-card>
+          </ng-template>
+          <ng-template #dialogdel let-Dem_Soc let-ref="dialogRef">
+        
+            <nb-card>
+              <nb-card-header>
+                SUPPRESSION
+              </nb-card-header>
+              <nb-card-body>
+                <div *ngIf="onChechId(Dem_Soc.dem_socnum)==1">
+      
+                  <h5  class="grid-h">Confirmation de la suppression</h5>
+                </div>
+                  <div *ngIf="onChechId(Dem_Soc.dem_socnum)==2">
+      
+                    <h5  class="grid-h">Impossible de supprimer demande rattachée à une affaire</h5>
+                  </div>
+                  <div class="row">
+                      <div class="col-sm-6">
+                          <br>
+          
+                          <div></div><br>
+                         
+                      </div>
+                 
+                  </div>
+                  
+                 
+              </nb-card-body>
+              <nb-card-footer>
+                <div *ngIf="onChechId(Dem_Soc.dem_socnum)==1">
+                <button nbButton (click)="onDeleteDemande(Dem_Soc.dem_socnum)" (click)="ref.close()" status="success">Confirmer</button>&nbsp;&nbsp; 
+                  <button nbButton (click)="ref.close()" status="danger">Annuler</button>
+                </div>
+                <div *ngIf="onChechId(Dem_Soc.dem_socnum)==2">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <button nbButton (click)="ref.close()" status="danger">OK</button>
+                  </div>
+                </nb-card-footer>
+            </nb-card>
+            
+          
+          </ng-template>
+      
+      
+          <ng-template #dialogTrait1 let-Dem_Soc let-ref="dialogRef">
+            <nb-card>
+              <nb-card-header>
+                Traitement demande
+              </nb-card-header>
+              <nb-card-body>
+                <div class="row">
+      
+      
+                  <div class="col-sm-3">
+                    <h5 class="grid-h">Information</h5>
+                    <div><span class="detail">Numero  :</span> {{ Dem_Soc.dem_socnum }}</div><br>
+                    <div><span class="detail">Denomination :</span> {{ Dem_Soc.dem_denomination }}</div><br>
+                    <div><span class="detail">Type Social   :</span> {{ onGetLibelleByType((Dem_Soc.dem_typesociete).toString()) }}</div><br>
+                    <div><span class="detail">Type Titulaire :</span> {{ Dem_Soc.dem_typetitulaire }}</div><br>
+                    <!--div><span class="detail">Numéro Titulaire :</span> {{ Dem_Soc.dem_clienttitulaire }}</div><br-->
+                    <div><span class="detail">Nom Complet DG :</span> {{ Dem_Soc.dem_nomprenomsdg }}</div><br>
+                  </div>
+                  <br>
+                  <br>
+                  <div class="col-sm-3">
+                    <div><span class="detail">Secteur D'activité :</span> {{ onGetSecteurByCode(Dem_Soc.dem_secteuractivites)
+                      }}</div><br>
+                    <!--div><span class="detail">Dénomination :</span> {{ Dem_Soc.dem_denomination }}</div><br>
+                    <div><span class="detail">Registre :</span> {{ Dem_Soc.dem_registrecommerce}}</div><br>
+                    <div><span class="detail">NINEA :</span> {{ Dem_Soc.dem_ninea }}</div><br()-->
+                    <div><span class="detail">Compte Bancaire :</span> {{ Dem_Soc.dem_comptebancaire }}</div><br>
+                    <div><span class="detail">Objet :</span> {{ Dem_Soc.dem_objetdemande}}</div><br>
+                    <div><span class="detail">Statut :</span> {{ Dem_Soc.dem_statut }}</div><br>
+      
+                  </div>
+      
+                  <div class="col-sm-3">
+                    <h5 class="grid-h">Coordonnées</h5>
+                    <div><span class="detail">Adresse 1 :</span> {{ Dem_Soc.dem_adresse1 }}</div><br>
+                    <div><span class="detail">Telephone principal :</span> {{ Dem_Soc.dem_telephoneprincipal }}</div><br>
+                    <div><span class="detail">Ville :</span> {{ Dem_Soc.dem_ville }}</div><br>
+                    <div><span class="detail">Mobile :</span> {{ Dem_Soc.dem_telephonemobile }}</div><br>
+                    <div><span class="detail">Email société :</span> {{ Dem_Soc.dem_emailsociete }}</div><br>
+                  </div>
+      
+                  <div class="col-sm-3">
+                    <h5 class="grid-h">Information financiére</h5>
+                    <div><span class="detail">Effectif: </span>{{ client.clien_effectif }}</div><br>
+                    <div><span class="detail">Chiffe d'affaire activités : </span>{{ client.clien_chiffreaffaireannuel }}
+                    </div><br>
+                    <div><span class="detail">chiffre d'affaire prime: </span>{{ client.clien_chiffreaffaireprime }}</div><br>
+                    <div><span class="detail">charge de sinistre : </span>{{ client.clien_chargesinistre }}</div><br>
+                    <div><span class="detail">Capital social : </span>{{ client.clien_capital_social}}</div><br>
+                    <div><span class="detail">Code origine :</span> {{ client.clien_codeorigine }}</div><br>
+      
+                  </div>
+                </div>
+      
+                <div class="row">
+                  <div class="col-sm-6" *ngFor="let filename of filenames">
+                    <nb-list>
+                      <nb-list-item>
+                        {{filename}} &nbsp;&nbsp;&nbsp;<button size="tiny"
+                          (click)="onClickDownload(filename,Dem_Soc.dem_socnum)" status="success" nbButton>
+                          <mat-icon>visibility</mat-icon> &nbsp;Prévisualiser
+                        </button>
+                        &nbsp;
+                        <!-- <button size="tiny" (click)="onClickDelete(filename)" status="danger"
+                              nbButton>
+                              <mat-icon>delete</mat-icon>supprimer
+                          </button> -->
+                      </nb-list-item>
+                    </nb-list>
+                  </div>
+      
+      
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+      
+                    <!-- <p class="subtitle">NgModel value: {{ ngModelValue }}</p> -->
+                    <nb-radio-group [(ngModel)]="ngModelValue" name="ng-model-group"><br>
+                      <nb-radio value="1">Je valide</nb-radio>
+                      <nb-radio value="2">Renvoyer en correction</nb-radio>
+                    </nb-radio-group>
+                  </div>
+                  <div class="col-sm-6">
+                    <div *ngIf="ngModelValue=='2' || ngModelValue=='1'">
+                      <div class="form-group">
+                        <label *ngIf="ngModelValue=='2'" for="" class="label">Motif du rejet</label>
+                        <label *ngIf="ngModelValue=='1'" for="" class="label">Mémo</label>
+                        <textarea [(ngModel)]="dem_commentaire" nbInput fullWidth></textarea>
+      
+                      </div>
+                    </div>
+                  </div>
+      
+                </div>
+      
+      
+              </nb-card-body>
+              <nb-card-footer>
+                <button nbButton (click)="ref.close()" status="danger">Fermer</button>&nbsp;&nbsp;
+                <button [disabled]="!ngModelValue" nbButton status="success" (click)="ref.close()"
+                  (click)="openModif1(Dem_Soc)" (click)="ref.close()">
+                  <div *ngIf="check_fonct('u_Dem_Soc')">Valider</div>
+                </button>&nbsp;&nbsp;
+                <!-- <button nbButton (click)="ref.close()" status="success"
+                  (click)="openClient(dialog360 ,Dem_Soc.dem_typetitulaire)">Vision 360</button>&nbsp;&nbsp; -->
+      
+                <!-- <button nbButton status="success" (click)="ref.close()" (click)="openModif(Dem_Soc.reass_code,Dem_Soc)"><div *ngIf="check_fonct('u_Dem_Soc')">Valider</div></button> -->
+              </nb-card-footer>
+            </nb-card>
+      
+      
+          </ng-template>
+      
+      
+          <ng-template #dialogTrait2 let-Dem_Soc let-ref="dialogRef">
+            <nb-card>
+              <nb-card-header>
+                Traitement arbitrage
+              </nb-card-header>
+              <nb-card-body>
+                <div class="tabs">
+                  <input type="radio" name="tabs" id="tabone" checked="checked">
+                  <label for="tabone" class="lab">INFORMATION</label>
+                  <div class="tab">
+                    
+                <div class="row">
+      
+      
+                  <div class="col-sm-3">
+                    <h5 class="grid-h">Information</h5>
+                    <div><span class="detail">Numero  :</span> {{ Dem_Soc.dem_socnum }}</div><br>
+                    <div><span class="detail">Denomination :</span> {{ Dem_Soc.dem_denomination }}</div><br>
+                    <div><span class="detail">Type Social   :</span> {{ onGetLibelleByType((Dem_Soc.dem_typesociete).toString()) }}</div><br>
+                    <div><span class="detail">Type Titulaire :</span> {{ Dem_Soc.dem_typetitulaire }}</div><br>
+                    <!--div><span class="detail">Numéro Titulaire :</span> {{ Dem_Soc.dem_clienttitulaire }}</div><br-->
+                    <div><span class="detail">Nom Complet DG :</span> {{ Dem_Soc.dem_nomprenomsdg }}</div><br>
+                  </div>
+                  <br>
+                  <br>
+                  <div class="col-sm-3">
+                    <div><span class="detail">Secteur D'activité :</span> {{ onGetSecteurByCode(Dem_Soc.dem_secteuractivites)
+                      }}</div><br>
+                    <!--div><span class="detail">Dénomination :</span> {{ Dem_Soc.dem_denomination }}</div><br>
+                    <div><span class="detail">Registre :</span> {{ Dem_Soc.dem_registrecommerce}}</div><br>
+                    <div><span class="detail">NINEA :</span> {{ Dem_Soc.dem_ninea }}</div><br()-->
+                    <div><span class="detail">Compte Bancaire :</span> {{ Dem_Soc.dem_comptebancaire }}</div><br>
+                    <div><span class="detail">Objet :</span> {{ Dem_Soc.dem_objetdemande}}</div><br>
+                    <div><span class="detail">Statut :</span> {{ Dem_Soc.dem_statut }}</div><br>
+      
+                  </div>
+      
+                  <div class="col-sm-3">
+                    <h5 class="grid-h">Coordonnées</h5>
+                    <div><span class="detail">Adresse 1 :</span> {{ Dem_Soc.dem_adresse1 }}</div><br>
+                    <div><span class="detail">Telephone principal :</span> {{ Dem_Soc.dem_telephoneprincipal }}</div><br>
+                    <div><span class="detail">Ville :</span> {{ Dem_Soc.dem_ville }}</div><br>
+                    <div><span class="detail">Mobile :</span> {{ Dem_Soc.dem_telephonemobile }}</div><br>
+                    <div><span class="detail">Email société :</span> {{ Dem_Soc.dem_emailsociete }}</div><br>
+                  </div>
+      
+                  <div class="col-sm-3">
+                    <h5 class="grid-h">Information financiére</h5>
+                    <div><span class="detail">Effectif: </span>{{ client.clien_effectif }}</div><br>
+                    <div><span class="detail">Chiffe d'affaire activités : </span>{{ client.clien_chiffreaffaireannuel }}
+                    </div><br>
+                    <div><span class="detail">chiffre d'affaire prime: </span>{{ client.clien_chiffreaffaireprime }}</div><br>
+                    <div><span class="detail">charge de sinistre : </span>{{ client.clien_chargesinistre }}</div><br>
+                    <div><span class="detail">Capital social : </span>{{ client.clien_capital_social}}</div><br>
+                    <div><span class="detail">Code origine :</span> {{ client.clien_codeorigine }}</div><br>
+      
+                  </div>
+                </div>
+                  </div>
+      
+                  <!-- <input type="radio" name="tabs" id="tabtwo">
+                  <label for="tabtwo" class="lab">Fichier</label>
+                  <div class="tab">
+                    <div class="row">
+                      <div class="col-sm-12" *ngFor="let filename of filenames">
+                        <br>
+                        <div class="row">
+                          <div class="col-sm-4">
+                            {{filename}}
+                          </div>
+                          <div class="col-sm-6">
+                            <button size="tiny" (click)="onClickDownload(filename,Dem_Soc.dem_socnum)" status="success"
+                              nbButton>
+                              <mat-icon>visibility</mat-icon> &nbsp;Prévisualiser
+                            </button>
+                          </div>
+      
+                        </div>
+      
+      
+                      </div>
+      
+      
+                    </div>
+      
+                  </div> -->
+      
+                  <input type="radio" name="tabs" id="tabtwo">
+                  <label for="tabtwo" class="lab">Fichier</label>
+                  <div class="tab">
+                    <div><h3>Listes des fichiers disponibles</h3></div>
+                    <div class="row">
+                      <div class="col-sm-12">
+      
+                      
+                      <table style="border: 3px solid wheat">
+                        <thead style="color:white; text-align: center;background:rgb(7,66,124);">
+                          <tr>
+                            <th>Nom fichier</th>
+                            <th>visualiser</th>
+                            <th>supprimer</th>
+                          </tr>
+                        </thead>
+                        <tbody *ngFor="let filename of filenames">
+                          <tr>
+                            <td>{{filename}}</td>
+                            <td style="text-align: center"><button size="tiny" (click)="onClickDownload(filename,Dem_Soc.dem_socnum )" status="success"
+                              nbButton>
+                              <mat-icon>visibility</mat-icon> &nbsp;Prévisualiser
+                            </button>
+                            </td>
+                            <td style="text-align: center">&nbsp;<button size="tiny" (click)="onClickDelete(filename,Dem_Soc.dem_socnum )" status="danger"
+                                nbButton>
+                                <mat-icon>delete</mat-icon>supprimer
+                                </button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                      <!--div class="col-sm-12" *ngFor="let filename of filenames">
+                        <br>
+                        
+                        <div class="row">
+                          <div class="col-sm-6">
+                            {{filename}}
+                          </div>
+                          <div class="col-sm-6">
+                            <button size="tiny" (click)="onClickDownload(filename,Dem_Soc.dem_socnum)" status="success"
+                              nbButton>
+                              <mat-icon>visibility</mat-icon> &nbsp;Prévisualiser
+                            </button>
+                            &nbsp;<button size="tiny" (click)="onClickDelete(filename,Dem_Soc.dem_socnum)" status="danger"
+                              nbButton>
+                              <mat-icon>delete</mat-icon>supprimer
+                              </button>
+                          </div>
+                          
+                        </div>
+      
+      
+                      </div-->
+                      <div class="col-sm-12" >
+                        
+                        
+                         
+                          
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <button status="success" nbButton (click)="openAjoutUpLoad()">
+                                <mat-icon>file_upload</mat-icon> joindre documents
+                            </button>
+                            <br>
+                              <div *ngIf="displayButtonUpload">
+                                <br>
+                                <span style="color: green;">Vous pouvez selectionner un ou plusieurs documents
+                                </span><br><br>
+                                <input type="file" (change)="onFileSelected($event)" multiple name="files"
+                                    id=""><br>
+                                <br><button size="small" status="primary" nbButton (click)="onClickUpload(Dem_Soc.dem_socnum)">
+                                    <mat-icon>file_upload</mat-icon>upload
+                                </button>
+                            </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <nb-card-body *ngIf="Dem_Soc.dem_produitdemande1==15001001"><br>
+                                <legend>Cocher les fichiers présents:</legend><br>
+                                <nb-checkbox (checkedChange)="toggle($event)"><span style="color:red;">*</span>La demande remplie avec un formulaire online de la SONAC</nb-checkbox> <br>
+                                <nb-checkbox (checkedChange)="toggledeux($event)"><span style="color:red;">*</span>Le modèle de cautionnement</nb-checkbox><br>
+                                <nb-checkbox>La demande adressée au Directeur Général</nb-checkbox><br>
+                                <nb-checkbox>La copie de l’avis d’appel d’offres</nb-checkbox>
+                              </nb-card-body>
+                              <nb-card-body *ngIf="Dem_Soc.dem_produitdemande1==15001002"><br>
+                                <legend>Cocher les fichiers présents:</legend><br>
+                                <nb-checkbox (checkedChange)="toggle($event)"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+                                <nb-checkbox (checkedChange)="toggledeux($event)"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l?objet marché, le montant de la caution et la durée de validité de l'offre</nb-checkbox><br>
+                                <nb-checkbox>Une copie signée du marché</nb-checkbox><br>
+                                <nb-checkbox>Le bordereau de livraison</nb-checkbox>
+                                <nb-checkbox>Le PV de réception provisoire pour les cautions de retenue de garantie</nb-checkbox>
+                              </nb-card-body>
+                            </div>
+                            
+                          </div>
+                       </div>
+      
+                    </div>
+      
+                  </div>
+                  <input type="radio" name="tabs" id="tabfour">
+                  <label for="tabfour" class="lab">FORMULAIRES</label>
+                  <div class="tab">
+                    <div class="row">
+                      <div style="cursor: pointer;" class="col-sm-3">
+                        <p> Conditions Générales
+                        </p>
+                        <div>
+                          <img style="cursor: pointer;" (click)="onExportConditionGenerale(Dem_Soc.dem_socnum) "
+                            src="../../../../assets/images/doc1.jpg" alt="Conditions Générales" width="120" height="100">
+                            <mat-icon [mat-menu-trigger-for]="detail1" yPosition="right" style="position: absolute;left: 0;">
+                              more_vert</mat-icon>
+                        </div>
+                        <mat-menu #detail1="matMenu">
+                          <button mat-menu-item color="primary" (click)="onExportConditionGenerale(Dem_Soc.dem_socnum)">
+                            <mat-icon>download</mat-icon>Télécharger
+                          </button>
+                          <!-- <button (click)="ref.close()" mat-menu-item color="primary"
+                            (click)="openDialogParticulier(dialogModifCParticulier,Dem_Soc)">
+                            <mat-icon>edit</mat-icon>Modifier
+                          </button> -->
+      
+                        </mat-menu>
+                      </div>
+                      <div class="col-sm-3">
+      
+                        <p>Conditions particulières</p>
+                        <div style="position: relative;">
+                          <img style="cursor: pointer;" (click)="onExportConditionParticuliere(Dem_Soc.dem_socnum) "
+                            src="../../../../assets/images/doc1.jpg" alt="Conditions Générales" width="120" height="100">
+                          <mat-icon [mat-menu-trigger-for]="detail" yPosition="right" style="position: absolute;left: 0;">
+                            more_vert</mat-icon>
+                        </div>
+                        <mat-menu #detail="matMenu">
+                          <button mat-menu-item color="primary" (click)="onExportConditionParticuliere(Dem_Soc.dem_socnum)">
+                            <mat-icon>download</mat-icon>Télécharger
+                          </button>
+                          <!-- <button (click)="ref.close()" mat-menu-item color="primary"
+                            (click)="openDialogParticulier(dialogModifCParticulier,Dem_Soc)">
+                            <mat-icon>edit</mat-icon>Modifier
+                          </button> -->
+      
+                        </mat-menu>
+      
+                      </div>
+                      <div style="cursor: pointer;" class="col-sm-3">
+                        <p>Instruction</p>
+                        <img src="../../../../assets/images/doc1.jpg" alt="Conditions Générales" width="120" height="100">
+      
+                      </div>
+                      <div style="cursor: pointer;" class="col-sm-3">
+                        <p>Garantie de soumission</p>
+                        <img (click)="onExportGarantie(Dem_Soc.dem_socnum)" src="../../../../assets/images/doc1.jpg"
+                          alt="Conditions Générales" width="120" height="100">
+      
+                      </div>
+      
+                    </div>
+                  </div>
+                  <input type="radio" name="tabs" id="tabdoc" *ngIf="demandeEnvoye">
+                  <label for="tabdoc" class="lab" *ngIf="demandeEnvoye">Documents </label>
+      
+                  <div class="tab">
+      
+                  </div>
+                  <input type="radio" name="tabs" id="tabfive">
+                  <label for="tabfive" class="lab">MEMO</label>
+                  <div class="tab">
+                    <div class="row">
+      
+                      <div class="col-sm-8">
+                        <div><span class="detail">Commentaire commercial :</span> {{ Dem_Soc.dem_commentaire }}</div><br>
+                      </div>
+      
+                    </div>
+      
+                  </div>
+      
+      
+                </div>
+      
+      
+      
+      
+      
+                <div class="row">
+                  <div class="col-sm-4">
+      
+                    <!-- <p class="subtitle">NgModel value: {{ ngModelValue }}</p> -->
+                    <nb-radio-group [(ngModel)]="ngModelValue" name="ng-model-group"><br>
+                      <nb-radio value="1">Je valide</nb-radio>
+                      <nb-radio value="2">Renvoyer en correction</nb-radio>
+                    </nb-radio-group>
+                  </div>
+                  <div class="col-sm-6">
+                    <div *ngIf="ngModelValue=='2' || ngModelValue=='1'">
+                      <div class="form-group">
+                        <label *ngIf="ngModelValue=='2'" for="" class="label">Motif du rejet</label>
+                        <label *ngIf="ngModelValue=='1'" for="" class="label">Mémo</label>
+                        <textarea [(ngModel)]="dem_commentaire" nbInput fullWidth></textarea>
+      
+                      </div>
+                    </div>
+                  </div>
+      
+                </div>
+      
+      
+              </nb-card-body>
+              <nb-card-footer>
+                <button nbButton (click)="ref.close()" status="danger">Fermer</button>&nbsp;&nbsp;
+                <button [disabled]="!ngModelValue" nbButton status="success" (click)="ref.close()"
+                  (click)="openModif(Dem_Soc)" (click)="ref.close()">
+                  <div *ngIf="check_fonct('u_Dem_Soc')">Valider</div>
+                </button>&nbsp;&nbsp;
+                <button nbButton (click)="openDialogParticulier(dialogModifCParticulier,dem_Soc)"  (click)="ref.close()"
+                  status="info"> Modifier</button>
+                &nbsp;&nbsp;
+                <button nbButton (click)="open(dialogTrait2 ,dem_Soc)" (click)="onGetAllDemandePhy()"  (click)="ref.close()"
+                status="info"> <mat-icon>refresh</mat-icon></button>
+              &nbsp;&nbsp;
+                <!-- <button nbButton (click)="ref.close()" status="success"
+                  (click)="openClient(dialog360 ,Dem_Soc.dem_typetitulaire)">Vision 360</button>&nbsp;&nbsp; -->
+      
+                <!-- <button nbButton status="success" (click)="ref.close()" (click)="openModif(Dem_Soc.reass_code,Dem_Soc)"><div *ngIf="check_fonct('u_Dem_Soc')">Valider</div></button> -->
+              </nb-card-footer>
+            </nb-card>
+      
+      
+          </ng-template>
+          
+      
+      </mat-card>
+      
+      </div>
+      <div *ngIf="check_fonct('l_Dem_Soc')==false">
+        <ngx-page-not-autoriser></ngx-page-not-autoriser>
+      </div>

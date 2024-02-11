@@ -1,0 +1,246 @@
+<div *ngIf="check_fonct('u_produit')">
+    <form [formGroup]="modifForm">
+
+        <div class="col-lg-4">
+            <nb-card>
+                <nb-card-header id="titre_entete">Modifier un produit</nb-card-header>
+            </nb-card>
+        </div>
+
+        <p class="paraProblemeSaisi" *ngIf="problemeRemiseCommerciale">La remise commerciale doit être positive et
+            inférieure à 100
+        </p>
+        <p class="paraProblemeSaisi" *ngIf="problemeRemiseExceptionnelle">La remise exceptionnelle doit être positive et
+            inférieure à 100
+        </p>
+        <p class="paraProblemeSaisi" *ngIf="problemeDenominationLong"> La dénomination long est obligatoire</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeDenominationCourt"> La dénomination court est obligatoire</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeNumGarantie1"> Le numéro garantie associé 1 est obligatoire</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeNumGarantie2"> Le numéro garantie associé 2 est obligatoire</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeNumGarantie3"> Le numéro garantie associé 3 est obligatoire</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeNumGarantie4"> Le numéro garantie associé 4 est obligatoire</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeNumGarantie5"> Le numéro garantie associé 5 est obligatoire</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeNumGarantie6"> Le numéro garantie associé 6 est obligatoire</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeNumGarantie7"> Le numéro garantie associé 7 est obligatoire</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeNumGarantie8"> Le numéro garantie associé 8 est obligatoire</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeNumGarantie9"> Le numéro garantie associé 9 est obligatoire</p>
+        <p class="paraProblemeSaisi" *ngIf="problemeNumGarantie10"> Le numéro garantie associé 10 est obligatoire</p>
+
+        <div class="tabs">
+            <input type="radio" name="tabs" id="tabone" checked="checked">
+            <label for="tabone" class="lab">PRODUIT</label>
+            <div class="tab">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Numéro produit <span class="obligatoire">*</span></label>
+                            <input readonly formControlName="prod_numero" type="number" nbInput fullWidth
+                                id="prod_numero">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Numéro branche <span class="obligatoire">*</span></label>
+                            <input readonly [value]="onGetLibelleByBranche(codeBranche)" type="text" nbInput fullWidth
+                                id="prod_numerobranche">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Numéro catégorie <span class="obligatoire">*</span></label>
+                            <input readonly [value]="onGetLibelleByCategorie(numeroCategorie)" type="text" nbInput
+                                fullWidth id="prod_numerocategorie">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Code taxe associée</label>
+                            <input readonly formControlName="prod_codetaxe" type="number" nbInput fullWidth
+                                id="prod_codetaxe">
+                            <!-- <nb-select [(selected)]="codeTaxe" (selectedChange)="onChangeTaxe($event)" 
+                                    fullWidth id="prod_codetaxe">                    
+                          <nb-option value="{{taxe.taxe_codetaxe}}" 
+                                     *ngFor="let taxe of listeCodeTaxe">{{taxe.taxe_codetaxe}}</nb-option>
+                        </nb-select> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input type="radio" name="tabs" id="tabtwo">
+            <label for="tabtwo" class="lab">DENOMINATION</label>
+            <div class="tab">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Dénomination long <span class="obligatoire">*</span></label>
+                            <input formControlName="prod_denominationlong" type="text" nbInput fullWidth
+                                id="prod_denominationlong" (focusout)="onFocusOutEventDenominationLong()"
+                                [ngStyle]="{border: getColorDenominationLong()}">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Dénomination court <span class="obligatoire">*</span></label>
+                            <input formControlName="prod_denominationcourt" type="text" nbInput fullWidth
+                                id="prod_denominationcourt" (focusout)="onFocusOutEventDenominationCourt()"
+                                [ngStyle]="{border: getColorDenominationCourt()}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input type="radio" name="tabs" id="tabthree">
+            <label for="tabthree" class="lab">NUMERO GARANTIE ASSOCIE</label>
+            <div class="tab">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Numéro 1 <span class="obligatoire">*</span></label>
+                            <input min="0" formControlName="prod_numerogarantieassoc1" type="number" nbInput fullWidth
+                                id="prod_numerogarantieassoc1" (focusout)="onFocusOutEventNumGarantie1()"
+                                [ngStyle]="{border: getColorNumGarantie1()}">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Numéro 2 <span class="obligatoire">*</span></label>
+                            <input min="0" formControlName="prod_numerogarantieassoc2" type="number" nbInput fullWidth
+                                id="prod_numerogarantieassoc2" (focusout)="onFocusOutEventNumGarantie2()"
+                                [ngStyle]="{border: getColorNumGarantie2()}">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Numéro 3 <span class="obligatoire">*</span></label>
+                            <input min="0" formControlName="prod_numerogarantieassoc3" type="number" nbInput fullWidth
+                                id="prod_numerogarantieassoc3" (focusout)="onFocusOutEventNumGarantie3()"
+                                [ngStyle]="{border: getColorNumGarantie3()}">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Numéro 4 <span class="obligatoire">*</span></label>
+                            <input min="0" formControlName="prod_numerogarantieassoc4" type="number" nbInput fullWidth
+                                id="prod_numerogarantieassoc4" (focusout)="onFocusOutEventNumGarantie4()"
+                                [ngStyle]="{border: getColorNumGarantie4()}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Numéro 5 <span class="obligatoire">*</span></label>
+                            <input min="0"  formControlName="prod_numerogarantieassoc5" type="number" nbInput fullWidth
+                                id="prod_numerogarantieassoc5" (focusout)="onFocusOutEventNumGarantie5()"
+                                [ngStyle]="{border: getColorNumGarantie5()}">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Numéro 6 <span class="obligatoire">*</span></label>
+                            <input min="0" formControlName="prod_numerogarantieassoc6" type="number" nbInput fullWidth
+                                id="prod_numerogarantieassoc6" (focusout)="onFocusOutEventNumGarantie6()"
+                                [ngStyle]="{border: getColorNumGarantie6()}">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Numéro 7 <span class="obligatoire">*</span></label>
+                            <input min="0" formControlName="prod_numerogarantieassoc7" type="number" nbInput fullWidth
+                                id="prod_numerogarantieassoc7" (focusout)="onFocusOutEventNumGarantie7()"
+                                [ngStyle]="{border: getColorNumGarantie7()}">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Numéro 8 <span class="obligatoire">*</span></label>
+                            <input min="0" formControlName="prod_numerogarantieassoc8" type="number" nbInput fullWidth
+                                id="prod_numerogarantieassoc8" (focusout)="onFocusOutEventNumGarantie8()"
+                                [ngStyle]="{border: getColorNumGarantie8()}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Numéro 9 <span class="obligatoire">*</span></label>
+                            <input min="0" formControlName="prod_numerogarantieassoc9" type="number" nbInput fullWidth
+                                id="prod_numerogarantieassoc9" (focusout)="onFocusOutEventNumGarantie9()"
+                                [ngStyle]="{border: getColorNumGarantie9()}">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Numéro 10 <span class="obligatoire">*</span></label>
+                            <input min="0" formControlName="prod_numerogarantieassoc10" type="number" nbInput fullWidth
+                                id="prod_numerogarantieassoc10" (focusout)="onFocusOutEventNumGarantie10()"
+                                [ngStyle]="{border: getColorNumGarantie10()}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input type="radio" name="tabs" id="tabfour">
+            <label for="tabfour" class="lab">NUMERO EXTENSION </label>
+            <div class="tab">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Numéro 1</label>
+                            <input min="0" formControlName="prod_numeroextension1" type="number" nbInput fullWidth
+                                id="prod_numeroextension1">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Numéro 2</label>
+                            <input min="0" formControlName="prod_numeroextension2" type="number" nbInput fullWidth
+                                id="prod_numeroextension2">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Numéro 3</label>
+                            <input min="0" formControlName="prod_numeroextension3" type="number" nbInput fullWidth
+                                id="prod_numeroextension3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input type="radio" name="tabs" id="tabfive">
+            <label for="tabfive" class="lab">REMISE</label>
+            <div class="tab">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Remise commerciale (en %)</label>
+                            <input min="0" formControlName="prod_remisecommerciale" type="number" nbInput fullWidth
+                                id="prod_remisecommerciale" (focusout)="onFocusOutEventRemiseCommerciale($event)"
+                                [ngStyle]="{border: getColorRemiseCommerciale()}">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Remise exceptionnelle (en %)</label>
+                            <input min="0" formControlName="prod_remiseexceptionnelle" type="number" nbInput fullWidth
+                                id="prod_remiseexceptionnelle" (focusout)="onFocusOutEventRemiseExceptionnelle($event)"
+                                [ngStyle]="{border: getColorRemiseExceptionnelle()}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <nb-card-footer>
+            <button nbButton status="success" (click)="onSubmit()" [disabled]='!modifForm.valid'>
+                Modifier
+            </button>&nbsp;&nbsp;
+            <button class="cancel" nbButton status="danger" (click)="onCancel()">Annuler</button>
+        </nb-card-footer>
+    </form>
+</div>
+<div *ngIf="check_fonct('u_produit')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

@@ -1,0 +1,455 @@
+<form [formGroup]="acheteur">
+    <nb-card>
+        <nb-card-header>
+            <span *ngIf="typeAcheteur == '4'"> Ajout d'un Locataire</span>
+            <span *ngIf="typeAcheteur != '4'"> Ajout d'un acheteur</span>
+        </nb-card-header>
+        <nb-card-body>
+            <span class="obligatoire" *ngIf="!errorDateAcheteur">
+                Elle doit etre comprise entre la date effet et de l'echeance de la police....
+            </span>
+            <div class="tabs">
+
+                <input type="radio" name="tabs" id="tab1" checked="checked" *ngIf="typeAcheteur == '1'">
+                <label for="tab1" class="lab">FINASSUR</label>
+                <div class="tab">
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Acheteur </label>
+                                <!-- <mat-select  class="form-control" [formControl]="acheteurCtrl" placeholder="choisir un acheteur"
+                (selectionChange)="onChangeAcheteur($event)" fullWidth
+                id="cont_numeroacheteur" #singleSelect>
+                <mat-option>
+                    <ngx-mat-select-search placeholderLabel="recherche..." 
+                    noEntriesFoundLabel="aucune corespondance .." [formControl]="acheteurFilterCtrl">
+                    </ngx-mat-select-search>
+                </mat-option>
+
+                <mat-option value="{{achet.clien_numero}}"
+                    *ngFor="let achet of filteredAcheteur | async">{{achet.achet_numero}}: {{achet.achet_nom}} 
+                    {{achet.achet_prenom}}
+                </mat-option> 
+            </mat-select>  -->
+                                <nb-select (selectedChange)="onChangeAcheteur($event)" fullWidth id="achet_numero">
+                                    <nb-option value="">&nbsp;</nb-option>
+                                    <nb-option value="{{achet.achet_numero}}"
+                                        *ngFor="let achet of listeAcheteur">{{achet.achet_numero}} : {{achet.achet_nom}}
+                                        {{achet.achet_prenom}}</nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Nom Acheteur / Dénomination<span
+                                        class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="text" nbInput formControlName="achet_nom">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Prenom Acheteur</label>
+                                <input fullWidth fieldSize="small" type="text" nbInput formControlName="achet_prenom">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Numero Compte Bancaire<span class="obligatoire">*</span></label>
+                                <input min="0" fullWidth fieldSize="small" type="number" nbInput
+                                    formControlName="achet_comptebancaire">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Date debut Credit<span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="datetime-local" nbInput
+                                    formControlName="achet_date_debut_credit" (focusout)="onChangeFocus()">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="label">Numero Client chez l'institution de crédit<span
+                                        class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="text" nbInput
+                                    formControlName="achet_numclien_institu">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Montant global du crédit<span class="obligatoire">*</span></label>
+                                <input min="0" fullWidth fieldSize="small" type="text"
+                                    (change)="onChangeMontantCredit($event)" nbInput
+                                    [value]="acheteur.get('achet_montantcredit').value | ngxNumberWithCommas">
+                            </div>
+                        </div>
+                        <!-- <div class="col-sm-2">
+            <div class="form-group">
+                <label class="label">Nbre d'echéance<span class="obligatoire">*</span></label>
+                <input min="0" fullWidth fieldSize="small" type="number" nbInput formControlName="achet_montantecheancecredit" >
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label class="label">Montant echéance<span class="obligatoire">*</span></label>
+                <input min="0" fullWidth fieldSize="small" type="text" (change)="onChangeMontantEcheance($event)" nbInput [value]="acheteur.get('achet_montantecheance').value | ngxNumberWithCommas">
+            </div>
+        </div> -->
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="label">Nbre d'echéance<span class="obligatoire">*</span></label>
+                                <input min="0" fullWidth fieldSize="small" type="number" nbInput
+                                    (change)="onChangeNbEcheance($event)"
+                                    [value]="acheteur.get('achet_montantecheancecredit').value">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Montant echéance<span class="obligatoire">*</span></label>
+                                <input min="0" fullWidth fieldSize="small" type="text" readonly nbInput
+                                    [value]="acheteur.get('achet_montantecheance').value | ngxNumberWithCommas">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <input type="radio" name="tabs" id="tab2" checked="checked" *ngIf="typeAcheteur == '3'">
+                <label for="tab2" class="lab">DOMESTIQUE</label>
+                <div class="tab">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Acheteur </label>
+                                <!-- <mat-select  class="form-control" [formControl]="acheteurCtrl" placeholder="choisir un acheteur"
+                                (selectionChange)="onChangeAcheteur($event)" fullWidth
+                                id="cont_numeroacheteur" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search placeholderLabel="recherche..." 
+                                    noEntriesFoundLabel="aucune corespondance .." [formControl]="acheteurFilterCtrl">
+                                    </ngx-mat-select-search>
+                                </mat-option>
+                
+                                <mat-option value="{{achet.clien_numero}}"
+                                    *ngFor="let achet of filteredAcheteur | async">{{achet.achet_numero}}: {{achet.achet_nom}} 
+                                    {{achet.achet_prenom}}
+                                </mat-option> 
+                            </mat-select>  -->
+                                <nb-select (selectedChange)="onChangeAcheteur($event)" fullWidth id="achet_numero">
+                                    <nb-option value="">&nbsp;</nb-option>
+                                    <nb-option value="{{achet.achet_numero}}"
+                                        *ngFor="let achet of listeAcheteur">{{achet.achet_numero}} : {{achet.achet_nom}}
+                                        {{achet.achet_prenom}}</nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="label">Nom Acheteur / Dénomination<span
+                                        class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="text" nbInput formControlName="achet_nom">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Prenom Acheteur</label>
+                                <input fullWidth fieldSize="small" type="text" nbInput formControlName="achet_prenom">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="label">Date debut Credit<span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="datetime-local" nbInput
+                                    formControlName="achet_date_debut_credit" (focusout)="onChangeFocus()">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="label">Durée Credit<span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="number" nbInput formControlName="achet_duree">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Montant Credit<span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="text" nbInput
+                                    (change)="onChangeMontantCredit($event)"
+                                    [value]="acheteur.get('achet_montantcredit').value | ngxNumberWithCommas">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="label">Nbre d'echéance<span class="obligatoire">*</span></label>
+                                <input min="0" fullWidth fieldSize="small" type="number" nbInput
+                                    (change)="onChangeNbEcheance($event)"
+                                    [value]="acheteur.get('achet_montantecheancecredit').value">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Montant echéance<span class="obligatoire">*</span></label>
+                                <input min="0" fullWidth fieldSize="small" type="text" readonly nbInput
+                                    [value]="acheteur.get('achet_montantecheance').value | ngxNumberWithCommas">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Bon Commande<span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="text" nbInput
+                                    formControlName="achet_bon_commande">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Numero Facture<span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="number" nbInput
+                                    formControlName="achet_numero_facture">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Date facture<span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="datetime-local" nbInput
+                                    formControlName="achet_date_facture">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Numero chez le Client<span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="text" nbInput
+                                    formControlName="achet_numclien_institu">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Avis de Couverture<span class="obligatoire">*</span></label>
+                                <input readonly fullWidth fieldSize="small" type="text" nbInput
+                                    formControlName="achet_avis">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Date Avis de Couverture<span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="datetime-local" nbInput
+                                    formControlName="achet_date_avis">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <input type="radio" name="tabs" id="tab3" checked="checked" *ngIf="typeAcheteur == '2'">
+                <label for="tab3" class="lab">EXPORT</label>
+                <div class="tab">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Acheteur </label>
+                                <!-- <mat-select  class="form-control" [formControl]="acheteurCtrl" placeholder="choisir un acheteur"
+                                (selectionChange)="onChangeAcheteur($event)" fullWidth
+                                id="cont_numeroacheteur" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search placeholderLabel="recherche..." 
+                                    noEntriesFoundLabel="aucune corespondance .." [formControl]="acheteurFilterCtrl">
+                                    </ngx-mat-select-search>
+                                </mat-option>
+                
+                                <mat-option value="{{achet.clien_numero}}"
+                                    *ngFor="let achet of filteredAcheteur | async">{{achet.achet_numero}}: {{achet.achet_nom}} 
+                                    {{achet.achet_prenom}}
+                                </mat-option> 
+                            </mat-select>  -->
+                                <nb-select (selectedChange)="onChangeAcheteur($event)" fullWidth id="achet_numero">
+                                    <nb-option value="">&nbsp;</nb-option>
+                                    <nb-option value="{{achet.achet_numero}}"
+                                        *ngFor="let achet of listeAcheteur">{{achet.achet_numero}} : {{achet.achet_nom}}
+                                        {{achet.achet_prenom}}</nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="label">Nom Acheteur / Dénomination<span
+                                        class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="text" nbInput formControlName="achet_nom">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Prenom Acheteur</label>
+                                <input fullWidth fieldSize="small" type="text" nbInput formControlName="achet_prenom">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="label">Date debut Credit<span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="datetime-local" nbInput
+                                    formControlName="achet_date_debut_credit" (focusout)="onChangeFocus()">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="label">Durée Credit<span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="number" nbInput formControlName="achet_duree">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Montant Credit<span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="text" nbInput
+                                    (change)="onChangeMontantCredit($event)"
+                                    [value]="acheteur.get('achet_montantcredit').value | ngxNumberWithCommas">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="label">Nbre d'echéance<span class="obligatoire">*</span></label>
+                                <input min="0" fullWidth fieldSize="small" type="number" nbInput
+                                    (change)="onChangeNbEcheance($event)"
+                                    [value]="acheteur.get('achet_montantecheancecredit').value">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Montant echéance<span class="obligatoire">*</span></label>
+                                <input min="0" fullWidth fieldSize="small" type="text" readonly nbInput
+                                    [value]="acheteur.get('achet_montantecheance').value | ngxNumberWithCommas">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Type de couverture<span class="obligatoire">*</span></label>
+                                <nb-select fullWidth (selectedChange)="onChangeTypeCouverture($event)">
+                                    <nb-option value="RC">Commercial</nb-option>
+                                    <nb-option value="RP">Politique</nb-option>
+                                    <nb-option value="RPC">Mixte</nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Type Acheteur<span class="obligatoire">*</span></label>
+                                <nb-select fullWidth (selectedChange)="onChangeTypeAcheteur($event)">
+                                    <nb-option value="prive">Prive</nb-option>
+                                    <nb-option value="public">Public</nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Marchandises</label>
+                                <input fullWidth fieldSize="small" type="text" nbInput>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Numero Facture<span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="number" nbInput
+                                    formControlName="achet_numero_facture">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Date facture<span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="datetime-local" nbInput
+                                    formControlName="achet_date_facture">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Numero chez le Client<span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="text" nbInput
+                                    formControlName="achet_numclien_institu">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+                <input type="radio" name="tabs" id="tab4" checked="checked" *ngIf="typeAcheteur == '4'">
+                <label for="tab4" class="lab">LOCASSUR</label>
+                <div class="tab">
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Nom locataire<span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="text" nbInput formControlName="achet_nom">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Prenom locataire<span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="text" nbInput formControlName="achet_prenom">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Type Bail<span class="obligatoire">*</span></label>
+                                <nb-select fullWidth (selectedChange)="onChangeTypeBail($event)">
+                                    <nb-option value="déterminé">déterminé</nb-option>
+                                    <nb-option value="indéterminé">indéterminé</nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="label">Duree bail (mois)<span class="obligatoire">*</span></label>
+                                <input min="1" fullWidth fieldSize="small" type="number" nbInput
+                                    formControlName="achet_duree_bail">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Date debut Credit<span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="datetime-local" nbInput
+                                    formControlName="achet_date_debut_credit" (focusout)="onChangeFocus()">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">montant loyer mensuel<span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" type="text" nbInput
+                                    (change)="onChangeMontantLoyer($event)"
+                                    [value]="acheteur.get('achet_montant_loyer').value | ngxNumberWithCommas">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </nb-card-body>
+        <nb-card-footer>
+            <button nbButton (click)="submit()" [disabled]="!acheteur.valid"
+                status="success">Ajouter</button>&nbsp;&nbsp;<button nbButton (click)="cancel()"
+                status="danger">Fermer</button>
+
+        </nb-card-footer>
+    </nb-card>
+</form>

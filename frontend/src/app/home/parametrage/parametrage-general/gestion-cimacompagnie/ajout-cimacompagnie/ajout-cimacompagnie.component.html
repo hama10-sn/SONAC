@@ -1,0 +1,33 @@
+<div *ngIf="check_fonct('c_cimacodificationcompagnie')">
+<form [formGroup]="addForm"> 
+    <nb-card>
+        <nb-card-header>Ajouter cima compagnie</nb-card-header>
+        
+        <nb-card-body >
+          
+          <div class="row">          
+            
+            <div class="col-sm-4">
+                <div class="form-group">
+                  <label  class="label">code cima<span style="color:red;">*</span></label>
+                  <input formControlName="code_cima_compagnie" #input [value]="input.value.toUpperCase()" type="text" nbInput fullWidth  id="code_cima_compagnie" >             
+                </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label  class="label">Dénomination<span style="color:red;">*</span></label>
+                <input formControlName="denomination"  type="text" nbInput fullWidth  id="denomination" >             
+              </div>
+          </div>
+          </div>        
+          <nb-card-footer>
+            <button nbButton status="success" (click)="submit()"  [disabled]='!addForm.valid'>Ajouter</button>
+            &nbsp;&nbsp; <button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+          </nb-card-footer>
+        </nb-card-body>
+      </nb-card>
+    </form>
+  </div>
+  <div *ngIf="check_fonct('c_cimacodificationcompagnie')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+  </div>

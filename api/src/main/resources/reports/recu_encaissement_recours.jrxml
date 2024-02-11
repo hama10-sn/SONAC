@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="declaration_menace_sinistre" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eaecab74-b54d-4d4b-b977-14447a0a08f2">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="connPostgres"/>
+	<parameter name="clientAdresse" class="java.lang.String"/>
+	<parameter name="clientDenomination" class="java.lang.String"/>
+	<parameter name="clientPrenom" class="java.lang.String"/>
+	<parameter name="clientNom" class="java.lang.String"/>
+	<parameter name="contrat" class="java.lang.Long"/>
+	<parameter name="branche" class="java.lang.String"/>
+	<parameter name="numeroRecours" class="java.lang.Long"/>
+	<parameter name="produit" class="java.lang.String"/>
+	<parameter name="reference" class="java.lang.String"/>
+	<parameter name="montantFacture" class="java.lang.Long"/>
+	<parameter name="montantFactureLettre" class="java.lang.String"/>
+	<parameter name="montantRegle" class="java.lang.Long"/>
+	<parameter name="montantRegleLettre" class="java.lang.String"/>
+	<parameter name="referenceReglement" class="java.lang.String"/>
+	<parameter name="reglement" class="java.lang.String"/>
+	<parameter name="numeroEncaissement" class="java.lang.Long"/>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="801">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<image>
+				<reportElement x="0" y="-8" width="140" height="70" uuid="3f910c88-1ac4-464c-8542-61d8cfe06260"/>
+				<imageExpression><![CDATA[System.getProperty("user.home")+"/img/SONAC.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="4" y="207" width="107" height="20" uuid="cd583b58-fe2d-4c47-820e-a90eb2f0b6b2"/>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Contrat      :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="228" width="107" height="20" uuid="1a3463bb-cb2f-4f89-9fe9-c575d534d055"/>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Référence :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="186" width="107" height="20" uuid="25f99e55-6588-4b1d-8b96-b0e52f6aa593"/>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Produit      :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="165" width="107" height="20" uuid="a3ee4e4b-7e97-4b3f-833b-3f1f029ba104"/>
+				<textElement>
+					<font fontName="Arial" size="13"/>
+				</textElement>
+				<text><![CDATA[Branche    :]]></text>
+			</staticText>
+			<rectangle radius="15">
+				<reportElement x="320" y="140" width="241" height="104" uuid="6db442d6-5283-4d92-a9ad-46c6d1005152"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="5" y="249" width="106" height="20" uuid="1e7380e2-4a06-4074-832f-74ececd36800"/>
+				<textElement>
+					<font fontName="Arial" size="13"/>
+				</textElement>
+				<text><![CDATA[Objet         :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="284" width="561" height="41" uuid="15795fcd-f8c9-4c98-b75d-b8e13cd79a41"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Black" size="22" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ENCAISSEMENT]]></text>
+			</staticText>
+			<rectangle radius="15">
+				<reportElement x="-2" y="326" width="562" height="194" uuid="e5a65363-088d-4bce-970a-d7ed76f78e2a"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="5" y="342" width="205" height="30" uuid="e3f8fbda-613f-4536-b720-d5692895e22c"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MONTANT RECOURS      :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="400" width="205" height="30" uuid="25051414-c6c2-4f74-9d17-345f91030ac8"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MONTANT ENCAISSE      :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="5" y="471" width="546" height="39" uuid="78cab44e-e96b-47d8-abff-b1ec4ecb93f4"/>
+				<textElement>
+					<font size="16" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Recours n° "+$P{numeroRecours}+" réglée par "+($P{clientPrenom} != null ? $P{clientPrenom} : "") + (" ") + ($P{clientNom} != null ?  $P{clientNom}: "")  +  
+(($P{clientDenomination} != null  && $P{clientNom}  != null && $P{clientDenomination} != null ) ? (" ") : "") + 
+($P{clientDenomination} != null ? $P{clientDenomination} : "")+"".toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="125" y="165" width="190" height="20" uuid="d3d4c39b-4c1f-40aa-915b-78d459d8fdf6"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{branche}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="125" y="186" width="190" height="20" uuid="0f0c8786-bdfe-4271-80ed-c483c6834caf"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{produit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="125" y="207" width="190" height="20" uuid="ee539341-8324-4cd0-869e-d5c71373a147"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{contrat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="125" y="228" width="190" height="20" uuid="c9319f8d-161e-4c6d-bb8c-7d7308cd9488"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{reference}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="125" y="249" width="440" height="20" uuid="466fc056-0cdf-450b-a21d-3bb9ac61fab0"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Encaissement moratoire sur le client "+($P{clientPrenom} != null ? $P{clientPrenom} : "") + (" ") + ($P{clientNom} != null ?  $P{clientNom}: "")  +  
+(($P{clientDenomination} != null  && $P{clientNom}  != null && $P{clientDenomination} != null ) ? (" ") : "") + 
+($P{clientDenomination} != null ? $P{clientDenomination} : "")+"".toString()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="594" width="185" height="30" uuid="236dba71-73e2-403c-bc70-ffb44ac57e67"/>
+				<textElement>
+					<font fontName="Arial Black" size="16" isBold="true" isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Visa Caissier]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="424" y="594" width="136" height="30" uuid="11357c39-5701-4ff6-b938-4be06ae21790"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Black" size="16" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Le Client]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="5" y="535" width="555" height="49" uuid="54a0776a-6566-415e-8320-e301554f763d"/>
+				<textElement>
+					<font size="16" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Référence règlement "+$P{referenceReglement}+" / "+$P{reglement}+"".toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="150" width="221" height="47" uuid="680b1720-52c8-498d-9a18-16b46666a287"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Black" size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{clientPrenom} != null ? $P{clientPrenom} : "") + (" ") + ($P{clientNom} != null ?  $P{clientNom}: "")  +  
+(($P{clientDenomination} != null  && $P{clientNom}  != null && $P{clientDenomination} != null ) ? (" ") : "") + 
+($P{clientDenomination} != null ? $P{clientDenomination} : "")+"".toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="201" width="221" height="30" uuid="eac500bc-2115-46ab-9a07-412f88aabe2c"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{clientAdresse}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="342" width="331" height="27" uuid="0bb6389f-931a-4bd5-9650-3447d27855ea"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0").format(Double.valueOf($P{montantFacture}))+" XOF".toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="400" width="331" height="30" uuid="f1b89977-3808-4f7d-831b-8004d0ae9836"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0").format(Double.valueOf($P{montantRegle}))+" XOF".toString()]]></textFieldExpression>
+			</textField>
+			<rectangle radius="15">
+				<reportElement x="200" y="0" width="361" height="110" forecolor="#00FF00" uuid="6803547f-20ce-41b7-97fb-5f4c4b471541"/>
+			</rectangle>
+			<textField>
+				<reportElement x="210" y="9" width="341" height="90" uuid="31243412-c439-4bf5-82d6-c68db9a922d3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="24" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["REçU D'ENCAISSEMENT RECOURS N°: "+$P{numeroRecours}+"".toString()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="739" width="560" height="1" uuid="88cbe1cc-1a34-4bee-ad75-c739a86bd069"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="-11" y="749" width="581" height="52" uuid="6f36f0f5-0272-48c6-b78f-848fb57fd834"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Société Anonyme avec Conseil d'Administration au capital de 3.000.000.000 de francs CFA entièrement libéré 
+55, Rue Wagane DIOUF, Immeuble TRIANON - BP: 3939 Dakar (Sénégal) - Compte bancaire BOA N 0103506000/3 
+RCCM SN-DKR 97.B.1658 - NINEA 0201707 OG3 - Tél: +221 33 889 82 10 - Fax: +221 33 821 36 11 
+Email: sonacourier@orange.sn - Site web: www.sonac.sn 
+Entreprise régie par le Code des Assurances de la CIMA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="220" y="364" width="331" height="30" uuid="ccedfdcb-40fd-4ded-b8a5-d231a2a9f085"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["("+$P{montantFactureLettre}+")"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="431" width="331" height="30" uuid="701f1522-8de8-422a-9e1c-4203fd822218"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["("+$P{montantRegleLettre}+")"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+</jasperReport>

@@ -1,0 +1,1218 @@
+<div class="col-lg-4" *ngIf="typpe == 1">
+    <nb-card>
+        <nb-card-header id="titre_entete">Ajouter une police</nb-card-header>
+    </nb-card>
+</div>
+
+<div class="col-lg-4" *ngIf="typpe == 2">
+    <nb-card>
+        <nb-card-header id="titre_entete">Ajouter une proposition</nb-card-header>
+    </nb-card>
+</div>
+
+<nb-alert status="danger" *ngIf="errorDateExo">
+    la date effet n'appartient pas à l'exercice actuelle
+</nb-alert>
+<nb-alert status="danger" *ngIf="errorDateSub">
+    la date effet doit etre inferieur ou egal a M+1 (M: mois actuel)
+</nb-alert>
+<nb-alert status="danger" *ngIf="!errorDateSoumi && codeProduitChoisi == '15001001'">
+    Date soumission doit etre comprise entre la date effet et de l'echeance de la police....
+</nb-alert>
+<nb-alert status="danger" *ngIf="!errorDateMarche && codeProduitChoisi != '15001001'">
+    Date marcher doit etre comprise entre la date effet et de l'echeance de la police...
+</nb-alert>
+<form [formGroup]="myForm">
+    <div class="tabs">
+
+
+
+        <input type="radio" name="tabs" id="tabone" checked="checked">
+        <label for="tabone" class="lab">INFO ADM..</label>
+        <div class="tab" formGroupName="policeForm">
+            <div class="row">
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Code branche <span class="obligatoire">*</span></label>
+                        <!-- <input fullWidth fieldSize="small" formControlName="poli_branche" type="number" nbInput
+                        id="poli_branche"> -->
+                        <nb-select (selectedChange)="onChangeBranche($event)" fullWidth id="poli_branche">
+                            <nb-option value="{{branche.branche_numero}}" *ngFor="let branche of listeCodeBranche">
+                                {{branche.branche_numero}} : {{branche.branche_libelleLong}}
+                            </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Code catégorie <span class="obligatoire">*</span></label>
+                        <!-- <input fullWidth fieldSize="small" formControlName="poli_categorie" type="number" nbInput
+                        id="poli_categorie"> -->
+                        <nb-select [(selected)]="poli_codecategorie" (selectedChange)="onChangeCategorie($event)"
+                            fullWidth id="poli_categorie">
+                            <nb-option value="{{categorie.categ_numero}}"
+                                *ngFor="let categorie of listeNumeroCategorie">
+                                {{categorie.categ_numero}} : {{categorie.categ_libellelong}}
+                            </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">code produit <span class="obligatoire">*</span></label>
+                        <!-- <input min="0" fieldSize="small" formControlName="poli_codeproduit" type="number" nbInput
+                        id="poli_codeproduit"> -->
+                        <nb-select [(selected)]="poli_codeproduit" (selectedChange)="onChangeProduit($event)" fullWidth
+                            id="poli_codeproduit">
+                            <nb-option value="{{produit.prod_numero}}" *ngFor="let produit of listeNumeroProduit">
+                                {{produit.prod_numero}} : {{produit.prod_denominationlong}}
+                            </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Code compagnie <span class="obligatoire">*</span></label>
+                        <input fullWidth fieldSize="small" formControlName="poli_compagnie" type="text" nbInput
+                            id="poli_compagnie" [readonly]="true">
+                        <!-- <nb-select (selectedChange)="onChangeCodeCimaCompagnie($event)" selected="1"
+                        id="poli_compagnie" fullWidth>
+                        <nb-option *ngFor="let class of codecimacomp" value="{{class.code_cima_compagnie}}">
+                            {{class.code_cima_compagnie}} : {{class.denomination}}
+                        </nb-option>
+                    </nb-select> -->
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Code pays <span class="obligatoire">*</span></label>
+                        <input fullWidth fieldSize="small" formControlName="poli_codepays" type="text" nbInput
+                            id="poli_codepays" [readonly]="true">
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Type de client <span class="obligatoire">*</span></label>
+                        <input fullWidth fieldSize="small" [readonly]="true" formControlName="poli_souscripteur"
+                            type="text" nbInput id="poli_souscripteur">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Numéro client <span class="obligatoire">*</span></label>
+                        <input fullWidth fieldSize="small" [readonly]="true" formControlName="poli_client" type="text"
+                            nbInput id="poli_client">
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="label">Numéro de police remplacée </label>
+                        <input min="0" fullWidth fieldSize="small" formControlName="poli_policeremplacee" type="number"
+                            nbInput id="poli_policeremplacee">
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <input type="radio" name="tabs" id="tabtwo">
+        <label for="tabtwo" class="lab">INFO CONTRAC..</label>
+        <div class="tab" formGroupName="policeForm">
+            <div class="row">
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="" class="label">Code intermédiaire <span class="obligatoire">*</span></label>
+
+                        <mat-select class="form-control" [formControl]="intermediaireCtrl"
+                            placeholder="choisir un intermediaire" (selectionChange)="onChangeIntermediaire($event)"
+                            fullWidth #singleSelect>
+                            <mat-option>
+                                <ngx-mat-select-search placeholderLabel="recherche..."
+                                    noEntriesFoundLabel="aucune correspondance .."
+                                    [formControl]="intermediaireFilterCtrl"></ngx-mat-select-search>
+                            </mat-option>
+
+                            <mat-option value="{{inter.inter_numero}}"
+                                *ngFor="let inter of filteredIntermediaire | async">
+                                {{inter.inter_numero}}: {{inter.inter_denomination}}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="label">code du fractionnement <span class="obligatoire">*</span></label>
+                        <!-- <input min="0" fullWidth fieldSize="small" formControlName="poli_codefractionnement"
+                        type="number" nbInput id="poli_codefractionnement"> -->
+
+                        <nb-select selected="1" (selectedChange)="onChangeTypeFractionnement($event)" fullWidth>
+                            <nb-option value="{{type.id}}" *ngFor="let type of listTypeFractionnement">{{type.value}}
+                            </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="proratis">
+                    <div class="form-group">
+                        <label class="label">Proratis en jour</label>
+                        <input min="0" fullWidth fieldSize="small" type="number" nbInput id="proratis"
+                            (change)="onFocusOutEventProratis($event)">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="" class="label">Date effet en cours <span class="obligatoire">*</span></label>
+                        <input fullWidth fieldSize="small" formControlName="poli_dateeffetencours" type="datetime-local"
+                            nbInput id="poli_dateeffetencours" (focusout)="onFocusOutEventDateEffetEnCours()">
+                    </div>
+                </div>
+
+
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="" class="label">Date échéance en cours <span class="obligatoire">*</span></label>
+                        <input fullWidth fieldSize="small" formControlName="poli_dateecheance" type="datetime-local"
+                            nbInput id="poli_dateecheance" [readonly]="true">
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="label">Type de gestion <span class="obligatoire">*</span></label>
+                        <nb-select selected="1" (selectedChange)="onChangeLibeleTypeGestion($event)" fullWidth>
+                            <nb-option value="{{type.id}}" *ngFor="let type of listTypeGestion">{{type.value}}
+                            </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="label">Type de contrat <span class="obligatoire">*</span></label>
+                        <nb-select selected="1" (selectedChange)="onChangeLibeleTypeContrat($event)" fullWidth>
+                            <nb-option value="{{type.id}}" *ngFor="let type of listTypeContrat">{{type.value}}
+                            </nb-option>
+                        </nb-select>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="label">Taux de réduction commerciale (en %)</label>
+                        <input min="0" fullWidth fieldSize="small" formControlName="poli_remisecommerciale"
+                            type="number" nbInput id="poli_remisecommerciale">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <input type="radio" name="tabs" id="tabthree">
+        <label for="tabthree" class="lab">ACTE / RISQUE</label>
+        <div class="tab">
+            <fieldset class="fieldset" formGroupName="risque">
+                <legend class="tailleLegend">Risque</legend>
+                <div class="row">
+                    <!-- <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="label">Type de risque<span class="obligatoire">*</span></label>
+                    <input readonly fullWidth fieldSize="small" type="text" nbInput formControlName="risq_typerisque">
+                </div>
+            </div> -->
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <label class="label">Désignation du risque<span class="obligatoire">*</span></label>
+                            <!-- <input min="0" fullWidth fieldSize="small" nbInput type="text" >  formControlName="risq_designation1" -->
+                            <textarea rows="1" nbInput fullWidth (change)="onChangeText($event)"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <!-- formControlName="risq_localisation1" (change)="onChangeText1($event)" -->
+                            <label class="label">Localisation du risque<span class="obligatoire">*</span></label>
+                            <textarea rows="1" nbInput fullWidth formControlName="risq_localisation1"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Capital Assuré<span class="obligatoire">*</span></label>
+                            <input fullWidth fieldSize="small" nbInput type="text" (change)="onChangeCapAssure($event)"
+                                [value]="myForm.get('risque.risq_capitalassure').value | ngxNumberWithCommas">
+                        </div>
+                    </div>
+                    <div class="col-sm-2" *ngIf="showPlacement">
+                        <div class="form-group">
+                            <label class="label">Taux de Placement ( % )<span class="obligatoire">*</span></label>
+                            <input min="0" max="100" fullWidth fieldSize="small" type="number" nbInput>
+                        </div>
+                    </div>
+                    <div class="col-sm-3" *ngIf="codeProduitChoisi == '14002001'">
+                        <div class="form-group">
+                            <label class="label">Genre risque<span class="obligatoire">*</span></label>
+                            <nb-select fullWidth (selectedChange)="onChangeGEnreRisque($event)">
+                                <nb-option value="CA_GLOBAL">CA global</nb-option>
+                                <nb-option value="CA_PARTIEL">CA partiel</nb-option>
+                                <nb-option value="CA_CAS">CA cas par cas</nb-option>
+                                <nb-option value="CA_PAYS">CA par pays</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-3" *ngIf="brancheChoisi == '14002001'">
+                <div class="form-group">
+                    <label class="label">Mode gestion risque<span class="obligatoire">*</span></label>
+                    <nb-select fullWidth (selectedChange)="onChangeModeGestionRisque($event)">
+                        <nb-option value="RC">Commercial</nb-option>
+                        <nb-option value="RP">Politique</nb-option>
+                        <nb-option value="RPC">Mixte</nb-option>
+                    </nb-select>
+                </div>
+            </div> -->
+                </div>
+
+            </fieldset>
+            <fieldset class="fieldset" formGroupName="acte">
+                <legend class="tailleLegend">Acte</legend>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Type d'Acte<span class="obligatoire">*</span></label>
+                            <input readonly fullWidth fieldSize="small" type="text" nbInput
+                                formControlName="act_typegarantie">
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="label">Identité Contractante</label>
+                    <input min="0" fullWidth fieldSize="small" type="text" nbInput >
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="label">candidat / adjudicataire</label>
+                    <input min="0" fullWidth fieldSize="small" type="text" nbInput >
+                </div>
+            </div> -->
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Ancien Numéro d'acte</label>
+                            <input min="0" fullWidth fieldSize="small" type="number" nbInput
+                                formControlName="act_anciennumero">
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </fieldset>
+            <fieldset class="fieldset" formGroupName="beneficiaire">
+                <legend class="tailleLegend">Bénéficiaire</legend>
+                <div class="row">
+                    <div class="col-sm-6" *ngIf="afficherlisteBenef">
+                        <!-- <div class="col-sm-6"> -->
+                        <div class="form-group">
+                            <label class="label">Bénéficiaire</label>
+                            <mat-select class="form-control" [formControl]="beneficiairesCtrl"
+                                placeholder="choisir un beneficiaire" (selectionChange)="onChangeNumBenef($event)"
+                                fullWidth id="cont_numeroclient" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="beneficiairesFilterCtrl">
+                                    </ngx-mat-select-search>
+                                </mat-option>
+                                <mat-option value="">
+                                    bénéficiaire non trouvé
+                                </mat-option>
+                                <mat-option value="{{benef.benef_Num}}"
+                                    *ngFor="let benef of filteredBeneficiaires | async">
+                                    {{benef.benef_Num}}: {{benef.benef_nom}}
+                                    {{benef.benef_prenoms}} {{benef.benef_denom}}
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-sm-8" *ngIf="afficherNom_Denom">
+                        <!-- Nom ou dénomination à saisir -->
+                        <div class="form-group">
+                            <label class="label">Nom / Dénomination Bénéficiaire<span class="obligatoire">*</span>
+                            </label>
+                            <input fullWidth fieldSize="small" type="text" nbInput formControlName="benef_denom">
+                        </div>
+                    </div>
+
+                    <!-- Dénomination bénéficiaire en lecture seule -->
+                    <div class="col-sm-8" *ngIf="afficherDenom">
+                        <div class="form-group">
+                            <label class="label">Dénomination</label>
+                            <input readonly fullWidth fieldSize="small" type="text" nbInput [value]="denomBeneficiaire">
+                        </div>
+                    </div>
+                    <!-- Nom bénéficiaire en lecture seule -->
+                    <div class="col-sm-8" *ngIf="afficherNom">
+                        <div class="form-group">
+                            <label class="label">Nom</label>
+                            <input readonly fullWidth fieldSize="small" type="text" nbInput [value]="nomBeneficiaire">
+                        </div>
+                    </div>
+                    <!-- Prénom en saisi ou lecture seule selon le critere rempli-->
+                    <div class="col-sm-8" *ngIf="afficherPrenom">
+                        <div class="form-group">
+                            <label class="label">Penom</label>
+                            <input [readonly]="readonlyPrenom" fullWidth fieldSize="small" type="text" nbInput
+                                formControlName="benef_prenoms">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Type Bénéficiaire<span class="obligatoire">*</span></label>
+                            <nb-select [(selected)]="typeBenef" (selectedChange)="onChangeTypeBenef($event)" fullWidth>
+                                <nb-option value="{{type.id}}" *ngFor="let type of listTypeBenef">
+                                    {{type.value}}
+                                </nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+
+
+        </div>
+
+        <input type="radio" name="tabs" id="tabfour">
+        <label for="tabfour" class="lab" *ngIf="showcautionS">LOT / MARCHE</label>
+        <div class="tab">
+            <fieldset class="fieldset" formGroupName="marche">
+                <legend class="tailleLegend">Marche</legend>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Type de Marche<span class="obligatoire">*</span></label>
+                            <nb-select (selectedChange)="onChangeTypeMarche($event)" fullWidth>
+                                <nb-option value="{{marche.id}}" *ngFor="let marche of listTypeMarche">
+                                    {{marche.value}}
+                                </nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label" *ngIf="codeProduitChoisi == '15001001'">Numero d'Appel d'offre<span
+                                    class="obligatoire">*</span></label>
+                            <label class="label" *ngIf="codeProduitChoisi != '15001001'">Numero de Marche <span
+                                    class="obligatoire">*</span></label>
+                            <input fullWidth fieldSize="small" type="text" nbInput
+                                formControlName="march_identification">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label" *ngIf="codeProduitChoisi == '15001001'">Date soumission <span
+                                    class="obligatoire">*</span></label>
+                            <input *ngIf="codeProduitChoisi == '15001001'" fullWidth fieldSize="small"
+                                type="datetime-local" nbInput formControlName="march_date_debut"
+                                (focusout)="onChangeFocus()">
+                            <label class="label" *ngIf="codeProduitChoisi != '15001001'">Date Debut Marche <span
+                                    class="obligatoire">*</span></label>
+                            <input *ngIf="codeProduitChoisi != '15001001'" fullWidth fieldSize="small"
+                                type="datetime-local" nbInput formControlName="march_date_debut"
+                                (focusout)="onChangeFocus()">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Donneur d'ordre<span class="obligatoire">*</span></label>
+                            <input readonly fullWidth fieldSize="small" type="text" nbInput
+                                formControlName="march_donneurordre">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="label">Description du Marche<span class="obligatoire">*</span></label>
+                            <textarea rows="1" nbInput fullWidth formControlName="march_descriptionmarche1"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Durée du Marche (en mois) <span *ngIf="codeProduitChoisi != '15001001'"
+                                    class="obligatoire">*</span></label>
+                            <input (change)="onChangeNbJours($event.target.value)" min="0" fullWidth fieldSize="small"
+                                type="number" nbInput formControlName="march_dureeenmois">
+                        </div>
+                    </div>
+                    <div class="col-sm-3" *ngIf="codeProduitChoisi != '15001001'">
+                        <div class="form-group">
+                            <label class="label">Date Fin Marche <span class="obligatoire">*</span></label>
+                            <input fullWidth fieldSize="small" type="datetime-local" nbInput [value]="dateFin">
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <fieldset class="fieldset">
+                <legend class="tailleLegend">Lots</legend>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="label">Nombre de Lots <span class="obligatoire">*</span></label>
+                            <input min="0" fullWidth fieldSize="small" type="number" nbInput
+                                (change)="onChangeNbLot($event)">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3"><br>
+                        <button nbButton status="success" [disabled]="!addLot" (click)="ajoutLot(dialog)">Ajouter un
+                            lot</button>
+                    </div>
+
+
+                </div>
+                <p *ngIf="!addLot" style="color: red;">Nombre de lots atteint</p>
+                <div class="row">
+                    <div class="col-sm-7">
+                        <label for="">Description du lot</label>
+
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="">Capital Assuré du lot</label>
+
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="">Durée du lot (en jours)</label>
+
+                    </div>
+                </div>
+                <div class="row" *ngFor="let lot of myForm.get('lots')['controls'];let i = index">
+                    <div class="col-sm-6">
+
+                        <nb-list>
+                            <nb-list-item>
+                                {{ lot.get('lot_description').value}}
+                            </nb-list-item>
+                        </nb-list>
+                    </div>
+                    <div class="col-sm-3">
+
+                        <nb-list>
+                            <nb-list-item>
+                                {{ lot.get('lot_capitalass').value | ngxNumberWithCommas}} F
+                            </nb-list-item>
+                        </nb-list>
+                    </div>
+                    <div class="col-sm-2">
+
+                        <nb-list>
+                            <nb-list-item>
+                                {{ lot.get('lot_dureetravaux').value | ngxNumberWithCommas}}
+                            </nb-list-item>
+                        </nb-list>
+                    </div>
+                    <div class="col-sm-1">
+                        <button nbButton status="danger" (click)="deleteLot(i)">
+                            <mat-icon>delete_outline</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-6">Capital Assuré total : {{myForm.get('risque.risq_capitalassure').value |
+                        ngxNumberWithCommas}} F</div>
+                    <div class="col-sm-6" style="color: red;" *ngIf="errorSomLots">le montant Total des capitals assuré
+                        doit etre égal au capital assuré saisi</div>
+                </div>
+
+            </fieldset>
+
+        </div>
+
+        <input type="radio" name="tabs" id="tabseven">
+        <label for="tabseven" class="lab" *ngIf="showcautionR">RISQUE REGL...</label>
+        <div class="tab" formGroupName="risqueR">
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="label">Type de Risque Réglementé<span class="obligatoire">*</span></label>
+                        <nb-select (selectedChange)="onChangeTypeRisqueR($event)" fullWidth>
+                            <nb-option value="{{risqueRgl.id}}" *ngFor="let risqueRgl of listTypeRisqueRgl">
+                                {{risqueRgl.value}}
+                            </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="label">Montant Caution annuel <span class="obligatoire">*</span></label>
+                        <input readonly min="0"
+                            [value]="this.myForm.get('risqueR.riskr_mtncaution').value | ngxNumberWithCommas" fullWidth
+                            fieldSize="small" type="text" nbInput>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="label">Agrément délivré <span class="obligatoire">*</span></label>
+                        <input min="0" fullWidth fieldSize="small" type="text" nbInput formControlName="riskr_agrement">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="label">Date de l'agrément <span class="obligatoire">*</span></label>
+                        <input min="0" fullWidth fieldSize="small" type="date" nbInput
+                            formControlName="riskr_dateagrement">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="label">Adresse<span class="obligatoire">*</span></label>
+                        <!-- <input min="0" fullWidth fieldSize="small" nbInput type="text" > -->
+                        <textarea rows="1" nbInput fullWidth formControlName="riskr_adresse"></textarea>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="label">Type de Déposit<span class="obligatoire">*</span></label>
+                        <nb-select (selectedChange)="onChangeTypeDeposit($event)" fullWidth>
+                            <nb-option value="{{deposit.id}}" *ngFor="let deposit of listTypeDeposit">
+                                {{deposit.value}}
+                            </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="label">Deposit <span class="obligatoire">*</span></label>
+                        <input min="0" fullWidth fieldSize="small" type="text" nbInput formControlName="riskr_deposit">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <input type="radio" name="tabs" id="tabeight">
+        <label for="tabeight" class="lab" *ngIf="codeProduitChoisi == '14001001'">FINASSUR</label>
+        <div class="tab">
+            <div class="row">
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="label">Nature Crédit <span class="obligatoire">*</span></label>
+                        <nb-select disabled selected="1" (selectedChange)="onChangeNatureCredit($event)" fullWidth>
+                            <nb-option value="{{credit.id}}" *ngFor="let credit of listNatureCredit">
+                                {{credit.value}}
+                            </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="label">Type de Crédit <span class="obligatoire">*</span></label>
+                        <nb-select (selectedChange)="onChangeTypeCredit($event)" fullWidth>
+                            <nb-option value="{{credit.id}}" *ngFor="let credit of listTypeCredit">
+                                {{credit.value}}
+                            </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="label">Type de Couverture <span class="obligatoire">*</span></label>
+                        <nb-select (selectedChange)="onChangeTypeCouvertureFinassur($event)" fullWidth>
+                            <nb-option value="{{typeCouveture.id}}" *ngFor="let typeCouveture of listTypeCouverture">
+                                {{typeCouveture.value}}
+                            </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+            </div>
+            <fieldset class="fieldset">
+                <legend class="tailleLegend">Acheteurs</legend>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="label">Nombre d' acheteur <span class="obligatoire">*</span></label>
+                            <input min="0" fullWidth fieldSize="small" type="number" nbInput
+                                (change)="onChangeNbAcheteur($event)">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3"><br>
+                        <button nbButton status="success" [disabled]="!addacheteur"
+                            (click)="ajoutAcheteur(dialog)">Ajout
+                            d'un acheteur</button>
+                    </div>
+
+                </div>
+                <p *ngIf="!addacheteur" style="color: red;">Nombre d'acheteurs atteint</p>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label for="">Nom Acheteur</label>
+
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="">Prenom Acheteur</label>
+
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="">Montant Crédit</label>
+
+                    </div>
+                    <div class="col-sm-2">
+                        <label for=""> Nbre écheance</label>
+
+                    </div>
+                </div>
+                <div class="row" *ngFor="let lot of myForm.get('acheteurs')['controls'];let i = index">
+                    <div class="col-sm-2">
+
+                        <nb-list>
+                            <nb-list-item>
+                                {{ lot.get('achet_nom').value}}
+                            </nb-list-item>
+                        </nb-list>
+                    </div>
+                    <div class="col-sm-3">
+
+                        <nb-list>
+                            <nb-list-item>
+                                {{ lot.get('achet_prenom').value }}
+                            </nb-list-item>
+                        </nb-list>
+                    </div>
+                    <div class="col-sm-3">
+
+                        <nb-list>
+                            <nb-list-item>
+                                {{ lot.get('achet_montantcredit').value | ngxNumberWithCommas}} F
+                            </nb-list-item>
+                        </nb-list>
+                    </div>
+                    <div class="col-sm-2">
+
+                        <nb-list>
+                            <nb-list-item>
+                                {{ lot.get('achet_montantecheancecredit').value | ngxNumberWithCommas}}
+                            </nb-list-item>
+                        </nb-list>
+                    </div>
+                    <div class="col-sm-1">
+                        <button nbButton status="danger" (click)="deleteAcheteur(i)">
+                            <mat-icon>delete_outline</mat-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">Capital Assuré total : {{myForm.get('risque.risq_capitalassure').value |
+                        ngxNumberWithCommas}} F</div>
+                    <div class="col-sm-6" style="color: red;" *ngIf="errorSomAcheteurs">le montant Total des montants
+                        crédits doit etre égal au capital assuré saisi</div>
+                </div>
+
+            </fieldset>
+
+        </div>
+
+        <input type="radio" name="tabs" id="tabnine">
+        <label for="tabnine" class="lab" *ngIf="codeProduitChoisi == '14003001'">RISQ. DOMESTIQ...</label>
+        <div class="tab">
+            <div class="row">
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="label">Nature Crédit <span class="obligatoire">*</span></label>
+                        <nb-select disabled selected="2" (selectedChange)="onChangeNatureCredit($event)" fullWidth>
+                            <nb-option value="{{credit.id}}" *ngFor="let credit of listNatureCredit">
+                                {{credit.value}}
+                            </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+
+            </div>
+            <fieldset class="fieldset">
+                <legend class="tailleLegend">Acheteurs</legend>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="label">Nombre d' acheteurs <span class="obligatoire">*</span></label>
+                            <input min="0" fullWidth fieldSize="small" type="number" nbInput
+                                (change)="onChangeNbAcheteur($event)">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3"><br>
+                        <button nbButton status="success" [disabled]="!addacheteur"
+                            (click)="ajoutAcheteur(dialog)">Ajout
+                            d'un acheteur</button>
+                    </div>
+
+                </div>
+                <p *ngIf="!addacheteur" style="color: red;">Nombre d'acheteurs atteint</p>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label for="">Nom Acheteur</label>
+
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="">Prenom Acheteur</label>
+
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="">Montant Crédit</label>
+
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="">Duree Crédit</label>
+
+                    </div>
+
+                </div>
+                <div class="row" *ngFor="let lot of myForm.get('acheteurs')['controls'];let i = index">
+                    <div class="col-sm-2">
+
+                        <nb-list>
+                            <nb-list-item>
+                                {{ lot.get('achet_nom').value}}
+                            </nb-list-item>
+                        </nb-list>
+                    </div>
+                    <div class="col-sm-3">
+
+                        <nb-list>
+                            <nb-list-item>
+                                {{ lot.get('achet_prenom').value }}
+                            </nb-list-item>
+                        </nb-list>
+                    </div>
+                    <div class="col-sm-3">
+
+                        <nb-list>
+                            <nb-list-item>
+                                {{ lot.get('achet_montantcredit').value | ngxNumberWithCommas}} F
+                            </nb-list-item>
+                        </nb-list>
+                    </div>
+                    <div class="col-sm-2">
+
+                        <nb-list>
+                            <nb-list-item>
+                                {{ lot.get('achet_duree').value | ngxNumberWithCommas}} jours
+                            </nb-list-item>
+                        </nb-list>
+                    </div>
+
+                    <div class="col-sm-1">
+                        <button nbButton status="danger" (click)="deleteAcheteur(i)">
+                            <mat-icon>delete_outline</mat-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">Capital Assuré total : {{myForm.get('risque.risq_capitalassure').value |
+                        ngxNumberWithCommas}} F</div>
+                    <div class="col-sm-6" style="color: red;" *ngIf="errorSomAcheteurs">le montant Total des montants
+                        crédits doit etre égal au capital assuré saisi</div>
+                </div>
+
+            </fieldset>
+
+        </div>
+
+        <input type="radio" name="tabs" id="tabten">
+        <label for="tabten" class="lab" *ngIf="codeProduitChoisi == '14002001'">RISQ. EXPORT</label>
+        <div class="tab">
+            <div class="row">
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="label">Nature Crédit <span class="obligatoire">*</span></label>
+                        <nb-select disabled selected="3" (selectedChange)="onChangeNatureCredit($event)" fullWidth>
+                            <nb-option value="{{credit.id}}" *ngFor="let credit of listNatureCredit">
+                                {{credit.value}}
+                            </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+
+            </div>
+
+            <fieldset class="fieldset">
+                <legend class="tailleLegend">Acheteurs</legend>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="label">Nombre d' acheteurs <span class="obligatoire">*</span></label>
+                            <input min="0" fullWidth fieldSize="small" type="number" nbInput
+                                (change)="onChangeNbAcheteur($event)">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3"><br>
+                        <button nbButton status="success" [disabled]="!addacheteur"
+                            (click)="ajoutAcheteur(dialog)">Ajout
+                            d'un acheteur</button>
+                    </div>
+
+                </div>
+                <p *ngIf="!addacheteur" style="color: red;">Nombre d'acheteurs atteint</p>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label for="">Nom Acheteur</label>
+
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="">Prenom Acheteur</label>
+
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="">Montant Crédit</label>
+
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="">Duree Crédit</label>
+
+                    </div>
+
+                </div>
+                <div class="row" *ngFor="let lot of myForm.get('acheteurs')['controls'];let i = index">
+                    <div class="col-sm-2">
+
+                        <nb-list>
+                            <nb-list-item>
+                                {{ lot.get('achet_nom').value}}
+                            </nb-list-item>
+                        </nb-list>
+                    </div>
+                    <div class="col-sm-3">
+
+                        <nb-list>
+                            <nb-list-item>
+                                {{ lot.get('achet_prenom').value }}
+                            </nb-list-item>
+                        </nb-list>
+                    </div>
+                    <div class="col-sm-3">
+
+                        <nb-list>
+                            <nb-list-item>
+                                {{ lot.get('achet_montantcredit').value | ngxNumberWithCommas}} F
+                            </nb-list-item>
+                        </nb-list>
+                    </div>
+                    <div class="col-sm-2">
+
+                        <nb-list>
+                            <nb-list-item>
+                                {{ lot.get('achet_duree').value | ngxNumberWithCommas}} jours
+                            </nb-list-item>
+                        </nb-list>
+                    </div>
+
+                    <div class="col-sm-1">
+                        <button nbButton status="danger" (click)="deleteAcheteur(i)">
+                            <mat-icon>delete_outline</mat-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-5">Capital Assuré total : {{myForm.get('risque.risq_capitalassure').value |
+                        ngxNumberWithCommas}} F</div>
+                    <div class="col-sm-7" style="color: red;" *ngIf="errorCred">le montant Total des montants
+                        crédits doit etre égal au capital assuré saisi</div>
+                </div>
+
+            </fieldset>
+
+        </div>
+
+        <input type="radio" name="tabs" id="tabeleven">
+        <label for="tabeleven" class="lab" *ngIf="codeProduitChoisi == '16008001'">LOCASSUR</label>
+        <div class="tab" formGroupName="risqueLocatif">
+            <div class="row">
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="label">Type de risque <span class="obligatoire">*</span></label>
+                        <nb-select (selectedChange)="onChangeTypeLocatif($event)" fullWidth>
+                            <nb-option value="{{locatif.id}}" *ngFor="let locatif of listTypeLocatif">
+                                {{locatif.value}}
+                            </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="form-group">
+                        <label class="label">Description du risque<span class="obligatoire">*</span></label>
+                        <!-- <input min="0" fullWidth fieldSize="small" nbInput type="text" > -->
+                        <textarea rows="1" nbInput fullWidth formControlName="riskl_description"></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            <fieldset class="fieldset">
+                <legend class="tailleLegend">Acheteurs</legend>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="label">Nombre d' acheteurs <span class="obligatoire">*</span></label>
+                            <input min="0" fullWidth fieldSize="small" type="number" nbInput
+                                (change)="onChangeNbAcheteur($event)">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3"><br>
+                        <button nbButton status="success" [disabled]="!addacheteur"
+                            (click)="ajoutAcheteur(dialog)">Ajout
+                            d'un locataire</button>
+                    </div>
+
+                </div>
+                <p *ngIf="!addacheteur" style="color: red;">Nombre de locataires atteint</p>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label for="">Nom locataire</label>
+
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="">Prenom locataire</label>
+
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="">Montant Loyer Mensuel</label>
+
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="">type bail </label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="">duree bail </label>
+                    </div>
+
+                </div>
+                <div class="row" *ngFor="let lot of myForm.get('acheteurs')['controls'];let i = index">
+                    <div class="col-sm-2">
+
+                        <nb-list>
+                            <nb-list-item>
+                                {{ lot.get('achet_nom').value}}
+                            </nb-list-item>
+                        </nb-list>
+                    </div>
+                    <div class="col-sm-3">
+
+                        <nb-list>
+                            <nb-list-item>
+                                {{ lot.get('achet_prenom').value }}
+                            </nb-list-item>
+                        </nb-list>
+                    </div>
+                    <div class="col-sm-2">
+
+                        <nb-list>
+                            <nb-list-item>
+                                {{ lot.get('achet_montant_loyer').value | ngxNumberWithCommas}} F
+                            </nb-list-item>
+                        </nb-list>
+                    </div>
+                    <div class="col-sm-2">
+
+                        <nb-list>
+                            <nb-list-item>
+                                {{ lot.get('achet_bail').value }}
+                            </nb-list-item>
+                        </nb-list>
+                    </div>
+                    <div class="col-sm-2">
+
+                        <nb-list>
+                            <nb-list-item>
+                                {{ lot.get('achet_duree_bail').value }} mois
+                            </nb-list-item>
+                        </nb-list>
+                    </div>
+
+                    <div class="col-sm-1">
+                        <button nbButton status="danger" (click)="deleteAcheteur(i)">
+                            <mat-icon>delete_outline</mat-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-5">Capital Assuré total : {{myForm.get('risque.risq_capitalassure').value |
+                        ngxNumberWithCommas}} F</div>
+                    <div class="col-sm-7" style="color: red;" *ngIf="errorCred">le montant Total des montants
+                        crédits doit etre égal au capital assuré saisi</div>
+                </div>
+
+            </fieldset>
+
+        </div>
+
+        <input type="radio" name="tabs" id="tabfive">
+        <label for="tabfive" class="lab">TARIFICATION</label>
+        <div class="tab">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="label">Exonération Taxe</label>
+                        <nb-select (selectedChange)="onChangeExoneration($event)" selected="non" fullWidth>
+                            <nb-option value="oui">oui</nb-option>
+                            <nb-option value="non">non</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-sm-4" *ngIf="showDateExo">
+                    <div class="form-group">
+                        <label class="label">Date Exonération<span class="obligatoire">*</span></label>
+                        <input fullWidth fieldSize="small" type="datetime-local" nbInput id="poli_datexoneration">
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="label">Tarification conventionnelle</label>
+                        <nb-select (selectedChange)="onChangeTarifConventionnelle($event)" selected="non" fullWidth>
+                            <nb-option value="oui">oui</nb-option>
+                            <nb-option value="non">non</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-sm-2" *ngIf="showTauxPreferentielle">
+                    <div class="form-group">
+                        <label class="label">Taux prérentiel (en %)</label>
+                        <input fullWidth fieldSize="small" type="number" nbInput (change)="onChangeTauxPreferentielle($event)">
+                        <span class ="messageTauxPref" *ngIf="afficheMesssageTauxPref">Vous avez saisi {{tauxPreferentiel}} %</span>
+                    </div>
+                </div>
+            </div>
+
+            <fieldset class="fieldset">
+                <legend class="tailleLegend">Tarification</legend>
+
+                <div class="row">
+                    <div class="col-lg-3">
+                        <p class="tarifChamp">TAUX PRODUIT :</p><br>
+                        <p class="tarifChamp">TAUX COMMISSION :</p>
+                        <p class="tarifChamp">MONTANT COMMISSION :</p>
+                    </div>
+                    <div class="col-lg-3" style="text-align:right ;">
+                        <p class="tarifChamp" *ngIf="!afficheTauxPref"><span>{{ tauxAp }} %</span></p>
+                        <p class="tarifChamp" *ngIf="afficheTauxPref"><span>0 %</span></p><br>
+                        <p class="tarifChamp"><span>{{ tauxCom }} %</span></p>
+                        <p class="tarifChamp"><span>{{ this.myForm.get('quittance.quit_commissionsapporteur1').value |
+                                ngxNumberWithCommas}} F CFA</span></p>
+                    </div>
+                    <div class="col-lg-3">
+                        <p class="tarifChamp">PRIME NETTE :</p>
+                        <p class="tarifChamp">ACCESSOIRE COMPAGNIE :</p><br>
+                        <p class="tarifChamp">ACCESSOIRE APPORTEUR :</p>
+                        <p class="tarifChamp">TAXE D'ASSURANCE :</p>
+                        <p class="tarifChamp">PRIME TTC :</p>
+                    </div>
+                    <div class="col-lg-3" style="text-align:right ;">
+                        <p class="tarifChamp"><span>{{ this.myForm.get('quittance.quit_primenette').value |
+                                ngxNumberWithCommas}} F CFA</span></p>
+                        <!-- <p class="tarifChamp"><span >{{ this.myForm.get('quittance.quit_accessoirecompagnie').value | ngxNumberWithCommas}} F CFA</span></p> -->
+                        <p class="tarifChamp"> <input style="text-align:right;" class="tarifChamp" fieldSize="small"
+                                type="text" (change)="onChangeAcc($event)" nbInput
+                                [value]="this.myForm.get('quittance.quit_accessoirecompagnie').value | ngxNumberWithCommas">
+                            F CFA</p><br>
+                        <p class="tarifChamp"><span>{{ this.myForm.get('quittance.quit_accessoireapporteur').value |
+                                ngxNumberWithCommas}} F CFA</span></p>
+                        <p class="tarifChamp"><span>{{ this.myForm.get('quittance.quit_mtntaxete').value |
+                                ngxNumberWithCommas}} F CFA</span></p>
+                        <p class="tarifChamp"><span style="font-weight: bold;">{{
+                                this.myForm.get('quittance.quit_primettc').value | ngxNumberWithCommas}} F CFA</span>
+                        </p><br><br>
+                        <button fullWidth nbButton status="primary" (click)="tarifer()">Tarifer</button>
+
+                    </div>
+                </div>
+                <br>
+
+            </fieldset>
+
+
+        </div>
+
+        <input type="radio" name="tabs" id="tabsix">
+        <label for="tabsix" class="lab">INFO COMPL...</label>
+        <div class="tab">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="label">Plan de COASSURANCE</label>
+                        <input fullWidth fieldSize="small" type="text" nbInput>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="label">Plan de REASSURANCE</label>
+                        <input fullWidth fieldSize="small" type="text" nbInput>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</form>
+
+
+<br><br>
+<!-- <button [nbSpinner]="loading" nbSpinnerStatus="success" nbButton status="success" (click)="submit()" >valider</button>-->
+<button *ngIf="typpe == 1" [nbSpinner]="loading" nbSpinnerStatus="success" nbButton status="success" (click)="submit()"
+    [disabled]="!myForm.valid || errorSomLots || errorCred || errorSomAcheteurs">valider</button>
+<button *ngIf="typpe == 2" [nbSpinner]="loading" nbSpinnerStatus="success" nbButton status="success"
+    (click)="submitPropo()" [disabled]="!myForm.valid || errorCred || errorSomLots || errorSomAcheteurs">valider</button>
+
+
+
+
+
+
+
+
+<ng-template #dialog let-ref="dialogRef">
+
+
+</ng-template>

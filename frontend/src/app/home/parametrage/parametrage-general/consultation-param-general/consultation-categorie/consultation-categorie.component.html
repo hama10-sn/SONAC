@@ -1,0 +1,101 @@
+<div *ngIf="check_fonct('l_categorie')">
+    <mat-card>
+        <div fxLayout fxLayoutAlign="center center">
+            <mat-form-field fxFlex="40%">
+                <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+            </mat-form-field>
+        </div>
+        <mat-card-header class="card-header">
+            <span class="header">La liste des catégories</span>
+            <div>
+                <button class="buttons_export" mat-button [matMenuTriggerFor]="menu">Export</button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="onExport('pdf')">
+                        PDF
+                    </button>
+                    <button mat-menu-item (click)="onExport('excel')">
+                        EXCEL
+                    </button>
+                </mat-menu>
+            </div>
+        </mat-card-header>
+
+
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="categ_numero">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Numero Catégorie </th>
+                <td mat-cell *matCellDef="let categorie"> {{categorie.categ_numero}} </td>
+            </ng-container>
+            <ng-container matColumnDef="categ_numerobranche">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Branche </th>
+                <td mat-cell *matCellDef="let categorie"> {{onGetBrancheByCode(categorie.categ_numerobranche)}} </td>
+            </ng-container>
+            <ng-container matColumnDef="categ_libellelong">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Libelle long </th>
+                <td mat-cell *matCellDef="let categorie"> {{categorie.categ_libellelong}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="details">
+                <th mat-header-cell *matHeaderCellDef>
+                    <div *ngIf="check_fonct('l_categorie')"> Action </div>
+                </th>
+                <td mat-cell *matCellDef="let categorie">
+                    <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">
+                        <mat-icon class="mat-18">more_vert</mat-icon>
+                    </button>
+                    <mat-menu #detail="matMenu">
+                        <button mat-menu-item color="primary" (click)="open(dialog ,categorie)">
+                            <mat-icon>reorder</mat-icon>Détail
+                        </button>
+                    </mat-menu>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]">
+        </mat-paginator>
+
+        <ng-template #dialog let-categorie let-ref="dialogRef">
+
+            <nb-card>
+                <nb-card-header>
+                    Details de la Categorie
+                </nb-card-header>
+                <nb-card-body>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h5 class="grid-h">Information</h5>
+                            <div><span class="detail">Numero categorie :</span> {{ categorie.categ_numero }}</div><br>
+                            <div><span class="detail">Numero Branche :</span> {{
+                                onGetBrancheByCode(categorie.categ_numerobranche) }}</div><br>
+                            <div><span class="detail">libelle long :</span> {{ categorie.categ_libellelong }}</div><br>
+                            <div><span class="detail">libelle court :</span> {{ categorie.categ_libellecourt }}</div>
+                            <br>
+                            <div><span class="detail">classification analytique :</span> {{
+                                categorie.categ_classificationanalytique }}</div><br>
+                        </div>
+                        <div class="col-sm-6">
+                            <h5 class="grid-h">Autre</h5>
+                            <div><span class="detail">Code taxe :</span> {{ categorie.categ_codetaxe }}</div><br>
+                            <div><span class="detail">Code commission :</span> {{ categorie.categ_codecommission }}
+                            </div><br>
+                            <div><span class="detail">Date comptabilisation :</span> {{
+                                categorie.categ_datecomptabilisation | date:'dd-MM-yyyy'}}</div><br>
+                        </div>
+                    </div>
+
+                </nb-card-body>
+                <nb-card-footer>
+                    <button nbButton (click)="ref.close()" status="danger">Fermer</button>
+                </nb-card-footer>
+            </nb-card>
+        </ng-template>
+    </mat-card>
+</div>
+
+<div *ngIf="check_fonct('l_categorie')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

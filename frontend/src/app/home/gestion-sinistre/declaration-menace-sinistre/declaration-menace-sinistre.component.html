@@ -1,0 +1,189 @@
+<!-- <div *ngIf="check_fonct('l_surete')"> -->
+<mat-card>
+    <div fxLayout fxLayoutAlign="center center">
+        <mat-form-field fxFlex="40%">
+            <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+        </mat-form-field>
+
+        <mat-card-header class="card-header">
+
+            <span class="header">La liste des déclarations de menaces de sinistre</span>
+
+            <!-- <div *ngIf="check_fonct('c_surete')"> -->
+            <button mat-icon-button class="buttonAjout" status="success" (click)="openAjout()">
+                <mat-icon style="margin-bottom: 15px;" class="material-icons color_green"
+                    title="Déclaration menace de sinistre">
+                    add_circle</mat-icon>
+            </button>
+            <!-- </div> -->
+
+        </mat-card-header>
+    </div>
+    <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="sini_num">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Num sinistre</th>
+            <td mat-cell *matCellDef="let sinistre"> {{sinistre.sini_num}} </td>
+        </ng-container>
+        <ng-container matColumnDef="sini_souscripteur">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Client</th>
+            <td mat-cell *matCellDef="let sinistre"> {{sinistre.sini_souscripteur}} </td>
+        </ng-container>
+        <ng-container matColumnDef="sini_police">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Police </th>
+            <td mat-cell *matCellDef="let sinistre"> {{sinistre.sini_police}} </td>
+        </ng-container>
+        <ng-container matColumnDef="sini_risque">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Risque </th>
+            <td mat-cell *matCellDef="let sinistre"> {{sinistre.sini_risque}} </td>
+        </ng-container>
+        <ng-container matColumnDef="sini_intermediaire">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Intermédiaire </th>
+            <td mat-cell *matCellDef="let sinistre"> {{sinistre.sini_intermediaire}}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="sini_produit">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Produit </th>
+            <td mat-cell *matCellDef="let sinistre">{{sinistre.sini_produit}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let sinistre">
+                <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">
+                    <mat-icon class="mat-18">more_vert</mat-icon>
+                </button>
+                <mat-menu #detail="matMenu">
+                    <button mat-menu-item color="primary" (click)="open(dialog,sinistre)">
+                        <mat-icon>reorder</mat-icon>Détail
+                    </button>
+                    <!-- <div *ngIf="check_fonct('u_surete')">
+                        <button mat-menu-item (click)="openModif(surete)"
+                            *ngIf="surete.surete_typesurete == '3' && (surete.surete_statutliberation != 2)">
+                            <mat-icon color="primary">edit</mat-icon> Modifier
+                        </button>
+                    </div> -->
+                    <!-- <div *ngIf="check_fonct('d_surete')">
+                        <div>
+                            <button mat-menu-item (click)="openDel(dialogdel, surete)">
+                                <mat-icon color="warn">delete</mat-icon> Suppimer
+                            </button>
+                        </div>
+                    </div> -->
+                </mat-menu>
+
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]">
+    </mat-paginator>
+
+    <ng-template #dialog let-surete let-ref="dialogRef">
+        <nb-card>
+            <nb-card-header>
+                Details de la menace de sinistre
+            </nb-card-header>
+            <nb-card-body>
+                <div class="row">
+                    <h5 class="grid-h">Infos</h5>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-sm-4">
+                        <h5 class="grid-h">Infos</h5>
+                        <div><span class="detail">Client :</span> {{surete.clien_numero}} : {{surete.clien_prenom}}
+                            {{surete.clien_nom}} {{surete.clien_denomination}} </div><br>
+                        <div><span class="detail">Numero Police :</span> {{surete.surete_numpoli}}</div><br>
+                        <div><span class="detail">Numero Avenant :</span> {{surete.surete_numeroavenant}}</div>
+                        <br>
+                        <div><span class="detail">Numero Acte :</span> {{ surete.surete_numeroacte }}</div><br>
+                        <div><span class="detail">Numero Engagement :</span> {{ surete.surete_numeroengagement }}
+                        </div>
+                        <br>
+                        <div><span class="detail">Numéro sureté :</span> {{ surete.surete_numero }}
+                        </div><br><br><br><br><br><br><br><br>
+
+                    </div>
+                    <div class="col-sm-4">
+                        <h5 class="grid-h">Sureté</h5>
+                        <div><span class="detail">Type de sureté :</span>
+                            {{onGetLibelleByTypeSurete(surete.surete_typesurete)}}
+                        </div><br>
+                        <div><span class="detail">Identification TF/Autres :</span>
+                            {{surete.surete_identificationtitre}}
+                        </div><br>
+                        <div><span class="detail">Localisation : </span>
+                            {{surete.surete_localisation}}
+                        </div><br>
+                        <div><span class="detail">Adresse de géolocalisation :</span>
+                            {{surete.surete_adressegeolocalisation}}
+                        </div><br>
+                        <div><span class="detail">Caution solidaire :</span>
+                            {{onGetLibelleByCautionSolidaire(surete.surete_cautionsolidaire)}}
+                        </div><br>
+                        <div><span class="detail">Déposit Retenu initial:</span> {{ surete.surete_retenudeposit |
+                            ngxNumberWithCommas }}
+                        </div><br>
+                        <div><span class="detail">Date du Déposit:</span> {{ surete.surete_datedeposit | date:
+                            'dd-MM-yyyy' }}</div><br>
+                    </div>
+                    <div class="col-sm-4">
+                        <h5 class="grid-h">Libération sureté</h5>
+                        <div><span class="detail">Déposit libéré :</span> {{ surete.surete_depositlibere |
+                            ngxNumberWithCommas }}</div>
+                        <br>
+                        <div><span class="detail">Déposit Retenu restant:</span> {{ (surete.surete_retenudeposit -
+                            surete.surete_depositlibere) |
+                            ngxNumberWithCommas }}
+                        </div><br>
+                        <div><span class="detail">Date de Libération :</span> {{
+                            surete.surete_dateliberation | date: 'dd-MM-yyyy' }}
+                        </div><br>
+                        <div><span class="detail">Date de comptabilisation :</span> {{
+                            surete.surete_datecomptabilisation | date: 'dd-MM-yyyy' }}
+                        </div><br>
+                        <div><span class="detail">Statut libération :</span> {{
+                            onGetLibelleByStatutLiberation(surete.surete_statutliberation) }}
+                        </div><br>
+                        <div><span class="detail">Date modification :</span> {{
+                            surete.surete_datemodification | date: 'dd-MM-yyyy' }}
+                        </div><br><br><br><br><br><br><br><br>
+                    </div>
+                </div> -->
+            </nb-card-body>
+            <nb-card-footer>
+
+                <!-- <button *ngIf="check_fonct('u_surete')" nbButton status="success" (click)="ref.close()"
+                        (click)="openModif(surete)">
+                        modifier
+                    </button> -->
+                &nbsp;&nbsp;
+                <button nbButton (click)="ref.close()" status="danger">Fermer</button>
+            </nb-card-footer>
+        </nb-card>
+    </ng-template>
+
+    <!-- Dialog de confirmation pour la suppression -->
+    <!-- <ng-template #dialogdel let-surete let-ref="dialogRef">
+
+        <nb-card>
+            <nb-card-header>
+                CONFIRMATION SUPPRESSION !
+            </nb-card-header>
+            <nb-card-body>
+                <h5 class="grid-h">Merci de confirmer la suppression</h5>
+            </nb-card-body>
+            <nb-card-footer>
+                <button nbButton (click)="redirectToDelete(surete.surete_numero)" (click)="ref.close()"
+                    status="success">Confirmer</button>&nbsp;&nbsp;
+                <button nbButton (click)="ref.close()" status="danger">Annuler</button>
+            </nb-card-footer>
+        </nb-card>
+    </ng-template> -->
+</mat-card>
+<!-- </div>
+
+<div *ngIf="check_fonct('l_surete')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div> -->

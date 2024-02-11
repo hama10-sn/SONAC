@@ -1,0 +1,274 @@
+<div *ngIf="check_fonct('l_comptabilite_sinistre')">
+  <mat-card>
+    <div fxLayout fxLayoutAlign="center center">
+      <mat-form-field fxFlex="40%">
+        <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+      </mat-form-field>
+
+      <!-- <button class="menace_sinistre" (click)="openMenaceSinistre()">
+                Menaces de sinistre
+            </button><br> -->
+
+      <mat-card-header class="card-header">
+        <span class="header">La liste des recours encaissés</span>
+      </mat-card-header>
+    </div>
+
+    <table mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="sin_client">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Client </th>
+        <td mat-cell *matCellDef="let mvts"> {{onGetClientByCode(mvts.mvts_tiers)}} </td>
+      </ng-container>
+      <ng-container matColumnDef="sin_police">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro police</th>
+        <td mat-cell *matCellDef="let mvts"> {{mvts.mvts_poli}} </td>
+      </ng-container>
+      <ng-container matColumnDef="sin_num">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro sinistre </th>
+        <td mat-cell *matCellDef="let mvts"> {{mvts.mvts_numsinistre}} </td>
+      </ng-container>
+      <ng-container matColumnDef="mvts_num">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro mouvement </th>
+        <td mat-cell *matCellDef="let mvts"> {{mvts.mvts_num}} </td>
+      </ng-container>
+      <ng-container matColumnDef="mvts_montantmvt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Montant à encaisser </th>
+        <td mat-cell *matCellDef="let mvts"> {{mvts.mvts_montantmvt}} </td>
+      </ng-container>
+      <ng-container matColumnDef="mvts_typemvt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Statut </th>
+        <td mat-cell *matCellDef="let mvts"> {{onGetLibelleByStatus(mvts.mvts_typemvt)}} </td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let mvts">
+          <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">
+            <mat-icon class="mat-18">more_vert</mat-icon>
+          </button>
+          <mat-menu #detail="matMenu">
+            <button mat-menu-item (click)="onOpen(dialog,mvts)">
+              <mat-icon>visibility</mat-icon> Détail
+            </button>
+            <button mat-menu-item (click)="onAnnulationValidationRecoursEncaisse(mvts)"
+              *ngIf="mvts.mvts_typemvt === 13">
+              <mat-icon>restore</mat-icon> Annulation encaissement recours
+            </button>
+          </mat-menu>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]">
+    </mat-paginator>
+    <ng-template #dialog let-sinistre let-ref="dialogRef">
+      <nb-card>
+        <nb-card-header class="col-lg-12">DETAILS DU SINISTRE</nb-card-header>
+        <nb-card-body>
+          <div class="row">
+            <div class="col-sm-3">
+              <h5 class="grid-h">Infos Sinistre</h5>
+              <div><span class="detail">Numéro sinistre :</span>
+                {{ sinistre.sini_num }}
+              </div><br>
+              <div><span class="detail">Type sinistre :</span>
+                {{ sinistre.sini_typesinistre }}
+              </div><br>
+              <div><span class="detail">Date survenance : </span>
+                {{ sinistre.sini_datesurvenance | date: 'dd-MM-yyyy'}}
+              </div><br>
+              <div><span class="detail">Date déclaration : </span>
+                {{ sinistre.sini_datedeclaration | date: 'dd-MM-yyyy'}}
+              </div><br>
+              <div><span class="detail">Date saisie : </span>
+                {{ sinistre.sini_datesaisie | date: 'dd-MM-yyyy'}}
+              </div><br>
+            </div>
+
+            <div class="col-sm-3">
+              <h5 class="grid-h">Infos 2</h5>
+              <div><span class="detail">Police :</span>
+                {{ sinistre.sini_police }}
+              </div><br>
+              <div><span class="detail">Client :</span>
+                {{ onGetClientByCode(sinistre.sini_souscripteur) }}
+              </div><br>
+              <div><span class="detail">Produit : </span>
+                {{ onGetProduitByNumero(sinistre.sini_produit) }}
+              </div><br>
+              <div><span class="detail">Acheteur :</span>
+                {{ onGetAcheteurByCode(sinistre.sini_acheteur) }}
+              </div><br>
+              <div><span class="detail">Lieu :</span>
+                {{ sinistre.sini_lieu }}
+              </div><br>
+            </div>
+
+            <div class="col-sm-3">
+              <h5 class="grid-h">Evaluations</h5>
+              <div><span class="detail">Evaluation principale :</span>
+                {{ sinistre.sini_evaluationprincipale | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">Evaluation frais :</span>
+                {{ sinistre.sini_evaluationfrais | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">Evaluation honoraires : </span>
+                {{ sinistre.sini_evaluationhonoraires | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">Evaluation globale :</span>
+                {{sinistre.sini_evaluationglobale | ngxNumberWithCommas }}
+              </div><br>
+            </div>
+
+            <div class="col-sm-3">
+              <h5 class="grid-h">SAP</h5>
+              <div><span class="detail">SAP principal :</span>
+                {{ sinistre.sini_sapprincipale | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">SAP frais :</span>
+                {{ sinistre.sini_sapfrais | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">SAP honoraires : </span>
+                {{ sinistre.sini_saphonoraires | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">SAP globale :</span>
+                {{sinistre.sini_sapglobale | ngxNumberWithCommas }}
+              </div><br>
+            </div>
+
+            <div class="col-sm-3">
+              <h5 class="grid-h">REGLEMENT</h5>
+              <div><span class="detail">Montant principal :</span>
+                {{ sinistre.sini_reglementprincipal | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">Montant frais :</span>
+                {{ sinistre.sini_reglementfrais | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">Montant honoraires : </span>
+                {{ sinistre.sini_reglementhonoraires | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">Montant global :</span>
+                {{sinistre.sini_reglementglobal | ngxNumberWithCommas }}
+              </div><br>
+            </div>
+
+            <!-- <div class="col-sm-3">
+              <h5 class="grid-h">Infos 3</h5>
+              <div><span class="detail">Frais de recouvrement :</span>
+                {{ sinistre.sini_recoursfrais }}
+              </div><br>
+              <div><span class="detail">Frais de recouvrement encaissé :</span>
+                {{ sinistre.sini_recoursfraisencaisse }}
+              </div><br>
+              <div><span class="detail">Frais de recouvrement global : </span>
+                {{ sinistre.sini_recoursglobal }}
+              </div><br>
+              <div><span class="detail">Frais de recouvrement global encaissé :</span>
+                {{sinistre.sini_recoursglobalencaisse}}
+              </div><br>
+              <div><span class="detail">Frais de recouvrement honoraire encaissé :</span>
+                {{sinistre.sini_recourshonoraireencaisse}}
+              </div><br>
+            </div>
+
+            <div class="col-sm-3">
+              <h5 class="grid-h">Infos 4</h5>
+              <div><span class="detail">Frais de recouvrement honoraire :</span>
+                {{sinistre.sini_recourshonoraire}}
+              </div><br>
+              <div><span class="detail">Frais de recouvrement principal :</span>
+                {{ sinistre.sini_recoursprincipal }}
+              </div><br>
+              <div><span class="detail">Frais de recouvrement principal encaissé :</span>
+                {{ sinistre.sini_recoursprincipalencaisse }}
+              </div><br>
+              <div><span class="detail">Frais de réglement : </span>
+                {{ sinistre.sini_reglementfrais }}
+              </div><br>
+              <div><span class="detail">Frais de réglement global :</span>
+                {{sinistre.sini_reglementglobal}}
+              </div><br>
+              <div><span class="detail">Frais de recouvrement honoraire :</span>
+                {{sinistre.sini_recourshonoraire}}
+              </div><br>
+            </div> -->
+
+            <div class="col-sm-3"
+              *ngIf="sinistre.sini_status == 9 || sinistre.sini_status == 10 || sinistre.sini_status == 13">
+              <h5 class="grid-h">Mouvement recours</h5>
+              <div><span class="detail">Numéro mouvement :</span>
+                {{sinistre.mvts_num}}
+              </div><br>
+              <div><span class="detail">Montant recours principal :</span>
+                {{ sinistre.mvts_montantprincipal }}
+              </div><br>
+              <div><span class="detail">Montant frais recours :</span>
+                {{ sinistre.mvts_montantfrais }}
+              </div><br>
+              <div><span class="detail">Montant honoraires recours : </span>
+                {{ sinistre.mvts_montanthonoraire }}
+              </div><br>
+              <div><span class="detail">Montant recours global :</span>
+                {{ sinistre.mvts_montantmvt }}
+              </div><br>
+            </div>
+
+            <div class="col-sm-3" *ngIf="sinistre.sini_status == 10 || sinistre.sini_status == 13">
+              <h5 class="grid-h">Info recours</h5>
+              <div><span class="detail">Montant recours principal :</span>
+                {{ sinistre.sini_recoursprincipal }}
+              </div><br>
+              <div><span class="detail">Montant frais recours :</span>
+                {{ sinistre.sini_recoursfrais }}
+              </div><br>
+              <div><span class="detail">Montant honoraires recours : </span>
+                {{ sinistre.sini_recourshonoraires }}
+              </div><br>
+              <div><span class="detail">Montant recours global :</span>
+                {{ sinistre.sini_recoursglobal }}
+              </div><br>
+            </div>
+
+            <div class="col-sm-3" *ngIf="sinistre.sini_status == 10">
+              <h5 class="grid-h">Info sinistre</h5>
+              <div><span class="detail">Montant recours sinistre principal :</span>
+                {{ sinistre.sini_recoursprincipal }}
+              </div><br>
+              <div><span class="detail">Montant frais recours sinistre :</span>
+                {{ sinistre.sini_recoursfrais }}
+              </div><br>
+              <div><span class="detail">Montant honoraires recours sinistre : </span>
+                {{ sinistre.sini_recourshonoraires }}
+              </div><br>
+              <div><span class="detail">Montant recours sinistre global :</span>
+                {{ sinistre.sini_recoursglobal }}
+              </div><br>
+            </div>
+
+            <div class="col-sm-3" *ngIf="sinistre.sini_status == 13">
+              <h5 class="grid-h">Info sinistre</h5>
+              <div><span class="detail">Montant recours principal encaisse :</span>
+                {{ sinistre.sini_recoursprincipalencaisse }}
+              </div><br>
+              <div><span class="detail">Montant frais recours encaisse :</span>
+                {{ sinistre.sini_recoursfraisencaisse }}
+              </div><br>
+              <div><span class="detail">Montant honoraires recours encaisse : </span>
+                {{ sinistre.sini_recourshonoraieencaisse }}
+              </div><br>
+              <div><span class="detail">Montant recours global encaisse :</span>
+                {{ sinistre.sini_recoursglobalencaisse }}
+              </div><br>
+            </div>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <button nbButton (click)="ref.close()" status="danger" class="btn btn-primary">Fermer</button>
+        </nb-card-footer>
+      </nb-card>
+    </ng-template>
+  </mat-card>
+</div>
+<div *ngIf="check_fonct('l_comptabilite_sinistre')==false">
+  <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

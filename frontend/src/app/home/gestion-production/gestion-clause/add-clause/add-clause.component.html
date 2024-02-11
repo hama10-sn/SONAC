@@ -1,0 +1,169 @@
+<div *ngIf="check_fonct('c_clause')">
+    <form [formGroup]="addForm">        
+                <div class="col-lg-4">
+                    <nb-card>
+                        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Ajouter clause</nb-card-header>
+                    </nb-card>
+                </div>
+                <br>
+            <div class="tabs">
+                    <input type="radio" name="tabs" id="tabone" checked="checked">
+                    <label for="tabone" class="lab">INFORMATION</label>
+                    <div class="tab">
+                        <div class="row">
+                            <!--div class="col-sm-4">
+                                <div class="form-group">
+                                    <label  class="label">Numero Acte<span style="color:red;">*</span></label>                                   
+                                      <mat-select class="form-control" [formControl]="actesCtrl" placeholder="choisir un acte"
+                                    (selectionChange)="onChangeActe($event)" fullWidth
+                                    id="clact_numeroacte" #singleSelect>
+                                    <mat-option>
+                                        <ngx-mat-select-search [formControl]="actesFilterCtrl" placeholderLabel="recherche..."
+                                        noEntriesFoundLabel="aucune corespondance">
+                                        </ngx-mat-select-search>
+                                    </mat-option>
+    
+                                    <mat-option value="{{acte.act_numero}}"
+                                        *ngFor="let acte of filteredActes | async">{{acte.act_numero}}
+                                    </mat-option>
+                                </mat-select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label  class="label">Numero Police<span style="color:red;">*</span></label>
+                                    <mat-select class="form-control" [formControl]="policeCtrl" placeholder="choisir police"
+                                    (selectionChange)="onChangePolice($event)" fullWidth 
+                                    id="clact_numeropolice" #singleSelect>
+                                    <mat-option>
+                                        <ngx-mat-select-search [formControl]="policeFilterCtrl" placeholderLabel="recherche..."
+                                        noEntriesFoundLabel="aucune corespondance">
+                                        </ngx-mat-select-search>
+                                    </mat-option>
+    
+                                    <mat-option value="{{police.poli_numero}}"
+                                        *ngFor="let police of filteredPolices | async">{{police.poli_numero}}
+                                    </mat-option>
+                                </mat-select>
+                                </div>
+                            </div-->
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label  class="label">Code Marché</label>
+                                <mat-select class="form-control" [formControl]="marchesCtrl" placeholder="choisir marche"
+                                    (selectionChange)="onChangeMarche($event)" fullWidth 
+                                    id="march_numero" #singleSelect>
+                                    <mat-option>
+                                        <ngx-mat-select-search [formControl]="marchesFilterCtrl" placeholderLabel="recherche..."
+                                        noEntriesFoundLabel="aucune corespondance">
+                                        </ngx-mat-select-search>
+                                    </mat-option>
+    
+                                    <mat-option value="{{marche.march_numero}}"
+                                        *ngFor="let marche of filteredMarches | async">{{marche.march_numero}}
+                                    </mat-option>
+                                </mat-select>
+                                </div>
+                            </div> 
+                            <div class="col-sm-3">                
+                                <div class="form-group">
+                                    <label class="label">Type Clause<span style="color:red;">*</span></label>                        
+                                    <!--input fieldSize="small" formControlName="clact_type" type="number" nbInput fullWidth id="clact_type"-->
+                                    <mat-select class="form-control" [formControl]="typesCtrl" placeholder="choisir le type"
+                                    (selectionChange)="onChangeClause($event)" fullWidth
+                                    id="clact_type" #singleSelect>
+                                    <mat-option>
+                                        <ngx-mat-select-search [formControl]="typesFilterCtrl" placeholderLabel="recherche..."
+                                        noEntriesFoundLabel="aucune corespondance">
+                                        </ngx-mat-select-search>
+                                    </mat-option>
+                          
+                                    <mat-option  value="{{type.id}}"
+                                        *ngFor="let type of filteredTypes | async">
+                                        {{type.id}}: {{type.value}}
+                                    </mat-option>
+                                </mat-select>
+                                </div> 
+                            </div>  
+                            
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-3">                
+                                <div class="form-group">
+                                    <label  class="label">Numero Lot</label>             
+                                    <mat-select class="form-control" [formControl]="lotsCtrl" placeholder="choisir lot"
+                                    (selectionChange)="onChangeLot($event)" fullWidth 
+                                    id="clact_numlot" #singleSelect>
+                                    <mat-option>
+                                        <ngx-mat-select-search [formControl]="lotsFilterCtrl" placeholderLabel="recherche..."
+                                        noEntriesFoundLabel="aucune corespondance">
+                                        </ngx-mat-select-search>
+                                    </mat-option>
+    
+                                    <mat-option value="{{lot.lot_numero}}"
+                                        *ngFor="let lot of filteredLots | async">{{lot.lot_numero}}
+                                    </mat-option>
+                                </mat-select>
+                                </div> 
+                            </div>               
+                        <!--/div>
+                    </div>
+                    <input type="radio" name="tabs" id="tabtwo" >
+                    <label for="tabtwo" class="lab">Autres</label>
+                    <div class="tab">
+                        <div class="row"-->                
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label  class="label">Intitulé Lot</label>
+                                    <input fieldSize="small" formControlName="cla_intituleclause" type="text" nbInput fullWidth id="clact_intitulelot">
+                                   
+                                 </div>                   
+                            </div><!-- 
+                            <div class="col-sm-10">
+                                <div class="form-group">
+                                    <label  class="label">Texte Clause 1<span style="color:red;">*</span></label>
+                                    <textarea nbInput fieldSize="large" fullWidth (change)="onChangeText1($event)" placeholder="texte clause 1"></textarea>
+                               </div>                   
+                            </div> 
+                            <div class="col-sm-10">
+                                <div class="form-group">
+                                    <label  class="label">Texte Clause 2</label>
+                                    <--input fieldSize="small" formControlName="clact_texteclause2" type="text" nbInput fullWidth id="clact_texteclause2" ->
+                                    <textarea fieldSize="large" nbInput fullWidth (change)="onChangeText2($event)" placeholder="texte clause 2"></textarea>
+                                </div>                   
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label  class="label">Capital Lot </label>
+                                    <input fieldSize="small" formControlName="clact_capitallotmarche" type="text" nbInput fullWidth id="clact_capitallotmarche">                                   
+                                </div>
+                            </div>                
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label  class="label">Prime par Lot </label>
+                                    <input fieldSize="small" formControlNam="clact_primelotmarche" type="text" nbInput fullWidth id="clact_primelotmarche">                                   
+                                </div>
+                            </div>  -->              
+                            <!-- <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label  class="label">date de la comptabilisation<span style="color:red;">*</span></label>
+                                    <input fieldSize="small" formControlName="clact_datecomptabilisation" type="datetime-local" nbInput fullWidth id="clact_datecomptabilisation">                                   
+                                </div>
+                            </div>  -->  
+                        </div>
+                    </div>
+    
+            </div>
+    
+            <br>
+            <div>
+               <button nbButton status="success" (click)="submit()" [disabled]='!addForm.valid'>Ajouter</button>
+               &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()" >Annuler</button>
+                
+            </div>
+    </form>
+    </div>
+    
+    <div *ngIf="check_fonct('c_clause')==false">
+        <ngx-page-not-autoriser></ngx-page-not-autoriser>
+    </div>

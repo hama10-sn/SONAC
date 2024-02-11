@@ -1,0 +1,263 @@
+
+<div *ngIf="check_fonct('u_client')">
+    <form [formGroup]="modifForm">
+        <!-- <div class="col-lg-6">
+            <nb-card>
+              <nb-card-header id="titre_entete">Modifcation d'un nouvel client</nb-card-header>
+            </nb-card>
+        </div>    -->
+        <div class="col-lg-4">
+          <nb-card>
+            <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Client 360 degrés</nb-card-header>
+          </nb-card>
+        </div> 
+        <br>
+        
+        <div class="tabs">
+    
+          <input type="radio" name="tabs" id="tabone" checked="checked">
+          <label for="tabone" class="lab">INFOS CLIENT</label>
+          <div class="tab">
+    
+            <div class="row">
+    
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="label">Numéro client</label>
+                  <input fieldSize="small" formControlName="clien_numero"  [readonly]="true" type="number" min="0"  nbInput fullWidth id="clien_numero">
+                </div>
+              </div>
+    
+
+              <div class="col-sm-3">
+                <div class="form-group"> 
+                  <label  class="label">Numéro téléphone 1</label>
+                  <input fieldSize="small" formControlName="clien_telephone1" type="text" nbInput fullWidth id="clien_telephone1"
+                  [readonly]="true">
+                </div>
+              </div>
+
+              
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="label">Email</label>
+                  <input fieldSize="small" formControlName="clien_email" type="text" nbInput fullWidth id="clien_email"
+                  [readonly]="true">
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="label"> type client</label>
+                  <input fieldSize="small"  value="type_client"  [readonly]="true" formControlName="clien_typeclient" type="text" nbInput fullWidth id="clien_typeclient" >
+    
+                  <!-- <nb-select [(selected)]="type_client"  [readonly]="true" (selectedChange)="onChangeLibeleType($event)" fullWidth>
+                    <nb-option value="{{type.id}}" *ngFor="let type of listType">{{type.value}}</nb-option>
+                  </nb-select> -->
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              
+              <div class="col-sm-6">
+                <div *ngIf="!natureClient">
+                <div class="form-group">
+                  <label class="label">Nom</label>
+                  <input fieldSize="small" [readonly]="true" formControlName="clien_nom" type="text" nbInput fullWidth id="clien_nom">
+                </div>
+              </div>
+              </div>
+              <div class="col-sm-6">
+                <div *ngIf="!natureClient">
+                <div class="form-group">
+                  <label class="label">Prénom</label>
+                  <input fieldSize="small" [readonly]="true" formControlName="clien_prenom" type="text" nbInput fullWidth id="clien_prenom">
+                
+                </div>
+              </div>
+              </div>
+            
+            </div>
+    
+        
+            <div class="row">
+             
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="label">Numero Ninea</label>
+                  <input fieldSize="small" formControlName="clien_ninea" type="text" nbInput fullWidth id="clien_ninea"
+                  [readonly]="true">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="label">Numero Registre commerce</label>
+                  <input fieldSize="small" formControlName="clien_registrecommerce" type="text" nbInput fullWidth
+                    id="clien_registrecommerce" [readonly]="true">
+                </div>
+              </div> 
+              
+              <div class="col-sm-6">
+                <div *ngIf="natureClient">
+                <div class="form-group">
+                  <label for="" class="label">Dénomination</label>
+                  <input fieldSize="small" [readonly]="true" formControlName="clien_denomination" type="text" nbInput fullWidth
+                    id="clien_denomination">
+                </div>
+              </div>
+              </div>
+            
+            </div>
+            
+            <div class="row"> 
+             <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="" class="label">Contact Principal</label>
+                  <input fieldSize="small" [readonly]="true" formControlName="clien_contactprinci" type="text" nbInput fullWidth
+                    id="clien_contactprinci">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="" class="label">Numéro de rue</label>
+                  <input fieldSize="small" [readonly]="true" formControlName="clien_adressenumero" type="text" nbInput fullWidth
+                    id="clien_adressenumero">
+                </div>
+              </div>
+    
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="" class="label">Rue/Avenue/Boulevard...</label>
+                  <input fieldSize="small" [readonly]="true" formControlName="clien_adresserue" type="text" nbInput fullWidth
+                    id="clien_adresserue">
+                </div>
+              </div>
+              
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="" class="label">Ville</label>
+                  <input fieldSize="small" [readonly]="true" formControlName="clien_adresseville" type="text" nbInput fullWidth
+                    id="clien_adresseville">
+                </div>
+              </div>
+            </div>
+            
+     
+            
+          </div>
+    
+    
+          <input type="radio" name="tabs" id="tabtwo">
+          <label for="tabtwo" class="lab">FINANCES & INFOS ADMIN</label>
+          <div class="tab">
+           
+            <div class="row">
+             
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">Chiffe d'affaire activités</label>
+                  <input fieldSize="small" formControlName="clien_chiffreaffaireannuel" type="number" min="0"  nbInput fullWidth
+                    id="clien_chiffreaffaireannuel" [readonly]="true">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">chiffre d'affaire prime</label>
+                  <input fieldSize="small" formControlName="clien_chiffreaffaireprime" type="number" min="0" nbInput fullWidth
+                    id="clien_chiffreaffaireprime" [readonly]="true">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+    
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="label">Effectif</label>
+                  <input fieldSize="small" formControlName="clien_effectif" type="number"  min="0" nbInput fullWidth
+                    id="clien_effectif" [readonly]="true">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="label">charge de sinistre</label>
+                  <input fieldSize="small" formControlName="clien_chargesinistre" type="number" min="0" nbInput fullWidth
+                    id="clien_chargesinistre" [readonly]="true">
+                </div>
+              </div>
+
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">Secteur d'activité</label>
+                  <!-- <nb-select [(selected)]="code_secteur" (selectedChange)="onChangeSecteurActivite($event)" fullWidth>
+                    <nb-option value="{{secteur.code}}" *ngFor="let secteur of listesecteurs">{{secteur.code}} :
+                      {{secteur.libelle}}</nb-option>
+                  </nb-select> -->
+                  <input fieldSize="small" formControlName="clien_secteur_activite" type="text" min="0" nbInput fullWidth
+                    id="clien_secteur_activite" [readonly]="true">
+                </div>
+              </div>
+
+            </div>
+              <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">Date d’entrée en relation</label>
+                  <input fieldSize="small" formControlName="clien_date_relation" type="datetime-local" nbInput fullWidth
+                    id="clien_date_relation" [readonly]="true">
+                </div>
+              </div>
+              <div class="col-sm-6"> 
+                     
+                <div class="form-group">
+                  <label  class="label">Type de société</label>
+                  <input fieldSize="small" formControlName="clien_typesociete" type="text" nbInput fullWidth
+                    id="clien_typesociete" [readonly]="true">
+                </div> 
+              
+              </div>
+    
+            </div> 
+          </div>
+    
+         
+          <input type="radio" name="tabs" id="tabonedos">
+          <label for="tabonedos" class="lab">DOSSIER</label>
+          <div class="tab">
+            <ngx-gestion-dossier [name]="client"></ngx-gestion-dossier>
+          </div>
+          <input type="radio" name="tabs" id="tabonecon">
+          <label for="tabonecon" class="lab">CONTRAT</label>
+          <div class="tab">
+            <ngx-gestion-police [name]="numClient"></ngx-gestion-police>
+          </div>
+
+          <input type="radio" name="tabs" id="tabonesur">
+          <label for="tabonesur" class="lab">SURETE/DEPOSITE</label>
+          <div class="tab">
+            en cours
+             gestion surete
+          </div>
+
+          
+          <input type="radio" name="tabs" id="tabonesta">
+          <label for="tabonesta" class="lab">STATISTIQUE</label>
+          <div class="tab">
+            en cours
+             gestion statistique
+          </div>
+
+        </div>
+        <br>  
+        
+        <div>
+         
+                  &nbsp;&nbsp;<button class="cancel" nbButton status="warning" (click)="cancel()">Retour</button>
+        </div>
+    
+    </form>
+    </div>
+    <div *ngIf="check_fonct('u_client')==false">
+      <ngx-page-not-autoriser></ngx-page-not-autoriser>
+    </div>
+    

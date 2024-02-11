@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-md-12">
+      <nb-card>
+        <nb-card-header>
+          Changer sa photo de profil
+        </nb-card-header>
+        <nb-card-body>
+            <br>
+            <br>
+            <img [src]="image" width="250" height="250">
+            <br>
+            <br>
+            <input type="file" (change)="onFileSelected($event)">
+            <br>
+            <br>
+        </nb-card-body>
+        <nb-card-footer>
+            <button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+            &nbsp;&nbsp;<button nbButton status="success" (click)="submit()" >Valider</button>
+          </nb-card-footer>
+      </nb-card>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<form [formGroup]="addForm"> 
+    <nb-card>
+        <nb-card-header>Ajout Rôle</nb-card-header>
+        
+        <nb-card-body >
+           
+          <div class="row">
+            <div class="col-sm-8">
+              <div class="form-group">
+                <label class="label">nom</label>
+                <input  formControlName="nom"  type="text" nbInput fullWidth  id="nom" >
+              </div>
+            </div>
+            </div>
+          
+         
+          
+        
+          <nb-card-footer>
+            <button nbButton status="success" (click)="submit()" [disabled]='!addForm.valid'>Ajouter</button>
+            &nbsp;&nbsp; <button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+           
+          </nb-card-footer>
+        </nb-card-body>
+      </nb-card>
+    </form>

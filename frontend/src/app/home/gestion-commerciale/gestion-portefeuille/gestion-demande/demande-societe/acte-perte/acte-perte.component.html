@@ -1,0 +1,234 @@
+<div>
+    
+    <div class="col-lg-4">
+      <nb-card>
+        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">{{title}}</nb-card-header>
+      </nb-card>
+    </div>
+
+    
+    <br>
+    <form [formGroup]="addForm" >
+    <div class="tabs">
+
+      <input type="radio" name="tabs" id="tabone" checked="checked">
+      <label for="tabone" class="lab">INFOS CLIENT </label>
+      <div class="tab">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="label">Numéro police</label><br>
+              <input  cols="30" rows="4" fieldSize="small" formControlName="acte_police" type="text" nbInput fullWidth
+              id="acte_police">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="label">Cp<span class="obligatoire">*</span></label><br>
+              <input  cols="30" rows="4" fieldSize="small" formControlName="acte_cp" type="text" nbInput fullWidth
+              id="acte_cp">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="label">Assuré<span class="obligatoire">*</span></label><br>
+              <input  cols="30" rows="4" fieldSize="small" formControlName="acte_client" type="text" nbInput fullWidth
+              id="acte_client" readonly>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="label">Adresse client<span class="obligatoire">*</span></label><br>
+              <input  cols="30" rows="4" fieldSize="small" formControlName="acte_adresse_client" type="text" nbInput fullWidth
+              id="acte_adresse_client" readonly>
+            </div>
+          </div>
+        </div>
+     </div>
+
+    <input type="radio" name="tabs" id="tabtwo">
+    <label for="tabtwo" class="lab">I/ IDENTITE DU PRENEUR  </label>
+    <div class="tab">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label class="label">Dénomination Sociale <span class="obligatoire">*</span></label><br>
+            <input  cols="30" rows="4" fieldSize="small" formControlName="acte_denomination_locataire" type="text" nbInput fullWidth
+            id="acte_denomination_locataire">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label class="label">Date de naissance<span class="obligatoire">*</span></label><br>
+            <input  cols="30" rows="4" fieldSize="small" formControlName="acte_date_naissance" type="date" nbInput fullWidth
+            id="acte_date_naissance">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label class="label">Lieu de naissance<span class="obligatoire">*</span></label><br>
+            <input  cols="30" rows="4" fieldSize="small" formControlName="acte_lieu_naissance" type="text" nbInput fullWidth
+            id="acte_lieu_naissance">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label class="label">Prefession<span class="obligatoire">*</span></label><br>
+            <input  cols="30" rows="4" fieldSize="small" formControlName="acte_profession" type="text" nbInput fullWidth
+            id="acte_profession">
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <input type="radio" name="tabs" id="tabthree">
+    <label for="tabthree" class="lab">II/CARACTERISTIQUES DU BAIL  </label>
+    <div class="tab">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Situation du bien<span class="obligatoire">*</span></label><br>
+            <input  cols="30" rows="4" fieldSize="small" formControlName="acte_situation_bien" type="text" nbInput fullWidth
+            id="acte_situation_bien">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Durée du bail<span class="obligatoire">*</span></label><br>
+            <textarea  cols="30" rows="2" fieldSize="small" formControlName="acte_duree_bail" type="text" nbInput fullWidth
+            id="acte_duree_bail"></textarea>
+          </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant du loyer mensuel <span class="obligatoire">*</span></label><br>
+              <input  cols="30" rows="4" fieldSize="small" formControlName="acte_montant_mensuel" type="number" nbInput fullWidth 
+              id="acte_montant_mensuel">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant de la caution du Preneur <span class="obligatoire">*</span></label><br>
+              <input  cols="30" rows="4" fieldSize="small"  formControlName="acte_montant_demande" type="text"  nbInput fullWidth 
+              id="acte_montant_demande" readonly>
+            </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Périodicité de règlement du loyer <span class="obligatoire">*</span></label><br>
+            <input  cols="30" rows="4" fieldSize="small" formControlName="acte_periode_loyer" type="text" nbInput fullWidth
+            id="acte_periode_loyer">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Mode de règlement du loyer <span class="obligatoire">*</span></label><br>
+            <nb-select  fullWidth id="acte_mode_regelement" formControlName="acte_mode_regelement" >
+                <nb-option value="Traites et/ou chèque ">Espèces</nb-option>
+                <nb-option value="Traites">Traites</nb-option>
+                <nb-option value="Chèque">Chèques</nb-option> 
+              </nb-select>
+          </div>
+        </div>
+      </div>
+     
+      </div>
+
+      <input type="radio" name="tabs" id="tabfor">
+      <label for="tabfor" class="lab">III/ CONDITIONS DE LA COUVERTURE </label>
+      <div class="tab">
+        <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Montant maximal couvert <span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="2" fieldSize="small" formControlName="acte_montant_couvert" type="text" nbInput fullWidth
+                id="acte_montant_couvert"></textarea>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Quotité garantie <span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="2" fieldSize="small"  type="text" nbInput fullWidth readonly value="85%">
+              </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">Taux prime<span class="obligatoire">*</span></label><br>
+                  <input  cols="30" rows="4" fieldSize="small" formControlName="acte_taux_prime" type="number" nbInput fullWidth
+                  id="acte_taux_prime">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">Montant de la prime TTC<span class="obligatoire">*</span></label><br>
+                  <input  cols="30" rows="4" fieldSize="small" formControlName="acte_primettc" type="text" value="{{formatNumer(primettc)}} F CFA" nbInput fullWidth
+                  id="acte_primettc" readonly>
+                </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Délai de paiement de la prime <span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_prime_paiement" type="text" nbInput fullWidth
+                id="acte_prime_paiement">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Prise d’effet de la couverture<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_prise_effet" type="text" nbInput fullWidth
+                id="acte_prise_effet">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Caducité de la couverture<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="2" fieldSize="small" formControlName="acte_caducite" type="text" nbInput fullWidth
+                id="acte_caducite"></textarea>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Durée de validité de la garantie <span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_duree_garantie" type="text" nbInput fullWidth
+                id="acte_duree_garantie">
+              </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">Sûreté<span class="obligatoire">*</span></label><br>
+                  <input  cols="30" rows="4" fieldSize="small" formControlName="acte_surete" type="text" nbInput fullWidth
+                  id="acte_surete" readonly>
+                </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label class="label">Dispositions applicables<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_disposition" type="text" nbInput fullWidth
+                id="acte_disposition"></textarea>
+              </div>
+            </div>
+        </div> 
+      </div>
+
+
+    </div>
+    <div>
+        <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+        &nbsp;&nbsp;<button *ngIf="!haveActe && candidateToModifyacte" nbButton status="success" (click)="onExportActePerte(demandeSociete)" [disabled]='!addForm.valid'  >Exporter et enregistrer acte</button>
+        &nbsp;&nbsp;<button *ngIf="haveActe && candidateToModifyacte" nbButton status="success"  (click)="onExportActePerte(demandeSociete)" [disabled]='!addForm.valid'  >Exporter et modifier acte</button>
+        &nbsp;&nbsp;<button *ngIf="haveActe" nbButton status="success"  (click)="onExportActePertebis(demandeSociete)" [disabled]='!addForm.valid'  >Exporter acte</button>
+      </div>
+</form>
+</div>

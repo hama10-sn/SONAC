@@ -1,0 +1,145 @@
+<div *ngIf="check_fonct('u_contact')">
+<form [formGroup]="modifForm"> 
+            <div class="col-lg-4">
+                <nb-card>
+                    <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Modifier Contact</nb-card-header>
+                </nb-card>
+            </div>
+            <br>
+        <div class="tabs">
+                <input type="radio" name="tabs" id="tabone" checked="checked">
+                <label for="tabone" class="lab">INFORMATION</label>
+                <div class="tab">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="label">Numero<span style="color:red;">*</span></label>
+                                <input fieldSize="small" [readonly]="true" formControlName="cont_numero"  type="number" nbInput fullWidth  id="cont_numero" >
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label  class="label">Numero client<span style="color:red;">*</span></label>
+                                <input fieldSize="small" [readonly]= "true" [value]="onGetLibelleByClient(clientnum)" type="text" nbInput fullWidth id="cont_numeroclient" >
+                                    <!--nb-select [(selected)]="numero_client" (selectedChange)="onChangeClient($event)" fullWidth id="cont_numeroclient">                 
+                                        <nb-option value="{{client.clien_numero}}" *ngFor="let client of listClients">{{client.clien_numero}}: {{client.clien_nom}} {{client.clien_denomination}} {{client.clien_prenom}} {{ client.clien_sigle }} </nb-option>
+                                    </nb-select-->
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label  class="label">Nom<span style="color:red;">*</span></label>
+                                <input fieldSize="small" [readonly]= "true" formControlName="cont_nom" type="text" nbInput fullWidth id="cont_nom" >                   
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label  class="label">Prenom<span style="color:red;">*</span></label>
+                                <input fieldSize="small" [readonly]= "true" formControlName="cont_prenom" type="text" nbInput fullWidth id="cont_prenom" >                   
+                            </div>
+                        </div> 
+                        <div class="col-sm-4">                
+                            <div class="form-group">
+                                <label for="" class="label">Leader</label>                        
+                                <!--input formControlName="cont_leader" type="text" nbInput fullWidth id="cont_leader"-->
+                                <!-- <nb-select [(selected)]="leader" fieldSize="small" (selectedChange)="onChange($event)"  fullWidth id="cont_leader" > -->
+                                    <nb-select [disabled]='leader' fieldSize="small"  [(selected)]="leaderView" (selectedChange)="onChange($event)"  fullWidth id="cont_leader" >
+                                    <nb-option value="true">OUI</nb-option>
+                                    <nb-option value="false">NON</nb-option>
+                                  </nb-select>
+                            </div> 
+                        </div>  
+                        <div class="col-sm-4">                
+                            <div class="form-group">
+                                <label for="" class="label">Mandataire</label>                        
+                                <!--input formControlName="cont_leader" type="text" nbInput fullWidth id="cont_leader"-->
+                                <nb-select [(selected)]="mandataire" fieldSize="small" (selectedChange)="onChangeMandataire($event)"  fullWidth id="cont_mandataire" >
+                                    <nb-option value="true">OUI</nb-option>
+                                    <nb-option value="false">NON</nb-option>
+                                  </nb-select>
+                            </div> 
+                        </div>               
+                    </div>
+                </div>
+                <input type="radio" name="tabs" id="tabtwo" >
+                <label for="tabtwo" class="lab">Coordonnées</label>
+                <div class="tab">
+                    <div class="row">                
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="" class="label">email<span style="color:red;">*</span></label>
+                                <!--input fieldSize="small" formControlName="cont_email" type="email" nbInput fullWidth id="cont_email" -->
+                                <input fieldSize="small"  formControlName="cont_email" type="email" nbInput fullWidth id="cont_email" >
+                                <div *ngIf="displayErrorEmail">
+                                <span *ngIf="!errorEmail" style="color:red;">L'email n'est pas valide</span>
+                             </div> 
+                            </div>                  
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="" class="label">télèphone 1<span style="color:red;">*</span></label>
+                                <!--input fieldSize="small" formControlName="cont_telephonique1" type="text" nbInput fullWidth id="cont_telephonique1" >
+                                <input fieldSize="small" (focusout)="onchangeNumero()" formControlName="cont_telephonique1" type="text" nbInput fullWidth id="cont_telephonique1"-->
+                                <ngx-intl-tel-input (focusout)="onchangeNumero()"  [cssClass]="'form-control'"  [preferredCountries]="[CountryISO.Senegal]"
+                                    [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                                    [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                                    [selectedCountryISO]="CountryISO.Senegal" 
+                                    [phoneValidation]="true" [separateDialCode]="true"
+                                    [numberFormat]="PhoneNumberFormat.National" id="cont_telephonique1" formControlName="cont_telephonique1">
+                                </ngx-intl-tel-input>
+                                <div *ngIf="displayErrorNumero">
+                                <span *ngIf="!errorNumero" style="color:red;">Le numero n'est pas valide</span>
+                            </div>
+                            </div>                   
+                        </div> 
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="" class="label">télèphone 2</label>
+                                <!--input fieldSize="small" formControlName="cont_telephonique2" type="text" nbInput fullWidth id="cont_telephonique2" >
+                                <input fieldSize="small" (focusout)="onchangeNumero2()" formControlName="cont_telephonique2" type="text" nbInput fullWidth id="cont_telephonique2"-->
+                                <ngx-intl-tel-input (focusout)="onchangeNumero2()"  [cssClass]="'form-control'"  [preferredCountries]="[CountryISO.Senegal]"
+                                    [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                                    [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                                    [selectedCountryISO]="CountryISO.Senegal" 
+                                    [phoneValidation]="true" [separateDialCode]="true"
+                                    [numberFormat]="PhoneNumberFormat.National" id="cont_telephonique2" formControlName="cont_telephonique2">
+                                </ngx-intl-tel-input>
+                                <div *ngIf="displayErrorNumero2">
+                                    <span *ngIf="!errorNumero2" style="color:red;">Le numero n'est pas valide</span>
+                                </div>
+                            </div>                   
+                        </div>                
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="" class="label">Mobile <span style="color:red;">*</span></label>
+                                <!--input fieldSize="small" formControlName="cont_mobile" type="text" nbInput fullWidth id="cont_mobile" >
+                                <input fieldSize="small" (focusout)="onchangeMobile()" formControlName="cont_mobile" type="text" nbInput fullWidth id="cont_mobile"-->
+                                <ngx-intl-tel-input (focusout)="onchangeMobile()"  [cssClass]="'form-control'"  [preferredCountries]="[CountryISO.Senegal]"
+                                    [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                                    [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                                    [selectedCountryISO]="CountryISO.Senegal" 
+                                    [phoneValidation]="true" [separateDialCode]="true"
+                                    [numberFormat]="PhoneNumberFormat.National" id="cont_mobile" formControlName="cont_mobile">
+                                </ngx-intl-tel-input>
+                                <div *ngIf="displayErrorMobile">
+                                    <span *ngIf="!errorMobile" style="color:red;">Le numero n'est pas valide</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+
+        <br>
+        <div>
+            <button nbButton status="success" (click)="submit()" [disabled]='!modifForm.valid'>Modifier</button>
+            &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()" >Annuler</button>
+            
+        </div>
+</form>
+</div>
+
+<div *ngIf="check_fonct('u_contact')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

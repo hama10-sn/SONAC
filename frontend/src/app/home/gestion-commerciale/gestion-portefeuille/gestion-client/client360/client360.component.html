@@ -1,0 +1,203 @@
+<div *ngIf="check_fonct('l_client')">
+  <mat-card>
+    <div fxLayout fxLayoutAlign="center center">
+      <mat-form-field fxFlex="40%">
+        <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+      </mat-form-field>
+    </div>
+    <mat-card-header class="card-header">
+      <span class="header">La liste des clients</span>
+    </mat-card-header>
+
+    <table mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="clien_numero">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro client </th>
+        <td mat-cell *matCellDef="let client"> {{client.clien_numero}} </td>
+      </ng-container>
+      <ng-container matColumnDef="clien_typeclient">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> type client </th>
+        <td mat-cell *matCellDef="let client">{{onGetLibelleByTypeClient((client.clien_typeclient).toString()) }} </td>
+      </ng-container>
+      <ng-container matColumnDef="clien_nom">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom / Dénomination</th>
+        <td mat-cell *matCellDef="let client"> {{client.clien_nom}} {{client.clien_denomination}} </td>
+      </ng-container>
+      <ng-container matColumnDef="clien_prenom">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Prénom / Sigle</th>
+        <td mat-cell *matCellDef="let client"> {{client.clien_prenom}} {{ client.clien_sigle }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="clien_email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+        <td mat-cell *matCellDef="let client"> {{client.clien_email}} </td>
+      </ng-container>
+      <ng-container matColumnDef="clien_status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+        <td mat-cell *matCellDef="let client"> {{onGetLibelleByStatus(client.clien_status)}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="360">
+        <th mat-header-cell *matHeaderCellDef>360°</th>
+        <td mat-cell *matCellDef="let client">
+          <button mat-icon-button color="primary" (click)="open360(client)">
+            <mat-icon class="mat-18">visibility</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef> Details </th>
+        <td mat-cell *matCellDef="let client">
+          <button mat-icon-button color="primary" (click)="open(dialog ,client)">
+            <mat-icon class="mat-18">reorder</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]">
+    </mat-paginator>
+
+
+    <ng-template #dialog let-client let-ref="dialogRef">
+
+      <nb-card>
+
+
+        <nb-card-header class="col-lg-12">
+          DETAILS CLIENT
+        </nb-card-header>
+
+
+
+        <nb-card-body>
+
+
+          <div class="row">
+
+            <div class="col-sm-3">
+              <h5 class="grid-h">Information client</h5>
+              <div><span class="detail">Numéro client : </span>{{ client.clien_numero }}</div><br>
+              <div><span class="detail">type client: </span>{{onGetLibelleByTypeClient((client.clien_typeclient).toString()) }}</div><br>
+              <div><span class="detail">Numéro Client Solvabilité: </span>{{ client.clien_numerosolvabilite }}</div><br>
+              <div><span class="detail">Nature Client : </span>{{ onGetLibelleByNaturePersonne(client.clien_nature) }}
+              </div><br>
+              <!-- <div><span class="detail">Date souscription : </span>{{ client.clien_datesouscription1 | date:
+                  'dd-MM-yyyy'}}</div><br> -->
+              <div><span class="detail">Date d'entrée en relation : </span>{{ client.clien_date_relation | date:
+                'dd-MM-yyyy'}}</div><br>
+              <div><span class="detail">Ancien numéro client : </span>{{ client.clien_anciennumero }}</div><br>
+              <!-- <div><span class="detail">Civilité : </span>{{ onGetLibelleByCivilite(client.clien_titre)}}</div><br> -->
+
+            </div>
+
+
+            <div class="col-sm-3" *ngIf="problemePersonnePhysique">
+              <h5 class="grid-h">Personne physique</h5>
+              <div><span class="detail">Nom : </span>{{ client.clien_nom }}</div><br>
+              <div><span class="detail">Prénom: </span>{{ client.clien_prenom }}</div><br>
+              <div><span class="detail">Sexe: </span>{{ client.clien_sexe }}</div><br>
+              <div><span class="detail">CIN: </span>{{ client.clien_CIN }}</div><br>
+              <div><span class="detail">Date création : </span>{{ client.clien_datenaissance | date: 'dd-MM-yyyy'}}
+              </div><br>
+              <div><span class="detail">Civilité : </span>{{ onGetLibelleByCivilite(client.clien_titre)}}</div><br>
+              <div><span class="detail">Catégorie Socio-pro : </span>{{
+                onGetLibelleByCategorie(client.clien_categsocioprof) }}</div><br>
+
+            </div>
+            <div class="col-sm-3" *ngIf="problemePersonnePhysiCivilite">
+              <h5 class="grid-h">Personne physique</h5>
+              <div><span class="detail">Nom : </span>{{ client.clien_nom }}</div><br>
+              <div><span class="detail">Prénom: </span>{{ client.clien_prenom }}</div><br>
+              <div><span class="detail">CIN: </span>{{ client.clien_CIN }}</div><br>
+              <div><span class="detail">Sexe: </span>{{ client.clien_sexe }}</div><br>
+              <div><span class="detail">Date création : </span>{{ client.clien_datenaissance | date: 'dd-MM-yyyy'}}
+              </div><br>
+              <div><span class="detail">Civilité : </span>{{ onGetLibelleByCivilite(client.clien_titre)}}</div><br>
+              <div><span class="detail">Catégorie Socio-pro : </span>{{
+                onGetLibelleByCategorie(client.clien_categsocioprof) }}</div><br>
+
+            </div>
+            <div class="col-sm-3" *ngIf="problemePersonnePhysiCivilite">
+              <h5 class="grid-h">Personne Morale</h5>
+              <div><span class="detail">Type société : </span>{{
+                onGetLibelleByTypeSociete(client?.clien_typesociete?.toString()) }}</div><br>
+              <div><span class="detail">Dénomination: </span>{{ client.clien_denomination }}</div><br>
+              <div><span class="detail">Sigle:</span> {{ client.clien_sigle }}</div><br>
+              <div><span class="detail">Numéro Ninea : </span>{{ client.clien_ninea }}</div><br>
+              <div><span class="detail">Numero Registre commerce : </span>{{ client.clien_registrecommerce }}</div><br>
+              <div><span class="detail">Capital social : </span>{{ client.clien_capital_social}}</div><br>
+              <div><span class="detail">Secteur d'activité :
+                </span>{{onGetLibelleBySecteur(client.clien_secteur_activite)}}</div><br>
+            </div>
+
+            <div class="col-sm-3" *ngIf="problemePersonneMorale">
+              <h5 class="grid-h">Personne Morale</h5>
+              <div><span class="detail">Type société : </span>{{
+                onGetLibelleByTypeSociete(client?.clien_typesociete?.toString()) }}</div><br>
+              <div><span class="detail">Dénomination: </span>{{ client.clien_denomination }}</div><br>
+              <div><span class="detail">Sigle:</span> {{ client.clien_sigle }}</div><br>
+              <div><span class="detail">Numéro Ninea : </span>{{ client.clien_ninea }}</div><br>
+              <div><span class="detail">Numero Registre commerce : </span>{{ client.clien_registrecommerce }}</div><br>
+              <div><span class="detail">Capital social : </span>{{ client.clien_capital_social}}</div><br>
+              <div><span class="detail">Secteur d'activité :
+                </span>{{onGetLibelleBySecteur(client.clien_secteur_activite)}}</div><br>
+            </div>
+
+            <div class="col-sm-3">
+              <h5 class="grid-h">Contact</h5>
+              <div><span class="detail">Numéro de rue :</span>{{ client.clien_adressenumero }}</div><br>
+              <div><span class="detail">Rue/Avenue/Boulevard...:</span> {{ client.clien_adresserue }}</div><br>
+              <div><span class="detail">Ville: </span>{{ client.clien_adresseville }}</div><br>
+              <div><span class="detail">clien_telephone1 : </span>{{ client.clien_telephone1 }}</div><br>
+              <div><span class="detail">clien_telephone2 : </span>{{ client.clien_telephone2 }}</div><br>
+              <div><span class="detail">Contact principal : </span>{{ client.clien_contactprinci }}</div><br>
+            </div>
+            <div class="col-sm-3">
+              <h5 class="grid-h">Contact</h5>
+              <div><span class="detail">Numéro portable : </span>{{ client.clien_portable }}</div><br>
+              <div><span class="detail">Site web: </span>{{ client.clien_website }}</div><br>
+              <!-- <div><span class="detail">Fax : </span>{{ client.clien_fax }}</div><br> -->
+              <div><span class="detail">Email : </span>{{ client.clien_email }}</div><br>
+              <div><span class="detail">status : </span>{{ onGetLibelleByStatus(client.clien_status) }}</div><br>
+            </div>
+
+            <div class="col-sm-3">
+              <h5 class="grid-h">Information financiére</h5>
+              <div><span class="detail">Chiffe d'affaire activités : </span>{{ client.clien_chiffreaffaireannuel }}
+              </div><br>
+              <div><span class="detail">chiffre d'affaire prime: </span>{{ client.clien_chiffreaffaireprime }}</div><br>
+              <div><span class="detail">Effectif: </span>{{ client.clien_effectif }}</div><br>
+            </div>
+            <div class="col-sm-3">
+              <h5 class="grid-h">Information financiére</h5>
+              <div><span class="detail">charge de sinistre : </span>{{ client.clien_chargesinistre }}</div><br>
+              <div><span class="detail">Code regroupement gestion:
+                </span>{{onGetLibelleByGroupe(client.clien_coderegroupgestion)}}</div><br>
+              <div><span class="detail">Code origine :</span> {{ client.clien_codeorigine }}</div><br>
+
+
+            </div>
+
+          </div>
+
+        </nb-card-body>
+        <nb-card-footer>
+          <div style="text-align:center;">
+            <button nbButton (click)="ref.close()" status="danger">Fermer</button>
+
+          </div>
+        </nb-card-footer>
+      </nb-card>
+
+
+    </ng-template>
+
+
+  </mat-card>
+</div>
+<div *ngIf="check_fonct('l_client')==false">
+  <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

@@ -1,0 +1,129 @@
+<div *ngIf="check_fonct('c_pleins')">
+    <form [formGroup]="addForm">
+
+        <div class="col-lg-4">
+            <nb-card>
+                <nb-card-header id="titre_entete">Ajouter un plein</nb-card-header>
+            </nb-card>
+        </div>
+
+        <p class="paraProblemeSaisi" *ngIf="problemeExercice">
+            L'exercice est obligatoire et différent de 0
+        </p>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <nb-card>
+                    <nb-card-header>Pleins</nb-card-header>
+                    <nb-card-body>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="label">Exercice <span class="obligatoire">*</span></label>
+                                    <input min="0" formControlName="pleins_exercice" type="number" nbInput fullWidth
+                                        id="pleins_exercice" (focusout)="onFocusOutEventExercice()"
+                                        [ngStyle]="{border: getColorExercice()}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="label">Branche <span class="obligatoire">*</span></label>
+                                    <mat-select class="form-control" [formControl]="brancheCtrl"
+                                        placeholder="choisir une branche" (selectionChange)="onChangeBranche($event)"
+                                        fullWidth id="pleins_branche" #singleSelect>
+                                        <mat-option>
+                                            <ngx-mat-select-search [formControl]="brancheFilterCtrl"
+                                                placeholderLabel="recherche..."
+                                                noEntriesFoundLabel="aucune correspondance">
+                                            </ngx-mat-select-search>
+                                        </mat-option>
+                                        <mat-option value="{{branche.branche_numero}}"
+                                            *ngFor="let branche of filteredBranches | async">
+                                            {{branche.branche_numero}} : {{branche.branche_libelleLong}}
+                                        </mat-option>
+                                    </mat-select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="" class="label">Catégorie <span class="obligatoire">*</span></label>
+                                    <!-- <input formControlName="pleins_categorie" type="text" nbInput fullWidth
+                                        id="pleins_categorie"> -->
+                                    <mat-select class="form-control" [formControl]="categorieCtrl"
+                                        placeholder="choisir une catégorie"
+                                        (selectionChange)="onChangeCategorie($event)" fullWidth id="pleins_categorie"
+                                        #singleSelect>
+                                        <mat-option>
+                                            <ngx-mat-select-search [formControl]="categorieFilterCtrl"
+                                                placeholderLabel="recherche..."
+                                                noEntriesFoundLabel="aucune correspondance">
+                                            </ngx-mat-select-search>
+                                        </mat-option>
+                                        <mat-option value="{{categ.categ_numero}}"
+                                            *ngFor="let categ of filteredCategories | async">
+                                            {{categ.categ_numero}} : {{categ.categ_libellelong}}
+                                        </mat-option>
+                                    </mat-select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="" class="label">Produit <span class="obligatoire">*</span></label>
+                                    <!-- <input formControlName="pleins_produit" type="text" nbInput fullWidth
+                                        id="pleins_produit"> -->
+                                    <mat-select class="form-control" [formControl]="produitCtrl"
+                                        placeholder="choisir un produit" (selectionChange)="onChangeProduit($event)"
+                                        fullWidth id="pleins_produit" #singleSelect>
+                                        <mat-option>
+                                            <ngx-mat-select-search [formControl]="produitFilterCtrl"
+                                                placeholderLabel="recherche..."
+                                                noEntriesFoundLabel="aucune correspondance">
+                                            </ngx-mat-select-search>
+                                        </mat-option>
+                                        <mat-option value="{{prod.prod_numero}}"
+                                            *ngFor="let prod of filteredProduits | async">
+                                            {{prod.prod_numero}} : {{prod.prod_denominationlong}}
+                                        </mat-option>
+                                    </mat-select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="" class="label">Montant capacité</label>
+                                    <!-- <input formControlName="pleins_capacite" type="text" nbInput fullWidth
+                                        id="pleins_capacite"> -->
+                                    <input fieldSize="small" [value]="montantCapacite" type="text" nbInput fullWidth
+                                        id="pleins_capacite" (focusout)="onChangeFocusOutMontantCapacite($event)">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="" class="label">Open cover 1</label>
+                                    <input formControlName="pleins_opcover1" type="number" nbInput fullWidth
+                                        id="pleins_opcover1">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="" class="label">Open cover 2</label>
+                                    <input formControlName="pleins_opcover2" type="number" nbInput fullWidth
+                                        id="pleins_opcover2">
+                                </div>
+                            </div>
+
+                        </div>
+                    </nb-card-body>
+                    <nb-card-footer>
+                        <button nbButton status="success" (click)="onSubmit()" [disabled]='!addForm.valid || erreur'>
+                            AJOUTER
+                        </button>&nbsp;&nbsp;
+                        <button class="cancel" nbButton status="danger" (click)="onCancel()">ANNULER</button>
+                    </nb-card-footer>
+                </nb-card>
+            </div>
+        </div>
+    </form>
+</div>
+<div *ngIf="check_fonct('c_pleins')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

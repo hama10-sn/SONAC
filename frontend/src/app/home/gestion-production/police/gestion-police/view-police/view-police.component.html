@@ -1,0 +1,220 @@
+<div class="col-lg-12">
+    <nb-card>
+        <nb-card-header id="titre_entete">Police N° {{ police.policeForm.poli_numero || ''}}</nb-card-header>
+        <nb-card-body>
+            
+            <fieldset class="fieldset" >
+                <legend class="tailleLegend">Information Contractuelle</legend>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p>Dénomination Client : <b> {{ client.clien_numero || ''}}  - {{ client.clien_prenom || '' }} {{ client.clien_nom || ''}} {{ client.clien_denomination || ''}} {{ client.clien_sigle || ''}}</b></p>
+                        <p>date d'effet en cours : <b>{{ police.policeForm.poli_dateeffetencours | date: 'dd-MM-yyyy HH:mm' }}</b></p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p>Produit : <b>{{ produit.prod_numero || '' }}  - {{ produit.prod_denominationlong || ''}}</b></p>
+                        <p>Date échéance en cours  : <b>{{ police.policeForm.poli_dateecheance | date: 'dd-MM-yyyy HH:mm' }}</b></p>
+                    </div>
+                    
+                    <div class="col-sm-4"><p>Intermédiaire : <b> {{ intermediaire.inter_numero }} - {{ intermediaire.inter_denomination }}</b></p></div>
+                </div>
+            
+            </fieldset><br>
+
+            <fieldset class="fieldset" >
+                <legend class="tailleLegend">Acte</legend>
+                <div class="row">
+                    <div class="col-sm-4"><p>Numero acte: <b> {{ police.acte.act_numero }}</b></p></div>
+                </div>
+            
+            </fieldset><br>
+            <fieldset class="fieldset" >
+                <legend class="tailleLegend">Engagement</legend>
+                <div class="row">
+                    <div class="col-sm-4"><p>Numero engagement: <b> {{ police.engagement.engag_numeroengagement }}</b></p></div>
+                    <div class="col-sm-4"><p>Montant engagé: <b> {{ police.engagement.engag_kapassure | ngxNumberWithCommas }} F CFA</b></p></div>
+                </div>
+            
+            </fieldset><br>
+            <fieldset class="fieldset" *ngIf="police.policeForm.poli_branche == 15 && police.policeForm.poli_codeproduit <= 15001005 ">
+                <legend class="tailleLegend">Marche</legend>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p>Numero risque: <b> {{ police.risque.risq_numero }}</b></p>
+                        <p>Numero bénéficiaire: <b> {{ police.beneficiaire.benef_Num }}</b></p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p>Numero marche <b>{{ police.marche.march_numero }}</b></p>
+                        <p>Dénomination bénéficiaire: <b> {{ police.beneficiaire.benef_denom }}</b></p>
+                        
+                    </div>
+                    
+                    <div class="col-sm-4">
+                        <p>Descriptif Marche : <b> {{ police.marche.march_descriptionmarche1 }}</b></p>
+                        <p *ngIf="produit.prod_numero == 15001001 ">Date de soumission : <b> {{ police.marche.march_date_debut | date: 'dd-MM-yyyy' }}</b></p>
+                        <p *ngIf="produit.prod_numero != 15001001 ">Date debut marche : <b> {{ police.marche.march_date_debut | date: 'dd-MM-yyyy' }}</b></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">Nombre de lots : <b> {{ police.marche.march_nombrelots }}</b></div>
+                    <div class="col-sm-3">
+                        <p>Liste des lots :</p>
+                        <li *ngFor="let lot of police.lots">{{ lot.lot_description }}</li>    
+                    </div>
+                    <div class="col-sm-3">
+                        <p>Montant des lots :</p>
+                        <li *ngFor="let lot of police.lots">{{ lot.lot_capitalass | ngxNumberWithCommas}}</li> 
+                    </div>
+                    <div class="col-sm-3">
+                        <p>durée des lots :</p>
+                        <li *ngFor="let lot of police.lots">{{ lot.lot_dureetravaux }} Jours</li>
+                        
+                    </div>
+                    
+                </div>
+               
+            
+            </fieldset><br>
+
+            <fieldset class="fieldset" *ngIf="police.policeForm.poli_branche == 15 && police.policeForm.poli_codeproduit > 15001005 ">
+                <legend class="tailleLegend">Risque Réglementés</legend>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p>Numero risque: <b> {{police.risqueR.riskr_numero}}</b></p>
+                        <p>Type de risque Regl. : <b> {{typeRisqueR}} </b></p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p>Montant Caution : <b>{{police.risqueR.riskr_mtncaution | ngxNumberWithCommas}} F CFA</b></p>
+                        <p>Agrément : <b> {{police.risqueR.riskr_agrement}}</b></p>
+                        <p>Type deposit : <b> {{typeDeposit}}</b></p>
+                    </div>
+                    
+                    <div class="col-sm-4">
+                        <p>Adresse : <b> {{police.risqueR.riskr_adresse}}</b></p>
+                        <p>Date agrément : <b> {{police.risqueR.riskr_dateagrement  | date: 'dd-MM-yyyy' }}</b></p>
+                        <p>deposit : <b> {{police.risqueR.riskr_deposit}}</b></p>
+                    </div>
+                </div>
+                
+               
+            
+            </fieldset><br>
+
+            <fieldset class="fieldset" *ngIf="police.policeForm.poli_branche == 14">
+                <legend class="tailleLegend">Credit </legend>
+                <div class="row">
+                    <div class="col-sm-3"><p>Nature crédit: <b> {{ creditNature }}</b></p></div>
+                    <div class="col-sm-5"><p>Montant total des credits: <b> {{ police.engagement.engag_kapassure | ngxNumberWithCommas  }} F CFA</b></p></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2" >Nombre d'acheteurs : <b> {{ nbAcheteurs }}</b></div>
+                    <div class="col-sm-3">
+                        <p>Liste des acheteurs :</p>
+                        <li *ngFor="let acheteur of police.acheteurs">{{ acheteur.achet_prenom }} {{ acheteur.achet_nom }}</li> 
+                    </div>
+                    <div class="col-sm-3">
+                        <p>Montant du credit :</p>
+                        <li *ngFor="let acheteur of police.acheteurs">{{ acheteur.achet_montantcredit | ngxNumberWithCommas }} F CFA</li> 
+                    </div>
+                    <div class="col-sm-2">
+                        <span *ngIf="police.policeForm.poli_branche == 14">
+                            <p>Date du crédit :</p>
+                        <li *ngFor="let acheteur of police.acheteurs">{{ acheteur.achet_date_debut_credit | date: 'dd-MM-yyyy' }}</li> 
+                        </span>
+                        
+                    </div>
+                    <div class="col-sm-2" >
+                        <span *ngIf="produit.prod_numero == 14001001 ">
+                            <p>Nbre Echeances :</p>
+                        <li *ngFor="let acheteur of police.acheteurs">{{ acheteur.achet_montantecheancecredit  }} Mois</li>
+                        </span>
+                         
+                        <span *ngIf="produit.prod_numero != 14001001 ">
+                            <p >durée du credit :</p>
+                            <li *ngFor="let acheteur of police.acheteurs">{{ acheteur.achet_duree}} Mois</li>
+                        </span>
+                    </div>
+                    
+                </div>
+            </fieldset><br>
+
+            <fieldset class="fieldset" *ngIf="police.policeForm.poli_branche == 16">
+                <legend class="tailleLegend">Risque Locatif </legend>
+                <div class="row">
+                    <div class="col-sm-3"><p>Nature Risque Locatif: <b> {{ typeLoc }}</b></p></div>
+                    <div class="col-sm-2" >Nombre de locataires : <b> {{ nbAcheteurs }}</b></div>
+                    
+                </div>
+                <div class="row">
+                    
+                    <div class="col-sm-3">
+                        <p>Liste des locataires :</p>
+                        <li *ngFor="let acheteur of police.acheteurs">{{ acheteur.achet_prenom }} {{ acheteur.achet_nom }}</li> 
+                    </div>
+                    <div class="col-sm-3">
+                        <p>Montant du credit :</p>
+                        <li *ngFor="let acheteur of police.acheteurs">{{ acheteur.achet_montant_loyer | ngxNumberWithCommas }} F CFA</li> 
+                    </div>
+                    <div class="col-sm-2">
+                        <span>
+                            <p>Date du crédit :</p>
+                        <li *ngFor="let acheteur of police.acheteurs">{{ acheteur.achet_date_debut_credit | date: 'dd-MM-yyyy' }}</li> 
+                        </span>
+                        
+                    </div>
+                    <div class="col-sm-2" >
+                        
+                        <span *ngIf="produit.prod_numero == 16008001 ">
+                            <p >type du bail :</p>
+                            <li *ngFor="let acheteur of police.acheteurs">{{ acheteur.achet_bail}} </li>
+                        </span>
+                    </div>
+                    <div class="col-sm-2" >
+                        
+                        <span *ngIf="produit.prod_numero == 16008001 ">
+                            <p >durée du bail :</p>
+                            <li *ngFor="let acheteur of police.acheteurs">{{ acheteur.achet_duree_bail}} Mois</li>
+                        </span>
+                    </div>
+                    
+                </div>
+            </fieldset><br> 
+
+            <fieldset class="fieldset" >
+                <legend class="tailleLegend">Facture</legend>
+                <div class="row">
+                    <div class="col-sm-4"><p>Numero facture: <b> {{ police.quittance.quit_Facture }}</b></p></div>
+                </div>
+                <div class="row" >
+                    <div class="col-lg-3">
+                        <p class="tarifChamp">TAUX PRODUIT :</p><br>
+                        <p class="tarifChamp">TAUX COMMISSION :</p>
+                        <p class="tarifChamp">MONTANT COMMISSION :</p>
+                    </div>
+                    <div class="col-lg-3" style="text-align:right ;">
+                        <p class="tarifChamp"><span > %</span></p><br>
+                        <p class="tarifChamp"><span > %</span></p>
+                        <p class="tarifChamp"><span >{{ police.quittance.quit_commissionsapporteur1 | ngxNumberWithCommas }} F CFA</span></p>
+                        </div>
+                    <div class="col-lg-3">
+                      <p class="tarifChamp">PRIME NETTE :</p>
+                      <p class="tarifChamp">ACCESSOIRE COMPAGNIE :</p>
+                      <p class="tarifChamp">ACCESSOIRE APPORTEUR :</p>
+                      <p class="tarifChamp">TAXE D'ASSURANCE :</p>
+                      <p class="tarifChamp">PRIME TTC :</p>
+                    </div>
+                    <div class="col-lg-3" style="text-align:right ;">
+                      <p class="tarifChamp"><span >{{ police.quittance.quit_primenette | ngxNumberWithCommas }} F CFA</span></p>
+                      <p class="tarifChamp"><span >{{ police.quittance.quit_accessoirecompagnie | ngxNumberWithCommas }} F CFA</span></p>
+                      <p class="tarifChamp"><span >{{ police.quittance.quit_accessoireapporteur | ngxNumberWithCommas }} F CFA</span></p>
+                      <p class="tarifChamp"><span >{{ police.quittance.quit_mtntaxete | ngxNumberWithCommas }} F CFA</span></p>
+                      <p class="tarifChamp"><span style="font-weight: bold;">{{ police.quittance.quit_primettc | ngxNumberWithCommas }} F CFA</span></p>
+                    </div>
+                  </div>
+            
+            </fieldset>
+
+            <br>
+            <div><ngx-imprimer-facture [numero_facture]="police.quittance.quit_Facture"></ngx-imprimer-facture></div><br>
+        </nb-card-body>
+    </nb-card>
+</div>

@@ -1,0 +1,22 @@
+<div class="col-lg-10">
+  <nb-card>
+    <nb-card-header>CHOIX DU TYPE DE REGLEMENT</nb-card-header>
+    <br>
+    <nb-card-body>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label class="label">Type règlement<span style="color:red;">*</span></label>
+          <nb-select fullWidth id="choixTypeReglement" (selectedChange)="onChangeChoixTypeReglement($event)">
+            <nb-option value="1" *ngIf="afficherPrincipal">Reglement Principal</nb-option>
+            <nb-option value="2" *ngIf="afficherFrais">Reglement Frais</nb-option>
+            <nb-option value="3" *ngIf="afficherHonoraire">Règlement Honoraires</nb-option>
+            <nb-option value="4" *ngIf="afficherPrincipalEtFrais">Règlement Principal & Frais</nb-option>
+            <nb-option value="5" *ngIf="afficherPrincipalEtHonoraire">Règlement Principal & Honoraires</nb-option>
+            <nb-option value="6" *ngIf="afficherFraisEtHonoraire">Règlement Frais & Honoraires</nb-option>
+            <nb-option value="7" *ngIf="afficherGlobal">Règlement Global</nb-option>
+          </nb-select>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</div>

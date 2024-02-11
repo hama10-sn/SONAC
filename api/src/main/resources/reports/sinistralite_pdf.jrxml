@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="client" printOrder="Horizontal" pageWidth="960" pageHeight="595" orientation="Landscape" columnWidth="920" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="9c441d9a-b089-4fdb-b74e-506a9646f74f">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sonac.jrdax"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="title" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{title}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="demandeur" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select DISTINCT sinistre.sini_branche,  sinistre.sini_souscripteur, facture.fact_numeropolice, facture.fact_datefacture, 
+client.clien_prenom, client.clien_nom, client.clien_denomination, client.clien_numero, branche.branche_libelle_long, 
+SUM(facture.fact_montantprimenet) as primenet, SUM(facture.fact_montantaccescompagnie) as accessoires, 
+SUM(sinistre.sini_sapglobale) as sap, SUM(sinistre.sini_reglementglobal) as reglement, 
+SUM(sinistre.sini_recoursglobal) as recours, 
+(SUM(sinistre.sini_sapglobale) + SUM(sinistre.sini_reglementglobal) - SUM(sinistre.sini_recoursglobal) / SUM(facture.fact_montantprimenet) + SUM(facture.fact_montantaccescompagnie)) as sinistralite 
+from sinistre as sinistre, facture as facture, client as client, branche as branche 
+where client.clien_numero = sinistre.sini_souscripteur 
+and branche.branche_id = sinistre.sini_branche 
+and sinistre.sini_police = facture.fact_numeropolice 
+group by sinistre.sini_branche, 
+sinistre.sini_souscripteur, client.clien_prenom, 
+client.clien_nom, client.clien_denomination, client.clien_numero, branche.branche_libelle_long, facture.fact_numeropolice, facture.fact_datefacture]]>
+	</queryString>
+	<field name="sini_branche" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="sini_branche"/>
+		<property name="com.jaspersoft.studio.field.label" value="sini_branche"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="sinistre"/>
+	</field>
+	<field name="sini_souscripteur" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="sini_souscripteur"/>
+		<property name="com.jaspersoft.studio.field.label" value="sini_souscripteur"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="sinistre"/>
+	</field>
+	<field name="fact_numeropolice" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="fact_numeropolice"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_numeropolice"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="fact_datefacture" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="fact_datefacture"/>
+		<property name="com.jaspersoft.studio.field.label" value="fact_datefacture"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="clien_prenom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_prenom"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_prenom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_nom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_nom"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_nom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_denomination" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clien_denomination"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_denomination"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="clien_numero" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="clien_numero"/>
+		<property name="com.jaspersoft.studio.field.label" value="clien_numero"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="client"/>
+	</field>
+	<field name="branche_libelle_long" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="branche_libelle_long"/>
+		<property name="com.jaspersoft.studio.field.label" value="branche_libelle_long"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="branche"/>
+	</field>
+	<field name="primenet" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="primenet"/>
+		<property name="com.jaspersoft.studio.field.label" value="primenet"/>
+	</field>
+	<field name="accessoires" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="accessoires"/>
+		<property name="com.jaspersoft.studio.field.label" value="accessoires"/>
+	</field>
+	<field name="sap" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="sap"/>
+		<property name="com.jaspersoft.studio.field.label" value="sap"/>
+	</field>
+	<field name="reglement" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="reglement"/>
+		<property name="com.jaspersoft.studio.field.label" value="reglement"/>
+	</field>
+	<field name="recours" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="recours"/>
+		<property name="com.jaspersoft.studio.field.label" value="recours"/>
+	</field>
+	<field name="sinistralite" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="sinistralite"/>
+		<property name="com.jaspersoft.studio.field.label" value="sinistralite"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="91">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="0" width="960" height="90" backcolor="#006699" uuid="7b427187-25d5-41b9-bbd7-a183bff5ab60">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineStyle="Solid"/>
+					<leftPen lineStyle="Solid"/>
+					<bottomPen lineStyle="Solid"/>
+					<rightPen lineStyle="Solid"/>
+				</box>
+				<textField>
+					<reportElement x="20" y="10" width="920" height="43" forecolor="#FFFFFF" uuid="ccbab735-661f-4a78-9b5c-13161e41a9ce"/>
+					<textElement>
+						<font fontName="SansSerif" size="18" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="700" y="10" width="240" height="28" forecolor="#FFFFFF" uuid="d0265494-1ff0-4f45-ac66-945907ccc0ea"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[REF: Sinistre]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="20" y="53" width="110" height="37" forecolor="#FCFCFC" backcolor="#006699" uuid="fd996833-2734-4be5-a15c-0ad7c71633da"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Client]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="131" y="53" width="60" height="38" forecolor="#FCFCFC" backcolor="#006699" uuid="86089bc1-8e75-401a-b956-4652cc8ec6b9"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Police]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="313" y="53" width="87" height="38" forecolor="#FCFCFC" backcolor="#006699" uuid="14517dd4-5184-46c8-9b84-01c6735d708b"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Prime net]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="192" y="53" width="120" height="38" forecolor="#FCFCFC" backcolor="#006699" uuid="6945521e-b33d-4ca7-962a-b013ece82d50"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Branche]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="400" y="53" width="105" height="38" forecolor="#FCFCFC" backcolor="#006699" uuid="d55702ff-0499-44ce-841e-b1b327c86fa4"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Accessoires]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="505" y="53" width="95" height="38" forecolor="#FCFCFC" backcolor="#006699" uuid="0b1d65d6-d36b-4075-8765-c849fb553926"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Montant SAP]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="600" y="53" width="120" height="38" forecolor="#FCFCFC" backcolor="#006699" uuid="c2935085-8c50-4f32-9dd7-01ecba642605"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Montant réglement]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="722" y="53" width="108" height="38" forecolor="#FCFCFC" backcolor="#006699" uuid="05cc9941-6369-42e8-83d7-20fa924e3cde"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Montant recours]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="831" y="53" width="109" height="38" forecolor="#FCFCFC" backcolor="#006699" uuid="113eaf11-d82d-46cd-ab12-8b190d50a41b"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Sinistralité]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="54" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
+			<textField>
+				<reportElement x="0" y="0" width="110" height="54" uuid="3f0625ee-8f30-4b9d-be10-a6f5c2a79fa7"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{clien_prenom} != null ? $F{clien_prenom} : "") + (" ") + ($F{clien_nom} != null ? $F{clien_nom} : "")  + (" ") + ($F{clien_denomination}  != null ? $F{clien_denomination} : "")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="0" width="62" height="54" uuid="060e3e79-6f3c-4924-bde3-c1a8b44b71e0"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{fact_numeropolice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="172" y="0" width="120" height="54" uuid="79a4df91-0300-4c8b-b25b-f81d06c66695"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{branche_libelle_long}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="0" width="88" height="54" uuid="d5a21531-6f91-4312-915b-1f73c8915ba8"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{primenet}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="105" height="54" uuid="8156b8f7-4b00-4f71-bd13-4006e4ae9790"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{accessoires}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="485" y="0" width="95" height="54" uuid="3fb278d7-37c4-4d1d-b0c6-f19c9cd26434"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{sap}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="580" y="0" width="120" height="54" uuid="ad08ba71-f164-409e-bbfb-98b3ceba9e29"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{reglement}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="700" y="0" width="110" height="54" uuid="f1364a5b-2418-4c0c-8f3c-fcd792a0f94f"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{recours}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="810" y="0" width="109" height="54" uuid="f51da10f-ca09-4b73-a4ef-51347e4fb15f"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{sinistralite}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="725" y="0" width="124" height="20" forecolor="#0F0202" uuid="d14d8a12-5f17-4334-b08f-d2580d9c791e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="741" y="30" width="87" height="20" uuid="35c07c8b-d45b-41a0-8509-bf4bdad62c62"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="829" y="30" width="90" height="20" uuid="224e90eb-b4eb-4428-b720-386da3a54512"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" / " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm">
+				<reportElement x="849" y="0" width="71" height="20" uuid="88c84335-76ba-4df2-93f9-b76ca67dfea7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="90" y="0" width="100" height="40" uuid="e23938f1-bb60-4ac0-b4fb-8674d206dc9a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Demandé par:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="191" y="0" width="170" height="40" uuid="aef163be-87d5-4e32-ab7c-331be72f3c66">
+					<property name="com.jaspersoft.studio.element.name" value="demandeur"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{demandeur}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="10" y="0" width="70" height="50" uuid="e7e17138-f3bb-47d2-9c00-7350523bd7bc"/>
+				<imageExpression><![CDATA[System.getProperty("user.home")+"/img/SONAC.png"]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+</jasperReport>

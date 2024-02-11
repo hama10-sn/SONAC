@@ -1,0 +1,64 @@
+<div class="col-lg-12">
+  <nb-card>
+    <nb-card-header id="titre_entete">Clôture sinistre</nb-card-header>
+    <nb-card-body>
+      <fieldset class="fieldset">
+        <legend class="tailleLegend">Sinistre</legend>
+        <div class="row">
+          <div class="col-sm-4">
+            <p>Numéro : <b> {{ sinistreForm?.sini_num || ''}}</b></p>
+            <p>Client : <b> {{ onGetClientByCode(sinistreForm?.sini_souscripteur) }} </b></p>
+            <p>Police : <b> {{ sinistreForm?.sini_police || ''}} </b></p>
+            <p>Acheteur : <b> {{ onGetAcheteurByCode(sinistreForm?.sini_acheteur) }} </b></p>
+            <p>Intermédiaire : <b> {{ onGetIntermediaireByCode(sinistreForm?.sini_intermediaire) }} </b></p>
+            <p>Produit : <b> {{onGetProduitByNumero(sinistreForm?.sini_produit) }} </b></p>
+          </div>
+          <div class="col-sm-4">
+            <p>Evaluation principale : <b>{{ sinistreForm?.sini_evaluationprincipale | ngxNumberWithCommas
+                }}</b></p>
+            <p>Evaluation frais : <b>{{ sinistreForm?.sini_evaluationfrais | ngxNumberWithCommas }}</b></p>
+            <p>Evaluation honoraires : <b>{{ sinistreForm?.sini_evaluationhonoraires | ngxNumberWithCommas
+                }}</b>
+            </p>
+            <p>Evaluation globale : <b>{{ sinistreForm?.sini_evaluationglobale | ngxNumberWithCommas }}</b>
+            </p>
+            <!-- <p>Date échéance en cours  : <b>{{ police.policeForm.poli_dateecheance | date: 'dd-MM-yyyy HH:mm' }}</b></p> -->
+          </div>
+          <div class="col-sm-4">
+            <p>SAP principale : <b>{{ sinistreForm?.sini_sapprincipale | ngxNumberWithCommas
+                }}</b></p>
+            <p>SAP frais : <b>{{ sinistreForm?.sini_sapfrais | ngxNumberWithCommas }}</b></p>
+            <p>SAP honoraires : <b>{{ sinistreForm?.sini_saphonoraires | ngxNumberWithCommas }}</b>
+            </p>
+            <p>SAP globale : <b>{{ sinistreForm?.sini_sapglobale | ngxNumberWithCommas }}</b>
+            </p>
+            <!-- <p>Date échéance en cours  : <b>{{ police.policeForm.poli_dateecheance | date: 'dd-MM-yyyy HH:mm' }}</b></p> -->
+          </div>
+        </div>
+      </fieldset><br>
+      <fieldset class="fieldset">
+        <legend class="tailleLegend">Mouvement Recours</legend>
+        <div class="row">
+          <div class="col-sm-6">
+            <p>Numéro : <b> {{ mvtsinistreForm?.mvts_num }}</b></p>
+            <p>Type mvt : <b> {{ onGetLibelleByStatus(mvtsinistreForm?.mvts_typemvt) }} </b></p>
+            <p>Date mvt : <b> {{ mvtsinistreForm?.mvts_datemvt | date: 'dd-MM-yyyy'}}</b></p>
+          </div>
+          <div class="col-sm-6">
+            <p>Montant principal : <b>{{ mvtsinistreForm?.mvts_montantprincipal | ngxNumberWithCommas }}</b>
+            </p>
+            <p>Montant frais : <b>{{ mvtsinistreForm?.mvts_montantfrais | ngxNumberWithCommas }}</b></p>
+            <p>Montant honoraires : <b>{{ mvtsinistreForm?.mvts_montanthonoraire | ngxNumberWithCommas
+                }}</b></p>
+            <p>Montant mouvement : <b>{{ mvtsinistreForm?.mvts_montantmvt | ngxNumberWithCommas }}</b></p>
+          </div>
+        </div>
+      </fieldset>
+      <br>
+      <div>
+        <button nbButton status="success" (click)="onExport()">Editer fiche clôture sinistre</button>&nbsp;&nbsp;
+        <button class="cancel" nbButton status="danger" (click)="cancel()">Fermer</button>
+      </div><br>
+    </nb-card-body>
+  </nb-card>
+</div>

@@ -1,0 +1,406 @@
+<div *ngIf="check_fonct('c_reassureur')">
+<form [formGroup]="addForm"> 
+    <!--nb-card>
+        <nb-card-header style="background-color: rgb(7, 66, 124);color:white" >AJOUTER UN REASSUREUR</nb-card-header>
+    </nb-card>
+        <nb-card>
+            <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Réfèrence</nb-card-header>
+            <nb-card-body>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="label">Code réassureur<span style="color:red;">*</span></label>
+                        <input formControlName="reass_code"  type="text" nbInput fullWidth  id="reass_code" >
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    
+                    <div class="form-group">
+                        <label  class="label">code CIMA<span style="color:red;">*</span></label>
+                        <nb-select (selectedChange)="onChangeCima($event)" fullWidth id="cim_code">                    
+                          <nb-option value="{{cima.code_cima_compagnie}}" *ngFor="let cima of listCimaCompagnies">{{cima.code_cima_compagnie}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    
+                    
+                    <div class="form-group">
+                        <label  class="label">code pays<span style="color:red;">*</span></label>
+                        <input  formControlName="reass_codepays" [readonly]="true" value="(((this.listPays.find(p => p.alpha2Code === event.substring(0, 2))).callingCodes)" type="text" nbInput fullWidth id="pays_codecima" >
+                        
+                        
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label  class="label">type de réassureur<span style="color:red;">*</span></label>
+                        <input formControlName="reass_type" type="number" nbInput fullWidth id="reass_type" >
+                    </div>
+                </div> 
+                <div class="col-sm-4">                
+                    <div class="form-group">
+                        <label for="" class="label">code nationalité</label>
+                        <nb-select (selectedChange)="onChangeNationalite($event)" fullWidth>                    
+                            <nb-option value="{{country.callingCodes}}" *ngFor="let country of listPays">{{country.callingCodes[0]}} : {{country.demonym}}</nb-option>  
+                          </nb-select>
+                    </div> 
+                </div>               
+            </div>
+        </nb-card-body>
+    </nb-card>
+    <nb-card>
+        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Coordonnées</nb-card-header>
+        <nb-card-body >
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">adresse 1<span style="color:red;">*</span></label>
+                        <input formControlName="reass_adresse1" type="text" nbInput fullWidth id="reass_adresse1" >
+                    </div>
+                </div> 
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">adresse 2</label>
+                        <input formControlName="reass_adresse2" type="text" nbInput fullWidth id="reass_adresse2" >
+                    </div>                   
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">email<span style="color:red;">*</span></label>
+                        <input formControlName="reass_email" type="email" nbInput fullWidth id="reass_email" >
+                     </div>                   
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">télèphone 1<span style="color:red;">*</span></label>
+                        <input formControlName="reass_telephone1" type="text" nbInput fullWidth id="reass_telephone1" >
+                    </div>                   
+                </div> 
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">télèphone 2</label>
+                        <input formControlName="reass_telephone2" type="text" nbInput fullWidth id="reass_telephone2" >
+                    </div>                   
+                </div>                
+                
+            </div>
+        </nb-card-body>
+    </nb-card>
+<nb-card>
+    <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Données</nb-card-header>
+        <nb-card-body >
+            <div class="row">    
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="" class="label">dénomination <span style="color:red;">*</span></label>
+                        <input formControlName="reass_denomination" type="text" nbInput fullWidth id="reass_denomination" >
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="" class="label">dénomination court<span style="color:red;">*</span></label>
+                        <input formControlName="reass_denominationcourt" type="text" nbInput fullWidth id="reass_denominationcourt" >
+                    </div>
+                </div>      
+                              
+             
+                
+                <div class="col-sm-3">
+                    <div class="form-group"><label for="" class="label">hors groupe</label>
+                        <input formControlName="reass_horsgroupe" type="text" nbInput fullWidth id="reass_horsgroupe" >
+                   </div>                   
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="" class="label">nombre de traité<span style="color:red;">*</span></label>
+                        <input formControlName="reass_nbretraite" type="number" nbInput fullWidth id="reass_nbretraite" >
+                    </div>                   
+                </div>                
+             
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="" class="label">chiffre d'affaires<span style="color:red;">*</span></label>
+                        <input formControlName="reass_ca" type="number" nbInput fullWidth id="reass_ca" >
+                    </div>                   
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="" class="label">produit/commission reçus<span style="color:red;">*</span></label>
+                        <input formControlName="reass_commissionrecu" type="number" nbInput fullWidth id="reass_commissionrecu" >
+                    </div>
+                </div>             
+                <div class="col-sm-3">                
+                    <div class="form-group">
+                         <label for="" class="label">date du premier traité<span style="color:red;">*</span></label>
+                        <input formControlName="reass_datetraite1" type="datetime-local" nbInput fullWidth id="reass_datetraite1" >
+                    
+                    </div> 
+                </div>
+                
+               
+            
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="" class="label">date de mise à jour<span style="color:red;">*</span></label>
+                        <input formControlName="reass_datemodification" type="datetime-local" nbInput fullWidth id="reass_datemodification" >
+                    </div>
+                </div>
+            </div>
+        </nb-card-body>
+    </nb-card>    
+            <nb-card-footer>
+                <button class="cancel" nbButton status="danger" (click)="cancel()" >Annuler</button>
+                &nbsp;&nbsp;<button nbButton status="success" (click)="submit()" [disabled]='!addForm.valid'>Ajouter</button>
+            </nb-card-footer-->
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="col-sm-4">
+                <nb-card>
+                  <nb-card-header style="background-color: rgb(7, 66, 124);color:white">AJOUTER UN REASSUREUR</nb-card-header>
+                </nb-card>
+              </div>   
+              
+              <br>
+              
+            <div class="tabs">
+              <input type="radio" name="tabs" id="tabone" checked="checked">
+              <label for="tabone" class="lab">INFORMATION</label>
+              <div class="tab">
+                <div class="row">
+                    <!--div class="col-sm-3">
+                        <div class="form-group">            
+                            <label  class="label">code Reassureur<span style="color:red;">*</span></label>
+                            <input fieldSize="small" formControlName="reass_code"  type="text" nbInput fullWidth  id="reass_code" >
+                        </div>
+                    </div-->
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label  class="label">Type de Réassureur<span style="color:red;">*</span></label>
+                            <!--input *ngIf="reassu" fieldSize="small" formControlName="reass_type" type="number" nbInput fullWidth id="reass_type" -->
+                            <nb-select  (selectedChange)="onChangeLibeleType($event)" fullWidth  >                    
+                                <nb-option value="{{type.id}}" *ngFor="let type of listTypes">{{type.value}}</nb-option>                               
+                            </nb-select>
+                              
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label  class="label">Code CIMA<span style="color:red;">*</span></label>
+                            <input *ngIf="!reassu" fieldSize="small" formControlName="reass_codeidentificateur" type="text" nbInput fullWidth id="reass_codeidentificateur" >
+                                <nb-select *ngIf="reassu" (selectedChange)="onChangeCima($event)" fullWidth id="cim_code">                    
+                                <nb-option value="{{cima.code_cima_compagnie}}" *ngFor="let cima of listCimaCompagnies">{{cima.code_cima_compagnie}}: {{cima.denomination}}</nb-option>
+                            </nb-select>
+                            
+                        </div>
+                    </div>
+                    <!--div class="col-sm-3">
+                        <div class="form-group">
+                            <label  class="label">type de réassureur<span style="color:red;">*</span></label>
+                            <--input fieldSize="small" formControlName="reass_type" type="number" nbInput fullWidth id="reass_type" >
+                            <nb-select (selectedChange)="onChangeLibeleType($event)" fullWidth  >                    
+                                <nb-option value="{{type.id}}" *ngFor="let type of listTypes">{{type.value}}</nb-option>  
+                              </nb-select>
+                        </div>
+                    </div-->
+                </div>
+                <div class="row">
+                  <div class="col-sm-3">
+                        <div class="form-group">
+                            <label  class="label">Code Pays<span style="color:red;">*</span></label>
+                            <input fieldSize="small" *ngIf="reassu" formControlName="reass_codepays" [readonly]="true" value="(((this.listPays.find(p => p.alpha2Code === event.substring(0, 2))).callingCodes[0])" type="text" nbInput fullWidth id="reass_codepays" > 
+                            <!--input *ngIf="reassu" fieldSize="small" formControlName="reass_codeidentificateur" type="text" nbInput fullWidth id="reass_codepays" -->
+                                <nb-select *ngIf="!reassu" (selectedChange)="onChangePays($event)" fullWidth id="cim_code">                    
+                                    <nb-option value="{{country.callingCodes[0]}}" *ngFor="let country of listPays"> {{country.name}}</nb-option>  
+                                </nb-select>
+                        </div>
+                  </div>
+                  
+                             
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="" class="label">Dénomination <span style="color:red;">*</span></label>
+                            <input fieldSize="small" formControlName="reass_denomination" (focusout)="onchangeDenom()" type="text" nbInput fullWidth id="reass_denomination" >
+                            <span *ngIf="errorDenom" style="color:red;">La dénomination est obligatoire</span>
+                       </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="" class="label">Dénomination court<span style="color:red;">*</span></label>
+                            <input fieldSize="small" formControlName="reass_denominationcourt" (focusout)="onchangeDenomCourt()" type="text" nbInput fullWidth id="reass_denominationcourt" >
+                            <span *ngIf="errorDenomCourt" style="color:red;">Dénomination court est obligatoire</span>
+                        </div>
+                    </div>  
+              </div>
+            </div>  
+              <input type="radio" name="tabs" id="tabtwo">
+              <label for="tabtwo" class="lab">COORDONNEES</label>
+              <div class="tab">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="" class="label">adresse 1<span style="color:red;">*</span></label>
+                            <input fieldSize="small" formControlName="reass_adresse1" (focusout)="onchangeAdresse()" type="text" nbInput fullWidth id="reass_adresse1" >
+                            <span *ngIf="errorAdresse" style="color:red;">L'adresse est obligatoire</span>
+                        </div>                      
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="" class="label">adresse 2</label>
+                            <input fieldSize="small" formControlName="reass_adresse2" type="text" nbInput fullWidth id="reass_adresse2" >
+                       </div>                         
+                   </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="" class="label">telephone 1<span style="color:red;">*</span></label>
+                            <!--input fieldSize="small" formControlName="reass_telephone1" type="text" nbInput fullWidth id="reass_telephone1" -->
+                            <!--input fieldSize="small" (focusout)="onchangeNumero()" formControlName="reass_telephone1" type="text" nbInput fullWidth id="reass_telephone1"-->
+                          <ngx-intl-tel-input (focusout)="onchangeNumero()"  [cssClass]="'form-control'"  [preferredCountries]="[CountryISO.Senegal]"
+                            [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                            [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                            [selectedCountryISO]="CountryISO.Senegal" [maxLength]="15"
+                            [phoneValidation]="true" [separateDialCode]="true"
+                            [numberFormat]="PhoneNumberFormat.National" id="reass_telephone1" formControlName="reass_telephone1">
+                          </ngx-intl-tel-input>
+                            <div *ngIf="displayNumeroError">
+                                <span *ngIf="!errorNumero" style="color:red;">Le numero est pas valide</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="" class="label">telephone 2</label>
+                            <!--input fieldSize="small" formControlName="reass_telephone2" type="text" nbInput fullWidth id="reass_telephone2" -->
+                            <!--input fieldSize="small" (focusout)="onchangeNumero2()" formControlName="reass_telephone2" type="text" nbInput fullWidth id="reass_telephone2"-->
+                            <ngx-intl-tel-input (focusout)="onchangeNumero2()"  [cssClass]="'form-control'"  [preferredCountries]="[CountryISO.Senegal]"
+                            [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                            [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                            [selectedCountryISO]="CountryISO.Senegal" [maxLength]="15"
+                            [phoneValidation]="true" [separateDialCode]="true"
+                            [numberFormat]="PhoneNumberFormat.National" id="reass_telephone2" formControlName="reass_telephone2">
+                          </ngx-intl-tel-input>
+                            <div *ngIf="displayNumeroError2">
+                                <span *ngIf="!errorNumero2" style="color:red;">Le numero est pas valide</span>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="" class="label">email<span style="color:red;">*</span></label>
+                            <!--input fieldSize="small" formControlName="reass_email" type="email" nbInput fullWidth id="reass_email" -->
+                            <input fieldSize="small" (focusout)="onchangeMail()" formControlName="reass_email" type="email" nbInput fullWidth id="reass_email" >
+                                <div *ngIf="displayEmailError">
+                                    <span *ngIf="!errorEmail" style="color:red;">L'email n'est pas valide</span>
+                                </div>
+                        </div>  
+                      </div>                      
+                </div>
+            </div>  
+              <input type="radio" name="tabs" id="tabthree">
+              <label for="tabthree" class="lab">DONNEES</label>
+              <div class="tab">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="" class="label">produit/commission reçus<span style="color:red;">*</span></label>
+                            <input fieldSize="small" min="0" formControlName="reass_commissionrecu" type="number" nbInput fullWidth id="reass_commissionrecu" >
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="" class="label">nombre de traité<span style="color:red;">*</span></label>
+                            <input fieldSize="small" min="0" formControlName="reass_nbretraite" type="number" nbInput fullWidth id="reass_nbretraite" >
+                        </div> 
+                  </div>
+                  </div>
+                  <div class="row">
+                    
+                  <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="" class="label">chiffre d'affaires<span style="color:red;">*</span></label>
+                        <input fieldSize="small" min="0" formControlName="reass_ca" type="number" nbInput fullWidth id="reass_ca" >
+                    </div> 
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="" class="label">hors groupe</label>
+                        <!--input fieldSize="small" formControlName="reass_horsgroupe" type="text" nbInput fullWidth id="reass_horsgroupe" -->
+                        <nb-select (selectedChange)="onChangeGroupe($event)" fullWidth id="reass_horsgroupe" >
+                            <nb-option value="O">OUI</nb-option>
+                            <nb-option value="N">NON</nb-option>
+                          </nb-select>
+                    </div> 
+                </div>
+                </div>
+              </div>
+              
+              <input type="radio" name="tabs" id="tabfour">
+              <label for="tabfour" class="lab">Autre</label>
+              <div class="tab">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="" class="label">date du premier traité<span style="color:red;">*</span></label>
+                            <input fieldSize="small" formControlName="reass_datetraite1" value="dateTraite" type="datetime-local" nbInput fullWidth id="reass_datetraite1" >
+                        </div> 
+                        </div>
+                  
+                  </div>
+                    <div class="row">
+                    <!--div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="" class="label">code nationalité</label>
+                            <nb-select (selectedChange)="onChangeNationalite($event)" fullWidth>                    
+                                <nb-option value="{{country.callingCodes[0]}}" *ngFor="let country of listPays"> {{country.demonym}}</nb-option>  
+                              </nb-select>
+                        </div> 
+                    </div-->
+
+           
+                    <div class="col-sm-4" >
+                        <div class="form-group">
+                            <label class="label">Code Nationalité </label>
+                            <mat-select class="form-control" [formControl]="paysCtrl" placeholder="choisir la nationnalité"
+                                (selectionChange)="onChangeNationalite($event)" fullWidth
+                                id="reass_nationnalite" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="paysFilterCtrl">
+                                    </ngx-mat-select-search>
+                                </mat-option>
+                      
+                                <mat-option  value="{{country.callingCodes[0]}}"
+                                    *ngFor="let country of filteredPays | async">
+                                    {{country.demonym}}
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                      </div>
+                      
+
+                </div>
+              </div>
+        </div>
+              
+              <br>
+              <div>
+                <button nbButton status="success" (click)="submit()" [disabled]='!addForm.valid'>Ajouter</button>
+                &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+            </div>  
+            
+</form> 
+</div>
+<div *ngIf="check_fonct('c_reassureur')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+  </div>

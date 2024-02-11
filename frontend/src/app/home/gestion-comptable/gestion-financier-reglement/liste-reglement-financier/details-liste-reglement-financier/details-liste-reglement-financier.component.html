@@ -1,0 +1,166 @@
+<div class="col-lg-12">
+  <nb-card>
+    <nb-card-header>Détails du règlement financier du sinistre</nb-card-header>
+    <nb-card-body>
+
+      <fieldset class="fieldset">
+        <legend class="tailleLegend">INFOS SINISTRE</legend>
+        <div class="row">
+          <div class="col-sm-6">
+            <h5 class="grid-h">INFOS 1</h5>
+            <div><span class="detail">Numéro sinistre :</span>
+              <b> {{ sinistre.sini_num }} </b>
+            </div><br>
+            <div><span class="detail">Type sinistre :</span>
+              <b> {{ sinistre.sini_typesinistre }} </b>
+            </div><br>
+            <div><span class="detail">Date survenance :</span>
+              <b> {{ sinistre.sini_datesurvenance | date: 'dd-MM-yyyy'}} </b>
+            </div><br>
+            <div><span class="detail">Date déclaration :</span>
+              <b> {{ sinistre.sini_datedeclaration | date: 'dd-MM-yyyy'}}</b>
+            </div><br>
+            <div><span class="detail">Date saisie : </span>
+              <b>{{ sinistre.sini_datesaisie | date: 'dd-MM-yyyy'}}</b>
+            </div><br>
+          </div>
+
+          <div class="col-sm-6">
+            <h5 class="grid-h">INFOS 2</h5>
+            <div><span class="detail">Police :</span>
+              <b> {{ sinistre.sini_police }} </b>
+            </div><br>
+            <div><span class="detail">Client :</span>
+              <b> {{ onGetClientByCode(sinistre.sini_souscripteur) }} </b>
+            </div><br>
+            <div><span class="detail">Produit :</span>
+              <b> {{ onGetProduitByNumero(sinistre.sini_produit) }}</b>
+            </div><br>
+            <div><span class="detail">Acheteur :</span>
+              <b> {{ onGetAcheteurByCode(sinistre.sini_acheteur) }} </b>
+            </div><br>
+            <div><span class="detail">Lieu :</span>
+              <b> {{ sinistre.sini_lieu }} </b>
+            </div><br>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6">
+            <h5 class="grid-h">EVALUATIONS</h5>
+            <div><span class="detail">Evaluation principale :</span>
+              <b> {{ sinistre.sini_evaluationprincipale | ngxNumberWithCommas }}</b>
+            </div><br>
+            <div><span class="detail">Evaluation frais :</span>
+              <b> {{ sinistre.sini_evaluationfrais | ngxNumberWithCommas }}</b>
+            </div><br>
+            <div><span class="detail">Evaluation honoraires :</span>
+              <b> {{ sinistre.sini_evaluationhonoraires | ngxNumberWithCommas }}</b>
+            </div><br>
+            <div><span class="detail">Evaluation globale :</span>
+              <b> {{sinistre.sini_evaluationglobale | ngxNumberWithCommas }}</b>
+            </div><br>
+          </div>
+
+          <div class="col-sm-6">
+            <h5 class="grid-h">SAP</h5>
+            <div><span class="detail">SAP principal :</span>
+              <b> {{ sinistre.sini_sapprincipale | ngxNumberWithCommas }}</b>
+            </div><br>
+            <div><span class="detail">SAP frais :</span>
+              <b> {{ sinistre.sini_sapfrais | ngxNumberWithCommas }} </b>
+            </div><br>
+            <div><span class="detail">SAP honoraires :</span>
+              <b> {{ sinistre.sini_saphonoraires | ngxNumberWithCommas }} </b>
+            </div><br>
+            <div><span class="detail">SAP globale :</span>
+              <b> {{sinistre.sini_sapglobale | ngxNumberWithCommas }} </b>
+            </div><br>
+          </div>
+        </div>
+      </fieldset><br><br>
+
+      <fieldset class="fieldset">
+        <legend class="tailleLegend">INFOS DU MVT DE SINISTRE</legend>
+        <div class="row">
+          <div class="col-sm-6">
+            <h5 class="grid-h">INFOS 1</h5>
+            <div><span class="detail">Numéro :</span>
+              <b> {{ sinistre.mvts_num }} </b>
+            </div><br>
+            <div><span class="detail">Type mvt :</span>
+              <b> {{ onGetLibelleByStatus(sinistre.mvts_typemvt) }} </b>
+            </div><br>
+            <div><span class="detail">Date mvt :</span>
+              <b> {{ sinistre.mvts_datemvt | date: 'dd-MM-yyyy'}} </b>
+            </div><br>
+            <div><span class="detail">Montant financier :</span>
+              <b> {{ sinistre.mvts_montantfinancier | ngxNumberWithCommas }}</b>
+            </div><br>
+          </div>
+
+          <div class="col-sm-6">
+            <h5 class="grid-h">INFOS 2</h5>
+            <div><span class="detail">Montant principal :</span>
+              <b> {{ sinistre.mvts_montantprincipal | ngxNumberWithCommas }}</b>
+            </div><br>
+            <div><span class="detail">Montant frais :</span>
+              <b> {{ sinistre.mvts_montantfrais | ngxNumberWithCommas }} </b>
+            </div><br>
+            <div><span class="detail">Montant honoraires :</span>
+              <b> {{ sinistre.mvts_montanthonoraire | ngxNumberWithCommas }} </b>
+            </div><br>
+            <div><span class="detail">Montant mouvement :</span>
+              <b> {{sinistre.mvts_montantmvt | ngxNumberWithCommas }} </b>
+            </div><br>
+          </div>
+        </div>
+      </fieldset><br><br>
+
+
+      <fieldset class="fieldset">
+        <legend class="tailleLegend">INFOS REGLEMENT</legend>
+        <div class="row">
+          <div class="col-sm-6">
+            <h5 class="grid-h">INFOS 1</h5>
+            <div><span class="detail">Numéro :</span>
+              <b> {{ sinistre.regl_num }} </b>
+            </div><br>
+            <div><span class="detail">Date règlement :</span>
+              <b> {{ sinistre.regl_datereglement | date: 'dd-MM-yyyy'}} </b>
+            </div><br>
+            <div><span class="detail">Code règlement :</span>
+              <b> {{ onGetLibelleByCodeReglement(sinistre?.regl_codereglement) }} </b>
+            </div><br>
+            <div><span class="detail">Code banque :</span>
+              <b> {{ onGetLibelleByCodeBanque(sinistre?.regl_codebanque) }} </b>
+            </div><br>
+            <div><span class="detail">Numéro du titre :</span>
+              <b> {{ onGetLibelleByNumCheque(sinistre?.regl_numcheque) }} </b>
+            </div><br>
+          </div>
+
+          <div class="col-sm-6">
+            <h5 class="grid-h">INFOS 2</h5>
+            <div><span class="detail">Montant reglement principal :</span>
+              <b> {{ sinistre.regl_montantprincipal | ngxNumberWithCommas }}</b>
+            </div><br>
+            <div><span class="detail">Montant reglement frais :</span>
+              <b> {{ sinistre.regl_montantfrais | ngxNumberWithCommas }} </b>
+            </div><br>
+            <div><span class="detail">Montant reglement honoraires :</span>
+              <b> {{ sinistre.regl_montanthonoraire | ngxNumberWithCommas }} </b>
+            </div><br>
+            <div><span class="detail">Montant reglement global</span>
+              <b> {{sinistre.regl_montanttotal | ngxNumberWithCommas }} </b>
+            </div><br>
+          </div>
+        </div>
+      </fieldset><br><br>
+
+      <div>
+        <button class="cancel" nbButton status="danger" (click)="onCancel()">FERMER</button>
+      </div><br>
+    </nb-card-body>
+  </nb-card>
+</div>

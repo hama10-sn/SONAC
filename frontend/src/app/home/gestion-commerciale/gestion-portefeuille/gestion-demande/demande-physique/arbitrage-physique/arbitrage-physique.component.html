@@ -1,0 +1,836 @@
+<nb-card-header>
+  Traitement arbitrage
+</nb-card-header>
+<br><br><br>
+<nb-card-body *ngIf="dem_Pers">
+  <div class="tabs" >
+    <input type="radio" value name="tabs" id="tabone" checked=!dem_Pers.checked >
+    <label for="tabone" class="lab">INFORMATION</label>
+    <div class="tab">
+      <div class="row">
+
+
+
+        <div class="col-sm-3" >
+          <h5 class="grid-h">Information</h5>
+          <div><span class="detail">Numero :</span> {{ dem_Pers.dem_persnum }}</div><br>
+          <div><span class="detail">Type Client :</span> {{ dem_Pers.dem_typeclientpers }}</div><br>
+          <div><span class="detail">Civilité :</span> {{ onGetCiviliteByCode(dem_Pers.dem_civilitepers) }}</div>
+          <br>
+          <div><span class="detail">Nom :</span> {{ dem_Pers.dem_nom }}</div><br>
+          <div><span class="detail">Prenom :</span> {{ dem_Pers.dem_prenom }}</div><br>
+          <div><span class="detail">Nmero client/prospect :</span> {{ dem_Pers.dem_typetitulaire }}</div><br>
+          <!--div><span class="detail">Type Titulaire :</span> {{ dem_Pers.dem_typetitulaire }}</div><br-->
+        </div>
+        <br>
+        <br>
+        <div class="col-sm-3">
+          <div><span class="detail">Secteur D'activité :</span> {{
+            onGetSecteurByCode(dem_Pers.dem_secteuractivites)
+            }}</div><br>
+          <div><span class="detail">Registre :</span> {{ dem_Pers.dem_registrecommerce}}</div><br>
+          <div><span class="detail">NINEA :</span> {{ dem_Pers.dem_ninea }}</div><br>
+          <div><span class="detail">Compte Bancaire :</span> {{ dem_Pers.dem_comptebancaire }}</div><br>
+          <div><span class="detail">Objet :</span> {{ dem_Pers.dem_objetdemande}}</div><br>
+          <div><span class="detail">Statut :</span> {{ dem_Pers.dem_statut }}</div><br>
+
+        </div>
+
+        <div class="col-sm-3">
+          <h5 class="grid-h">Coordonnées</h5>
+          <div><span class="detail">adresse 1 :</span> {{ dem_Pers.dem_adresse1 }}</div><br>
+          <!-- <div><span class="detail">adresse 2 :</span> {{ dem_Pers.dem_adresse2 }}</div><br> -->
+          <div><span class="detail">telephone principal :</span> {{ dem_Pers.dem_telephoneprincipal }}</div><br>
+          <!-- <div><span class="detail">telephone :</span> {{ dem_Pers.dem_telephone2 }}</div><br> -->
+          <div><span class="detail">Ville :</span> {{ dem_Pers.dem_ville }}</div><br>
+          <div><span class="detail">Mobile :</span> {{ dem_Pers.dem_telephonemobile }}</div><br>
+          <div><span class="detail">Email:</span> {{ dem_Pers.dem_email }}</div><br>
+        </div>
+
+        <div class="col-sm-3">
+          <h5 class="grid-h">Information financiére</h5>
+          <div><span class="detail">Effectif: </span>{{ client?.clien_effectif }}</div><br>
+          <div><span class="detail">Chiffe d'affaire activités : </span>{{ client?.clien_chiffreaffaireannuel }}
+          </div><br>
+          <div><span class="detail">chiffre d'affaire prime: </span>{{ client?.clien_chiffreaffaireprime }}
+          </div>
+          <br>
+          <div><span class="detail">charge de sinistre : </span>{{ client?.clien_chargesinistre }}</div><br>
+          <div><span class="detail">Capital social : </span>{{ client?.clien_capital_social}}</div><br>
+          <div><span class="detail">Code origine :</span> {{ client?.clien_codeorigine }}</div><br>
+
+        </div>
+      </div>
+
+    </div>
+
+    <input type="radio" name="tabs" id="tabtwo" [checked]=dem_Pers.checked>
+    <label for="tabtwo" class="lab">Fichier</label>
+    <div class="tab">
+      <div>
+      <div class="row">
+          <div class="col-sm-12">
+            <div>
+              <br>
+              <h6 style="color:green ;">Il faut joindre et prévusualiser au minimun un nombre de documents égal aux cases à cocher avec ce  symbole<span style="color:red;">*</span></h6><br>
+            </div>
+              <button status="success" nbButton (click)="openAjoutUpLoad()">
+                  <mat-icon>file_upload</mat-icon> joindre documents
+              </button>
+              <div *ngIf="displayButtonUpload">
+                  <br>
+                  <span style="color: green;">Vous pouvez selectionner un ou plusieurs documents
+                  </span><br><br>
+                  <input type="file" (change)="onFileSelected($event)" multiple name="files"
+                      id=""><br>
+                  <br><button  size="small" status="primary" nbButton (click)="onClickUpload(dem_Pers.dem_persnum)">
+                      <mat-icon>file_upload</mat-icon>upload
+                  </button>
+                  <br>
+                        <nb-progress-bar *ngIf="displayprogress" [value]="progress" [displayValue]="true"
+                            status="primary"></nb-progress-bar>
+                        <br>
+              </div>
+          </div>
+        <div  class="col-sm-12">
+          <div>
+            <br> 
+            <H5>Liste des fichiers(s'il y'a un fichier non prévusualisé la validation est impossible)</H5>
+          </div>
+
+        <!--div *ngIf="dem_Pers.dem_produitdemande1==15001001">
+          <H5>Liste des fichiers disponibles pour le produit caution de soumission</H5>
+        </div>
+        <div *ngIf="dem_Pers.dem_produitdemande1==15001002">
+          <H5>Liste des fichiers disponibles pour le produit caution d'avance de démarrage</H5>
+        </div>
+        <div *ngIf="dem_Pers.dem_produitdemande1==15001003">
+          <H5>Liste des fichiers disponibles pour le produit caution de bonne execution</H5>
+        </div>
+        <div *ngIf="dem_Pers.dem_produitdemande1==15001004">
+          <H5>Liste des fichiers disponibles pour le produit caution de retenue de garantie</H5>
+        </div>
+        <div *ngIf="dem_Pers.dem_produitdemande1==14002001">
+          <H5>Liste des fichiers disponibles pour le produit KAP’GARANTI EXPORT</H5>
+        </div>
+        <div *ngIf="dem_Pers.dem_produitdemande1==14003001">
+          <H5>Liste des fichiers disponibles pour le produit KAP’GARANTI DOMESTIQUE</H5>
+        </div>
+        <div *ngIf="dem_Pers.dem_produitdemande1==14001001">
+          <H5>Liste des fichiers disponibles pour le produit FINASSUR</H5>
+        </div>
+        <div *ngIf="dem_Pers.dem_produitdemande1==16008001">
+          <H5>Liste des fichiers disponibles pour le produit LOCASSUR</H5>
+        </div-->
+        
+        <form [formGroup]="form1">
+        <table>
+         <!--thead style="color:white; text-align: center;background:rgb(7,66,124);">
+            <tr>
+              <th>Nom fichier</th>
+              <th>visualiser</th>
+              <th>supprimer</th>
+            </tr>
+          </thead-->
+          
+          <tbody *ngFor="let  filename of filenames;let i=index">
+            <tr>
+              <td>{{filename}}</td>
+              <td style="text-align: center"><span style="color:red;">*</span>
+                <nb-checkbox  (checkedChange)="Onfileschange($event)" type="checkbox" disabled  [value]="filename"  [checked]="dem_Pers?.list_document_lu[i] === filename ? true : null"></nb-checkbox>
+              </td>
+              <td style="text-align: center">
+                 <button size="tiny" (click)="openpdf(filename,dem_Pers.dem_persnum)"  status="success" nbButton ><mat-icon>visibility</mat-icon>Prévisualiser</button>
+              </td>
+              <td style="text-align: center"><button size="tiny" (click)="onClickDownload(filename,dem_Pers.dem_persnum)" status="primary"
+                nbButton>
+                <mat-icon>file_upload</mat-icon>Télécharger
+              </button>
+              </td>
+              <td style="text-align: center"><button size="tiny"  (click)="onClickDelete(filename,dem_Pers.dem_persnum)" status="danger"
+                  nbButton>
+                  <mat-icon>delete</mat-icon>Supprimer
+                  </button>
+              </td>
+            </tr>
+          </tbody>
+          
+        </table>
+        <!--button type="submit">Submit</button-->
+      </form>
+      </div>
+        
+        <div class="col-sm-12" *ngIf="!produitdeux && !produittrois" >
+          <div class="row">
+            <nb-card-body *ngIf="dem_Pers.dem_produitdemande1==15001001"><br>
+              <H5>Cases à cocher  pour le produit caution de soumission</H5><br>
+              <nb-checkbox (checkedChange)="toggle($event)" [checked]="checked"><span style="color:red;">*</span>La demande adressée au Directeur Général</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggledeux($event)" [checked]="checkeddeux" ><span style="color:red;">*</span>Le modèle de cautionnement</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggletrois($event)"  [checked]="checkedtrois" ><span style="color:red;">*</span>La copie de l’avis d’appel d’offres et des données particulières (DPA0) ou Divers</nb-checkbox><br>
+            </nb-card-body>
+            <nb-card-body *ngIf="dem_Pers.dem_produitdemande1==15001002"><br>
+              <H5>Cases à cocher  pour le produit caution avance de démarrage</H5><br>
+              <nb-checkbox (checkedChange)="toggle($event)" [checked]="checked"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="toggledeux($event)" [checked]="checkeddeux"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggletrois($event)" [checked]="checkedtrois"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+                    <!--button  nbButton status="primary" [disabled]='check' (click)="submit(dem_Pers)">Valider pour le produit 2</button-->
+            </nb-card-body>
+            
+            <nb-card-body *ngIf="dem_Pers.dem_produitdemande1==15001003"><br>
+              <H5>Cases à cocher  pour le produit caution bonnne exécution</H5><br>
+              <nb-checkbox (checkedChange)="toggle($event)" [checked]="checked"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="toggledeux($event)" [checked]="checkeddeux"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggletrois($event)" [checked]="checkedtrois"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+                    <!--button  nbButton status="primary" [disabled]='check' (click)="submit(dem_Pers)">Valider pour le produit 2</button-->
+            </nb-card-body>
+            <nb-card-body *ngIf="dem_Pers.dem_produitdemande1==15001004"><br>
+              <H5>Cases à cocher  pour le produit caution retenue de garantie</H5><br>
+              <nb-checkbox (checkedChange)="toggle($event)" [checked]="checked"><span style="color:red;">*</span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="toggledeux($event)" [checked]="checkeddeux"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggletrois($event)" [checked]="checkedtrois">Une copie signée du marché</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquatre" >Le bordereau de livraison (marché de fournitures/service) et/ou</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq">Le PV de réception provisoire pour les cautions de retenue de garantie</nb-checkbox><br>
+            </nb-card-body>
+            <nb-card-body *ngIf="dem_Pers.dem_produitdemande1==15001005"><br>
+              <H5>Cases à cocher  pour le produit caution définitive</H5><br>
+              <nb-checkbox (checkedChange)="toggle($event)" [checked]="checked"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="toggledeux($event)" [checked]="checkeddeux"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggletrois($event)" [checked]="checkedtrois"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+                    <!--button  nbButton status="primary" [disabled]='check' (click)="submit(dem_Pers)">Valider pour le produit 2</button-->
+            </nb-card-body>
+            <nb-card-body *ngIf="dem_Pers.dem_produitdemande1==14002001"><br>
+              <H5>Cases à cocher  pour le produit KAP’GARANTI EXPORT</H5><br>
+              <nb-checkbox (checkedChange)="toggle($event)" [checked]="checked"><span style="color:red;">*</span>Envoi de la fiche d’option renseigné</nb-checkbox> <br>
+            </nb-card-body>
+            <nb-card-body *ngIf="dem_Pers.dem_produitdemande1==14003001"><br>
+              <H5>Cases à cocher  pour le produit KAP’GARANTI DOMESTIQUE</H5><br>
+              <nb-checkbox (checkedChange)="toggle($event)" [checked]="checked"><span style="color:red;">*</span>Demande d’agrément renseigné </nb-checkbox> <br>
+            </nb-card-body>
+            <nb-card-body *ngIf="dem_Pers.dem_produitdemande1==14001001"><br>
+              <H5>Cases à cocher  pour le produit FINASSUR</H5><br>
+              Deux cas possibles <br>
+              <nb-checkbox *ngIf="!checkedneuf" (checkedChange)="togglehuit($event)"  [checked]="checkedhuit"><span style="color:red;">*</span>Cas 1 Bordereau transmis par la banque avec toute l’information relative au crédit accordé</nb-checkbox> <br>
+              <nb-checkbox *ngIf="!checkedhuit" (checkedChange)="toggleneuf($event)"  [checked]="checkedneuf"><span style="color:red;">*</span>Cas 2 Dérogation</nb-checkbox> <br>
+              <ul *ngIf="!checkedhuit && checkedneuf" >
+                <li><nb-checkbox (checkedChange)="toggle($event)" [checked]="checked"><span style="color:red;">*</span>Demande de couverture au Directeur Général au cas général</nb-checkbox> </li>
+                <li><nb-checkbox (checkedChange)="toggledeux($event)" [checked]="checkeddeux"><span style="color:red;">*</span>Demande de crédit adressée à l’institution  </nb-checkbox></li>
+                <li><nb-checkbox (checkedChange)="toggletrois($event)" [checked]="checkedtrois"><span style="color:red;">*</span>Justificatifs de revenus (3 bulletins de salaire) </nb-checkbox></li>
+                <li><nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquatre"><span style="color:red;">*</span>Copie contrat de travail </nb-checkbox></li>
+                <li><nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq"><span style="color:red;">*</span>Lettre de domiciliation chez l’institution </nb-checkbox></li>
+                <li><nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe"><span style="color:red;">*</span>Certificat de résidence </nb-checkbox></li>
+                <li><nb-checkbox (checkedChange)="togglesept($event)" [checked]="checkedsept"><span style="color:red;">*</span>Copie carte nationale d’identité </nb-checkbox></li>
+              </ul>
+            </nb-card-body>
+            <nb-card-body *ngIf="dem_Pers.dem_produitdemande1==16008001"><br>
+              <H5>Cases à cocher  pour le produit LOCASSUR</H5><br>
+              <nb-checkbox (checkedChange)="toggle($event)" [checked]="checked"><span style="color:red;">*</span>Fiche de demande d’agrément</nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="toggledeux($event)" [checked]="checkeddeux"><span style="color:red;">*</span>Demande (informations sur chaque locataire) </nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggletrois($event)" [checked]="checkedtrois">Copie bail pour chaque locataire :</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquatre">CNI</nb-checkbox><br>
+            </nb-card-body>
+            <nb-card-body *ngIf="dem_Pers.dem_produitdemande1==15001006 || dem_Pers.dem_produitdemande1==15001007 || dem_Pers.dem_produitdemande1==15001008 || dem_Pers.dem_produitdemande1==15001009 || dem_Pers.dem_produitdemande1==15001010 || dem_Pers.dem_produitdemande1==15001011"><br>
+              <H5>Cases à cocher  pour le produit {{ typecaution }}</H5><br>
+              <nb-checkbox (checkedChange)="toggle($event)" [checked]="checked"><span style="color:red;">*</span>Statut et documents officiels (RC, NINEA, etc.)</nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="toggledeux($event)" [checked]="checkeddeux"><span style="color:red;">*</span>Copie CNI du dirigeant</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggletrois($event)" [checked]="checkedtrois"><span style="color:red;">*</span>CV du dirigeant </nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquatre"><span style="color:red;">*</span>Copie de l’agrément délivré pour l’exercice de la profession</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq"><span style="color:red;">*</span>Copie du Compte d’Exploitation Prévisionnelle</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe"><span style="color:red;">*</span>Copie des deux derniers états financiers </nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsept"><span style="color:red;">*</span>Justificatif du siège social</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglehuit($event)" [checked]="checkedhuit"><span style="color:red;">*</span>Copie certificat de non condamnation pour les commissionnaires en douane</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggleneuf($event)" [checked]="checkedneuf"><span style="color:red;">*</span>Copie du casier judiciaire  </nb-checkbox><br>
+            </nb-card-body>
+            </div>
+             <button *ngIf="dem_Pers.dem_produitdemande2==15001003 || dem_Pers.dem_produitdemande2==15001002 || dem_Pers.dem_produitdemande2==15001004 || dem_Pers.dem_produitdemande2==15001005 || dem_Pers.dem_produitdemande2==15001001"  nbButton status="primary" [disabled]='!(check  || obligatoire || plusieursproduit)' (click)="submit(dem_Pers)" >Valider pour le produit 1</button>
+            
+         </div>
+         <div class="col-sm-12" *ngIf="produitdeux && !produittrois">
+          <div *ngIf="dem_Pers.dem_produitdemande2==15001002 && dem_Pers.dem_produitdemande1==15001003">
+            <H5>Cases à cocher  pour le produit caution d'avance de démarrage</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquatre"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              <button *ngIf="dem_Pers.dem_produitdemande3!=0"  nbButton status="primary" [disabled]='!(check || obligatoire || plusieursproduit || troisproduits)'  (click)="submit(dem_Pers)">Valider pour le produit 2</button>
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande2==15001002 && dem_Pers.dem_produitdemande1==15001004">
+            <H5>Cases à cocher  pour le produit caution d'avance de démarrage</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglesept($event)" [checked]="checkedsept"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglehuit($event)" [checked]="checkedhuit"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              <button *ngIf="dem_Pers.dem_produitdemande3!=0" nbButton status="primary" [disabled]='!(check || obligatoire || plusieursproduit || troisproduits)' (click)="submit(dem_Pers)">Valider pour le produit 2</button>
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande2==15001003 && dem_Pers.dem_produitdemande1==15001002">
+            <H5>Cases à cocher  pour le produit caution de bonne execution</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquatre"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              <button *ngIf="dem_Pers.dem_produitdemande3!=0" [disabled]='!(check || obligatoire || plusieursproduit || troisproduits)' nbButton status="primary"  (click)="submit(dem_Pers)">Valider pour le produit 2</button>
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande2==15001003 && dem_Pers.dem_produitdemande1==15001004">
+            <H5>Cases à cocher  pour le produit caution de bonne execution</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglesept($event)" [checked]="checkedsept"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglehuit($event)" [checked]="checkedhuit"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              <button *ngIf="dem_Pers.dem_produitdemande3!=0" [disabled]='!(check || obligatoire || plusieursproduit || troisproduits)' nbButton status="primary"  (click)="submit(dem_Pers)">Valider pour le produit 2</button>
+          </div>
+                   
+          <div *ngIf="dem_Pers.dem_produitdemande2==15001004 && dem_Pers.dem_produitdemande1==15001002">
+            <H5>Cases à cocher  pour le produit caution de retenue de garantie</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquatre"><span style="color:red;">*</span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe">Une copie signée du marché</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesept($event)" [checked]="checkedsept" >Le bordereau de livraison (marché de fournitures/service) et/ou</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglehuit($event)" [checked]="checkedhuit">Le PV de réception provisoire pour les cautions de retenue de garantie</nb-checkbox><br>
+            </nb-card-body>
+            <button *ngIf="dem_Pers.dem_produitdemande3!=0" [disabled]='!(check || obligatoire || plusieursproduit || troisproduits)'  nbButton status="primary"  (click)="submit(dem_Pers)">Valider pour le produit 2</button>
+
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande2==15001004 && dem_Pers.dem_produitdemande1==15001003">
+            <H5>Cases à cocher  pour le produit caution de retenue de garantie</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquatre"><span style="color:red;">*</span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe">Une copie signée du marché</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesept($event)" [checked]="checkedsept" >Le bordereau de livraison (marché de fournitures/service) et/ou</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglehuit($event)" [checked]="checkedhuit">Le PV de réception provisoire pour les cautions de retenue de garantie</nb-checkbox><br>
+            </nb-card-body>
+            <button *ngIf="dem_Pers.dem_produitdemande3!=0" [disabled]='!(check || obligatoire || plusieursproduit || troisproduits)'  nbButton status="primary"   (click)="submit(dem_Pers)">Valider pour le produit 2</button>
+
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande2==15001002 && dem_Pers.dem_produitdemande1==15001001">
+            <H5>Cases à cocher  pour le produit caution avance de démarrage</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquattre"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              <button *ngIf="dem_Pers.dem_produitdemande3!=0" [disabled]='!(check || obligatoire || plusieursproduit || troisproduits)' nbButton status="primary"  (click)="submit(dem_Pers)">Valider pour le produit 2</button>
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande2==15001003 && dem_Pers.dem_produitdemande1==15001001">
+            <H5>Cases à cocher  pour le produit caution bonne exécution</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquattre"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              <button *ngIf="dem_Pers.dem_produitdemande3!=0" [disabled]='!(check || obligatoire || plusieursproduit || troisproduits)' nbButton status="primary"  (click)="submit(dem_Pers)">Valider pour le produit 2</button>
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande2==15001004 && dem_Pers.dem_produitdemande1==15001001">
+            <H5>Cases à cocher  pour le produit caution retenue de garantie</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquatre"><span style="color:red;">*</span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe">Une copie signée du marché</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesept($event)" [checked]="checkedsept" >Le bordereau de livraison (marché de fournitures/service) et/ou</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglehuit($event)" [checked]="checkedhuit">Le PV de réception provisoire pour les cautions de retenue de garantie</nb-checkbox><br>
+            </nb-card-body>
+              <button *ngIf="dem_Pers.dem_produitdemande3!=0" [disabled]='!(check || obligatoire || plusieursproduit || troisproduits)' nbButton status="primary"  (click)="submit(dem_Pers)">Valider pour le produit 2</button>
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande2==15001005 && dem_Pers.dem_produitdemande1==15001001">
+            <H5>Cases à cocher  pour le produit caution définitive</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquattre"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              <button *ngIf="dem_Pers.dem_produitdemande3!=0" [disabled]='!(check || obligatoire || plusieursproduit || troisproduits)' nbButton status="primary"  (click)="submit(dem_Pers)">Valider pour le produit 2</button>
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande2==15001001 && dem_Pers.dem_produitdemande1==15001002">
+            <H5>Cases à cocher  pour le produit caution de soumission</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquattre"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              <button *ngIf="dem_Pers.dem_produitdemande3!=0" [disabled]='!(check || obligatoire || plusieursproduit || troisproduits)' nbButton status="primary"  (click)="submit(dem_Pers)">Valider pour le produit 2</button>
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande2==15001001 && dem_Pers.dem_produitdemande1==15001003">
+            <H5>Cases à cocher  pour le produit caution de soumission</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquattre"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              <button *ngIf="dem_Pers.dem_produitdemande3!=0" [disabled]='!(check || obligatoire || plusieursproduit || troisproduits)' nbButton status="primary"  (click)="submit(dem_Pers)">Valider pour le produit 2</button>
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande2==15001001 && dem_Pers.dem_produitdemande1==15001004">
+            <H5>Cases à cocher  pour le produit caution de soumission</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglesept($event)" [checked]="checkedsept"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglehuit($event)" [checked]="checkedhuit"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              <button *ngIf="dem_Pers.dem_produitdemande3!=0" [disabled]='!(check || obligatoire || plusieursproduit || troisproduits)' nbButton status="primary"  (click)="submit(dem_Pers)">Valider pour le produit 2</button>
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande2==15001001 && dem_Pers.dem_produitdemande1==15001005">
+            <H5>Cases à cocher  pour le produit caution de soumission</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquattre"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              <button *ngIf="dem_Pers.dem_produitdemande3!=0" [disabled]='!(check || obligatoire || plusieursproduit || troisproduits)' nbButton status="primary"  (click)="submit(dem_Pers)">Valider pour le produit 2</button>
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande2==15001002 && dem_Pers.dem_produitdemande1==15001005">
+            <H5>Cases à cocher  pour le produit caution avance de démarrage</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquattre"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              <button *ngIf="dem_Pers.dem_produitdemande3!=0" [disabled]='!(check || obligatoire || plusieursproduit || troisproduits)' nbButton status="primary"  (click)="submit(dem_Pers)">Valider pour le produit 2</button>
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande2==15001003 && dem_Pers.dem_produitdemande1==15001005">
+            <H5>Cases à cocher  pour le produit caution bonne exécution</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquattre"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              <button *ngIf="dem_Pers.dem_produitdemande3!=0" [disabled]='!(check || obligatoire || plusieursproduit || troisproduits)' nbButton status="primary"  (click)="submit(dem_Pers)">Valider pour le produit 2</button>
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande2==15001004 && dem_Pers.dem_produitdemande1==15001005">
+            <H5>Cases à cocher  pour le produit caution retenue de garantie</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquatre"><span style="color:red;">*</span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe">Une copie signée du marché</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesept($event)" [checked]="checkedsept" >Le bordereau de livraison (marché de fournitures/service) et/ou</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglehuit($event)" [checked]="checkedhuit">Le PV de réception provisoire pour les cautions de retenue de garantie</nb-checkbox><br>
+            </nb-card-body>
+              <button *ngIf="dem_Pers.dem_produitdemande3!=0" [disabled]='!(check || obligatoire || plusieursproduit || troisproduits)' nbButton status="primary"  (click)="submit(dem_Pers)">Valider pour le produit 2</button>
+          </div>
+          <!--div *ngIf="dem_Pers.dem_produitdemande2==15001001 && dem_Pers.dem_produitdemande1==15001005">
+            <H5>Cases à cocher  pour le produit caution de soumission</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquattre"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              <button *ngIf="dem_Pers.dem_produitdemande3!=0" [disabled]='!(check || obligatoire || plusieursproduit || troisproduits)' nbButton status="primary"  (click)="submit(dem_Pers)">Valider pour le produit 2</button>
+          </div-->
+          <div *ngIf="dem_Pers.dem_produitdemande2==15001005 && dem_Pers.dem_produitdemande1==15001002">
+            <H5>Cases à cocher  pour le produit caution définitive</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquattre"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              <button *ngIf="dem_Pers.dem_produitdemande3!=0" [disabled]='!(check || obligatoire || plusieursproduit || troisproduits)' nbButton status="primary"  (click)="submit(dem_Pers)">Valider pour le produit 2</button>
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande2==15001005 && dem_Pers.dem_produitdemande1==15001003">
+            <H5>Cases à cocher  pour le produit caution définitive</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquattre"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              <button *ngIf="dem_Pers.dem_produitdemande3!=0" [disabled]='!(check || obligatoire || plusieursproduit || troisproduits)' nbButton status="primary"  (click)="submit(dem_Pers)">Valider pour le produit 2</button>
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande2==15001005 && dem_Pers.dem_produitdemande1==15001004">
+            <H5>Cases à cocher  pour le produit caution définitive</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglesept($event)" [checked]="checkedsept"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="togglehuit($event)" [checked]="checkedhuit"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              <button *ngIf="dem_Pers.dem_produitdemande3!=0" [disabled]='!(check || obligatoire || plusieursproduit || troisproduits)' nbButton status="primary"  (click)="submit(dem_Pers)">Valider pour le produit 2</button>
+          </div>
+          
+          <!--button  nbButton status="primary" *ngIf="dem_Pers.dem_produitdemande3!=0"  (click)="submit(dem_Pers)">Valider pour le produit 2</button-->
+
+         </div>
+         <div class="col-sm-12" *ngIf="produitdeux && produittrois">
+          <div *ngIf="dem_Pers.dem_produitdemande3==15001002 && dem_Pers.dem_produitdemande2==15001003 && dem_Pers.dem_produitdemande1==15001004">
+            <H5>Cases à cocher  pour le produit caution d'avance de démarrage</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="toggleneuf($event)" [checked]="checkedneuf"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="toggledix($event)" [checked]="checkeddix"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggleonze($event)" [checked]="checkedonze"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande3==15001002 && dem_Pers.dem_produitdemande2==15001004 && dem_Pers.dem_produitdemande1==15001003">
+            <H5>Cases à cocher  pour le produit caution d'avance de démarrage</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="toggleneuf($event)" [checked]="checkedneuf"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="toggledix($event)" [checked]="checkeddix"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggleonze($event)" [checked]="checkedonze"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande3==15001003 && dem_Pers.dem_produitdemande2==15001002 && dem_Pers.dem_produitdemande1==15001004">
+            <H5>Cases à cocher  pour le produit caution de bonne exécution</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="toggleneuf($event)" [checked]="checkedneuf"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="toggledix($event)" [checked]="checkeddix"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggleonze($event)" [checked]="checkedonze"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande3==15001003 && dem_Pers.dem_produitdemande2==15001004 && dem_Pers.dem_produitdemande1==15001002">
+            <H5>Cases à cocher  pour le produit caution de bonne exécution</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="toggleneuf($event)" [checked]="checkedneuf"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="toggledix($event)" [checked]="checkeddix"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggleonze($event)" [checked]="checkedonze"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande3==15001004 && dem_Pers.dem_produitdemande2==15001003 && dem_Pers.dem_produitdemande1==15001002">
+            <H5>Cases à cocher  pour le produit caution de retenue de garantie</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglesept($event)" [checked]="checkedsept"><span style="color:red;">*</span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglehuit($event)" [checked]="checkedhuit"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggleneuf($event)" [checked]="checkedneuf">Une copie signée du marché</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggledix($event)" [checked]="checkeddix" >Le bordereau de livraison (marché de fournitures/service) et/ou</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggleonze($event)" [checked]="checkedonze">Le PV de réception provisoire pour les cautions de retenue de garantie</nb-checkbox><br>
+              
+             </nb-card-body>
+              
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande3==15001004 && dem_Pers.dem_produitdemande2==15001002 && dem_Pers.dem_produitdemande1==15001003">
+            <H5>Cases à cocher  pour le produit caution de retenue de garantie</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglesept($event)" [checked]="checkedsept"><span style="color:red;">*</span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglehuit($event)" [checked]="checkedhuit"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggleneuf($event)" [checked]="checkedneuf">Une copie signée du marché</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggledix($event)" [checked]="checkeddix" >Le bordereau de livraison (marché de fournitures/service) et/ou</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggleonze($event)" [checked]="checkedonze">Le PV de réception provisoire pour les cautions de retenue de garantie</nb-checkbox><br>
+              
+             </nb-card-body>
+              
+          </div>
+
+          <!--SOUMISSION DEBUT DEFINIVE-->
+          <div *ngIf="(dem_Pers.dem_produitdemande3==15001001 && dem_Pers.dem_produitdemande2==15001002 && dem_Pers.dem_produitdemande1==15001004)|| 
+                      (dem_Pers.dem_produitdemande3==15001001 && dem_Pers.dem_produitdemande2==15001003 && dem_Pers.dem_produitdemande1==15001004) || 
+                      (dem_Pers.dem_produitdemande3==15001001 && dem_Pers.dem_produitdemande2==15001005 && dem_Pers.dem_produitdemande1==15001004)     || 
+                      
+          
+          
+                    (dem_Pers.dem_produitdemande3==15001005 && dem_Pers.dem_produitdemande2==15001001 && dem_Pers.dem_produitdemande1==15001004)|| 
+                    (dem_Pers.dem_produitdemande3==15001005 && dem_Pers.dem_produitdemande2==15001002 && dem_Pers.dem_produitdemande1==15001004) || 
+                    (dem_Pers.dem_produitdemande3==15001005 && dem_Pers.dem_produitdemande2==15001003 && dem_Pers.dem_produitdemande1==15001004) ||
+
+
+                    (dem_Pers.dem_produitdemande3==15001002 && dem_Pers.dem_produitdemande2==15001001 && dem_Pers.dem_produitdemande1==15001004) ||
+                    (dem_Pers.dem_produitdemande3==15001002 && dem_Pers.dem_produitdemande2==15001005 && dem_Pers.dem_produitdemande1==15001004) ||
+
+                    (dem_Pers.dem_produitdemande3==15001003 && dem_Pers.dem_produitdemande2==15001001 && dem_Pers.dem_produitdemande1==15001004) ||
+                    (dem_Pers.dem_produitdemande3==15001003 && dem_Pers.dem_produitdemande2==15001005 && dem_Pers.dem_produitdemande1==15001004)
+                    ">
+            <H5>Cases à cocher  pour le produit caution {{ typecaution }}</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="toggleneuf($event)" [checked]="checkedneuf"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="toggledix($event)" [checked]="checkeddix"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggleonze($event)" [checked]="checkedonze"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              
+          </div>
+          
+
+          <div *ngIf="(dem_Pers.dem_produitdemande3==15001001 && dem_Pers.dem_produitdemande2==15001004 && dem_Pers.dem_produitdemande1==15001002) || 
+                      (dem_Pers.dem_produitdemande3==15001001 && dem_Pers.dem_produitdemande2==15001004 && dem_Pers.dem_produitdemande1==15001003) || 
+                      (dem_Pers.dem_produitdemande3==15001001 && dem_Pers.dem_produitdemande2==15001004 && dem_Pers.dem_produitdemande1==15001005)         || 
+                      
+                      
+                      
+                      (dem_Pers.dem_produitdemande3==15001005 && dem_Pers.dem_produitdemande2==15001004 && dem_Pers.dem_produitdemande1==15001001) || 
+                      (dem_Pers.dem_produitdemande3==15001005 && dem_Pers.dem_produitdemande2==15001004 && dem_Pers.dem_produitdemande1==15001002) || 
+                      (dem_Pers.dem_produitdemande3==15001005 && dem_Pers.dem_produitdemande2==15001004 && dem_Pers.dem_produitdemande1==15001003) ||
+                      
+                      
+                      (dem_Pers.dem_produitdemande3==15001002 && dem_Pers.dem_produitdemande2==15001004 && dem_Pers.dem_produitdemande1==15001001) ||
+                      (dem_Pers.dem_produitdemande3==15001002 && dem_Pers.dem_produitdemande2==15001004 && dem_Pers.dem_produitdemande1==15001005) ||
+                      
+                      
+                      (dem_Pers.dem_produitdemande3==15001003 && dem_Pers.dem_produitdemande2==15001004 && dem_Pers.dem_produitdemande1==15001001) ||
+                      (dem_Pers.dem_produitdemande3==15001003 && dem_Pers.dem_produitdemande2==15001004 && dem_Pers.dem_produitdemande1==15001005)">
+            <H5>Cases à cocher  pour le produit caution {{typecaution}}</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="toggleneuf($event)" [checked]="checkedneuf"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="toggledix($event)" [checked]="checkeddix"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggleonze($event)" [checked]="checkedonze"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              
+          </div>
+
+
+          <div *ngIf="(dem_Pers.dem_produitdemande3==15001004 && dem_Pers.dem_produitdemande2==15001001 && dem_Pers.dem_produitdemande1==15001002) || 
+                      (dem_Pers.dem_produitdemande3==15001004 && dem_Pers.dem_produitdemande2==15001001 && dem_Pers.dem_produitdemande1==15001003) ||
+                      (dem_Pers.dem_produitdemande3==15001004 && dem_Pers.dem_produitdemande2==15001001 && dem_Pers.dem_produitdemande1==15001005)      || 
+
+
+                      (dem_Pers.dem_produitdemande3==15001004 && dem_Pers.dem_produitdemande2==15001005 && dem_Pers.dem_produitdemande1==15001001) || 
+                      (dem_Pers.dem_produitdemande3==15001004 && dem_Pers.dem_produitdemande2==15001005 && dem_Pers.dem_produitdemande1==15001002) || 
+                      (dem_Pers.dem_produitdemande3==15001004 && dem_Pers.dem_produitdemande2==15001005 && dem_Pers.dem_produitdemande1==15001003) ||
+                      
+                      (dem_Pers.dem_produitdemande3==15001004 && dem_Pers.dem_produitdemande2==15001002 && dem_Pers.dem_produitdemande1==15001001) ||
+                      (dem_Pers.dem_produitdemande3==15001004 && dem_Pers.dem_produitdemande2==15001002 && dem_Pers.dem_produitdemande1==15001005) ||
+
+
+                      (dem_Pers.dem_produitdemande3==15001004 && dem_Pers.dem_produitdemande2==15001003 && dem_Pers.dem_produitdemande1==15001001) ||
+                      (dem_Pers.dem_produitdemande3==15001004 && dem_Pers.dem_produitdemande2==15001003 && dem_Pers.dem_produitdemande1==15001005)">
+            <H5>Cases à cocher  pour le produit caution de retenue de garantie</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglesept($event)" [checked]="checkedsept"><span style="color:red;">*</span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglehuit($event)" [checked]="checkedhuit"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggleneuf($event)" [checked]="checkedneuf">Une copie signée du marché</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggledix($event)" [checked]="checkeddix" >Le bordereau de livraison (marché de fournitures/service) et/ou</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggleonze($event)" [checked]="checkedonze">Le PV de réception provisoire pour les cautions de retenue de garantie</nb-checkbox><br>
+              
+             </nb-card-body>
+              
+          </div>
+
+          <div *ngIf="(dem_Pers.dem_produitdemande3==15001001 && dem_Pers.dem_produitdemande2==15001002 && dem_Pers.dem_produitdemande1==15001003) || 
+                      (dem_Pers.dem_produitdemande3==15001001 && dem_Pers.dem_produitdemande2==15001002 && dem_Pers.dem_produitdemande1==15001005) || 
+                      (dem_Pers.dem_produitdemande3==15001001 && dem_Pers.dem_produitdemande2==15001003 && dem_Pers.dem_produitdemande1==15001002) ||
+                      (dem_Pers.dem_produitdemande3==15001001 && dem_Pers.dem_produitdemande2==15001003 && dem_Pers.dem_produitdemande1==15001005) ||
+                      (dem_Pers.dem_produitdemande3==15001001 && dem_Pers.dem_produitdemande2==15001005 && dem_Pers.dem_produitdemande1==15001002) ||
+                      (dem_Pers.dem_produitdemande3==15001001 && dem_Pers.dem_produitdemande2==15001005 && dem_Pers.dem_produitdemande1==15001003) ||
+                      
+                      
+                      
+                      
+                      (dem_Pers.dem_produitdemande3==15001002 && dem_Pers.dem_produitdemande2==15001001 && dem_Pers.dem_produitdemande1==15001003) || 
+                      (dem_Pers.dem_produitdemande3==15001002 && dem_Pers.dem_produitdemande2==15001001 && dem_Pers.dem_produitdemande1==15001005) || 
+                      (dem_Pers.dem_produitdemande3==15001002 && dem_Pers.dem_produitdemande2==15001003 && dem_Pers.dem_produitdemande1==15001001) ||
+                      (dem_Pers.dem_produitdemande3==15001002 && dem_Pers.dem_produitdemande2==15001003 && dem_Pers.dem_produitdemande1==15001005) ||
+                      (dem_Pers.dem_produitdemande3==15001002 && dem_Pers.dem_produitdemande2==15001005 && dem_Pers.dem_produitdemande1==15001001) ||
+                      (dem_Pers.dem_produitdemande3==15001002 && dem_Pers.dem_produitdemande2==15001005 && dem_Pers.dem_produitdemande1==15001003) ||
+                      
+                      
+                      (dem_Pers.dem_produitdemande3==15001003 && dem_Pers.dem_produitdemande2==15001001 && dem_Pers.dem_produitdemande1==15001002) || 
+                      (dem_Pers.dem_produitdemande3==15001003 && dem_Pers.dem_produitdemande2==15001001 && dem_Pers.dem_produitdemande1==15001005) || 
+                      (dem_Pers.dem_produitdemande3==15001003 && dem_Pers.dem_produitdemande2==15001002 && dem_Pers.dem_produitdemande1==15001001) ||
+                      (dem_Pers.dem_produitdemande3==15001003 && dem_Pers.dem_produitdemande2==15001002 && dem_Pers.dem_produitdemande1==15001005) ||
+                      (dem_Pers.dem_produitdemande3==15001003 && dem_Pers.dem_produitdemande2==15001005 && dem_Pers.dem_produitdemande1==15001001) ||
+                      (dem_Pers.dem_produitdemande3==15001003 && dem_Pers.dem_produitdemande2==15001005 && dem_Pers.dem_produitdemande1==15001002) ||
+                      
+                      
+                      
+                      (dem_Pers.dem_produitdemande3==15001005 && dem_Pers.dem_produitdemande2==15001001 && dem_Pers.dem_produitdemande1==15001003) || 
+                      (dem_Pers.dem_produitdemande3==15001005 && dem_Pers.dem_produitdemande2==15001001 && dem_Pers.dem_produitdemande1==15001002) || 
+                      (dem_Pers.dem_produitdemande3==15001005 && dem_Pers.dem_produitdemande2==15001002 && dem_Pers.dem_produitdemande1==15001001) ||
+                      (dem_Pers.dem_produitdemande3==15001005 && dem_Pers.dem_produitdemande2==15001002 && dem_Pers.dem_produitdemande1==15001003) ||
+                      (dem_Pers.dem_produitdemande3==15001005 && dem_Pers.dem_produitdemande2==15001003 && dem_Pers.dem_produitdemande1==15001001) ||
+                      (dem_Pers.dem_produitdemande3==15001005 && dem_Pers.dem_produitdemande2==15001003 && dem_Pers.dem_produitdemande1==15001002)">
+                      
+            <H5>Cases à cocher  pour le produit caution {{typecaution}}</H5>
+            <nb-card-body><br>
+              <nb-checkbox (checkedChange)="togglesept($event)" [checked]="checkedsept"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+              <nb-checkbox (checkedChange)="togglehuit($event)" [checked]="checkedhuit"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+              <nb-checkbox (checkedChange)="toggleneuf($event)" [checked]="checkedneuf"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+             </nb-card-body>
+              
+          </div>
+
+          <!--SOUMISSION FIN DEFINITIVE-->
+          
+         </div>
+         
+          </div>
+      
+    </div>
+    
+  </div>
+  
+
+    <input type="radio" name="tabs" id="tabfour">
+    <label for="tabfour" class="lab">FORMULAIRES/DOCUMENTS</label>
+    <div class="tab">
+      <div class="row">
+        <div style="cursor: pointer;" class="col-sm-3">
+          <p> Conditions Générales
+          </p>
+          <div>
+            <img (click)="onExportConditionGenerale(dem_Pers.dem_persnum) "
+              src="../../../../assets/images/doc1.jpg" alt="Conditions Générales" width="120" height="100">
+
+          </div>
+        </div>
+        <div class="col-sm-3">
+
+          <p>Conditions particulières</p>
+          <div style="position: relative;">
+            <img style="cursor: pointer;"
+              src="../../../../assets/images/doc1.jpg" alt="Conditions Générales" width="120" height="100">
+            <mat-icon [mat-menu-trigger-for]="detail" yPosition="right" style="position: absolute;left: 0;">
+              more_vert</mat-icon>
+          </div>
+          <mat-menu #detail="matMenu">
+            <button mat-menu-item color="primary">
+              <mat-icon>download</mat-icon>Télécharger
+            </button>
+            <!-- <button (click)="ref.close()" mat-menu-item color="primary"
+              (click)="openDialogParticulier(dialogModifCParticulier,dem_Pers)">
+              <mat-icon>edit</mat-icon>Modifier
+            </button>-->
+
+          </mat-menu>
+
+        </div>
+        <!--div class="col-sm-3">
+
+          <p>Instruction</p>
+          <div style="position: relative;">
+            <img style="cursor: pointer;" (click)="onExportConditionInstruction(dem_Pers.dem_persnum) "
+              src="../../../../assets/images/doc1.jpg" alt="Conditions Générales" width="120" height="100">
+            <mat-icon [mat-menu-trigger-for]="detail" yPosition="right" style="position: absolute;left: 0;">
+              more_vert</mat-icon>
+          </div>
+          <mat-menu #detail="matMenu">
+            <button mat-menu-item color="primary" (click)="onExportConditionInstruction(dem_Pers.dem_persnum)">
+              <mat-icon>download</mat-icon>Télécharger
+            </button>
+            <!- <button (click)="ref.close()" mat-menu-item color="primary"
+              (click)="openDialogParticulier(dialogModifCParticulier,dem_Pers)">
+              <mat-icon>edit</mat-icon>Modifier
+            </button> ->
+
+          </mat-menu>
+
+        </div-->
+        <div class="col-sm-3" *ngIf="analyseDeRisque && changeAnalyse">
+
+          <p>Instructions</p>
+          <div style="position: relative;">
+            <!--img style="cursor: pointer;" (click)="onExportConditionInstruction(dem_Pers.dem_persnum)"-->
+            <img style="cursor: pointer;"  
+            src="../../../../assets/images/doc1.jpg" alt="Conditions Générales" width="120" height="100">
+            <mat-icon [mat-menu-trigger-for]="detail" yPosition="right" style="position: absolute;left: 0;">
+              more_vert</mat-icon>
+          </div>
+          <mat-menu #detail="matMenu">
+            <!--button mat-menu-item color="primary" (click)="onExportConditionInstruction(dem_Pers.dem_persnum)"-->
+            <button mat-menu-item color="primary">
+              <mat-icon>download</mat-icon>Télécharger
+            </button>
+            <!-- <button (click)="ref.close()" mat-menu-item color="primary"
+              (click)="openDialogParticulier(dialogModifCParticulier,demandeSociete)">
+              <mat-icon>edit</mat-icon>Modifier
+            </button> -->
+
+          </mat-menu>
+
+        </div>
+        <!--div style="cursor: pointer;" class="col-sm-3">
+          <p>Instruction</p>
+          <img src="../../../../assets/images/doc1.jpg" alt="Conditions Générales" width="120" height="100">
+
+        </div>
+        <div style="cursor: pointer;" class="col-sm-3">
+          <p>{{type}}</p>
+          <img (click)="onExportConditionInstruction(dem_Pers.dem_persnum)" src="../../../../assets/images/doc1.jpg"
+            alt="Conditions Générales" width="120" height="100">
+
+        </div-->
+        <div style="cursor: pointer;" class="col-sm-3" *ngIf="analyseDeRisque && changeAnalyse">
+          <p>Acte
+            
+          </p>
+          <img  src="../../../../assets/images/doc1.jpg"
+            alt="Conditions Générales" width="120" height="100">
+
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="tab">
+
+    </div>
+    <input type="radio" name="tabs" id="tabfive">
+    <label for="tabfive" class="lab">MEMO</label>
+    <div class="tab">
+      <div class="row">
+
+        <div class="col-sm-8">
+          <div><span class="detail">Commentaire Direction Commerciale :</span> {{ dem_Pers.dem_commentaire }}</div><br>
+        </div>
+        
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+
+
+
+  <!--div class="row"-->
+    <div class="row" >
+    <div class="col-sm-4">
+
+      <!-- <p class="subtitle">NgModel value: {{ ngModelValue }}</p> -->
+      <nb-radio-group [(ngModel)]="ngModelValue" name="ng-model-group"><br>
+        <nb-radio value="1"  [disabled]='! (check || obligatoire  ) ' >Je valide</nb-radio>
+      <nb-radio value="2" [disabled]='(check ||  obligatoire)' >Non valide demande rejetée</nb-radio>
+      <nb-radio value="3" [disabled]='(check ||  obligatoire)' >En attente dossiers manquants</nb-radio>
+      <nb-radio value="4" [disabled]='(check ||  obligatoire)' >En attente RC et/ou NINEA manquants</nb-radio>
+    </nb-radio-group>
+    </div>
+    <div class="col-sm-6">
+      <form [formGroup]="addForm"> 
+      <div *ngIf="ngModelValue=='2' || ngModelValue=='1' || ngModelValue=='3' || ngModelValue=='4'">
+        
+        <div class="form-group" > 
+          <label *ngIf="ngModelValue=='2'" for="" class="label"><span style="color:red;font-size: 32px;">*</span><span style="font-size: 15px;color:green">Motif du rejet Direction Commerciale(Remplir pour actver le bouton valider)</span></label>
+          <label *ngIf="ngModelValue=='3'" for="" class="label"><span style="color:red;font-size: 32px;">*</span><span style="font-size: 15px;color:green">Dossiers manquants Direction Commerciale(Remplir pour actver le bouton valider)</span></label>
+          <label *ngIf="ngModelValue=='4'" for="" class="label"><span style="color:red;font-size: 32px;">*</span><span style="font-size: 15px;color:green">Infirmations manquantes Direction Commerciale(Remplir pour actver le bouton valider)</span></label>
+          <label *ngIf="ngModelValue=='1'" for="" class="label"><span style="color:red;font-size: 32px;">*</span><span style="font-size: 15px;color:green"> Mémo Direction Commerciale(Remplir pour actver le bouton valider)</span><br></label>
+          <!--textarea [disabled]="analyseDeRisque" (change)="dosomething($event.target.value)" [(ngModel)]="dem_commentaire" nbInput fullWidth></textarea-->
+          <textarea  style="background-color: white;" formControlName="dem_commentaire" nbInput fullWidth
+                  [(ngModel)]="dem_Pers.dem_commentaire" 
+                
+                  (change)="onChangebody($event)" >
+          </textarea>
+        </div>
+       
+      </div>
+      
+    </form>
+    </div>
+
+  </div>
+  
+
+
+</nb-card-body>
+<nb-card-footer>
+  <button nbButton (click)="close()" status="danger">Fermer</button>&nbsp;&nbsp;
+  <span *ngIf="ngModelValue=='1'"><button  nbButton status="success" (click)="close()"
+    (click)="openModif(dem_Pers)" [disabled]='!(check || obligatoire) || !addForm.valid || analyseDeRisque'>
+    <div  >Valider</div>
+  </button>&nbsp;&nbsp;</span>
+  <span *ngIf="ngModelValue=='2' || ngModelValue=='3' || ngModelValue=='4' ">
+  <button  nbButton status="success" (click)="close()"
+    (click)="openModif(dem_Pers)" (click)="close()" [disabled]='!addForm.valid || analyseDeRisque'>
+    <div  >Valider</div>
+  </button>&nbsp;&nbsp;
+</span>
+  <!--button nbButton (click)="openDialogParticulier(dialogModifCParticulier,dem_Pers)"  (click)="ref.close()"
+    status="info"> Modifier</button>
+  &nbsp;&nbsp;
+  <button nbButton (click)="open(dialogTrait2 ,dem_Pers)" (click)="onGetAllDemandePhy()"  (click)="ref.close()"
+  status="info"> <mat-icon>refresh</mat-icon></button-->
+&nbsp;&nbsp;
+  <!-- <button nbButton (click)="ref.close()" status="success"
+    (click)="openClient(dialog360 ,dem_Pers.dem_typetitulaire)">Vision 360</button>&nbsp;&nbsp; -->
+
+  <!-- <button nbButton status="success" (click)="ref.close()" (click)="openModif(dem_Pers.reass_code,dem_Pers)"><div *ngIf="check_fonct('u_dem_Pers')">Valider</div></button> -->
+</nb-card-footer>

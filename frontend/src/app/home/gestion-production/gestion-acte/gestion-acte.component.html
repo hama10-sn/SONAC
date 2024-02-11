@@ -1,0 +1,246 @@
+
+
+    <div *ngIf="check_fonct('l_acte')">
+        <mat-card>
+            <div fxLayout fxLayoutAlign="center center">
+                <mat-form-field fxFlex="40%">
+                  <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+                </mat-form-field>
+                <mat-card-header class="card-header">
+        
+                  <span class="header">La liste des actes</span> 
+                  <div *ngIf="check_fonct('c_acte')">
+                    <button mat-icon-button  class="buttons" status="success" (click)="openAjout()">
+                        <mat-icon style="margin-bottom: 15px;" class="material-icons color_green"  title="Ajouter acte">add_circle</mat-icon>    
+                      </button>
+                  </div>
+                  </mat-card-header>
+                
+              </div>
+              <table mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="act_numero">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header > Acte </th>
+                  <td mat-cell *matCellDef="let acte"> {{acte.act_numero  }} </td>
+                </ng-container>
+                <ng-container matColumnDef="act_numeropolice">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>  Police</th>
+                  <td mat-cell *matCellDef="let acte"> {{acte.act_numeropolice}}  </td>
+                </ng-container>
+                <ng-container matColumnDef="act_typemarche"><!--{{ onGetProduitByPolice((acte.act_numeropolice).toString()) }} -->
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Produit </th>
+                  <td mat-cell *matCellDef="let acte">  {{onGetLibelleByProduit(onGetProduitByPolice(acte.act_numeropolice))}}</td>
+                </ng-container><!-- 
+                <ng-container matColumnDef="act_idcontractante">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Code Marché </th>
+                  <td mat-cell *matCellDef="let acte"> {{acte.act_idcontractante}} </td>
+                </ng-container>  -->
+                <ng-container matColumnDef="act_capitalassure">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Type Acte </th>
+                    <td mat-cell *matCellDef="let acte"> {{onGetTypeByActe((acte.act_typegarantie).toString())}} </td>
+                  </ng-container> 
+                <!-- <ng-container matColumnDef="details">
+                  <th mat-header-cell *matHeaderCellDef > Details </th>
+                  <td mat-cell *matCellDef="let acte">
+                    <button mat-icon-button color="primary" (click)="open(dialog,acte)">
+                        <mat-icon class="mat-18">reorder</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="update">
+                    <th mat-header-cell *matHeaderCellDef><div *ngIf="check_fonct('u_acte')"> Modification </div></th>
+                    <td mat-cell *matCellDef="let acte">
+                      <div *ngIf="check_fonct('u_acte')">
+                      <button mat-icon-button color="green" (click)="openModif(acte)">
+                          <mat-icon class="mat-18">edit</mat-icon>
+                      </button>
+                    </div>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="affecter">
+                      <th mat-header-cell *matHeaderCellDef><div *ngIf="check_fonct('c_acte')"> Affecter </div></th>
+                      <td mat-cell *matCellDef="let acte"><div *ngIf="check_fonct('c_acte')">
+                        <button mat-icon-button color="green" (click)="openCheck(acte)">
+                            <mat-icon class="mat-18"> control_point_duplicate </mat-icon>
+                        </button></div>
+                      </td>
+                    </ng-container> 
+            <ng-container matColumnDef="clause">
+              <th mat-header-cell *matHeaderCellDef>Clause</th>
+              <td mat-cell *matCellDef="let acte">
+                  <button mat-icon-button color="primary" (click)="onOpenActe(dialogAct , acte)">
+                      <mat-icon class="mat-18">view_compact</mat-icon>
+                  </button>
+              </td>
+          </ng-container> -->
+          <ng-container matColumnDef="details">
+
+            <th mat-header-cell *matHeaderCellDef>
+    
+              <div *ngIf="check_fonct('l_acte')"> Action </div>
+    
+            </th>
+    
+            <td mat-cell *matCellDef="let acte">
+    
+              <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">
+    
+                <mat-icon class="mat-18">more_vert</mat-icon>
+    
+              </button>
+    
+              <mat-menu #detail="matMenu">
+    
+                <button mat-menu-item color="primary"  (click)="open(dialog,acte)">
+    
+                  <mat-icon>reorder</mat-icon>Détail
+    
+                </button>
+    
+               
+                <div *ngIf="check_fonct('u_acte')">
+                <button mat-menu-item (click)="openModif(acte)" >
+    
+                  <mat-icon color="primary"> edit 
+    
+                  </mat-icon> Modification 
+    
+                </button>
+              </div>
+              <div *ngIf="check_fonct('u_acte')">
+                <button mat-menu-item (click)="openCheck(acte)">
+                  <mat-icon color="primary"> control_point_duplicate 
+                  </mat-icon> Affecter
+                </button>
+              </div>
+              <div *ngIf="check_fonct('l_acte')">
+                <button mat-menu-item (click)="onOpenActe(dialogAct, acte)">
+                  <mat-icon color="primary"> view_compact
+                  </mat-icon> Clause
+                </button>
+              </div>
+              </mat-menu>
+    
+            </td>
+    
+          </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                
+              </table>
+              <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]">
+              </mat-paginator>
+              
+              <ng-template #dialog let-acte let-ref="dialogRef">  
+                <nb-card>
+                  <nb-card-header>
+                    Details d'un acte
+                  </nb-card-header>
+                  <nb-card-body>
+                      <div class="row">
+                          <div class="col-sm-3">
+                            <h5 class="grid-h">Information</h5>
+                            <div><span class="detail">Numero Police :</span> {{ acte.act_numeropolice }}</div><br>
+                              <div><span class="detail">Numero :</span> {{ acte.act_numero }}</div><br>
+                              <div><span class="detail">Type Marché :</span> {{ acte.act_typemarche }}</div><br>
+                              <div><span class="detail">Numero Marché Public :</span> {{ acte.act_numeromarchepublic }}</div><br>
+                              <div><span class="detail">Code Marché :</span> {{ acte.act_codemarche }}</div><br>
+                              <div><span class="detail">Produit :</span>
+                                {{ acte.p?.poli_codeproduit }} : {{ acte.p?.prod_denominationcourt }}
+                            </div><br>
+                            <div><span class="detail">Client :</span>
+                                <!-- {{ acte.cl?.clien_numero }} : -->
+                                {{ acte.cl?.clien_prenom }} {{ acte.cl?.clien_nom }}
+                                {{ acte.cl?.clien_denomination }}
+                            </div><br>
+                            </div>
+                          <div class="col-sm-4">
+                            <h5 class="grid-h">Info Complementaire</h5>
+                            <div><span class="detail">Date Marché :</span> {{ acte.act_datemarche | date: 'dd-MM-yyyy' }}</div><br>
+                            <div><span class="detail">Identité Contractante :</span> {{ acte.act_idcontractante }}</div><br>
+                            <div><span class="detail">Identité Beneficiaire :</span> {{ acte.act_idbeneficiaire }}</div><br>
+                            <div><span class="detail">Identité Candidat :</span> {{ acte.act_idcandidat }}</div><br>
+                            <div><span class="detail">Capital Assuré :</span> {{ acte.act_capitalassure }}</div><br>
+                            <div><span class="detail">Capital SMP :</span> {{ acte.act_capitalsmp }}</div><br>
+                            <div><span class="detail">Capital LCI :</span> {{ acte.act_capitallci }}</div><br>                                     
+                        </div> 
+                        <div class="col-sm-5">
+                          <h5 class="grid-h">Autres</h5>
+                          <div><span class="detail">Ancien Numero Acte :</span> {{ acte.act_anciennumero }}</div><br>  
+                          <div><span class="detail">Status :</span> {{ acte.act_status }}</div><br>
+                          <div><span class="detail">date de comptabilisation :</span> {{ acte.act_datecomptabilisation | date: 'dd-MM-yyyy' }}</div><br>
+                                    
+                      </div> 
+                      </div>
+                  </nb-card-body>
+                  <nb-card-footer>
+                      <button nbButton (click)="ref.close()" status="danger">Fermer</button>&nbsp;&nbsp;                
+                     <!--  <button nbButton status="success" (click)="ref.close()" (click)="openModif(acte)"><div *ngIf="check_fonct('u_acte')">  modifier</div>   </button>   --> 
+                    </nb-card-footer>
+                </nb-card>
+                
+            
+            </ng-template>
+        
+            <ng-template #dialogdel let-acte let-ref="dialogRef">
+          
+           
+              <!--nb-card>
+                <nb-card-header>
+                  SUPPRESSION
+                </nb-card-header>
+                <nb-card-body>
+                  <div *ngIf="onChechId(acte.cont_numero,acte.cont_numeroclient,acte.cont_leader)==1">
+        
+                    <h5  class="grid-h">Confirmation de la suppression</h5>
+                  </div>
+                  <div *ngIf="onChechId(acte.cont_numero,acte.cont_numeroclient,acte.cont_leader)==2">
+        
+                    <h5  class="grid-h">Impossible de supprimer crée un acte leader d'abord</h5>
+                  </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <br>
+            
+                            <div></div><br>
+                           
+                        </div>
+                   
+                    </div>
+                    
+                   
+                </nb-card-body>
+                  <nb-card-footer>
+                    <div *ngIf="onChechId(acte.cont_numero,acte.cont_numeroclient,acte.cont_leader)==1">
+                    <button nbButton (click)="onDeleteacteClient(acte.cont_numero,acte.cont_numeroclient,acte.cont_leader)" (click)="ref.close()" status="success">Confirmer</button>&nbsp;&nbsp; 
+                      <button nbButton (click)="ref.close()" status="danger">Annuler</button>
+                    </div>
+                    <div *ngIf="onChechId(acte.cont_numero,acte.cont_numeroclient,acte.cont_leader)==2">
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <button nbButton (click)="ref.close()" status="danger">OK</button>
+                      </div>
+                    </nb-card-footer>
+              </nb-card-->
+            
+              
+            </ng-template>
+            <ng-template #dialogAct let-acte let-ref="dialogRef">
+
+              <nb-card>
+                  <nb-card-header class="col-lg-12">Les clauses de l'acte: {{acte.act_numero}} </nb-card-header>
+                  <nb-card-body>
+                      <div class="row">
+                          <ngx-gestion-clause [id_acte]="acte.act_numero"></ngx-gestion-clause> 
+  
+                      </div>
+                  </nb-card-body>
+              </nb-card>
+          </ng-template>
+            </mat-card>
+          </div>
+          
+          <div *ngIf="check_fonct('l_acte')==false">
+            <ngx-page-not-autoriser></ngx-page-not-autoriser>
+          </div>

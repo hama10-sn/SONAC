@@ -1,0 +1,96 @@
+<div class="col-lg-4">
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Mes dossiers </nb-card-header>
+    </nb-card>
+</div> 
+<div class="navigation" >
+  <a style="color: rgb(63, 94, 126) ; cursor:pointer;" (click)="cancel()" class="link" aria-label="back">Retour à l'espace client<br><i style="font-size: 3rem" class="boutons" class="icon nb-arrow-thin-left"></i></a>
+</div>
+
+<div class="row">
+<div class="col-lg-4">
+  <button status="primary" [hero]="!displayDoc" [outline]="displayDoc" (click)="onClickDoc()" nbButton ><mat-icon>file_download</mat-icon> Documents à telecharger</button>
+</div>
+<div class="col-lg-4">
+  <button status="primary" [hero]="!displayJustificatif" [outline]="displayJustificatif" (click)="onclickJustificatif()" nbButton ><mat-icon>file_upload</mat-icon> Joindre des pieces justificatifs</button>
+</div>
+<div class="col-lg-4">
+  <button status="primary" [hero]="!displayAutre" [outline]="displayAutre" (click)="onClickAutre()" nbButton ><mat-icon>file_upload</mat-icon> Joindre d'autres documents</button>
+</div>
+</div>
+
+<br>
+<br>
+
+  
+  <div class="col-lg-12" *ngIf="displayJustificatif">
+    <nb-card>
+        <nb-card-body>
+            <button status="success" nbButton (click)="openAjout()"><mat-icon>file_upload</mat-icon> joindre pièces justificatives</button>
+            <br>
+            <div *ngIf="displayButtonUpload">
+                <br>
+                <span style="color: green;">Vous pouvez selectionner un ou plusieurs documents justificatifs </span><br><br>
+                <input type="file" (change)="onFileSelected($event)" multiple name="files" id=""><br>
+                <br><button size="small" status="primary" nbButton (click)="onClickUpload()" ><mat-icon>file_upload</mat-icon>upload</button>
+            </div>
+            <br>
+            <nb-progress-bar *ngIf="displayprogress" [value]="progress" [displayValue]="true" status="primary"></nb-progress-bar>
+            <br>
+            <h2>Liste des documents joints</h2>
+            <nb-list>
+                <nb-list-item *ngFor="let filename of filenames" >
+                  {{filename}} &nbsp;&nbsp;&nbsp;<button size="tiny" (click)="onClickDownload(filename,'client')"  status="success" nbButton ><mat-icon>file_download</mat-icon>Télécharger</button>
+                  &nbsp;<button size="tiny" (click)="onClickDelete(filename)"  status="danger" nbButton ><mat-icon>delete</mat-icon>supprimer</button>
+                </nb-list-item>
+              </nb-list>
+        </nb-card-body>
+    </nb-card>
+  </div>
+
+
+
+
+
+  <div class="col-lg-12" *ngIf="displayDoc">
+    <nb-card>
+        <nb-card-body>
+           
+            
+            
+            <h2>Liste des documents à télécharger</h2>
+            <nb-list>
+                <nb-list-item *ngFor="let filename of filenamesDoc" >
+                  {{filename}} &nbsp;&nbsp;&nbsp;<button size="tiny" (click)="onClickDownload(filename,'download')"  status="success" nbButton ><mat-icon>file_download</mat-icon>Télécharger</button>
+                  &nbsp;
+                </nb-list-item>
+              </nb-list>
+        </nb-card-body>
+    </nb-card>
+  </div>
+
+
+  <div class="col-lg-12" *ngIf="displayAutre">
+    <nb-card>
+        <nb-card-body>
+            <button status="success" nbButton (click)="openAjout()"><mat-icon>file_upload</mat-icon> joindre des documents</button>
+            <br>
+            <div *ngIf="displayButtonUpload">
+                <br>
+                <span style="color: green;">Vous pouvez selectionner un ou plusieurs documents  </span><br><br>
+                <input type="file" (change)="onFileSelected($event)" multiple name="files" id=""><br>
+                <br><button size="small" status="primary" nbButton (click)="onClickUploadAutres()" ><mat-icon>file_upload</mat-icon>upload</button>
+            </div>
+            <br>
+            <nb-progress-bar *ngIf="displayprogress" [value]="progress" [displayValue]="true" status="primary"></nb-progress-bar>
+            <br>
+            <h2>Liste des documents Autres</h2>
+            <nb-list>
+                <nb-list-item *ngFor="let filename of filenamesAutres" >
+                  {{filename}} &nbsp;&nbsp;&nbsp;<button size="tiny" (click)="onClickDownloadAutres(filename)"  status="success" nbButton ><mat-icon>file_download</mat-icon>Télécharger</button>
+                  &nbsp;<button size="tiny" (click)="onClickDeleteInDossier(filename)"  status="danger" nbButton ><mat-icon>delete</mat-icon>supprimer</button>
+                </nb-list-item>
+            </nb-list>
+        </nb-card-body>
+    </nb-card>
+  </div>

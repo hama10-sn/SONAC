@@ -1,0 +1,98 @@
+
+
+<div *ngIf="check_fonct('c_taxe')">
+  <form [formGroup]="addForm"> 
+    <div class="col-lg-14">
+      <nb-card>
+        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Ajouter une taxe</nb-card-header>
+      </nb-card>
+    </div> 
+    <p class="paraProblemeSaisi" *ngIf="problemeCodeTaxe">
+      Ce produit est déjà taxé
+    </p>
+    <div class="row">
+      <div class="col-lg-12">
+        <nb-card>
+          <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Information Taxe</nb-card-header>
+          <nb-card-body >
+  
+            <div class="row">
+            
+               <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">code branche <span class="obligatoire">*</span></label>                          
+                    <nb-select (selectedChange)="onChangeCodeBranche($event)" fullWidth >                    
+                    <nb-option value="{{branche.branche_numero}}" *ngFor="let branche of listBranche">{{branche.branche_numero}} : {{branche.branche_libellecourt}}</nb-option>
+                    </nb-select>
+                  </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="" class="label">code categorie<span class="obligatoire">*</span></label>
+                  <nb-select [(selected)]="taxe_categorie"  (selectedChange)="onChangeCodeCategorie($event)" fullWidth >                    
+                    <nb-option value="{{categorie.categ_numero}}" *ngFor="let categorie of listCategorie">{{categorie.categ_numero}} : {{categorie.categ_libellecourt}}</nb-option>
+                    </nb-select>
+                  </div>
+              </div> 
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">code produit <span class="obligatoire">*</span></label>                          
+                    <nb-select [(selected)]="taxe_produit"(selectedChange)="onChangeCodeProduit($event)" fullWidth >                    
+                    <nb-option value="{{produit.prod_numero}}" *ngFor="let produit of listProduit">{{produit.prod_numero}} : {{produit.prod_denominationcourt}}</nb-option>
+                    </nb-select>
+                  </div>
+              </div>
+              <!-- <div class="col-sm-4">
+                <div class="form-group">
+                  <label  class="label">code garantie<span class="obligatoire">*</span></label>
+                  <nb-select  (selectedChange)="onChangeCodeGarantie($event)"  type="number" fullWidth id="taxe_garant">
+                    <nb-option value=9999>9999</nb-option>
+                  </nb-select>
+                </div>
+              </div> -->
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">code de la taxe<span class="obligatoire">*</span></label>
+                  <input  formControlName="taxe_codetaxe" [readonly]="true" value="onChangeCodeCategorie($event)" type="number" nbInput fullWidth  id="taxe_codetaxe" >
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label  class="label">assiette de calcul<span class="obligatoire">*</span></label>
+                  <nb-select (selectedChange)="onChangeLibeleAssiet($event)" fullWidth id="taxe_codetaxe">                    
+                    <nb-option value="{{assiette.id}}" *ngFor="let assiette of listTypesAssiet">{{assiette.value}}</nb-option>  
+                  </nb-select>             
+                 </div>
+              </div>
+  
+   
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="" class="label">taux appliquée (%)<span class="obligatoire">*</span></label>
+                  <input formControlName="taxe_txappliq" type="number" nbInput fullWidth id="taxe_txappliq" >
+                </div>
+              </div>
+              <div class="col-sm-4">
+                  <div class="form-group">
+                    <label  class="label">date de prise d'effet taxe<span class="obligatoire">*</span></label>
+                    <input formControlName="taxe_dateffet" type="datetime-local" nbInput fullWidth id="taxe_dateffet" >
+                  </div>
+                </div>
+             
+            </div>
+            
+                 
+            </nb-card-body >
+          </nb-card>
+        </div>
+      </div>
+         
+         <div>
+          <button nbButton status="success" (click)="submit()" [disabled]='!addForm.valid'>Ajouter</button>
+              &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+            </div>
+      </form>
+    </div>
+      <div *ngIf="check_fonct('c_taxe')==false">
+        <ngx-page-not-autoriser></ngx-page-not-autoriser>
+      </div>

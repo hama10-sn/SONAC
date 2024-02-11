@@ -1,0 +1,213 @@
+<div *ngIf="check_fonct('u_engagement')">
+    <form [formGroup]="modifForm">        
+                <div class="col-lg-4">
+                    <nb-card>
+                        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Modification Engagement</nb-card-header>
+                    </nb-card>
+                </div>
+                <br>
+            <div class="tabs">
+                    <input type="radio" name="tabs" id="tabone" checked="checked">
+                    <label for="tabone" class="lab">INFORMATION</label>
+                    <div class="tab">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label  class="label">Numero Police<span style="color:red;">*</span></label>
+                                    <!-- <mat-select class="form-control" [formControl]="policesCtrl" placeholder="choisir police"
+                                    (selectionChange)="onChangePolice($event)" fullWidth 
+                                    id="clact_numeropolice" #singleSelect>
+                                    <mat-option>
+                                      <ngx-mat-select-search [formControl]="policesFilterCtrl" placeholderLabel="recherche..."
+                                        noEntriesFoundLabel="aucune corespondance">
+                                       </ngx-mat-select-search>
+                                    </mat-option>    
+                                    <mat-option value="{{police.poli_numero}}"
+                                        *ngFor="let police of filteredPolices | async">{{police.poli_numero}}
+                                    </mat-option>
+                                </mat-select> -->
+                                <input fieldSize="small" readonly min="0" formControlName="engag_numpoli" type="number" nbInput fullWidth id="engag_numpoli" >
+                                </div>
+                            </div><!-- 
+                            <div class="col-sm-4">                
+                                <div class="form-group">
+                                    <label  class="label">Numero Avenant<span style="color:red;">*</span></label>             
+                                    <mat-select class="form-control" [formControl]="avenantsCtrl" placeholder="choisir avenant"
+                                        (selectionChange)="onChangeAvenant($event)" fullWidth 
+                                        id="engag_numeroavenant" #singleSelect>
+                                        <mat-option>
+                                            <ngx-mat-select-search [formControl]="avenantsFilterCtrl" placeholderLabel="recherche..."
+                                                noEntriesFoundLabel="aucune corespondance">
+                                            </ngx-mat-select-search>
+                                        </mat-option>        
+                                        <mat-option value="{{avenant.aven_numeroavenant}}"
+                                            *ngFor="let avenant of filteredAvenants | async">{{avenant.aven_numeroavenant}}
+                                        </mat-option>
+                                    </mat-select>
+                                </div>
+                            </div> -->
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label  class="label">Numero Acte<span style="color:red;">*</span></label>
+                                    <input fieldSize="small" readonly min="0" formControlName="engag_numeroacte" type="number" nbInput fullWidth id="engag_numeroacte" >                                   
+                                    <!-- <mat-select class="form-control" [formControl]="actesCtrl" placeholder="choisir un acte"
+                                    (selectionChange)="onChangeActe($event)" fullWidth
+                                    id="clact_numeroacte" #singleSelect>
+                                    <mat-option>
+                                        <ngx-mat-select-search [formControl]="actesFilterCtrl" placeholderLabel="recherche..."
+                                        noEntriesFoundLabel="aucune corespondance">
+                                        </ngx-mat-select-search>
+                                    </mat-option>
+    
+                                    <mat-option value="{{acte.act_numero}}"
+                                        *ngFor="let acte of filteredActes | async">{{acte.act_numero}}
+                                    </mat-option>
+                                </mat-select> -->
+                                <!-- <nb-select  (selectedChange)="onChangeActe($event)" fullWidth id="act_numero"> 
+                                    <nb-option value="">&nbsp;</nb-option>                   
+                                    <nb-option value="{{acte.act_numero}}" *ngFor="let acte of listActes">{{acte.act_numero}}</nb-option>
+                                  </nb-select> -->
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="label">Numero Engagement</label>
+                                    <input fieldSize="small"  min="0" readonly formControlName="engag_numeroengagement" type="number" nbInput fullWidth id="engag_codemarche">
+                                   
+                                </div> 
+                            </div> 
+                            <div class="col-sm-4">
+                                <div *ngIf="displayProd" class="form-group">
+                                    <label class="label">Code Marché</label>
+                                    <input fieldSize="small"  min="0" formControlName="engag_codemarche" type="number" nbInput fullWidth id="engag_codemarche">
+                                    <!-- <mat-select class="form-control" [formControl]="marchesCtrl" placeholder="choisir marcher"
+                                    (selectionChange)="onChangeMarche($event)" fullWidth
+                                    id="clact_numeromarcher" #singleSelect>
+                                    <mat-option>
+                                        <ngx-mat-select-search [formControl]="marchesFilterCtrl" placeholderLabel="recherche..."
+                                        noEntriesFoundLabel="aucune corespondance">
+                                        </ngx-mat-select-search>
+                                    </mat-option>
+    
+                                    <mat-option value="{{marche.march_numero}}"
+                                        *ngFor="let marche of filteredMarches | async">{{marche.march_numero}}
+                                    </mat-option>
+                                </mat-select> -->
+                                </div> 
+                            </div> 
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="label">Capital<span style="color:red;">*</span></label>
+                                    <input fieldSize="small" (focusout)="onFocusOutEventCapitalAssure()" min="0" formControlName="engag_kapassure" type="text" nbInput fullWidth id="engag_kapassure">                                   
+                                </div> 
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="label">Date de l'engagement/ Date effet Police<span style="color:red;">*</span></label>
+                                    <input fieldSize="small" (focusout)="onChangeFocusEngagementEffet($event)" formControlName="engag_dateengagement" type="datetime-local" nbInput fullWidth id="engag_dateengagement">                                   
+                                    <div *ngIf="!verifEngag">
+                                        <span style="color:red;">Doit etre comprise entre la date prise d'effet: <span style="color:rgb(0, 0, 0);">{{effet | date: 'dd-MM-yyyy'}}</span> et d'echeance: <span style="color:rgb(0, 0, 0);">{{dateEcheance | date: 'dd-MM-yyyy'}}</span> de la police  </span>
+                                    </div>  
+                                </div> 
+                            </div> 
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="label">Date libération capital</label>
+                                    <input fieldSize="small" (focusout)="onChangeFocusLibere($event)" formControlName="engag_dateliberation" type="datetime-local" nbInput fullWidth id="engag_dateliberation">                                   
+                                    <div *ngIf="!verifLib">
+                                        <span style="color:red;">doit etre superieur au date d'engagement</span>
+                                    </div> 
+                                </div> 
+                            </div> 
+                                  
+                             <div class="col-sm-4">
+                                <div *ngIf="displayclient" class="form-group">
+                                    <label  class="label">Client</label>
+                                    <input fieldSize="small" readonly [value]="ClientByPolice" nbInput fullWidth id="lib">
+                                     
+                                </div>
+                            </div>  
+                            
+                            <div class="col-sm-4">
+                                <div *ngIf="displayPro" class="form-group">
+                                    <label class="label">Produit</label>
+                                    <input fieldSize="small" readonly [value]="pro" type="text" nbInput fullWidth id="prod">                                   
+                                </div> 
+                            </div>         
+                        </div>
+                    </div>
+                    <input type="radio" name="tabs" id="tabtwo" >
+                    <label for="tabtwo" class="lab">Autres</label>
+                    <div class="tab">
+                        <!-- div class="row">                
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label  class="label">Type de Sureté<span style="color:red;">*</span></label>
+                                    
+                                    <mat-select class="form-control" [formControl]="typesCtrl" placeholder="choisir le type"
+                                    (selectionChange)="onChangeType($event)" fullWidth
+                                    id="engag_typesurete" #singleSelect>
+                                    <mat-option>
+                                        <ngx-mat-select-search [formControl]="typesFilterCtrl" placeholderLabel="recherche..."
+                                        noEntriesFoundLabel="aucune corespondance">
+                                        </ngx-mat-select-search>
+                                    </mat-option>
+                          
+                                    <mat-option  value="{{type.id}}"
+                                        *ngFor="let type of filteredTypes | async">
+                                        {{type.id}}: {{type.value}}
+                                    </mat-option>
+                                </mat-select>
+                                 </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div  class="form-group">
+                                    <label  class="label">Identification TF<span *ngIf="displaytype" style="color:red;">*</span></label>
+                                    <input fieldSize="small" formControlName="engag_identificationtitre" type="text" nbInput fullWidth id="engag_identificationtitre" >                                    
+                                </div>                   
+                            </div> 
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label  class="label">Deposit<span *ngIf="displaytypedepo" style="color:red;">*</span></label>
+                                    <input fieldSize="small"  min="0" formControlName="engag_retenudeposit" type="number" nbInput fullWidth id="engag_retenudeposit" >
+                                    
+                                </div>                   
+                            </div>                
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label  class="label">Date du Déposit<span *ngIf="displaytypedepo" style="color:red;">*</span></label>
+                                    <input fieldSize="small" (focusout)="onChangeFocus($event)" formControlName="engag_datedeposit" type="datetime-local" nbInput fullWidth id="engag_datedeposit">
+                                    <div *ngIf="!verifDeposite" class="col-sm-8">
+                                        <span style="color:red;">Doit etre comprise entre la date prise d'effet: <span style="color:rgb(0, 0, 0);">{{effet | date: 'dd-MM-yyyy'}}</span> et d'echeance: <span style="color:rgb(0, 0, 0);">{{dateEcheance | date: 'dd-MM-yyyy'}}</span> de la police  </span>
+                                        
+              
+                                    </div>    
+                                </div>
+                            </div>                
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label  class="label">Caution solidaire<span *ngIf="displayCaution" style="color:red;">*</span></label>
+                                    
+                                    <nb-select (selectedChange)="onChangeCaution($event)" fullWidth id="engag_cautionsolidaire">                    
+                                        <nb-option value="{{type.id}}" *ngFor="let type of listTypeCausions">{{type.id}}: {{type.value}}</nb-option>
+                                       
+                                    </nb-select>
+                                </div>
+                            </div>             
+                            
+                        </div> -->
+                    </div>
+    
+            </div>
+    
+            <br>
+            <div>
+               <button nbButton status="success" (click)="submit()" [disabled]='!modifForm.valid'>Modifier</button>
+               &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()" >Annuler</button>                
+            </div>
+    </form>
+    </div>
+    
+    <div *ngIf="check_fonct('u_engagement')==false">
+        <ngx-page-not-autoriser></ngx-page-not-autoriser>
+    </div>

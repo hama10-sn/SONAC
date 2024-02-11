@@ -1,0 +1,164 @@
+<div *ngIf="check_fonct('l_sinistre')">
+  <mat-card>
+    <div fxLayout fxLayoutAlign="center center">
+      <mat-form-field fxFlex="40%">
+        <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+      </mat-form-field>
+      <mat-card-header class="card-header">
+        <span class="header">La liste des sinistres à clôturer</span>
+      </mat-card-header>
+    </div>
+    <table mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="sin_client">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro client </th>
+        <td mat-cell *matCellDef="let sinistre"> {{onGetClientByCode(sinistre.sini_souscripteur)}} </td>
+      </ng-container>
+      <ng-container matColumnDef="sin_police">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro police</th>
+        <td mat-cell *matCellDef="let sinistre"> {{sinistre.sini_police}} </td>
+      </ng-container>
+      <ng-container matColumnDef="sin_acheteur">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Acheteur </th>
+        <td mat-cell *matCellDef="let sinistre"> {{onGetAcheteurByCode(sinistre.sini_acheteur)}}</td>
+      </ng-container>
+      <ng-container matColumnDef="sin_num">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro sinistre </th>
+        <td mat-cell *matCellDef="let sinistre"> {{sinistre.sini_num}} </td>
+      </ng-container>
+      <ng-container matColumnDef="sin_produits">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Produits </th>
+        <td mat-cell *matCellDef="let sinistre"> {{onGetProduitByNumero(sinistre.sini_produit)}} </td>
+      </ng-container>
+      <ng-container matColumnDef="statut">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Statut </th>
+        <td mat-cell *matCellDef="let sinistre"> {{onGetLibelleByStatus(sinistre.sini_status)}} </td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let sinistre">
+          <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">
+            <mat-icon class="mat-18">more_vert</mat-icon>
+          </button>
+          <mat-menu #detail="matMenu">
+            <button mat-menu-item (click)="onOpen(dialog, sinistre)">
+              <mat-icon>visibility</mat-icon> Détail
+            </button>
+            <div *ngIf="check_fonct('u_sinistre')">
+              <button mat-menu-item (click)="onClotureSinistre(dialog2, sinistre)">
+                <mat-icon color="primary">lock</mat-icon> Clôturer sinistre
+              </button>
+            </div>
+          </mat-menu>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]">
+    </mat-paginator>
+    <ng-template #dialog let-sinistre let-ref="dialogRef">
+      <nb-card>
+        <nb-card-header class="col-lg-12">DETAILS DU SINISTRE</nb-card-header>
+        <nb-card-body>
+          <div class="row">
+            <div class="col-sm-6">
+              <h5 class="grid-h">Infos Sinistre</h5>
+              <div><span class="detail">Numéro sinistre :</span>
+                {{ sinistre.sini_num }}
+              </div><br>
+              <div><span class="detail">Type sinistre :</span>
+                {{ sinistre.sini_typesinistre }}
+              </div><br>
+              <div><span class="detail">Date survenance : </span>
+                {{ sinistre.sini_datesurvenance | date: 'dd-MM-yyyy'}}
+              </div><br>
+              <div><span class="detail">Date déclaration : </span>
+                {{ sinistre.sini_datedeclaration | date: 'dd-MM-yyyy'}}
+              </div><br>
+              <div><span class="detail">Date saisie : </span>
+                {{ sinistre.sini_datesaisie | date: 'dd-MM-yyyy'}}
+              </div><br>
+            </div>
+
+            <div class="col-sm-6">
+              <h5 class="grid-h">Infos 2</h5>
+              <div><span class="detail">Police :</span>
+                {{ sinistre.sini_police }}
+              </div><br>
+              <div><span class="detail">Client :</span>
+                {{ onGetClientByCode(sinistre.sini_souscripteur) }}
+              </div><br>
+              <div><span class="detail">Produit : </span>
+                {{ onGetProduitByNumero(sinistre.sini_produit) }}
+              </div><br>
+              <div><span class="detail">Acheteur :</span>
+                {{ onGetAcheteurByCode(sinistre.sini_acheteur) }}
+              </div><br>
+              <div><span class="detail">Lieu :</span>
+                {{ sinistre.sini_lieu }}
+              </div><br>
+            </div>
+
+            <div class="col-sm-6">
+              <h5 class="grid-h">SAP</h5>
+              <div><span class="detail">SAP principal :</span>
+                {{ sinistre.sini_sapprincipale | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">SAP frais :</span>
+                {{ sinistre.sini_sapfrais | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">SAP honoraires : </span>
+                {{ sinistre.sini_saphonoraires | ngxNumberWithCommas }}
+              </div><br>
+              <div><span class="detail">SAP globale :</span>
+                {{sinistre.sini_sapglobale | ngxNumberWithCommas }}
+              </div><br>
+            </div>
+
+            <div class="col-sm-6">
+              <h5 class="grid-h">Info dernier mouvement</h5>
+              <div><span class="detail">Numéro mouvement :</span>
+                {{sinistre.mvts_num}}
+              </div><br>
+              <div><span class="detail">Type de mouvement :</span>
+                {{ sinistre.mvts_typemvt }}
+              </div><br>
+              <div><span class="detail">Date mouvement :</span>
+                {{ sinistre.mvts_datemvt | date: 'dd-MM-yyyy' }}
+              </div><br>
+              <div><span class="detail">Status : </span>
+                {{ sinistre.mvts_status }}
+              </div><br>
+            </div>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <button nbButton (click)="ref.close()" status="danger" class="btn btn-primary">Fermer</button>&nbsp;&nbsp;
+          <button nbButton (click)="onClotureSinistre(dialog2, sinistre)" (click)="ref.close()" status="success"
+            class="btn btn-primary">Clôturer sinistre</button>
+        </nb-card-footer>
+      </nb-card>
+    </ng-template>
+    <ng-template #dialog2 let-sinistre let-ref="dialogRef">
+      <nb-card>
+        <nb-card-header class="col-lg-12">Confirmation clôture sinistre</nb-card-header>
+        <nb-card-body>
+          <form [formGroup]="myRecoursForm">
+            <div class="d-flex bd-highlight mb-3">
+              <div class="me-auto p-2 bd-highlight">
+                <button nbButton status="success" (click)="onSubmit()" (click)="ref.close()"
+                  [disabled]='!myRecoursForm.valid'>Confirmer</button>
+              </div>
+              <div class="p-2 bd-highlight">
+                <button nbButton status="danger" (click)="cancel()" (click)="ref.close()">Annuler</button>
+              </div>
+            </div>
+          </form>
+        </nb-card-body>
+      </nb-card>
+    </ng-template>
+  </mat-card>
+</div>
+<div *ngIf="check_fonct('l_sinistre')==false">
+  <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

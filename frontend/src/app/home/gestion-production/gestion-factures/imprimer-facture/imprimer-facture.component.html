@@ -1,0 +1,252 @@
+
+ <button nbButton status="primary" [printStyle]="" [useExistingCss]="true" printSectionId="print-section"
+ ngxPrint>Imprimer la facture</button>
+
+
+<body class="col-lg-12" id="print-section" style="display: none;">
+ <!-- <div class="d-flex bd-highlight mb-3">
+   <div class="me-auto p-2 bd-highlight"><img src="../../../../assets/images/sonac.png" ></div>
+   <div class="p-2 bd-highlight"><span>FACTURE N° : {{ facture?.fact_numacte }}</span><br>
+     <span>Date de facturation : {{ facture?.fact_datefacture | date: 'dd/MM/yyyy
+       HH:mm'}}</span></div>
+ </div> -->
+ <div class="row">
+<div class="col-lg-12">
+  <p class="flotte" style="margin-left: 1px;">
+    <!--  -->
+    <img src="../../../../assets/images/sonac (3).png" style="margin-left: 0px;" width="200px" height="150px">
+  </p>
+    <p style="line-height:65px;font-size: 20px; float: right;text-align: center;width: 41.6%; border-style: solid; border-radius: 50px; padding: 10px;margin: auto;">
+     
+      <span style="font-size: 35px;"><strong>FACTURE N° :</strong> {{ facture?.fact_numacte }}</span>
+      <!-- <span >Date de facturation : {{ facture?.fact_datefacture | date: 'dd/MM/yyyy HH:mm'}}</span> -->
+    </p>
+  </div>
+ </div>
+ <div class="row">
+ <!-- <div style="float: center;text-align: center; width: 300px; border-style: solid; border-radius: 50px; padding: 10px;margin: auto;">
+   <p style="line-height:65px;font-size: 20px;">
+     
+     <span ><strong>FACTURE N° :</strong> {{ facture?.fact_numacte }}</span>
+     - <span >Date de facturation : {{ facture?.fact_datefacture | date: 'dd/MM/yyyy HH:mm'}}</span> --
+   </p>
+ </div> -->
+</div>
+ <br>
+ <div class="row">
+   <div class="col-lg-5">
+     <p style="font-size: 30px;"><span style="font-weight: bold;">AVIS D’EMISSION ACTE N° :</span> {{ facture?.fact_numacte }}</p>
+   </div>   
+    <div class="col-lg-7" style="float: left;margin-left: 65%; font-size: 20; width: 100%;">
+      <p> Date de facturation : {{ facture?.fact_datefacture | date: 'dd/MM/yyyy'}}</p>   
+  </div>
+ </div>
+ <!-- <p><span style="font-weight: bold;">Date de facturation :</span> </p> -->
+ <br>
+ <div class="row">
+   <div class="col-lg-6" style="float: left;width: 34%;">
+     <p style="font-size: 20px;"><span style="font-weight: bold; ">Code Branche :</span> {{ facture?.produit?.branche_libelle_long }}</p>
+     <p ><span style="font-weight: bold; font-size: 20;">Code Produit &nbsp;:</span> {{ facture?.produit?.prod_denominationlong }}</p>
+     <p ><span style="font-weight: bold; font-size: 20;">Contrat &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span> {{ facture?.fact_numeropolice }}</p>
+     <p ><span style="font-weight: bold; font-size: 20;">Référence&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span> {{ user.util_numero }}</p>
+    </div>
+    <!-- <div class="col-lg-5" style="width: 20%;float: left; margin-left: 0%;">
+      <p style="font-size: 20;"></p>
+      <p style="font-size: 20;"></p>
+      <p style="font-size: 20;"></p>
+      <p style="font-size: 20;"></p>
+    </div> -->
+    <!-- 
+      <div class="col-lg-3" style="float: left;width: 25%;">
+        <p>N° ACTE :</p>
+        <p>BRANCHE:</p>
+        <p>QUOTITE GARANTIE:</p>
+        <p>N°COMPTE:</p>
+        <p>REF:</p>
+      </div>
+      <div class="col-lg-4" style="float: left;width: 33.3%;">
+        <p>{{ facture?.fact_numeroacte }}</p>
+        <p>{{ facture?.produit?.branche_libelle_long}}</p>
+        <p>&nbsp;</p>
+        <p>(a voir)</p>
+        <p>(a voir)</p>
+      </div>
+     <p  *ngIf="typePoli == 1 || typePoli == 2"><span style="font-weight: bold;">Num. App. D’offre :</span>{{ facture?.achet?.march_identification }}</p>
+     <p  *ngIf="typePoli == 1 || typePoli == 2"><span style="font-weight: bold;">Numéro Marché :</span> {{ facture?.fact_marche }}</p>
+     <p  *ngIf="typePoli == 3"><span style="font-weight: bold;">Num. Affaires :</span>{{ facture?.fact_numeroacte }}</p> -->
+<!--  <p  *ngIf="typePoli == 3"><span style="font-weight: bold;">Mois de facturation : </span> {{ facture?.fact_datefacture | date: 'MM'}}</p>
+-->
+  
+   <!-- <div class="col-lg-4" style="float: left;width: 25%;">
+     <p></p>
+     <p></p>
+     <p *ngIf="typePoli == 1 || typePoli == 2"></p>
+     <p *ngIf="typePoli == 1 || typePoli == 2"></p>
+     <p *ngIf="typePoli == 3"></p>
+     <p *ngIf="typePoli == 3"></p>
+     <p></p>
+   </div> -->
+   <div class="col-lg-8" style="line-height:55px;font-size: 30px; float: right;text-align: center;width: 63%; border-style: solid; border-radius: 50px; padding: 10px;margin: auto;">
+     <!-- <p> <span style="font-weight: bold;"> </span>&nbsp;{{facture?.fact_numeropolice}}</p> -->
+     <p><span style="font-weight: bold; font-size: 20px;">&nbsp;</span> {{facture?.fact_numerosouscripteurcontrat}}: {{
+       facture?.client?.clien_nom }} {{ facture?.client?.clien_prenom }} {{ facture?.client?.clien_denomination }}</p>
+       <p style="font-size: 20px;">{{ facture?.client?.clien_adresseville }} {{ facture?.client?.clien_adresserue }} {{ facture?.client?.clien_adressenumero }}</p>
+     
+   </div>
+ </div>
+ <div class="row">
+ <div *ngIf="typePoli == 1 || typePoli == 2" class="col-lg-8" style="float: left;width: 90%;">
+   &nbsp;&nbsp;<p><span style="font-weight: bold; font-size: 20;" ><u>Objet du marché</u> : </span><span style="font-size: 20;">{{ facture?.achet?.march_descriptionmarche1 }} </span></p>
+   <p > <span style="font-weight: bold; font-size: 20;">Beneficiaire N° &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span><span style="font-size: 20;">{{facture?.benef?.benef_Num}} : {{ facture?.benef?.benef_denom ||"" }} {{ facture?.benef?.benef_prenoms ||"" }} {{ facture?.benef?.benef_nom ||""  }}</span></p>
+   
+   <p><span style="font-weight: bold; font-size: 20;">Capital engagement :</span> <span style="font-size: 20;">{{ facture?.fact_capitalassure |
+    ngxNumberWithCommas}} </span></p>
+    <p><span style="font-size: 20;">Période Du</span>&nbsp; <span style="font-weight: bold; font-size: 20;">{{ facture?.fact_dateeffetcontrat | date: 'dd/MM/yyyy' }}</span>
+      <span style="font-size: 20;">&nbsp; Au </span><span style="font-weight: bold; font-size: 20;">{{ facture?.fact_dateecheancecontrat | date: 'dd/MM/yyyy '
+      }}</span></p>
+  </div><br>
+ <div *ngIf="typePoli == 3" class="col-lg-10" style="float: left;width: 90%;">
+   &nbsp;&nbsp;<p> <span style="font-weight: bold; font-size: 20;" ><u> Objet Affaires </u>: </span><span style="font-size: 20;">{{ facture?.risque?.risq_designation1 }}</span></p>
+   <p > <span style="font-weight: bold; font-size: 20;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Beneficiaire N° : <span style="font-size: 20;">{{facture?.benef?.benef_Num}}: {{ facture?.benef?.benef_denom ||"" }} {{ facture?.benef?.benef_prenoms ||"" }} {{ facture?.benef?.benef_nom ||""  }}</span></span></p>
+   <!-- <p ><span style="font-weight: bold;">&nbsp;</span>{{ facture?.benef?.benef_denom ||"" }} {{ facture?.benef?.benef_nom ||""  }}
+     {{ facture?.benef?.benef_prenoms ||"" }} </p>
+   <p >&nbsp;{{ facture?.client?.clien_adresseville  ||"" }}</p> -->
+   <p><span style="font-weight: bold; font-size: 20;">Capital engagement :  </span><span style="font-size: 20;">{{ facture?.fact_capitalassure |
+    ngxNumberWithCommas}}</span></p>
+    <p><span style="font-size: 20;">&nbsp;Période Du &nbsp;</span> <span style="font-weight: bold;">{{ facture?.fact_dateeffetcontrat | date: 'dd/MM/yyyy' }}</span>
+      <span style="font-size: 20;">&nbsp; Au </span><span style="font-weight: bold; font-size: 20;">{{ facture?.fact_dateecheancecontrat | date: 'dd/MM/yyyy '
+      }}</span></p>
+     <!-- <p>(En chiffre) : &nbsp;&nbsp;{{ facture?.fact_capitalassure |
+       ngxNumberWithCommas}} </p>
+       <p>(En lettre) : &nbsp;&nbsp; {{facture?.montantEngageText}} XOF </p> 
+       <p>Veuillez trouver ci-dessous le montant de votre facture pour la : </p>
+     <p>Periode du {{ facture?.fact_dateeffetcontrat | date: 'dd/MM/yyyy
+       HH:mm' }} au {{ facture?.fact_dateecheancecontrat | date: 'dd/MM/yyyy HH:mm'
+       }}</p><br>-->
+ </div>
+ <!-- <div *ngIf="typePoli == 3" class="col-sm-12">
+   <p style="font-size: 20;">La liste des acheteurs concernés </p>
+
+   <div class="row" *ngFor="let achete of acheteurs;let i = index">
+     <div class="col-sm-12">
+       <nb-list>
+         <nb-list-item>
+          {{ achete?.achet_prenom }} {{ achete?.achet_nom}}
+         </nb-list-item>
+       </nb-list>
+     </div>
+   </div>
+ </div>  -->
+</div>
+ <!-- <div class="row" >
+   <div class="col-lg-12" >
+     <div class="col-lg-5" style="float: left;width: 100%;">
+       <p> <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Beneficiaire N° :</span>{{facture?.benef?.benef_Num}}</p>
+       <p><span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{{ facture?.benef?.benef_denom ||"" }} {{ facture?.benef?.benef_nom ||""  }}
+         {{ facture?.benef?.benef_prenoms ||"" }} </p>
+   
+       <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ facture?.client?.clien_adresseville  ||"" }}</p>
+     </div>
+     
+   </div>
+ </div> -->
+<!--  <div class="row" >
+   <div class="col-lg-12" >
+     <div class="col-lg-5" style="float: left;width: 100%;">
+       <p style="margin-left: 550px;"> <span style="font-weight: bold;">&nbsp;Beneficiaire N° :</span>{{facture?.benef?.benef_Num}}</p>
+       <p style="margin-left: 550px;"><span style="font-weight: bold;">&nbsp;</span>{{ facture?.benef?.benef_denom ||"" }} {{ facture?.benef?.benef_nom ||""  }}
+         {{ facture?.benef?.benef_prenoms ||"" }} </p>
+   
+       <p style="margin-left: 550px;">&nbsp;{{ facture?.client?.clien_adresseville  ||"" }}</p>
+     </div>
+     
+   </div>
+ </div> -->
+ 
+ <!--div class="row">
+   <--div class="col-lg-9" style="float: left;width: 50%;">
+      <p>Veuillez trouver ci-dessous le montant de votre facture pour la : </p>
+     <p>Periode du {{ facture?.fact_dateeffetcontrat | date: 'dd/MM/yyyy
+       HH:mm' }} au {{ facture?.fact_dateecheancecontrat | date: 'dd/MM/yyyy HH:mm'
+       }}</p><br> 
+      <p><span style="font-weight: bold;">Capital engagement :</span></p>
+     <p>(En chiffre) : &nbsp;&nbsp;{{ facture?.fact_capitalassure |
+       ngxNumberWithCommas}} </p> 
+      <p>(En lettre) : &nbsp;&nbsp; {{facture?.montantEngageText}} XOF </p> 
+      <div *ngIf="typePoli == 3">
+       <p>La liste des acheteurs concernés </p>
+
+       <div class="row" *ngFor="let lot of acheteurs;let i = index">
+         <div class="col-sm-2">
+
+           <nb-list>
+             <nb-list-item>
+               {{ lot?.achet_nom}}
+             </nb-list-item>
+           </nb-list>
+         </div>
+         <div class="col-sm-3">
+
+           <nb-list>
+             <nb-list-item>
+               {{ lot?.achet_prenom }}
+             </nb-list-item>
+           </nb-list>
+         </div>
+       </div>
+     </div> 
+   </div->
+ </div-->
+ <div class="row">
+  <div class="col-lg-2"></div>
+   <div class="col-lg-10"  style="float: left;width: 90%;">
+     <p style="font-weight: bold; font-size: 30; text-align: center;"> <u>DECOMPTE</u> : </p>
+      <div style="float: right; align-content: center;  width: 80%; border-style: solid; border-radius: 50px; padding: 15px; margin-bottom: 5px;">
+
+       <div class="col-lg-6" style="float: left;width: 60%;">
+         <p style="font-size: 18; font-weight: bold;">Montant net :</p>
+         <p style="font-size: 18; font-weight: bold;">Frais accessoires/études :</p>
+         <p style="font-size: 18; font-weight: bold;">Taxe :</p>
+         <p style="font-size: 18; font-weight: bold;">Arrondi :</p>
+         <p style="font-size: 18; font-weight: bold;">Montant TTC XOF :</p>
+         
+       </div>
+       <div class="col-lg-6" style="text-align:left ;float: left;width: 40%;">
+         <p ><span style="font-weight: bold;">{{ facture?.fact_montantprimenet | ngxNumberWithCommas}}</span> XOF</p>
+         <p ><span style="font-weight: bold;">{{ facture?.fact_montantaccescompagnie+facture?.fact_montantaccesapporteur |
+           ngxNumberWithCommas}}</span> XOF</p>
+         <p ><span style="font-weight: bold;">{{ facture?.fact_montanttaxe | ngxNumberWithCommas}}&nbsp;</span> XOF</p>
+         <p ><span style="font-weight: bold;">0 </span></p>
+         <p ><span style="font-weight: bold;">{{ facture?.fact_montantttc | ngxNumberWithCommas}}</span> XOF</p>
+       </div>
+       <p class="col-lg-10" style="float: left ;font-size: 18px;">Arrêtée la présente facture à la somme de: <span style="font-weight: bold;">{{facture?.montantText}} XOF</span> </p>
+     </div>
+   </div>
+ </div>
+ <div class="row" style="font-style: italic;">
+   <div class="col-lg-12" style="float: left;width: 100%;">
+     <br>
+     <p><span style="font-weight: bold; font-size: 18px;">Clause :</span> Article 13 du Code CIMA: Conformément aux dispositions de l'Article 13 et suivant le Code des Assurances (Code CIMA): "La prise d'effet du contrat est subordonnée au paiement de la prime."</p>
+          
+   </div>
+ </div>
+ 
+ <div class="row" style="font-weight: bold;">
+
+   <div class="col-lg-4" style="float: left;font-size: 18px; margin-left: 70%;width: 100%;">
+     &nbsp;&nbsp;&nbsp;&nbsp;<u> Pour la Compagnie</u>
+   </div>
+ </div> 
+ <footer style=" width: 100%;">
+  <hr>
+ <p class="col-lg-15" style="font-size: 15px;font-style: italic; width: 100%; text-align: center; line-height: 1;">
+  
+  Société Anonyme avec Conseil d'Administration au capital de 3.000.000.000 de francs CFA entièrement libéré <br>
+  55, Rue Wagane DIOUF, Immeuble TRIANON - BP : 3939 Dakar (Sénégal) - Compte bancaire BOA N 0103506000/3 <br>
+  RCCM SN-DKR 97.B.1658 - NINEA 0201707 OG3 - Tél : + 221 33 889 82 10 - Fax : + 221 33 821 36 11 <br>
+  Email: courrier@sonac.sn - Site web : www.sonac.sn <br>
+  Entreprise régie par le Code des Assurances de la CIMA 
+        
+ </p> 
+</footer>
+</body>

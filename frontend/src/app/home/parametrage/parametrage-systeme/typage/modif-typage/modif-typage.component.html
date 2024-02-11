@@ -1,0 +1,50 @@
+<form [formGroup]="modifForm"> 
+    <nb-card>
+        <nb-card-header>Modifier un typage</nb-card-header>
+        
+        <nb-card-body >
+           
+          <div class="row">
+            <div class="col-sm-16">
+              <div class="form-group">
+                <label class="label">Libellé Long</label>
+                <input  formControlName="typ_libelle_long"  type="text" nbInput fullWidth  id="typ_libelle_long" >
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-16">
+              <div class="form-group">
+                <label class="label">Libellé Court</label>
+                <input  formControlName="typ_libelle_court" type="text" nbInput fullWidth id="typ_libelle_court" >
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-16">
+                <div class="form-group">
+                  <label  class="label">Type</label>
+                
+                  <nb-select [(selected)]="typ_type"  (selectedChange)="onChange($event)" selected="1" fullWidth id="typ_type" >
+                    <nb-option value="contrat">contrat</nb-option>
+                    <nb-option value="commissionnement">commissionnement</nb-option>
+                    <nb-option value="intermediaire">intermediaire</nb-option>
+                    <nb-option value="acte">acte</nb-option>
+                    <nb-option value="marchandise">marchandise</nb-option>
+                  </nb-select>
+            
+                </div>
+              </div>
+            </div>
+          
+           
+
+            
+        
+          <nb-card-footer>
+            <button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+            &nbsp;&nbsp;<button nbButton status="success" (click)="submit()" [disabled]='!modifForm.valid'>Modifier</button>
+          </nb-card-footer>
+        </nb-card-body>
+      </nb-card>
+    </form>

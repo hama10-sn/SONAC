@@ -1,0 +1,419 @@
+<div *ngIf="check_fonct('c_propos')">
+    <form [formGroup]="addForm">
+
+        <div class="col-lg-4">
+            <nb-card>
+                <nb-card-header id="titre_entete">Ajouter une Proposition</nb-card-header>
+            </nb-card>
+        </div>
+        <div class="tabs">
+            <input type="radio" name="tabs" id="tabone" checked="checked">
+            <label for="tabone" class="lab">INFO ADMINISTRATIVE</label>
+            <div class="tab">
+                
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Code Intermediaire <span class="obligatoire">*</span></label>
+                            <mat-select class="form-control" [formControl]="intermediaireCtrl"
+                                placeholder="choisir un Intermediaire"
+                                (selectionChange)="onChangeItermediaire($event)" fullWidth
+                                id="propo_codeintermediaire" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="intermediaireFilterCtrl" placeholderLabel="recherche..."
+                                    noEntriesFoundLabel="aucune corespondance ..">
+                                    </ngx-mat-select-search>
+                                </mat-option>
+
+                                <mat-option value="{{inter.inter_numero}}"
+                                    *ngFor="let inter of filteredIntermediaire | async">
+                                    {{inter.inter_numero}}: {{inter.inter_denomination}}
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Code Compagnie</label>
+                            <input readonly formControlName="propo_codecompagnie" type="text" nbInput fullWidth
+                                id="propo_codecompagnie" >                            
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label class="label">Dénomination Compagnie</label>
+                            <input readonly formControlName="propo_denomcompagnie" type="text" nbInput fullWidth
+                                id="propo_denomcompagnie">                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Numero Branche</label>
+                            <mat-select class="form-control" [formControl]="brancheCtrl" placeholder="choisir une branche"
+                                (selectionChange)="onChangeBranche($event)" fullWidth
+                                id="dem_branch" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="brancheFilterCtrl" placeholderLabel="recherche..."
+                                    noEntriesFoundLabel="aucune corespondance .."></ngx-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngFor="let branche of filteredBranche | async" value="{{branche.branche_numero}}">
+                                    {{branche.branche_numero}}: {{branche.branche_libelleLong}}
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Numero Categorie</label>
+                            <mat-select class="form-control" [formControl]="categorieCtrl" placeholder="choisir une categorie"
+                                (selectionChange)="onChangeCategorie($event)" fullWidth
+                                id="dem_categorie" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="categorieFilterCtrl" placeholderLabel="recherche..."
+                                    noEntriesFoundLabel="aucune corespondance .."></ngx-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngFor="let categorie of filteredCategorie | async" value="{{categorie.categ_numero}}">
+                                    {{categorie.categ_numero}} : {{categorie.categ_libellelong}}
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Produit</label>
+                            <mat-select class="form-control" [formControl]="proiduitCtrl" placeholder="choisir un produit"
+                                (selectionChange)="onChangeProduit($event)" fullWidth
+                                id="propo_codeproduit" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="produitFilterCtrl" placeholderLabel="recherche..."
+                                    noEntriesFoundLabel="aucune corespondance .."></ngx-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngFor="let produit of filteredProduit | async" value="{{produit.prod_numero}}">
+                                    {{produit.prod_numero}}: {{produit.prod_denominationlong}}
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Souscripteur</label>
+                            
+                            <mat-select class="form-control" [formControl]="clientsCtrl" placeholder="choisir un client"
+                            (selectionChange)="onChangeClient($event)" fullWidth
+                            id="cont_numeroclient" #singleSelect>
+                            <mat-option>
+                                <ngx-mat-select-search [formControl]="clientsFilterCtrl" placeholderLabel="recherche..."
+                                noEntriesFoundLabel="aucune corespondance ..">
+                                </ngx-mat-select-search>
+                            </mat-option>
+
+                            <mat-option value="{{client.clien_numero}}"
+                                *ngFor="let client of filteredClients | async">{{client.clien_numero}}: {{client.clien_nom}} 
+                                {{client.clien_denomination}} {{client.clien_prenom}} {{ client.clien_sigle }}
+                            </mat-option>
+                        </mat-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    
+                    <!-- ===================== TEST FILTRE CATEGORIE SOCIOPRO ====================== >
+                    <div class="col-sm-4" *ngIf="problemeAfficheCategorieSociopro">
+                        <div class="form-group">
+                            <label class="label">Catégorie socioprofessionnelle <span
+                                    class="obligatoire">*</span></label>
+                            <mat-select class="form-control" [formControl]="categSocioproCtrl"
+                                placeholder="choisir une catégorie"
+                                (selectionChange)="onChangeCategorieSociopro($event)" fullWidth
+                                id="propos_categosocioprof" #singleSelect
+                                (focusout)="onFocusOutEventCategorieSociopro()"
+                                [ngStyle]="{border: getColorCategorieSociopro()}">
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="categSocioproFilterCtrl">
+                                    </ngx-mat-select-search>
+                                </mat-option>
+
+                                <mat-option value="{{categoriesociopro.categs_code}}"
+                                    *ngFor="let categoriesociopro of filteredCategSociopro | async">
+                                    {{categoriesociopro.categs_liblong}}
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+
+                    < ===================== TEST FILTRE CATEGORIE SOCIOPRO ====================== -->
+
+                   
+                </div>
+            </div>
+
+            <input type="radio" name="tabs" id="tabtwo">
+            <label for="tabtwo" class="lab">INFO CONTRACT..</label>
+            <div class="tab">
+                <div class="row">  
+                    <div class="col-sm-4" >
+                        <div class="form-group">
+                            <label class="label">Type Contract <span class="obligatoire">*</span></label>
+                            <!--input min="0" formControlName="propo_typecontrat" type="number" nbInput fullWidth id="propo_typecontrat"-->
+                            <mat-select class="form-control" [formControl]="contractCtrl"
+                                placeholder="choisir Type Contract"
+                                (selectionChange)="($event)" fullWidth
+                                id="propo_typecontrat" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="contractFilterCtrl">
+                                    </ngx-mat-select-search>
+                                </mat-option>
+
+                                <mat-option value=""
+                                    *ngFor="let contract of filteredContract | async">
+                                   
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Type de Gestion <span class="obligatoire">*</span></label>
+                            <!--input min="0" formControlName="propo_typegestion" type="number" nbInput fullWidth
+                                id="propo_typegestion"-->
+                                <mat-select class="form-control" [formControl]="gestionCtrl"
+                                placeholder="choisir Type de Gestion"
+                                (selectionChange)="($event)" fullWidth
+                                id="propo_typegestion" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="gestionFilterCtrl">
+                                    </ngx-mat-select-search>
+                                </mat-option>
+
+                                <mat-option value=""
+                                    *ngFor="let gestion of filteredGestion | async">
+                                    
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Code Fractionnement<span class="obligatoire">*</span></label>
+                            <!--input min="0" formControlName="propo_codefractionnement" type="number" nbInput fullWidth
+                                id="propo_codefractionnement"-->
+                                <mat-select class="form-control" [formControl]="fractionnementCtrl"
+                                placeholder="choisir Code Fractionnement"
+                                (selectionChange)="($event)" fullWidth
+                                id="propo_codefractionnement" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="fractionnementFilterCtrl">
+                                    </ngx-mat-select-search>
+                                </mat-option>
+
+                                <mat-option value=""
+                                    *ngFor="let fractionnement of filteredFractionnement | async">
+                                   
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                    </div>           
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Durée contract/(mois) </label>
+                            <input min="0" formControlName="propo_dureecontrat" type="number" nbInput fullWidth id="propo_dureecontrat">
+                        </div>
+                    </div>                
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Date proposition<span class="obligatoire">*</span></label>
+                            <input formControlName="propo_date" type="datetime-local" nbInput fullWidth
+                                id="propo_date" >
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Date Premiere Effet</label>
+                            <input formControlName="propo_dateeffet1er" type="datetime-local" nbInput fullWidth id="propo_dateeffet1er">
+                        </div>
+                    </div>                   
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Date anniversaire contrat</label>
+                            <input formControlName="propo_dateannivcontrat" type="datetime-local" nbInput fullWidth id="propo_dateannivcontrat">
+                        </div>
+                    </div>                   
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Date Effet<span class="obligatoire">*</span></label>
+                            <input formControlName="propo_dateeffet" type="datetime-local" nbInput fullWidth id="propo_dateeffet">
+                        </div>
+                    </div>                   
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Date d'échéance<span class="obligatoire">*</span></label>
+                            <input formControlName="propo_dateecheance" type="datetime-local" nbInput fullWidth id="propo_dateecheance">
+                        </div>
+                    </div> 
+                </div>
+            </div>
+
+            <input type="radio" name="tabs" id="tabthree">
+            <label for="tabthree" class="lab">RISQUE</label>
+                <div class="tab">
+                    
+                </div>
+            <input type="radio" name="tabs" id="tabfour">
+            <label for="tabfour" class="lab">TARIFICATION</label>
+            <div class="tab">
+               <!--  <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Montant Prime Nette de Référence <span class="obligatoire">*</span></label>
+                            <input min="0" formControlName="propo_mtnprimenetref" type="number" nbInput fullWidth
+                                id="propo_mtnprimenetref" >
+                        </div>
+                    </div>
+                
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="label">montant prime nette totale <span class="obligatoire">*</span></label>
+                         <input min="0" formControlName="propo_mtnprimenettot" type="number" nbInput fullWidth
+                            id="propo_mtnprimenettot" > 
+                        
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="label">accessoires compagnie</label>
+                        <input min="0" formControlName="propo_accesoirecompagnie" type="number" nbInput fullWidth
+                            id="propo_accesoirecompagnie" > 
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Taxe</label>
+                            <input min="0" formControlName="propo_taxe" type="number" nbInput fullWidth id="propo_taxe" >
+
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Commission </label>
+                            <input min="0" formControlName="propo_commission" type="number" nbInput fullWidth id="propo_commission">
+                        </div>
+                    </div>                    
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Montant Prime Brute</label>
+                            <input min="0" formControlName="propo_mtnprimebrut" type="number" nbInput fullWidth id="propo_mtnprimebrut">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">accessoires apporteur</label>
+                            <input min="0" formControlName="propo_accessoireapporteur" type="number" nbInput fullWidth id="propo_accessoireapporteur">
+                        </div>
+                    </div>
+                </div>
+                
+            </div> -->
+            </div>
+            
+            <input type="radio" name="tabs" id="tabfive">
+            <label for="tabfive" class="lab">INFO COMPLEMENT..</label>
+            <div class="tab">
+                
+                <div class="row">
+                    <div class="col-sm-3" >
+                        <div class="form-group">
+                            <label class="label">Coefficient de Remise Commerciale <span class="obligatoire">*</span></label>
+                            <input min="0" formControlName="propo_coefremisecommerciale" type="number" nbInput fullWidth id="propo_coefremisecommerciale">                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row">                    
+                    <div class="col-sm-3" >
+                        <div class="form-group">
+                            <label class="label">Exonération Taxe d'Enregistrement<span class="obligatoire">*</span></label>
+                            <input  formControlName="propo_exontaxeenr" type="text" nbInput fullWidth
+                                id="propo_exontaxeenr" >
+                        </div>
+                    </div>
+                    <div class="col-sm-3" >
+                        <div class="form-group">
+                            <label class="label">Code Taxe Enregistrement<span class="obligatoire">*</span></label>
+                            <input min="0" formControlName="propo_codetaxeenr" type="number" nbInput fullWidth
+                                id="propo_codetaxeenr" >
+                        </div>
+                    </div>
+                    <div class="col-sm-3" >
+                        <div class="form-group">
+                            <label class="label">Exonération Taxe Valeur Ajoutée<span class="obligatoire">*</span></label>
+                            <input  formControlName="propo_exontva" type="text" nbInput fullWidth
+                                id="propo_exontva" >
+                        </div>
+                    </div>
+                    <div class="col-sm-3" >
+                        <div class="form-group">
+                            <label class="label">Code Taxe Valeur Ajoutée<span class="obligatoire">*</span></label>
+                            <input min="0" formControlName="propo_codetva" type="number" nbInput fullWidth
+                                id="propo_codetva" >
+                        </div>
+                    </div>
+                    <div class="col-sm-3" >
+                        <div class="form-group">
+                            <label class="label">Exonération Taxe sur les Prestations de Service<span class="obligatoire">*</span></label>
+                            <input min="0" formControlName="propo_exontps" type="text" nbInput fullWidth
+                                id="propo_exontps" >
+                        </div>
+                    </div>
+                    <div class="col-sm-3" >
+                        <div class="form-group">
+                            <label class="label">Code Taxe Prestations Service<span class="obligatoire">*</span></label>
+                            <input min="0" formControlName="propo_codetps" type="number" nbInput fullWidth
+                                id="propo_codetps" >
+                        </div>
+                    </div>
+                    <div class="col-sm-4" >
+                        <div class="form-group">
+                            <label class="label">Date Exonération<span class="obligatoire">*</span></label>
+                            <input min="0" formControlName="propo_dateexon" type="datetime-local" nbInput fullWidth
+                                id="propo_dateexon" >
+                        </div>
+                    </div>                       
+                    <div class="col-sm-4" >
+                        <div class="form-group">
+                            <label class="label">Date de la Situation de la Proposition <span class="obligatoire">*</span></label>
+                            <input  formControlName="propo_datesituationproposition" type="datetime-local" nbInput fullWidth
+                                id="propo_datesituationproposition" >
+                        </div>
+                    </div>
+                    <div class="col-sm-4" >
+                        <div class="form-group">
+                            <label class="label">Date de Transformation en Contrat<span class="obligatoire">*</span></label>
+                            <input  formControlName="propo_datetransformationcontrat" type="datetime-local" nbInput fullWidth
+                                id="propo_datetransformationcontrat" >
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+        <br>
+        <nb-card-footer>
+            <button nbButton status="success" (click)="submit()"
+                [disabled]='!addForm.valid'>Ajouter</button>
+            &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+        </nb-card-footer>
+    </form>
+</div>
+<div *ngIf="check_fonct('c_propos')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

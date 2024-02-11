@@ -1,0 +1,151 @@
+<form [formGroup]="myReglementForm">
+  <div class="col-lg-4">
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Proposition de règlement</nb-card-header>
+    </nb-card>
+  </div>
+  <br>
+  <div class="tabs">
+    <input type="radio" name="tabs" id="tabone" checked="checked">
+    <label for="tabone" class="lab">INFORMATION</label>
+    <div class="tab" formGroupName="mvtsinistreForm">
+      <div class="row">
+        <div class="col-sm-5">
+          <div class="form-group">
+            <label class="label">Tiers recours</label>
+            <input readonly fieldSize="small" [value]="tiersRecours" type="text" nbInput fullWidth id="mvts_tiers">
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <div class="form-group">
+            <label class="label">Bénéficiaire</label>
+            <input readonly fieldSize="small" [value]="benificiaire" type="text" nbInput fullWidth
+              id="mvts_beneficiaire">
+          </div>
+        </div>
+      </div>
+      <br><br>
+      <fieldset class="fieldset">
+        <legend class="tailleLegend">Nantissement</legend>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Nantissement ?</label>
+              <nb-select fullWidth (selectedChange)="onchangeNantissement($event)" [(selected)]="typeNantissement"
+                id="mvts_nantissement">
+                <nb-option value="O">OUI</nb-option>
+                <nb-option value="N">NON</nb-option>
+              </nb-select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Bénéficiaire Nantissement</label><span *ngIf="nantissementObligatoire"
+                class="obligatoire">*</span>
+              <input fieldSize="small" formControlName="mvts_benefnantissement" type="text" nbInput fullWidth
+                id="mvts_benefnantissement">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Montant nantissement</label><span *ngIf="nantissementObligatoire"
+                class="obligatoire">*</span>
+              <input fieldSize="small" [value]="montantNantissement" type="text" nbInput fullWidth
+                id="mvts_montantnantissement" (focusout)="onChangeFocusMontantNantissement($event)"
+                [ngStyle]="{border: getColorMontantNantissement()}">
+            </div>
+            <div *ngIf="problemeMontantNantissement" class="col-sm-8">
+              <span style="color:red; font-style: italic;">
+                Veuillez saisir un montant correcte !
+              </span>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <input type="radio" name="tabs" id="tabthree">
+    <label for="tabthree" class="lab">PROPOSITION REGLEMENT</label>
+    <div class="tab" formGroupName="mvtsinistreForm">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant SAP principal</label>
+            <input fieldSize="small" readonly [value]="montantSAPPrincipal" type="text" nbInput fullWidth
+              id="sini_sapprincipal">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant SAP frais</label>
+            <input fieldSize="small" readonly [value]="montantSAPFrais" type="text" nbInput fullWidth
+              id="sini_sapfrais">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant SAP honoraires</label>
+            <input fieldSize="small" readonly [value]="montantSAPHonoraire" type="text" nbInput fullWidth
+              id="sini_saphonoraires">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant règlement principal</label>
+            <input fieldSize="small" type="text" [value]="montantReglementPrincipal"
+              (focusout)="onChangeFocusMontantReglementPrincipal($event)" nbInput fullWidth id="mvts_montantprincipal"
+              [ngStyle]="{border: getColorMontantReglementPrincipal()}">
+          </div>
+          <div *ngIf="problemeMontantReglementPrincipal" class="col-sm-8">
+            <span style="color:red; font-style: italic;">
+              Le montant principal du réglement doit-être inférieur ou égale au montant du SAP principal
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant règlement frais</label>
+            <input fieldSize="small" type="text" [value]="montantReglementFrais"
+              (focusout)="onChangeFocusMontantReglementFrais($event)" nbInput fullWidth id="mvts_montantfrais"
+              [ngStyle]="{border: getColorMontantReglementFrais()}">
+          </div>
+          <div *ngIf="problemeMontantReglementFrais" class="col-sm-8">
+            <span style="color:red; font-style: italic;">
+              Le montant frais du réglement doit-être inférieur ou égale au montant du SAP frais
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant règlement honoraires</label>
+            <input fieldSize="small" type="text" [value]="montantReglementHonoraire"
+              (focusout)="onChangeFocusMontantReglementHonoraire($event)" nbInput fullWidth id="mvts_montanthonoraire"
+              [ngStyle]="{border: getColorMontantReglementHonoraires()}">
+          </div>
+          <div *ngIf="problemeMontantReglementHonoraire" class="col-sm-8">
+            <span style="color:red; font-style: italic;">
+              Le montant honoraires du réglement doit-être inférieur ou égale au montant du SAP honoraires
+            </span>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant total règlement</label>
+            <input readonly fieldSize="small" [value]="montantTotalReglement" type="text" nbInput fullWidth>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <div>
+    <button nbButton status="success" (click)="onSubmit()"
+      [disabled]='!myReglementForm.valid || problemeMontantNantissement || problemeMontantReglementPrincipal || problemeMontantReglementFrais || problemeMontantReglementHonoraire'>Valider</button>
+    &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+  </div>
+</form>

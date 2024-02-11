@@ -1,0 +1,129 @@
+<form [formGroup]="modifForm"> 
+
+  <div class="col-lg-4">
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Modifier RDV ou Tâche</nb-card-header>
+    </nb-card>
+  </div> 
+  <br>
+  <p class="paraProblemeSaisi" *ngIf="problemeDate">La date de fin doit être supérieure à la date de début</p>
+  
+  <div class="navigation" >
+    <a style="color: rgb(63, 94, 126) ; cursor:pointer;" (click)="cancel()" class="link" aria-label="back">Retour à l'agenda<br><i style="font-size: 3rem" class="boutons" class="icon nb-arrow-thin-left"></i></a>
+  </div>
+  
+    
+  <div class="tabs">
+    
+    <input type="radio" name="tabs" id="tabone" checked="checked">
+    <label for="tabone" class="lab">RDV ou Tâche</label>
+    <div class="tab"> 
+  
+      
+      <div class="row">
+        <div class="col-sm-6">
+         
+          <div class="form-group">
+            <label class="label">Type <span style="color:red;">*</span></label>
+            <!-- <input  formControlName="nbre"  type="number" nbInput fullWidth  id="nbre" > -->
+            <nb-select (selectedChange)="onChangeType($event)" [(selected)]="selectedType" fullWidth id="type" >
+              <nb-option value="RDV">RDV</nb-option>
+              <nb-option value="Tâche">Tâche</nb-option>
+              
+            </nb-select>
+          </div> 
+          </div>
+          <div class="col-sm-6">
+         
+            <div class="form-group">
+          <div class="form-group">
+            <label class="label">Date Début <span style="color:red;">*</span></label>
+            <input  formControlName="date_deb"  type="datetime-local" nbInput fullWidth  id="date_deb" 
+            (focusout)="onFocusOutEventDate($event)" [ngStyle]="{border: getColorDate()}" >
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+           
+          <div class="form-group">
+            <label class="label">Titre <span style="color:red;">*</span></label>
+            <input  formControlName="titre"  type="text" nbInput fullWidth  id="titre" >
+          </div>
+        </div>
+        <div class="col-sm-6">
+        <div class="form-group">
+          <label class="label">Date Fin <span style="color:red;">*</span></label>
+          <input  formControlName="date_fin"  type="datetime-local" nbInput fullWidth  id="date_fin" 
+          (focusout)="onFocusOutEventDate($event)" [ngStyle]="{border: getColorDate()}" >
+        </div>
+      </div>
+
+      </div>
+         
+    </div>   
+        
+      
+    <input type="radio" name="tabs" id="tabtwo">
+    <label for="tabtwo" class="lab">ALERTE</label>
+    <div class="tab">
+      <div class="row">
+
+      <div class="col-sm-6">
+      
+        <div class="form-group">
+          <label class="label">Temps <span style="color:red;">*</span></label>
+          <input min="1" formControlName="nbre"  type="number" nbInput fullWidth  id="nbre" >
+        </div>
+      </div>
+      <div class="col-sm-6">
+          <div class="form-group">
+          <label class="label">En <span style="color:red;">*</span></label>
+          <!-- <input  formControlName="nbre"  type="number" nbInput fullWidth  id="nbre" > -->
+          <nb-select (selectedChange)="onChangeUnite($event)" [(selected)]="selectedItem" fullWidth id="unite" >
+            <nb-option value="Heure">Heure</nb-option>
+            <nb-option value="Minute">Minute</nb-option>
+            <nb-option value="Jour">Jour</nb-option>
+          </nb-select>
+        </div>
+        </div>
+
+      </div>
+    </div>
+<!--       
+    <div class="row">
+      <div class="col-sm-12">
+    <div class="form-group">
+      <label class="label">Commentaire</label>
+      <textarea formControlName="comment_agent" type="text" nbInput fullWidth id="comment_agent"></textarea>
+    </div>
+  </div>
+</div>  -->
+
+
+<input type="radio" name="tabs" id="tabtwos">
+<label for="tabtwos" class="lab">COMMENTAIRE</label>
+<div class="tab">
+<div class="row">
+  <div class="col-sm-12">
+<div class="form-group">
+  <label class="label">Commentaire</label>
+  <ckeditor [config]="{  height: '300' }" formControlName="comment_agent"></ckeditor>
+</div>
+</div>
+</div> 
+</div>
+
+</div>
+
+      
+<br>
+<div>
+      
+  <button nbButton status="success" (click)="submit()" [disabled]='!modifForm.valid || erreur'>Modifier</button>
+  &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+      </div>
+    
+  
+</form>

@@ -1,0 +1,228 @@
+<div class="col-lg-4">
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Dossier Client N° {{ numClient}} {{ client.clien_prenom }} {{ client.clien_nom }} </nb-card-header>
+    </nb-card>
+</div> 
+
+<div class="row">
+  <div class="col-lg-4">
+    <div class="navigation" >
+      <div *ngIf="aff">   <a style="color: rgb(63, 94, 126) ; cursor:pointer;" (click)="cancel()" class="link" aria-label="back">Retour a la liste clients<br><i style="font-size: 3rem" class="boutons" class="icon nb-arrow-thin-left"></i></a></div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    
+  </div>
+  <div class="col-lg-4">
+    <div *ngIf="aff">   <button nbButton fullWidth (click)="onCLickUpload()" [hero]="!displayUpload" [outline]="displayUpload" status="success"><mat-icon>file_upload</mat-icon>Ajout de documents</button></div><br><br>
+
+  </div>
+</div>
+
+
+
+
+<div class="row">
+<div class="col-lg-3">
+    <nb-card>
+      <nb-card-header >Dossiers </nb-card-header>
+      <nb-card-body>
+        
+        <button nbButton fullWidth (click)="onCLickInfoAdmin()" [hero]="!displayInfoAdmin" [outline]="displayInfoAdmin" status="primary">Info Administratifs</button><br><br>  
+        <button nbButton fullWidth (click)="onCLickContrats()" [hero]="!displayContrats" [outline]="displayContrats" status="primary">Contrats et Dérives</button><br><br>
+        <button nbButton fullWidth (click)="onCLickDemande()" [hero]="!displayDemande" [outline]="displayDemande" status="primary">Sinistres</button><br><br>
+        <button nbButton fullWidth (click)="onCLickFinanciers()" [hero]="!displayFinanciers" [outline]="displayFinanciers" status="primary">Financiers</button><br><br>
+        <button nbButton fullWidth (click)="onCLickClient()" [hero]="!displayClient" [outline]="displayClient" status="primary">Client</button><br><br>
+        <button nbButton fullWidth (click)="onCLickAutre()" [hero]="!displayAutre" [outline]="displayAutre" status="primary">Autres</button><br><br>
+        <button nbButton fullWidth (click)="onCLickTeleClient()" [hero]="!displayTeleClient" [outline]="displayTeleClient" status="primary">A Telecharger CLient</button><br><br>
+   
+    </nb-card-body>
+    </nb-card>
+    
+</div>
+<div class="col-lg-9" *ngIf="displayInfoAdmin">
+    <nb-card>
+        <nb-card-header >Liste des fichiers [ Informations Administratives ]</nb-card-header>
+        <nb-card-body>
+            <nb-list>
+              <nb-list-item *ngFor="let filename of filenamesInfoAdmin" >
+                {{filename}} &nbsp;&nbsp;<button size="tiny" (click)="openpdf(filename,'InfoAdmin')"  status="success" nbButton ><mat-icon>visibility</mat-icon>voir</button>&nbsp;&nbsp;&nbsp;<button size="tiny" (click)="onClickDownload(filename,'InfoAdmin')"  status="success" nbButton ><mat-icon>file_download</mat-icon>Télécharger</button>
+                &nbsp;<button size="tiny" (click)="onClickDelete(filename,'InfoAdmin')"  status="danger" nbButton ><mat-icon>delete</mat-icon>supprimer</button>
+                &nbsp;Deplacer vers : &nbsp;<nb-select style="width: 150px;" (selectedChange)="onClickDeplacer($event,'InfoAdmin',filename)"  >
+                    <nb-option  value="autres" >Autres </nb-option>
+                    <nb-option  value="client" >Client </nb-option>
+                    <nb-option  value="download" >A télécharger </nb-option>
+                    <nb-option  value="contrats" >Contrats </nb-option>
+                    <nb-option  value="demandes" >Sinistres </nb-option>
+                    <nb-option  value="financiers" >Financiers </nb-option>
+                  
+                  </nb-select>&nbsp;
+                  
+                
+            </nb-list-item>
+              </nb-list>
+      </nb-card-body>
+      </nb-card>
+</div>
+<div class="col-lg-9" *ngIf="displayDemande">
+    <nb-card>
+        <nb-card-header >Liste des fichiers [ Sinistres ]</nb-card-header>
+        <nb-card-body>
+            <nb-list>
+              <nb-list-item *ngFor="let filename of filenamesDemandes" >
+                {{filename}} &nbsp;&nbsp;&nbsp;<button size="tiny" (click)="onClickDownload(filename,'demandes')"  status="success" nbButton ><mat-icon>file_download</mat-icon>Télécharger</button>
+                &nbsp;<button size="tiny" (click)="onClickDelete(filename,'demandes')"  status="danger" nbButton ><mat-icon>delete</mat-icon>supprimer</button>
+                &nbsp;Deplacer vers : &nbsp;<nb-select style="width: 150px;" (selectedChange)="onClickDeplacer($event,'demandes',filename)"  >
+                  <nb-option  value="autres" >Autres </nb-option>
+                  <nb-option  value="client" >Client </nb-option>
+                  <nb-option  value="download" >A télécharger </nb-option>
+                  <nb-option  value="contrats" >Contrats </nb-option>
+                  <nb-option  value="InfoAdmin" >Info Administ.... </nb-option>
+                  <nb-option  value="financiers" >Financiers </nb-option>
+                  
+                  </nb-select>&nbsp;
+                  
+                
+            </nb-list-item>
+              </nb-list>
+      </nb-card-body>
+      </nb-card>
+</div>
+<div class="col-lg-9" *ngIf="displayContrats">
+    <nb-card>
+        <nb-card-header >Liste des fichiers [ Contrats et Dérivés ]</nb-card-header>
+        <nb-card-body>
+            <nb-list>
+              <nb-list-item *ngFor="let filename of filenamesContrats" >
+                {{filename}} &nbsp;&nbsp;&nbsp;<button size="tiny" (click)="onClickDownload(filename,'contrats')"  status="success" nbButton ><mat-icon>file_download</mat-icon>Télécharger</button>
+                &nbsp;<button size="tiny" (click)="onClickDelete(filename,'contrats')"  status="danger" nbButton ><mat-icon>delete</mat-icon>supprimer</button>
+                &nbsp;Deplacer vers : &nbsp;<nb-select style="width: 150px;" (selectedChange)="onClickDeplacer($event,'contrats',filename)"  >
+                  <nb-option  value="autres" >Autres </nb-option>
+                  <nb-option  value="client" >Client </nb-option>
+                  <nb-option  value="download" >A télécharger </nb-option>
+                  <nb-option  value="demandes" >Sinistres </nb-option>
+                  <nb-option  value="InfoAdmin" >Info Administ.... </nb-option>
+                  <nb-option  value="financiers" >Financiers </nb-option>
+                  </nb-select>&nbsp;
+                  
+                
+            </nb-list-item>
+              </nb-list>
+      </nb-card-body>
+      </nb-card>
+</div>
+<div class="col-lg-9" *ngIf="displayFinanciers">
+    <nb-card>
+        <nb-card-header >Liste des fichiers [ Financiers ]</nb-card-header>
+        <nb-card-body>
+            <nb-list>
+              <nb-list-item *ngFor="let filename of filenamesFinanciers" >
+                {{filename}} &nbsp;&nbsp;&nbsp;<button size="tiny" (click)="onClickDownload(filename,'financiers')"  status="success" nbButton ><mat-icon>file_download</mat-icon>Télécharger</button>
+                &nbsp;<button size="tiny" (click)="onClickDelete(filename,'financiers')"  status="danger" nbButton ><mat-icon>delete</mat-icon>supprimer</button>
+                &nbsp;Deplacer vers : &nbsp;<nb-select style="width: 150px;" (selectedChange)="onClickDeplacer($event,'financiers',filename)"  >
+                  <nb-option  value="autres" >Autres </nb-option>
+                  <nb-option  value="client" >Client </nb-option>
+                  <nb-option  value="download" >A télécharger </nb-option>
+                  <nb-option  value="contrats" >Contrats </nb-option>
+                  <nb-option  value="InfoAdmin" >Info Administ.... </nb-option>
+                  <nb-option  value="demandes" >Sinistres </nb-option>
+                  
+                  </nb-select>&nbsp;
+                  
+                
+            </nb-list-item>
+              </nb-list>
+      </nb-card-body>
+      </nb-card>
+</div>
+<div class="col-lg-9" *ngIf="displayClient">
+    <nb-card>
+        <nb-card-header >Liste des fichiers [ Client ]</nb-card-header>
+        <nb-card-body>
+            <nb-list>
+                <nb-list-item *ngFor="let filename of filenamesClient" >
+                    {{filename}} &nbsp;&nbsp;&nbsp;<button size="tiny" (click)="onClickDownload(filename,'client')"  status="success" nbButton ><mat-icon>file_download</mat-icon>Télécharger</button>
+                    &nbsp;<button size="tiny" (click)="onClickDelete(filename,'client')"  status="danger" nbButton ><mat-icon>delete</mat-icon>supprimer</button>
+                    &nbsp;Deplacer vers : &nbsp;<nb-select style="width: 150px;" (selectedChange)="onClickDeplacer($event,'client',filename)"  >
+                      <nb-option  value="autres" >Autres </nb-option>
+                  <nb-option  value="demandes" >Sinistres </nb-option>
+                  <nb-option  value="download" >A télécharger </nb-option>
+                  <nb-option  value="contrats" >Contrats </nb-option>
+                  <nb-option  value="InfoAdmin" >Info Administ.... </nb-option>
+                  <nb-option  value="financiers" >Financiers </nb-option>
+                    
+                    </nb-select>&nbsp;
+                  </nb-list-item>
+              </nb-list>
+      </nb-card-body>
+      </nb-card>
+</div>
+<div class="col-lg-9" *ngIf="displayAutre">
+    <nb-card>
+        <nb-card-header >Liste des fichiers [ Autres ]</nb-card-header>
+        <nb-card-body>
+            <nb-list>
+                <nb-list-item *ngFor="let filename of filenamesAutres" >
+                    {{filename}} &nbsp;&nbsp;&nbsp;<button size="tiny" (click)="onClickDownload(filename,'autres')"  status="success" nbButton ><mat-icon>file_download</mat-icon>Télécharger</button>
+                    &nbsp;
+                      <button size="tiny" (click)="onClickDelete(filename,'autres')"  status="danger" nbButton ><mat-icon>delete</mat-icon>supprimer</button>
+                      &nbsp; Deplacer vers : &nbsp;<nb-select style="width: 150px;" (selectedChange)="onClickDeplacer($event,'autres',filename)"  >
+                        <nb-option  value="demandes" >Sinistres </nb-option>
+                  <nb-option  value="client" >Client </nb-option>
+                  <nb-option  value="download" >A télécharger </nb-option>
+                  <nb-option  value="contrats" >Contrats </nb-option>
+                  <nb-option  value="InfoAdmin" >Info Administ.... </nb-option>
+                  <nb-option  value="financiers" >Financiers </nb-option>
+                      </nb-select>&nbsp;
+                      
+                    </nb-list-item>
+              </nb-list>
+      </nb-card-body>
+      </nb-card>
+</div>
+<div class="col-lg-9" *ngIf="displayTeleClient">
+    <nb-card>
+        <nb-card-header >Liste des fichiers [ A Télécharger par le Client ]</nb-card-header>
+        <nb-card-body>
+            <nb-list>
+                <nb-list-item *ngFor="let filename of filenamesTeleClient" >
+                    {{filename}} &nbsp;&nbsp;&nbsp;<button size="tiny" (click)="onClickDownload(filename,'download')"  status="success" nbButton ><mat-icon>file_download</mat-icon>Télécharger</button>
+                    &nbsp;<button size="tiny" (click)="onClickDelete(filename,'download')"  status="danger" nbButton ><mat-icon>delete</mat-icon>supprimer</button>
+                    &nbsp;Deplacer vers : &nbsp;<nb-select style="width: 150px;" (selectedChange)="onClickDeplacer($event,'download',filename)"  >
+                      <nb-option  value="autres" >Autres </nb-option>
+                      <nb-option  value="client" >Client </nb-option>
+                      <nb-option  value="demandes" >Sinistres </nb-option>
+                      <nb-option  value="contrats" >Contrats </nb-option>
+                      <nb-option  value="InfoAdmin" >Info Administ.... </nb-option>
+                      <nb-option  value="financiers" >Financiers </nb-option>
+                      
+                      </nb-select>&nbsp;
+                      
+                    
+                </nb-list-item>
+              </nb-list>
+      </nb-card-body>
+      </nb-card>
+</div>
+
+<div class="col-lg-9" *ngIf="displayUpload">
+  <nb-card>
+      <nb-card-header >Ajout d'un ou plusieurs documents</nb-card-header>
+      <nb-card-body>
+        <br>
+        
+            <br>
+            <span style="color: green;">Vous pouvez selectionner un ou plusieurs documents  </span><br><br>
+            <input type="file" (change)="onFileSelected($event)" multiple name="files" id=""><br>
+            <br><button size="small" status="primary" nbButton (click)="onClickUpload()" ><mat-icon>file_upload</mat-icon>upload</button>
+        
+        <br>
+        <nb-progress-bar *ngIf="displayprogress" [value]="progress" [displayValue]="true" status="primary"></nb-progress-bar>
+        <br>
+    </nb-card-body>
+    </nb-card>
+</div>
+
+</div>
+
+

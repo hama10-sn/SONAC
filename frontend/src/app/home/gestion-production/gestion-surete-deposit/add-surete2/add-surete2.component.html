@@ -1,0 +1,186 @@
+<!-- <div *ngIf="check_fonct('c_engagement')"> -->
+    <form [formGroup]="addForm">
+        <div class="col-lg-4">
+            <nb-card>
+                <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Ajouter sûreté 2</nb-card-header>
+            </nb-card>
+        </div>
+        <br>
+        <div class="tabs">
+            <input type="radio" name="tabs" id="tabone" checked="checked">
+            <label for="tabone" class="lab">INFORMATION</label>
+            <div class="tab">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Numéro engagement<span style="color:red;">*</span></label>
+                            <!-- <input fieldSize="small" readonly formControlName="surete_numeroengagement" type="text" nbInput
+                                fullWidth id="surete_numeroengagement"> -->
+                            <mat-select class="form-control" [formControl]="engagementCtrl" placeholder="choisir engagement"
+                                (selectionChange)="onChangeEngagement($event)" fullWidth id="surete_numeroengagement"
+                                #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="engagementFilterCtrl"
+                                        placeholderLabel="recherche..." noEntriesFoundLabel="aucune corespondance">
+                                    </ngx-mat-select-search>
+                                </mat-option>
+                                <mat-option value="{{engagement.engag_numeroengagement}}"
+                                    *ngFor="let engagement of filteredEngagement | async">
+                                    {{engagement.engag_numeroengagement}}
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Numéro Police<span style="color:red;">*</span></label>
+                            <input fieldSize="small" readonly formControlName="surete_numpoli" type="text" nbInput fullWidth
+                                id="surete_numpoli">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Numéro Avenant<span style="color:red;">*</span></label>
+                            <input fieldSize="small" readonly formControlName="surete_numeroavenant" type="text" nbInput
+                                fullWidth id="surete_numeroavenant">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Numéro Acte<span style="color:red;">*</span></label>
+                            <input fieldSize="small" readonly formControlName="surete_numeroacte" type="text" nbInput
+                                fullWidth id="surete_numeroacte">
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Date libération capital</label>
+                            <input fieldSize="small" (focusout)="onChangeFocusLibere($event)"
+                                formControlName="engag_dateliberation" type="datetime-local" nbInput fullWidth
+                                id="engag_dateliberation">
+                            <div *ngIf="!verifLib">
+                                <span style="color:red;">doit etre superieur au date d'engagement</span>
+                            </div>
+                        </div>
+                    </div> -->
+    
+                    <!-- <div class="col-sm-4">
+                        <div *ngIf="displayclient" class="form-group">
+                            <label class="label">Client</label>
+                            <input fieldSize="small" readonly [value]="ClientByPolice" nbInput fullWidth id="lib">
+    
+                        </div>
+                    </div> -->
+                    <!-- <div class="col-sm-4">
+                        <div *ngIf="displayPro" class="form-group">
+                            <label class="label">Produit</label>
+                            <input fieldSize="small" readonly [value]="pro" type="text" nbInput fullWidth id="prod">
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <input type="radio" name="tabs" id="tabtwo">
+            <label for="tabtwo" class="lab">Autres</label>
+            <div class="tab">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Type de Sureté<span style="color:red;">*</span></label>
+                            <mat-select class="form-control" [formControl]="typesCtrl" placeholder="choisir type de sureté"
+                                (selectionChange)="onChangeTypeSurete($event)" fullWidth id="surete_typesurete"
+                                #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="typesFilterCtrl" placeholderLabel="recherche..."
+                                        noEntriesFoundLabel="aucune corespondance">
+                                    </ngx-mat-select-search>
+                                </mat-option>
+    
+                                <mat-option value="{{type.id}}" *ngFor="let type of filteredTypes | async">
+                                    {{type.id}}: {{type.value}}
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Identification TF<span *ngIf="displaytype"
+                                    style="color:red;">*</span></label>
+                            <input fieldSize="small" formControlName="surete_identificationtitre" type="text" nbInput
+                                fullWidth id="surete_identificationtitre">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Retenu déposit<span *ngIf="displaytypedepo"
+                                    style="color:red;">*</span></label>
+                            <input [value]="retenuDeposit" fieldSize="small" formControlName="surete_retenudeposit"
+                                type="text" nbInput fullWidth id="surete_retenudeposit"
+                                (focusout)="onFocusOutEventRetenuDeposit($event)" [ngStyle]="{border: getColorRetenuDeposit()}">
+    
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Date du Déposit<span *ngIf="displaytypedepo"
+                                    style="color:red;">*</span></label>
+                            <input fieldSize="small" (focusout)="onChangeFocusDateDeposit($event)"
+                                formControlName="surete_datedeposit" type="datetime-local" nbInput fullWidth
+                                id="surete_datedeposit">
+                            <div *ngIf="!verifDeposite" class="col-sm-8">
+                                <span>La date doit être comprise entre la date prise d'effet:
+                                    <span style="color:red">{{effet | date: 'dd-MM-yyyy'}}</span>
+                                    et d'echeance de la police:
+                                    <span style="color: red">{{dateEcheance | date: 'dd-MM-yyyy'}}</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                        div class="col-sm-4">
+                            <div class="form-group">
+                                <label  class="label">Déposit libéré</label>
+                                <input fieldSize="small" formControlNam="surete_depositlibere" type="text" nbInput fullWidth id="surete_depositlibere">                                   
+                            </div>
+                        </div>          
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label  class="label">Date de libération déposit</label>
+                                <input fieldSize="small" formControlName="surete_dateliberation" type="datetime-local" nbInput fullWidth id="surete_dateliberation">                                   
+                            </div>
+                        </div>
+                    -->
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Caution solidaire<span *ngIf="displayCaution"
+                                    style="color:red;">*</span></label>
+                            <!--input fieldSize="small" formControlName="surete_cautionsolidaire" type="text" nbInput fullWidth id="engag_cautionsolidaire"-->
+                            <nb-select (selectedChange)="onChangeCaution($event)" fullWidth id="surete_cautionsolidaire">
+                                <nb-option value="{{type.id}}" *ngFor="let type of listTypeCausions">{{type.id}}:
+                                    {{type.value}}</nb-option>
+                                <!--nb-option *ngIf="!displaytypeNature" value="{{type.id}}" *ngFor="let type of listTypeCausions">{{type.id}}: {{type.value}}</nb-option-->
+                            </nb-select>
+                        </div>
+                    </div>
+                    <!--div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label  class="label">Date de comptabilisation<span style="color:red;">*</span></label>
+                                        <input fieldSize="small" formControlName="engag_datecomptabilisation" type="datetime-local" nbInput fullWidth id="engag_datecomptabilisation">                                   
+                                    </div>
+                                </div>
+                    -->
+                </div>
+            </div>
+    
+        </div>
+    
+        <br>
+        <div>
+            <button nbButton status="success" (click)="submit()" [disabled]='!addForm.valid'>Ajouter</button>
+            &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+        </div>
+    </form>
+    <!-- </div>
+        
+        <div *ngIf="check_fonct('c_engagement')==false">
+            <ngx-page-not-autoriser></ngx-page-not-autoriser>
+        </div> -->

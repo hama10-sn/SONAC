@@ -1,0 +1,301 @@
+<p>cocherdoc-societe works!</p>
+<nb-card-header>
+    Ouverture de Compte
+</nb-card-header>
+<br><br><br>
+<nb-card-body *ngIf="dem_Socs">
+    <div class="tabs" >
+      <input type="radio" value name="tabs" id="tabone" checked=!dem_Socs.checked >
+      <label for="tabone" class="lab">INFORMATION</label>
+      <div class="tab">
+        <div class="row">
+
+
+            <div class="col-sm-3">
+                <h5 class="grid-h">Information</h5>
+                <div><span class="detail">Numero  :</span> {{ demandeSociete.dem_socnum }}</div><br>
+                <div><span class="detail">Denomination :</span> {{ demandeSociete.dem_denomination }}</div><br>
+                <div><span class="detail">Type Social   :</span> {{ onGetLibelleByType((demandeSociete.dem_typesociete).toString()) }}</div><br>
+                <div><span class="detail">Type Titulaire :</span> {{ demandeSociete.dem_typetitulaire }}</div><br>
+                <!--div><span class="detail">Numéro Titulaire :</span> {{ demandeSociete.dem_clienttitulaire }}</div><br-->
+                <div><span class="detail">Nom Complet DG :</span> {{ demandeSociete.dem_nomprenomsdg }}</div><br>
+              </div>
+          <br>
+          <br>
+          <div class="col-sm-3">
+            <div><span class="detail">Secteur D'activité :</span> {{ onGetSecteurByCode(demandeSociete?.dem_secteuractivites)
+              }}</div><br>
+            <!--div><span class="detail">Dénomination :</span> {{ demandeSociete.dem_denomination }}</div><br>
+            <div><span class="detail">Registre :</span> {{ demandeSociete.dem_registrecommerce}}</div><br>
+            <div><span class="detail">NINEA :</span> {{ demandeSociete.dem_ninea }}</div><br()-->
+            <div><span class="detail">Compte Bancaire :</span> {{ demandeSociete.dem_comptebancaire }}</div><br>
+            <div><span class="detail">Objet :</span> {{ demandeSociete.dem_objetdemande}}</div><br>
+            <div><span class="detail">Statut :</span> {{ demandeSociete.dem_statut }}</div><br>
+
+          </div>
+
+          <div class="col-sm-3">
+            <h5 class="grid-h">Coordonnées</h5>
+            <div><span class="detail">Adresse 1 :</span> {{ demandeSociete.dem_adresse1 }}</div><br>
+            <div><span class="detail">Telephone principal :</span> {{ demandeSociete.dem_telephoneprincipal }}</div><br>
+            <div><span class="detail">Ville :</span> {{ demandeSociete.dem_ville }}</div><br>
+            <div><span class="detail">Mobile :</span> {{ demandeSociete.dem_telephonemobile }}</div><br>
+            <div><span class="detail">Email société :</span> {{ demandeSociete.dem_emailsociete }}</div><br>
+          </div>
+
+          <div class="col-sm-3">
+            <h5 class="grid-h">Information financiére</h5>
+            <div><span class="detail">Effectif: </span>{{ client?.clien_effectif }}</div><br>
+            <div><span class="detail">Chiffe d'affaire activités : </span>{{ client?.clien_chiffreaffaireannuel }}
+            </div><br>
+            <div><span class="detail">chiffre d'affaire prime: </span>{{ client?.clien_chiffreaffaireprime }}</div><br>
+            <div><span class="detail">charge de sinistre : </span>{{ client?.clien_chargesinistre }}</div><br>
+            <div><span class="detail">Capital social : </span>{{ client?.clien_capital_social}}</div><br>
+            <div><span class="detail">Code origine :</span> {{ client?.clien_codeorigine }}</div><br>
+
+          </div>
+        </div>
+
+      </div>
+
+      <input type="radio" name="tabs" id="tabtwo" [checked]=dem_Socs.checked>
+      <label for="tabtwo" class="lab">Fichier</label>
+      <div class="tab">
+        
+        <div class="row">
+            <div class="col-sm-12">
+                <button status="success" [disabled]="analyseDeRisque" nbButton (click)="openAjoutUpLoad()">
+                    <mat-icon>file_upload</mat-icon> joindre documents
+                </button>
+                <div *ngIf="displayButtonUpload">
+                    <br>
+                    <span style="color: green;">Vous pouvez selectionner un ou plusieurs documents
+                    </span><br><br>
+                    <input type="file" (change)="onFileSelected($event)" multiple name="files"
+                        id=""><br>
+                    <br><button  size="small" status="primary" nbButton (click)="onClickUpload(dem_Socs.dem_socnum)">
+                        <mat-icon>file_upload</mat-icon>upload
+                    </button>
+                    <br>
+                          <nb-progress-bar *ngIf="displayprogress" [value]="progress" [displayValue]="true"
+                              status="primary"></nb-progress-bar>
+                          <br>
+                </div>
+            </div>
+          <div class="col-sm-12">
+
+          <!-- <div *ngIf="dem_Pers.dem_produitdemande1==15001001">
+            <H5>Liste des fichiers disponibles pour le produit caution de soumission</H5>
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande1==15001002">
+            <H5>Liste des fichiers disponibles pour le produit caution d'avance de démarrage</H5>
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande1==15001003">
+            <H5>Liste des fichiers disponibles pour le produit caution de bonne execution</H5>
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande1==15001004">
+            <H5>Liste des fichiers disponibles pour le produit caution de retenue de garantie</H5>
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande1==14002001">
+            <H5>Liste des fichiers disponibles pour le produit KAP’GARANTI EXPORT</H5>
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande1==14003001">
+            <H5>Liste des fichiers disponibles pour le produit KAP’GARANTI DOMESTIQUE</H5>
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande1==14001001">
+            <H5>Liste des fichiers disponibles pour le produit FINASSUR</H5>
+          </div>
+          <div *ngIf="dem_Pers.dem_produitdemande1==16008001">
+            <H5>Liste des fichiers disponibles pour le produit LOCASSUR</H5>
+          </div> -->
+          <div >
+            <H5>Liste des fichiers disponibles </H5>
+          </div>
+          <div class="row">
+            <h6 style="color:green ;">&nbsp;&nbsp;&nbsp;&nbsp;Vérifier et cocher les éléments déjà validés. Ceux avec ce symbole <span style="color:red;">*</span> sont obligatoires</h6><br>
+          </div>
+          <form [formGroup]="form1">
+          <table>
+           
+            
+            
+            <tbody *ngFor="let  filename of filenames;let i=index">
+              <tr>
+                <td>{{filename}}</td>
+                <td style="text-align: center"><span style="color:red;">*</span>
+                  <nb-checkbox   type="checkbox" disabled  [value]="filename"  [checked]="dem_Socs?.list_document_lu[i] === filename ? true : null"></nb-checkbox>
+                </td>
+                <td style="text-align: center">
+                   <button size="tiny" (click)="openpdf(filename,dem_Socs.dem_socnum)"  status="success" nbButton ><mat-icon>visibility</mat-icon>Prévisualiser</button>
+                </td>
+                <td style="text-align: center"><button size="tiny" (click)="onClickDownload(filename,dem_Socs.dem_socnum)" status="primary"
+                  nbButton>
+                  <mat-icon>file_upload</mat-icon>Télécharger
+                </button>
+                </td>
+                <td style="text-align: center"><button size="tiny" [disabled]="analyseDeRisque" (click)="onClickDelete(filename,dem_Socs.dem_socnum)" status="danger"
+                    nbButton>
+                    <mat-icon>delete</mat-icon>Supprimer
+                    </button>
+                </td>
+              </tr>
+            </tbody>
+            
+          </table>
+          <!--button type="submit">Submit</button-->
+        </form>
+        </div>
+          
+          <div class="col-sm-12" >
+            
+              
+             
+              
+              <div class="row">
+               
+                
+                  <!-- <nb-card-body *ngIf="dem_Pers.dem_produitdemande1==15001001"><br>
+                    
+                    <nb-checkbox (checkedChange)="toggle($event)" [checked]="checked"><span style="color:red;">*</span>La demande adressée au Directeur Général</nb-checkbox><br>
+                    <nb-checkbox (checkedChange)="toggledeux($event)" [checked]="checkeddeux" ><span style="color:red;">*</span>Le modèle de cautionnement</nb-checkbox><br>
+                    <nb-checkbox (checkedChange)="toggletrois($event)"  [checked]="checkedtrois" ><span style="color:red;">*</span>La copie de l’avis d’appel d’offres et des données particulières (DPA0) ou Divers</nb-checkbox><br>
+                   
+                </nb-card-body> -->
+                  <!-- <nb-card-body *ngIf="dem_Pers.dem_produitdemande1==15001002|| dem_Pers.dem_produitdemande1==15001003"><br>
+                    <nb-checkbox (checkedChange)="toggle($event)" [checked]="checked"><span style="color:red;">* </span>Le modèle de cautionnement </nb-checkbox> <br>
+                    <nb-checkbox (checkedChange)="toggledeux($event)" [checked]="checkeddeux"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+                    <nb-checkbox (checkedChange)="toggletrois($event)" [checked]="checkedtrois"><span style="color:red;">*</span>Une copie signée du marché</nb-checkbox><br>
+                     </nb-card-body> -->
+                 <!--  <nb-card-body *ngIf="dem_Pers.dem_produitdemande1==15001004"><br>
+                    
+                    <nb-checkbox (checkedChange)="toggle($event)" [checked]="checked"><span style="color:red;">*</span>Le modèle de cautionnement </nb-checkbox> <br>
+                    <nb-checkbox (checkedChange)="toggledeux($event)" [checked]="checkeddeux"><span style="color:red;">*</span>La demande adressée au Directeur Général mentionnant l’objet marché, le montant de la caution et la durée de validité de la garantie</nb-checkbox><br>
+                    <nb-checkbox (checkedChange)="toggletrois($event)" [checked]="checkedtrois">Une copie signée du marché</nb-checkbox><br>
+                    <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquatre" >Le bordereau de livraison (marché de fournitures/service) et/ou</nb-checkbox><br>
+                    <nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq">Le PV de réception provisoire pour les cautions de retenue de garantie</nb-checkbox><br>
+                  </nb-card-body> -->
+                  <!-- <nb-card-body *ngIf="dem_Pers.dem_produitdemande1==14002001"><br>
+                    
+                    <nb-checkbox (checkedChange)="toggle($event)" [checked]="checked"><span style="color:red;">*</span>Envoi de la fiche d’option renseigné</nb-checkbox> <br>
+                 
+                </nb-card-body> -->
+                  <!-- <nb-card-body *ngIf="dem_Pers.dem_produitdemande1==14003001"><br>
+                    
+                    <nb-checkbox (checkedChange)="toggle($event)" [checked]="checked"><span style="color:red;">*</span>Demande d’agrément renseigné </nb-checkbox> <br>
+                  
+                  </nb-card-body>
+                  <nb-card-body *ngIf="dem_Pers.dem_produitdemande1==14001001"><br>
+                    
+                    Deux cas possibles <br>
+                   
+                    <nb-checkbox *ngIf="!checkedneuf" (checkedChange)="togglehuit($event)"  [checked]="checkedhuit"><span style="color:red;">*</span>Cas 1 Bordereau transmis par la banque avec toute l’information relative au crédit accordé</nb-checkbox> <br>
+                    <nb-checkbox *ngIf="!checkedhuit" (checkedChange)="toggleneuf($event)"  [checked]="checkedneuf"><span style="color:red;">*</span>Cas 2 Dérogation</nb-checkbox> <br>
+                    <ul *ngIf="!checkedhuit && checkedneuf" >
+                      <li><nb-checkbox (checkedChange)="toggle($event)" [checked]="checked"><span style="color:red;">*</span>Demande de couverture au Directeur Général au cas général</nb-checkbox> </li>
+                      <li><nb-checkbox (checkedChange)="toggledeux($event)" [checked]="checkeddeux"><span style="color:red;">*</span>Demande de crédit adressée à l’institution  </nb-checkbox></li>
+                      <li><nb-checkbox (checkedChange)="toggletrois($event)" [checked]="checkedtrois"><span style="color:red;">*</span>Justificatifs de revenus (3 bulletins de salaire) </nb-checkbox></li>
+                      <li><nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquatre"><span style="color:red;">*</span>Copie contrat de travail </nb-checkbox></li>
+                      <li><nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq"><span style="color:red;">*</span>Lettre de domiciliation chez l’institution </nb-checkbox></li>
+                      <li><nb-checkbox (checkedChange)="togglesixe($event)" [checked]="checkedsixe"><span style="color:red;">*</span>Certificat de résidence </nb-checkbox></li>
+                      <li><nb-checkbox (checkedChange)="togglesept($event)" [checked]="checkedsept"><span style="color:red;">*</span>Copie carte nationale d’identité </nb-checkbox></li>
+                    </ul>
+                  </nb-card-body>
+                  <nb-card-body *ngIf="dem_Pers.dem_produitdemande1==16008001"><br>
+                    
+                    <nb-checkbox (checkedChange)="toggle($event)" [checked]="checked"><span style="color:red;">*</span>Fiche de demande d’agrément</nb-checkbox> <br>
+                    <nb-checkbox (checkedChange)="toggledeux($event)" [checked]="checkeddeux"><span style="color:red;">*</span>Demande (informations sur chaque locataire) </nb-checkbox><br>
+                    <nb-checkbox (checkedChange)="toggletrois($event)" [checked]="checkedtrois">Copie bail pour chaque locataire :</nb-checkbox><br>
+                    <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquatre">CNI</nb-checkbox><br>
+                  </nb-card-body> -->
+                  <nb-card-body > 
+                    <nb-checkbox (checkedChange)="toggle($event)" [checked]="checked"><span style="color:red;">* </span>Demande adressée au Directeur Général</nb-checkbox><br>
+                    <nb-checkbox (checkedChange)="toggledeux($event)" [checked]="checkeddeux"><span style="color:red;">* </span>statuts et documents officiels(RC, NINEA)</nb-checkbox><br>
+                    <nb-checkbox (checkedChange)="toggletrois($event)" [checked]="checkedtrois"><span style="color:red;">* </span>CNI du principal dirigeant</nb-checkbox><br>
+                    <nb-checkbox (checkedChange)="togglequatre($event)" [checked]="checkedquatre">les réalisations de la société</nb-checkbox><br>
+                    <nb-checkbox (checkedChange)="togglecinq($event)" [checked]="checkedcinq">CV principal dirigeant</nb-checkbox>    <br>              
+                    <nb-checkbox (checkedChange)="togglesix($event)" [checked]="checkedsix">bilans(3 derniers exercices)</nb-checkbox><br>
+                    <nb-checkbox (checkedChange)="togglesept($event)" [checked]="checkedsept">relevés bancaires(3 derniers mois)</nb-checkbox><br>
+                   <!--  <br><br><button  nbButton status="success" [disabled]='!check' (click)="submitcheck()"><mat-icon>file_copy</mat-icon>Enregistrer documents cochés</button> -->
+                  </nb-card-body>
+              </div>
+              <div class="row">
+                &nbsp;&nbsp;&nbsp;&nbsp;<button  nbButton status="primary"  [disabled]="!check  || obligatoire" (click)="openModif(dem_Socs)" (click)="submit(dem_Socs)"><mat-icon>file_copy</mat-icon>Enregistrer documents lus</button>
+              </div>
+           </div>
+        </div>
+
+      </div>
+
+      
+
+      <div class="tab">
+
+      </div>
+      <!-- <input type="radio" name="tabs" id="tabfive">
+      <label for="tabfive" class="lab">MEMO</label>
+      <div class="tab">
+        <div class="row">
+
+          <div class="col-sm-8">
+            <div><span class="detail">Commentaire commercial :</span> {{ dem_Pers.dem_commentaire }}</div><br>
+          </div>
+
+        </div>
+
+      </div> -->
+
+
+    </div>
+
+
+
+
+
+    <!--div class="row">
+      <div class="col-sm-4">
+
+        
+        <nb-radio-group [(ngModel)]="ngModelValue" name="ng-model-group"><br>
+          <nb-radio value="1" [disabled]='! (check || obligatoire)' >Je valide</nb-radio>
+        <nb-radio value="2" [disabled]='check ||  obligatoire' >Renvoyer en correction</nb-radio>
+        </nb-radio-group>
+      </div>
+      <div class="col-sm-6">
+        <form [formGroup]="addForm"> 
+        <div *ngIf="ngModelValue=='2' || ngModelValue=='1'">
+          
+          <div class="form-group">
+            <label *ngIf="ngModelValue=='2'" for="" class="label"><span style="color:red;font-size: 32px;">*</span><span style="font-size: 15px;color:green">Motif du rejet(Remplir pour actver le bouton valider)</span></label>
+            <label *ngIf="ngModelValue=='1'"  for="" class="label"><span style="color:red;font-size: 32px;">*</span><span style="font-size: 15px;color:green"> Mémo (Remplir pour actver le bouton valider)</span></label>
+            <textarea style="background-color: white;" formControlName="dem_commentaire" nbInput fullWidth
+                    [(ngModel)]="dem_Pers.dem_commentaire" 
+                    (focusout)="onFocusOutEventBody()"
+                    (change)="onChangebody($event)" 
+                    ></textarea>
+          </div>
+         
+        </div>
+      </form>
+      </div>
+
+    </div-->
+    
+ 
+
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton (click)="close()" status="danger">Fermer</button>&nbsp;&nbsp;
+    <span ><button  nbButton status="success" (click)="close()"
+      (click)="openModif(dem_Socs)" [disabled]='!check'>
+      <div  >Valider</div>
+    </button>&nbsp;&nbsp;</span>
+    <span *ngIf="ngModelValue=='2'">
+    <button  nbButton status="success" (click)="close()"
+      (click)="openModif(dem_Socs)" (click)="close()" [disabled]='!addForm.valid'>
+      <div  >Valider</div>
+    </button>&nbsp;&nbsp;
+  </span>
+  
+  &nbsp;&nbsp;
+   
+</nb-card-footer>

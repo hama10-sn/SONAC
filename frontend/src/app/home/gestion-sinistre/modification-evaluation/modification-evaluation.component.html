@@ -1,0 +1,207 @@
+<form [formGroup]="mySinistreForm">
+  <div class="col-lg-4">
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Modification évaluations
+      </nb-card-header>
+    </nb-card>
+  </div>
+  <br>
+  <div class="tabs">
+    <input type="radio" name="tabs" id="tabone" checked="checked">
+    <label for="tabone" class="lab">INFORMATION</label>
+    <div class="tab" formGroupName="mvtsinistreForm">
+      <div class="row">
+        <!-- <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="label">Client<span style="color:red;">*</span></label>
+                        <input fieldSize="small" formControlName="sini_acheteur" type="text" nbInput fullWidth
+                                id="sini_acheteur">
+
+                    </div>
+                </div> -->
+
+        <!-- <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="label">Numéro Police<span style="color:red;">*</span></label>
+                        <input fieldSize="small" formControlName="sini_acheteur" type="text" nbInput fullWidth
+                                id="sini_acheteur">
+
+                    </div>
+                </div> -->
+
+        <!-- <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="label">Numéro Acheteur</label> <span style="color:red;">*</span>
+                        <input fieldSize="small" formControlName="sini_acheteur" type="text" nbInput fullWidth
+                                id="sini_acheteur">
+
+                    </div>
+                </div> -->
+
+        <!-- <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Donneur d'ordre</label>
+                        <input fieldSize="small" formControlName="sini_acheteur" type="text" nbInput fullWidth
+                                id="sini_acheteur">
+                    </div>
+                </div> -->
+
+        <div class="col-sm-4" *ngIf="afficherTiersClient">
+          <div class="form-group">
+            <label for="" class="label">Numéro tiers recours </label>
+            <input readonly fieldSize="small" [value]="tiersRecours2" type="text" nbInput fullWidth id="mvts_tiers">
+            <!-- <nb-select [(selected)]="tiersRecours" (selectedChange)="onChangeTiersRecours($event)" type="text"
+              fullWidth>
+              <nb-option value="{{client.clien_numero}}" *ngFor="let client of clientes">
+                {{client.clien_numero}} : {{client.clien_prenom}} {{client.clien_nom}}
+                {{client.clien_denomination}}
+              </nb-option>
+            </nb-select> -->
+          </div>
+        </div>
+
+        <div class="col-sm-4" *ngIf="afficherTiersAcheteur">
+          <div class="form-group">
+            <label for="" class="label">Numéro tiers recours </label>
+            <input readonly fieldSize="small" [value]="tiersRecours2" type="text" nbInput fullWidth id="mvts_tiers">
+            <!-- <nb-select [(selected)]="tiersRecours" (selectedChange)="onChangeTiersRecours($event)" type="text"
+              fullWidth>
+              <nb-option value="{{acheteur.achet_numero}}" *ngFor="let acheteur of acheteurs">
+                {{acheteur.achet_numero}}: {{acheteur.achet_prenom}} {{acheteur.achet_nom}}
+              </nb-option>
+            </nb-select> -->
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="" class="label">Bénéficiaire</label>
+            <input readonly fieldSize="small" [value]="benificiaire2" type="text" nbInput fullWidth
+              id="mvts_beneficiaire">
+            <!-- <nb-select [(selected)]="benificiaire" (selectedChange)="onChangeBeneficiaire($event)" type="text"
+              fullWidth>
+              <nb-option value="{{beneficiaire.benef_Num}}" *ngFor="let beneficiaire of beneficiaires">
+                {{beneficiaire.benef_Num}} : {{beneficiaire.benef_prenoms}} {{beneficiaire.benef_nom}}
+                {{beneficiaire.benef_denom}}
+              </nb-option>
+            </nb-select> -->
+          </div>
+        </div>
+
+        <!-- <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Code intermédiaire</label>
+                        <input readonly fieldSize="small" [value]="libelleInterm" type="text" nbInput fullWidth
+                            id="sini_intermediaire">
+                    </div>
+                </div> -->
+
+        <!-- <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Code branche</label>
+                        <input readonly fieldSize="small" [value]="libelleBranche" type="text" nbInput fullWidth
+                            id="sini_branche">
+                    </div>
+                </div> -->
+
+        <!-- <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Code catégorie</label>
+                        <input readonly fieldSize="small" [value]="libelleCategorie" type="text" nbInput fullWidth
+                            id="sini_categorie">
+                    </div>
+                </div> -->
+        <!-- <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">code produit </label>
+                        <input readonly fieldSize="small" [value]="libelleProduit" type="text" nbInput fullWidth
+                            id="sini_produit">
+                    </div>
+                </div> -->
+
+        <!-- <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Numéro Risque</label>
+                        <input readonly fieldSize="small" formControlName="sini_risque" type="text" nbInput fullWidth
+                            id="sini_intermediaire">
+                    </div>
+                </div> -->
+      </div>
+    </div>
+
+    <input type="radio" name="tabs" id="tabtwo">
+    <label for="tabtwo" class="lab">EVALUATION</label>
+    <div class="tab" formGroupName="mvtsinistreForm">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant principal</label>
+            <input readonly fieldSize="small" [value]="ancienMontantPrincipal" type="text" nbInput fullWidth
+              id="mvts_montantprincipal">
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant frais</label>
+            <input readonly fieldSize="small" [value]="ancienMontantFrais" type="text" nbInput fullWidth
+              id="mvts_montantfrais">
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant honoraires</label>
+            <input readonly fieldSize="small" [value]="ancienMontantHonoraire" type="text" nbInput fullWidth
+              id="mvts_montanthonoraire">
+          </div>
+        </div>
+
+        <!-- <div class="col-sm-3">
+          <div class="form-group">
+            <label class="label">Montant total</label>
+            <input readonly fieldSize="small" [value]="ancienMontantTotal" type="text" nbInput fullWidth>
+          </div>
+        </div> -->
+
+        <!-- ========== Les nouvelles valeurs ============ -->
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Nouveau montant principal</label>
+            <input fieldSize="small" [value]="nouveauMontantPrincipal" type="text" nbInput fullWidth
+              id="mvts_montantprincipal" (focusout)="onChangeFocusMontantPrincipal($event)">
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Nouveau montant frais</label>
+            <input fieldSize="small" [value]="nouveauMontantFrais" type="text" nbInput fullWidth id="mvts_montantfrais"
+              (focusout)="onChangeFocusMontantFrais($event)">
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Nouveau montant honoraires</label>
+            <input fieldSize="small" [value]="nouveauMontantHonoraire" type="text" nbInput fullWidth
+              id="mvts_montanthonoraire" (focusout)="onChangeFocusMontantHonoraire($event)">
+          </div>
+        </div>
+
+        <!-- <div class="col-sm-3">
+          <div class="form-group">
+            <label class="label">Nouveau montant total</label>
+            <input readonly fieldSize="small" [value]="nouveauMontantTotal" type="text" nbInput fullWidth>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <br>
+  <div>
+    <button nbButton status="success" (click)="onSubmit()" [disabled]='!mySinistreForm.valid'>Valider</button>
+    <!-- &nbsp;&nbsp;<button nbButton status="primary">En attente</button> -->
+    &nbsp;&nbsp;<button nbButton status="danger" (click)="onCancel()">Annuler</button>
+  </div>
+</form>

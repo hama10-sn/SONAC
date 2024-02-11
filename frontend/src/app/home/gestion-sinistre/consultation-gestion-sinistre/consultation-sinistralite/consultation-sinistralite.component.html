@@ -1,0 +1,266 @@
+<div *ngIf="check_fonct('l_sinistre')">
+  <form [formGroup]="addForm">
+    <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">
+          Les critères de recherche des sinistres
+        </nb-card-header>
+      </nb-card>
+    </div>
+    <div class="tabs">
+      <input type="radio" name="tabs" id="tabone" checked="checked" (click)="onClickBranche()">
+      <label for="tabone" class="lab">Branche</label>
+      <div class="tab">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="" class="label">Branche</label>
+              <mat-select class="form-control" [formControl]="brancheCtrl" placeholder="choisir une branche"
+                (selectionChange)="onChangeBranche($event)" fullWidth #singleSelect>
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="brancheFilterCtrl" placeholderLabel="recherche..."
+                    noEntriesFoundLabel="aucune corespondance ..">
+                  </ngx-mat-select-search>
+                </mat-option>
+
+                <mat-option value="{{branche.branche_numero}}" *ngFor="let branche of filteredBranche  | async">
+                  {{branche.branche_numero}} : {{branche.branche_libelleLong}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <input type="radio" name="tabs" id="tabtwo" (click)="onClickProduit()">
+      <label for="tabtwo" class="lab">Produit</label>
+      <div class="tab">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="" class="label">Produit</label>
+              <mat-select class="form-control" [formControl]="produitCtr" placeholder="choisir un produit"
+                (selectionChange)="onChangeProduit($event)" fullWidth #singleSelect>
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="produitFilterCtrl" placeholderLabel="recherche..."
+                    noEntriesFoundLabel="aucune corespondance ..">
+                  </ngx-mat-select-search>
+                </mat-option>
+
+                <mat-option value="{{produit.prod_numero}}" *ngFor="let produit of filteredProduit  | async">
+                  {{produit.prod_numero}} : {{produit.prod_denominationlong}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <input type="radio" name="tabs" id="tabtwo" (click)="onClickPeriode()">
+      <label for="tabtwo" class="lab">Période</label>
+      <div class="tab">
+        <p class="paraProblemeSaisi" *ngIf="problemeDate">La date de début doit être inférieure ou égale à la
+          date de fin
+        </p>
+        <p class="paraProblemeSaisi" *ngIf="problemeDateFin">La date de fin doit être inférieure ou égale à la
+          date du jour
+        </p>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Début </label>
+              <input type="date" formControlName="debut" nbInput fullWidth (focusout)="onFocusOutEventDate($event)"
+                [ngStyle]="{border: getColorDate()}">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="label">Fin </label>
+              <input type="date" formControlName="fin" nbInput fullWidth (focusout)="onFocusOutEventDate($event)"
+                [ngStyle]="{border: getColorDate()}">
+            </div>
+          </div>
+        </div>
+      </div>
+      <input type="radio" name="tabs" id="tabthree" (click)="onClickClient()">
+      <label for="tabthree" class="lab">Client</label>
+      <div class="tab">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="" class="label">Client</label>
+              <mat-select class="form-control" [formControl]="clientCtr" placeholder="choisir un client"
+                (selectionChange)="onChangeClient($event)" fullWidth #singleSelect>
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="clientFilterCtrl" placeholderLabel="recherche..."
+                    noEntriesFoundLabel="aucune corespondance ..">
+                  </ngx-mat-select-search>
+                </mat-option>
+
+                <mat-option value="{{client.clien_numero}}" *ngFor="let client of filteredClient  | async">
+                  {{client.clien_numero}} : {{client.clien_denomination}} {{client.clien_prenom}} {{client.clien_nom}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <input type="radio" name="tabs" id="tabfourth" (click)="onClickPolice()">
+      <label for="tabfourth" class="lab">Police</label>
+      <div class="tab">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="" class="label">Police</label>
+              <mat-select class="form-control" [formControl]="policeCtr" placeholder="choisir une police"
+                (selectionChange)="onChangePolice($event)" fullWidth #singleSelect>
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="policeFilterCtrl" placeholderLabel="recherche..."
+                    noEntriesFoundLabel="aucune corespondance ..">
+                  </ngx-mat-select-search>
+                </mat-option>
+
+                <mat-option value="{{police.poli_numero}}" *ngFor="let police of filteredPolice  | async">
+                  {{police.poli_numero}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <input type="radio" name="tabs" id="tabfive" *ngIf="!check">
+      <input type="radio" name="tabs" id="tabfive" checked="checked" *ngIf="check">
+      <label for="tabfive" class="lab">Résultat</label>
+      <div class="tab">
+        <div class="row">
+          <br><br>
+          <div class='contenu_resultat' *ngIf="check_fonct('l_sinistre')">
+            <div fxLayout fxLayoutAlign="center center">
+
+              <mat-card-header class="card-header">
+                <span class="header">{{ title }}</span>
+                <div>
+                  <button class="buttons_export" mat-button [matMenuTriggerFor]="menu">Export</button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="onExport('pdf')">
+                      PDF
+                    </button>
+                    <button mat-menu-item (click)="onExport('excel')">
+                      EXCEL
+                    </button>
+                  </mat-menu>
+                </div>
+              </mat-card-header>
+            </div>
+            <table mat-table [dataSource]="dataSource" matSort>
+              <ng-container matColumnDef="sin_client">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Client </th>
+                <td mat-cell *matCellDef="let sinistre"> {{onGetClientByCode(sinistre.sini_souscripteur)}} </td>
+              </ng-container>
+              <ng-container matColumnDef="sin_police">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Police</th>
+                <td mat-cell *matCellDef="let sinistre"> {{sinistre.fact_numeropolice}} </td>
+              </ng-container>
+              <ng-container matColumnDef="sin_branche">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Branche </th>
+                <td mat-cell *matCellDef="let sinistre"> {{sinistre.branche_libelle_long}} </td>
+              </ng-container>
+              <!-- <ng-container matColumnDef="sin_produits">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Produits </th>
+                <td mat-cell *matCellDef="let sinistre"> {{sinistre.prod_denominationlong}} </td>
+              </ng-container> -->
+              <ng-container matColumnDef="fact_montantprimenet">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Prime net </th>
+                <td mat-cell *matCellDef="let sinistre"> {{sinistre.primenet}} </td>
+              </ng-container>
+              <ng-container matColumnDef="fact_montantaccescompagnie">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Accessoire </th>
+                <td mat-cell *matCellDef="let sinistre"> {{sinistre.accessoires}} </td>
+              </ng-container>
+              <ng-container matColumnDef="sini_sapglobale">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Montant SAP </th>
+                <td mat-cell *matCellDef="let sinistre"> {{sinistre.sap}} </td>
+              </ng-container>
+              <ng-container matColumnDef="sini_reglementglobal">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Montant réglement </th>
+                <td mat-cell *matCellDef="let sinistre"> {{sinistre.reglement}} </td>
+              </ng-container>
+              <ng-container matColumnDef="sini_recoursglobal">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Montant recours </th>
+                <td mat-cell *matCellDef="let sinistre"> {{sinistre.recours}} </td>
+              </ng-container>
+              <ng-container matColumnDef="sinistralite">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Sinistralite </th>
+                <td mat-cell *matCellDef="let sinistre"> {{sinistre.sinistralite}} %</td>
+              </ng-container>
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let sinistre">
+                  <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">
+                    <mat-icon class="mat-18">more_vert</mat-icon>
+                  </button>
+                  <mat-menu #detail="matMenu">
+                    <button mat-menu-item (click)="onOpen(dialog,sinistre)">
+                      <mat-icon>visibility</mat-icon> Détail
+                    </button>
+                  </mat-menu>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]">
+            </mat-paginator>
+            <ng-template #dialog let-sinistre let-ref="dialogRef">
+              <nb-card>
+                <nb-card-header class="col-lg-12">DETAILS DU SINISTRE</nb-card-header>
+                <nb-card-body>
+                  <div class="row">
+                    <div class="col-sm-2" *ngFor="let sinistre of sinistre">
+                      <div><span class="detail">Branche :</span>
+                        {{ sinistre.sini_branche }}
+                      </div><br>
+                      <div><span class="detail">Police :</span>
+                        {{ sinistre.fact_numeropolice }}
+                      </div><br>
+                      <div><span class="detail">Client :</span>
+                        {{ onGetClientByCode(sinistre.sini_souscripteur) }}
+                      </div><br>
+                      <div><span class="detail">Prime net : </span>
+                        {{ sinistre.primenet }}
+                      </div><br>
+                      <div><span class="detail">Accessoire :</span>
+                        {{ sinistre.accessoires }}
+                      </div><br>
+                      <div><span class="detail">SAP :</span>
+                        {{ sinistre.sap }}
+                      </div><br>
+                      <div><span class="detail">Réglement :</span>
+                        {{ sinistre.reglement }}
+                      </div><br>
+                      <div><span class="detail">Recours :</span>
+                        {{ sinistre.recours }}
+                      </div><br>
+                      <div><span class="detail">Sinistralité :</span>
+                        {{ sinistre.sinistralite }} %
+                      </div><br><br><br>
+                    </div>
+                  </div>
+                </nb-card-body>
+                <nb-card-footer>
+                  <button nbButton (click)="ref.close()" status="danger" class="btn btn-primary">Fermer</button>
+                </nb-card-footer>
+              </nb-card>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button nbButton status="success" [disabled]='erreur' (click)="onConsulter()">Consulter</button>&nbsp;&nbsp;
+      <button nbButton status="danger" (click)="onReinitialiser()">Réinitialiser</button>&nbsp;&nbsp;
+    </div>
+  </form>
+</div>
+<div *ngIf="check_fonct('l_sinistre')==false">
+  <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

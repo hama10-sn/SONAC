@@ -1,0 +1,384 @@
+<!-- <form [formGroup]="addForm"> 
+  <div class="col-lg-6">
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Ajouter une compagnie</nb-card-header>
+    </nb-card>
+  </div> 
+  <div class="row">
+    <div class="col-lg-12">
+      <nb-card>
+        <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Information Compagnie</nb-card-header>
+        <nb-card-body >
+      
+          <div class="row">            
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label  class="label">code Cima_Compagnie<span class="obligatoire">*</span></label>               
+                <nb-select (selectedChange)="onChangeCodeCimaCompagnie($event)" selected="1" fullWidth  >
+                  <nb-option  *ngFor="let class of codecimacomp" value="{{class.code_cima_compagnie}}">{{class.code_cima_compagnie}} : {{class.denomination}}</nb-option>
+                 </nb-select>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label  class="label">code pays<span class="obligatoire">*</span></label>
+                <input fieldSize="small" formControlName="comp_codepays" [readonly]="true" value="((this.listPays.find(p => p.alpha2Code === event.substring(0, 2))).callingCodes)" type="text" nbInput fullWidth id="comp_codepays" >
+                nb-select (selectedChange)="onChange($event)" fullWidth >                    
+                <input fieldSize="small" formControlName="comp_codepays" [readonly]="true" value="((this.listPays.find(p => p.alpha2Code === event.substring(0, 2))).callingCodes[0])" type="text" nbInput fullWidth id="comp_codepays" >
+                <!--nb-select (selectedChange)="onChange($event)" fullWidth >                    
+                  <nb-option value="{{country.pays_codecima}}" *ngFor="let country of listContries">{{country.pays_codecima}} : {{country.pays_libellelong}}</nb-option>
+                </nb-select
+              </div>            
+            </div>
+            <div class="col-sm-4">          
+              <div class="form-group">
+                <label  class="label">code groupe</label>
+                <nb-select (selectedChange)="onChangeGroupe($event)" fullWidth >                    
+                  <nb-option value="{{groupe.group_code}}" *ngFor="let groupe of listGroupes">{{groupe.group_code}} : {{groupe.group_liblong}}</nb-option>
+                </nb-select>
+              </div> 
+            </div>
+              
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label  class="label">type de compagnie<span class="obligatoire">*</span></label>
+                <nb-select (selectedChange)="onChangeLibeleType($event)" fullWidth  >                    
+                  <nb-option value="{{type.id}}" *ngFor="let type of listTypes">{{type.value}}</nb-option>  
+                </nb-select>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label  class="label">dénomination<span class="obligatoire">*</span></label>
+                <input formControlName="comp_denomination" type="text" nbInput fullWidth id="comp_denomination" >
+              </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                  <label  class="label">Sigle<span class="obligatoire">*</span></label>
+                  <input formControlName="comp_sigle" type="text" nbInput fullWidth id="comp_sigle">
+                </div>
+              </div>           
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="" class="label">classement dans le marché</label>
+                  <input formControlName="comp_rangmarche" type="number" nbInput fullWidth id="comp_rangmarche" >
+                </div>
+              </div>
+              <div class="col-sm-4">
+                  <div class="form-group">
+                    <label  class="label">chiffre d'affaires du marché</label>
+                    <input formControlName="comp_camarche" type="number" nbInput fullWidth id="comp_camarche" >
+                  </div>
+                </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label  class="label">chiffre d'affaires de la relation</label>
+                <input formControlName="comp_carelation" type="number" nbInput fullWidth id="comp_carelation" >
+              </div>
+            </div>
+            
+          </div>
+          </nb-card-body >
+        </nb-card>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <nb-card>
+          <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Contact </nb-card-header>
+          <nb-card-body>
+            
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label  class="label">adresse 1<span class="obligatoire">*</span></label>
+                <input formControlName="comp_adresse1" type="text" nbInput fullWidth id="comp_adresse1">
+              </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                  <label  class="label">adresse 2 suite</label>
+                  <input formControlName="comp_adresse2" type="text" nbInput fullWidth id="comp_adresse2">
+                </div>
+              </div>
+            </div>
+              <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label  class="label">telephone 1<span class="obligatoire">*</span></label>
+                <input formControlName="comp_telephone1" type="text" nbInput fullWidth id="comp_telephone1" >
+              </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                  <label  class="label">telephone 2</label>
+                  <input formControlName="comp_telephone2" type="text" nbInput fullWidth id="comp_telephone2" >
+                </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label  class="label">Email<span class="obligatoire">*</span></label>
+                <input formControlName="comp_email" type="email" nbInput fullWidth id="comp_email" >
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Numéro contact</label>
+                <input formControlName="comp_numerocontact" type="text" nbInput fullWidth id="comp_numerocontact" >
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">nom & prénoms contact</label>
+                <input formControlName="comp_contact" type="text" nbInput fullWidth id="comp_contact" >
+              </div>
+            </div>
+            
+            
+          </div>        
+        </nb-card-body >
+      </nb-card>
+    </div>
+  </div>
+     <div>
+         
+            <button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+            &nbsp;&nbsp;<button nbButton status="success" (click)="submit()" [disabled]='!addForm.valid'>Ajouter</button>
+          
+        </div>
+      
+    </form> -->
+
+
+    <div *ngIf="check_fonct('c_compagnie')">
+    <form [formGroup]="addForm">
+      <div class="col-lg-4">
+        <nb-card>
+          <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Ajout d'une compagnie</nb-card-header>
+        </nb-card>
+      </div>   
+      <p class="paraProblemeSaisi" *ngIf="problemeDenomination">
+        La dénomination est obligatoire 
+      </p>
+      <p class="paraProblemeSaisi" *ngIf="problemecimaCompagnie">
+        Le code Cima_Compagnie est obligatoire 
+      </p>
+      <p class="paraProblemeSaisi" *ngIf="problemeSigle">
+        Le sigle est obligatoire 
+      </p>
+      <p class="paraProblemeSaisi" *ngIf="problemeAdresse1">
+        L'adresse1 est obligatoire 
+      </p>
+      <p class="paraProblemeSaisi" *ngIf="problemeTelephone1">
+        Le numéro de téléphone1  n'est pas valide
+      </p>
+      <p class="paraProblemeSaisi" *ngIf="problemeTelephone2">
+        Le numéro de téléphone2  n'est pas valide
+      </p>
+      <p class="paraProblemeSaisi" *ngIf="problemeNumContact">
+        Le numéro de contact n'est pas valide
+      </p>
+      <p class="paraProblemeSaisi" *ngIf="problemeEmail">
+        Le email n'est pas valide
+      </p>
+      <p class="paraProblemeSaisi" *ngIf="problemecodecompagnie">
+        Le numéro de compagnie existe déjà
+      </p>
+      <p class="paraProblemeSaisi" *ngIf="problemecodecompagnieDelete">
+        Le numéro de compagnie est désactivé  veuillez contact l'administrateur
+      </p>
+      <br>
+     <div class="tabs">
+        <input type="radio" name="tabs" id="tabone" checked="checked">
+        <label for="tabone" class="lab">INFORMATION COMPAGNIE</label>
+        <div class="tab">
+        
+        
+            <div class="row">            
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label  class="label">code Cima_Compagnie<span class="obligatoire">*</span></label>               
+                  <nb-select (selectedChange)="onChangeCodeCimaCompagnie($event)" selected="1" formControlName="comp_numero" fullWidth >
+                    <nb-option  *ngFor="let class of codecimacomp" value="{{class.code_cima_compagnie}}">{{class.code_cima_compagnie}} : {{class.denomination}} 
+                      
+                    </nb-option>
+                   </nb-select>
+                </div>
+              </div>
+              <!--
+                <div class="form-group">
+                  <label for="" class="label">code pays</label>
+                  <input formControlName="comp_codepays" type="text" nbInput fullWidth id="comp_codepays" >
+                
+              </div-->
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label  class="label">code pays<span class="obligatoire">*</span></label>
+                  <!--nb-select (selectedChange)="onChange($event)" fullWidth >                    
+                    <nb-option value="{{country.pays_codecima}}" *ngFor="let country of listContries">{{country.pays_codecima}} : {{country.pays_libellelong}}</nb-option>
+                  </nb-select-->
+                  <input fieldSize="small" formControlName="comp_codepays" [readonly]="true" value="(((this.listPays.find(p => p.alpha2Code === event.substring(0, 2))).callingCodes)" type="text" nbInput fullWidth id="pays_codecima" >                                           
+                </div>            
+              </div>
+              <div class="col-sm-4">          
+                <div class="form-group">
+                  <label  class="label">code groupe</label>
+                  <nb-select (selectedChange)="onChangeGroupe($event)" fullWidth >                    
+                    <nb-option value="{{groupe.group_code}}" *ngFor="let groupe of listGroupes">{{groupe.group_code}} : {{groupe.group_liblong}}</nb-option>
+                  </nb-select>
+                </div> 
+              </div>
+                
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label  class="label">type de compagnie<span class="obligatoire">*</span></label>
+                  <nb-select (selectedChange)="onChangeLibeleType($event)" fullWidth  >                    
+                    <nb-option value="{{type.id}}" *ngFor="let type of listTypes">{{type.value}}</nb-option>  
+                  </nb-select>
+                </div>
+              </div>
+  
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label  class="label">dénomination<span class="obligatoire">*</span></label>
+                  <input formControlName="comp_denomination" type="text" nbInput fullWidth id="comp_denomination" 
+                  (focusout)="onFocusOutEventDenomination()" [ngStyle]="{border:getColorDenomination()}">
+                </div>
+               
+              </div>
+              <div class="col-sm-4">
+                  <div class="form-group">
+                    <label  class="label">Sigle<span class="obligatoire">*</span></label>
+                    <input formControlName="comp_sigle" type="text" nbInput fullWidth id="comp_sigle"
+                    (focusout)="onFocusOutEventSigle()" [ngStyle]="{border:getColorSigle()}">
+                  </div>
+                </div>           
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label for="" class="label">classement dans le marché</label>
+                    
+                    <input formControlName="comp_rangmarche" type="number" min="0" nbInput fullWidth id="comp_rangmarche" >
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                      <label  class="label">chiffre d'affaires du marché</label>
+                      <input formControlName="comp_camarche" type="text" nbInput fullWidth id="comp_camarche" (focusout)="onFocusOutChiffreAffaire()">
+                    </div>
+                  </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label  class="label">chiffre d'affaires de la relation</label>
+                  <input formControlName="comp_carelation" type="text" nbInput fullWidth id="comp_carelation" (focusout)="onFocusOutChiffreRelation()">
+                </div>
+              </div>
+              
+            </div>
+        
+        </div>   
+        
+        <input type="radio" name="tabs" id="tabtwo">
+        <label for="tabtwo" class="lab">CONTACTS</label>
+        <div class="tab">
+        
+        
+            
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label  class="label">adresse 1<span class="obligatoire">*</span></label>
+                  <input formControlName="comp_adresse1" type="text" nbInput fullWidth id="comp_adresse1"
+                  (focusout)="onFocusOutEventadresse()" [ngStyle]="{border:getColorAdresse()}">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                  <div class="form-group">
+                    <label  class="label">adresse 2 suite</label>
+                    <input formControlName="comp_adresse2" type="text" nbInput fullWidth id="comp_adresse2">
+                  </div>
+                </div>
+              </div>
+                <div class="row">
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label  class="label">telephone 1<span class="obligatoire">*</span></label>
+                  <!-- <input formControlName="comp_telephone1" type="text" nbInput fullWidth id="comp_telephone1"
+                  (focusout)="onFocusOutEventTelephone()" [ngStyle]="{border:getColorTelephone()}"> -->
+                  <ngx-intl-tel-input (focusout)="onFocusOutEventTelephone()" [ngStyle]="{border:getColorTelephone()}"  [cssClass]="'form-control'"  [preferredCountries]="[CountryISO.Senegal]"
+                    [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                    [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                    [selectedCountryISO]="CountryISO.Senegal" [maxLength]="15"
+                    [phoneValidation]="true" [separateDialCode]="true"
+                    [numberFormat]="PhoneNumberFormat.National" id="comp_telephone1" formControlName="comp_telephone1">
+                  </ngx-intl-tel-input>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                  <div class="form-group">
+                    <label  class="label">telephone 2</label>
+                    <!-- <input formControlName="comp_telephone2" type="text" nbInput fullWidth id="comp_telephone2"
+                    (focusout)="onFocusOutEventTelephone2()" [ngStyle]="{border:getColorTelephone2()}" > -->
+                    <ngx-intl-tel-input (focusout)="onFocusOutEventTelephone2()" [ngStyle]="{border:getColorTelephone2()}"  [cssClass]="'form-control'"  [preferredCountries]="[CountryISO.Senegal]"
+                    [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                    [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                    [selectedCountryISO]="CountryISO.Senegal" [maxLength]="15"
+                    [phoneValidation]="true" [separateDialCode]="true"
+                    [numberFormat]="PhoneNumberFormat.National" id="comp_telephone2" formControlName="comp_telephone2">
+                  </ngx-intl-tel-input>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label class="label">Numéro contact</label>
+                    <!-- <input formControlName="comp_numerocontact" type="text" nbInput fullWidth id="comp_numerocontact"
+                    (focusout)="onFocusOutEventNumContact()" [ngStyle]="{border:getColorNumContact()}" > -->
+                    <ngx-intl-tel-input   (focusout)="onFocusOutEventNumContact()" [ngStyle]="{border:getColorNumContact()}"   [cssClass]="'form-control'"  [preferredCountries]="[CountryISO.Senegal]"
+                    [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                    [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                    [selectedCountryISO]="CountryISO.Senegal" [maxLength]="15"
+                    [phoneValidation]="true" [separateDialCode]="true"
+                    [numberFormat]="PhoneNumberFormat.National" id="comp_numerocontact" formControlName="comp_numerocontact">
+                  </ngx-intl-tel-input>
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label  class="label">Email<span class="obligatoire">*</span></label>
+                  <input formControlName="comp_email" type="email" nbInput fullWidth id="comp_email" 
+                  (focusout)="onFocusOutEventEmail()" [ngStyle]="{border:getColorEmail()}">
+                </div>
+              </div>
+              
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">nom & prénoms contact</label>
+                  <input formControlName="comp_contact" type="text" nbInput fullWidth id="comp_contact" >
+                </div>
+              </div>
+            </div>   
+        </div>   
+       
+       
+      </div>  
+    <br>  
+      
+      <div>
+        <button nbButton status="success" (click)="submit()" [disabled]='!addForm.valid'>Ajouter</button>&nbsp;&nbsp;
+        <button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+      </div>
+      
+  </form>	
+</div>	
+  <div *ngIf="check_fonct('c_compagnie')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+  </div>

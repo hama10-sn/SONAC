@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="acte_avance_demarrage" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3989ed85-d099-4db7-b28e-215510327390">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="titre" class="java.lang.String"/>
+	<parameter name="dao" class="java.lang.String"/>
+	<parameter name="beneficiaire" class="java.lang.String"/>
+	<parameter name="date" class="java.lang.String"/>
+	<parameter name="client" class="java.lang.String"/>
+	<parameter name="adresse_client" class="java.lang.String"/>
+	<parameter name="numero_marche" class="java.lang.String"/>
+	<parameter name="date_info" class="java.lang.String"/>
+	<parameter name="description_travaux" class="java.lang.String"/>
+	<parameter name="montant_demande" class="java.lang.String"/>
+	<parameter name="montant_lettre" class="java.lang.String"/>
+	<parameter name="numero_compte" class="java.lang.String"/>
+	<parameter name="banque" class="java.lang.String"/>
+	<parameter name="numero_agrement" class="java.lang.String"/>
+	<parameter name="date_expiration" class="java.lang.String"/>
+	<parameter name="lots" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="802" splitType="Stretch">
+			<textField>
+				<reportElement x="30" y="10" width="490" height="30" uuid="7c269b7e-2892-45d9-be2f-9e963b97a29e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["GARANTIE DE SOUMISSION N°"+$P{titre}+"CTP - S"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="50" width="360" height="20" uuid="9af14a91-6e29-4844-9cbe-5fb3cf593a15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Société Nationale d’Assurances du Crédit et du Cautionnement « SONAC » SA » ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="50" width="134" height="20" uuid="95773c05-db8f-4bb5-8f98-283345c33f1b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12"/>
+				</textElement>
+				<text><![CDATA[- Compagnie d’Assurances au ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="70" width="494" height="30" uuid="83419beb-3611-431b-a203-fd631d681abd"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Narrow" size="12"/>
+				</textElement>
+				<text><![CDATA[capital de 3.000.000.000 de Francs CFA entièrement libéré, régie par le Code CIMA et située au 55, Rue Wagane DIOUF, Immeuble Trianon 1er étage – BP : 3939 - Dakar – SENEGAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="110" width="70" height="20" uuid="3917f9af-2227-45ed-812b-246feb64d3c1"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Narrow" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bénéficiaire :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="110" width="424" height="40" uuid="36340603-8efb-4c2b-9efc-6603f3d38b7d"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial Narrow" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{beneficiaire}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="160" width="30" height="20" uuid="dc7144d3-d385-4a14-90d7-23ffd3ae5eab"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="60" y="160" width="464" height="20" uuid="e847ee30-13a0-433d-927b-a1b73f70442d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="390" y="760" width="100" height="40" uuid="b59e3462-ee51-4557-a1da-f6f515e62ae1"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Narrow" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Le Directeur Général                                                                                                                   
+                                                                                                           Gora MANGANE
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="740" width="70" height="20" uuid="c7c6f0d3-21d6-48fa-8285-6ab426eb8a86"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12"/>
+				</textElement>
+				<text><![CDATA[Fait à Dakar, le]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="420" y="740" width="100" height="20" uuid="f5ec5759-c35c-4809-bac2-5eb80f2f88a3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("EEE,d MMM , yyyy").format(new Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="180" width="494" height="560" uuid="b671d422-98ad-4c73-bf46-6612655b8c43"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Nous avons été informés que le "+$P{client}+" – "+$P{adresse_client}+", (ci-après dénommé «le Candidat») a répondu à votre Appel d’Offres (AON) N° "+$P{numero_marche}+$P{description_travaux}+" et vous a soumis son offre en date du "+$P{date_info}+"; (ci- après dénommée «l’Offre») .\n"+
+
+"\n"+$P{lots}+"\n"+
+
+"\nEn vertu des dispositions du Dossier d’Appel d’Offres, l’Offre doit être accompagnée d’une garantie de soumission.\n"+
+
+"\nA la demande du Candidat, nous Société Nationale d’Assurance du Crédit et du Cautionnement «SONAC – SA», nous engageons par la présente, sans réserve et irrévocablement, à vous payer, toutes sommes d’argent que vous pourriez réclamer dans la limite de "+$P{montant_demande}+" ("+$P{montant_lettre}+") Francs CFA.\n"+
+
+"\nVotre demande en paiement doit être accompagnée d’une déclaration attestant que le Candidat n’a pas exécuté une des obligations auxquelles il est tenu en vertu de l’Offre ou a fait l’objet de sanction pour faute commise dans le cadre de la procédure de passation du marché conformément aux articles 148 et 149 du Code des Marchés publics, à savoir :\n"+
+    "\na) s’il n’accepte pas les modifications par l’Autorité de son offre suite à la correction des erreurs de calcul ; "+"ou "+
+    "\nb) s’il retire l’Offre pendant l période de validité qu’il a spécifiée dans la lettre de soumission de l’offre, ou "+
+     "\nc) si, s’étant vu notifier l’acceptation de l’Offre contractante pendant la période de validité telle qu’indiquée dans la lettre de soumission de l’offre ou prorogée par l’Autorité contractante avant l’expiration de cette période, il :"+
+          	 "\n1.  ne signe pas le Marché ; ou"+
+           	"\n2. ne fournit pas la garantie de bonne exécution du Marché, s’il est tenu de le faire ainsi qu’il est prévu dans les            \nInstructions aux candidats ; ou"+
+     "\nd) s’il a fait l’objet d’une sanction du Comité de Règlement des Différends de l’Autorité de Régulation des Marchés Publics(ARMP) ou d’une juridiction administrative compétente, conduisant à la saisie des garanties qu’il a constituées dans le cadre  de la passation du marché, conformément aux articles 148 et 149 du décret N° 2014 - 1212 du 22 Septembre 2014 portant Code des Marchés publics.\n"+
+   
+"\nLa présente garantie expire (a) si le marché est octroyé au Candidat, lorsque nous recevrons une copie du marché signé et de la garantie de bonne exécution émise  en votre nom, selon les Instructions du Candidat ; ou (b) si le marché n’est pas octroyé au Candidat, à la première des dates suivantes : (i) lorsque nous recevrons copie de votre notification au Candidat du nom du Candidat retenu, ou (ii) vingt-huit (28) jours après l’expiration de l’Offre.\n"+
+
+"\nToute demande de paiement au titre de la présente garantie doit être reçue à cette date au plus tard. La présente garantie est régie par les Règles uniformes de la Chambre de Commerce Internationale (CCI) relatives aux garanties sur demande, Publication CCI n° 458.\n"+
+
+"\nCette garantie est délivrée en vertu du Code des Assurances des Etats membres de la CIMA et de l’agrément N°"+$P{numero_agrement}+" du 01/02/2022 du Ministère des Finances et du Budget qui expire au "+$P{date_expiration}+"."]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

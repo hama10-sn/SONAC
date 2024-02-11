@@ -1,0 +1,199 @@
+<div *ngIf="check_fonct('c_groupe')">
+<form [formGroup]="addForm"> 
+  
+<div class="col-lg-4">
+  <nb-card>
+    <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Ajout d'un nouveau groupe</nb-card-header>
+  </nb-card>
+</div> 
+
+<div class="tabs">
+  <input type="radio" name="tabs" id="tabone" checked="checked">
+  <label for="tabone" class="lab">INFORMATION</label>
+  <div class="tab">
+    
+    
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label class="label">Code groupe <span style="color:red;">*</span></label>
+            <input fieldSize="small" formControlName="group_code"  type="number" nbInput fullWidth  id="group_code" >
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="" class="label">Classification <span style="color:red;">*</span></label>
+            <mat-select class="form-control" [formControl]="classifCtrl" placeholder="choisissez une classification"
+                                (selectionChange)="onChangeClassification($event)" fullWidth
+                                id="group_classif"  #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search placeholderLabel="recherche..." 
+                                    noEntriesFoundLabel="aucune corespondance .." [formControl]="classifFilterCtrl"></ngx-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngFor="let classif of filteredClassif | async" value="{{classif.code}}">
+                                    {{ classif.libelle }}
+                                </mat-option>
+                            </mat-select>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label for="" class="label">Siege <span style="color:red;">*</span></label>
+            
+            <mat-select class="form-control" [formControl]="siegeCtrl" placeholder="choisissez un pays"
+                                (selectionChange)="onChangeSiege($event)" fullWidth
+                                id="group_siege"  #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search placeholderLabel="recherche..." 
+                                    noEntriesFoundLabel="aucune corespondance .." [formControl]="siegeFilterCtrl"></ngx-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngFor="let siege of filteredsiege | async" value="{{siege.callingCodes[0]}}">
+                                    {{ siege.name }}
+                                </mat-option>
+                            </mat-select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="form-group">
+            <label  class="label">Libelle long <span style="color:red;">*</span></label>
+            <input fieldSize="small" formControlName="group_liblong" type="text" nbInput fullWidth id="group_liblong" >
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label  class="label">Libelle court <span style="color:red;">*</span></label>
+            <input fieldSize="small" formControlName="group_libcourt" type="email" nbInput fullWidth id="group_libcourt" >
+          </div>
+        </div>
+      </div>
+      
+
+  </div>
+  
+  <input type="radio" name="tabs" id="tabtwo" >
+  <label for="tabtwo" class="lab">CONTACT</label>
+  <div class="tab">
+    
+    
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label  class="label">Email <span style="color:red;">*</span></label>
+            <input fieldSize="small" (focusout)="onchangeMail()" formControlName="group_email" type="text" nbInput fullWidth id="group_email" >
+            <div *ngIf="displayMailError">
+            <span *ngIf="!errorEmail" style="color:red;">L'email n'est pas valide</span>
+            
+          </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+              <label  class="label">Web</label>
+              <input fieldSize="small" formControlName="group_web" type="text" nbInput fullWidth id="group_web">
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label  class="label">Telephone 1 <span style="color:red;">*</span></label>
+              <ngx-intl-tel-input (focusout)="onchangeNumero()"  [cssClass]="'form-control'"  [preferredCountries]="[CountryISO.Senegal]"
+                    [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                    [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                    [selectedCountryISO]="CountryISO.Senegal" [maxLength]="15"
+                    [phoneValidation]="true" [separateDialCode]="true"
+                    [numberFormat]="PhoneNumberFormat.National" id="group_teleph1" formControlName="group_teleph1">
+                  </ngx-intl-tel-input>
+              <div *ngIf="displayNumeroError">
+              <span *ngIf="!errorNumero" style="color:red;">Le numero n'est pas valide</span>
+              
+            </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+              <div class="form-group">
+                <label  class="label">Telephone 2</label>
+                <div class="wrapper">
+                  <ngx-intl-tel-input (focusout)="onchangeNumero2()"  [cssClass]="'form-control'"  [preferredCountries]="[CountryISO.Senegal]"
+                    [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                    [searchCountryField]="[SearchCountryField.Name]" [selectFirstCountry]="false"
+                    [selectedCountryISO]="CountryISO.Senegal" [maxLength]="15"
+                    [phoneValidation]="true" [separateDialCode]="true"
+                    [numberFormat]="PhoneNumberFormat.National" id="group_teleph2" formControlName="group_teleph2">
+                  </ngx-intl-tel-input>
+                  <div *ngIf="displayNumeroError2">
+                    <span *ngIf="!errorNumero2" style="color:red;">Le numero n'est pas valide</span>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label  class="label">Adresse 1 <span style="color:red;">*</span></label>
+            <input fieldSize="small" formControlName="group_adress1" type="text" nbInput fullWidth id="group_adress1" >
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label  class="label">Adresse 2</label>
+            <input fieldSize="small" formControlName="group_adress2" type="text" nbInput fullWidth id="group_adress2" >
+          </div>
+        </div>
+      </div>
+      
+            
+  </div>
+  
+  
+</div>
+
+<div>
+  <button nbButton status="success" (click)="submit()" [disabled]='!addForm.valid'>Ajouter</button>&nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+            
+          
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</form>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div *ngIf="check_fonct('c_groupe')==false">
+      <ngx-page-not-autoriser></ngx-page-not-autoriser>
+    </div>

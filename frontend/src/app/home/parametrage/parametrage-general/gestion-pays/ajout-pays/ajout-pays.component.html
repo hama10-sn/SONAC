@@ -1,0 +1,190 @@
+<div *ngIf="check_fonct('c_pays')">
+<form [formGroup]="addForm"> 
+    <!--nb-card>
+        <nb-card-header>Ajouter un Pays</nb-card-header>
+        
+        <nb-card-body >
+          
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label  class="label">Libelle long<span style="color:red;">*</span></label>
+                <nb-select (selectedChange)="onChangeLibele($event)" fullWidth>                    
+                  <nb-option value="{{country.name}}" *ngFor="let country of listPays">{{country.name}}</nb-option>  
+                </nb-select>
+                </div>              
+            </div>            
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numero</label>                
+                <input  formControlName="pays_code" [readonly]="true" value="listPays.find(p => p.name === event)).callingCodes" type="text" nbInput fullWidth id="pays_code" >
+              </div> 
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <label for="" class="label">Code CIMA</label>
+                <input  formControlName="pays_codecima" [readonly]="true" value="listPays.find(p => p.name === event)).alpha2Code" type="text" nbInput fullWidth id="pays_codecima" >
+              </div>
+            </div>
+          </div>
+          <div class="row">                
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="" class="label">Devise</label>
+                <input  formControlName="pays_devise" [readonly]="true" value="listPays.find(p => p.name === country.name)).currencies[0].code)" type="text" nbInput fullWidth id="pays_devise" >
+              </div>
+            </div>      
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="" class="label">Libelle Court</label>
+                <input  formControlName="pays_libellecourt" [readonly]="true" value="listPays.find(p => p.name === event)).alpha2Code" type="text" nbInput fullWidth id="pays_libellecourt" >
+              </div>
+            </div>     
+            <div class="col-sm-4">                
+                  <div class="form-group">
+                      <label selected="1" class="label">Multi devise <span style="color:red;">*</span></label>
+                      <nb-select (selectedChange)="onChangeDevise($event)"  fullWidth id="pays_multidevise" >
+                        <nb-option value="true">OUI</nb-option>
+                        <nb-option value="false">NON</nb-option>
+                      </nb-select>
+                  </div>                  
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label  class="label">Multil langue <span style="color:red;">*</span></label>
+                <nb-select (selectedChange)="onChange($event)" fullWidth id="pays_multillangue" >
+                    <nb-option value="true">OUI</nb-option>
+                    <nb-option value="false">NON</nb-option>
+                  </nb-select>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                  <label for="" class="label">Nationalité<span style="color:red;">*</span></label>
+                  <input formControlName="pays_nationalite" [readonly]="true" value='listPays.find(p => p.name === event)).demonym' type="text" nbInput fullWidth id="pays_nationalite" >
+              </div>
+            </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="" class="label">Date Modification<span style="color:red;">*</span></label>
+                  <input formControlName="pays_datemodification" type="datetime-local" nbInput fullWidth id="pays_datemodification" >
+              </div>
+            </div>
+         </div>
+          <nb-card-footer>
+            <button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+            &nbsp;&nbsp;<button nbButton status="success" (click)="submit()"  [disabled]='!addForm.valid'>Ajouter</button>
+          </nb-card-footer>
+        </nb-card-body>
+      </nb-card-->
+
+
+
+      <div class="col-lg-4">
+        <nb-card>
+          <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Ajout Pays</nb-card-header>
+        </nb-card>
+      </div>
+
+      <br>
+      
+    <div class="tabs">
+      <input type="radio" name="tabs" id="tabone" checked="checked">
+      <label for="tabone" class="lab">INFORMATION</label>
+      <div class="tab">
+        <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label  class="label">Libelle long<span style="color:red;">*</span></label>
+                <!--nb-select (selectedChange)="onChangeLibele($event)" fullWidth>                    
+                  <nb-option value="{{country.name}}" *ngFor="let country of listPays">{{country.name}}</nb-option>  
+                </nb-select-->
+                            <mat-select class="form-control" [formControl]="paysCtrl" placeholder="choisir le pays"
+                                (selectionChange)="onChangeLibele($event)" fullWidth
+                                id="pays_libellelong" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="paysFilterCtrl">
+                                    </ngx-mat-select-search>
+                                </mat-option>
+                      
+                                <mat-option  value="{{country.name}}"
+                                    *ngFor="let country of filteredPays | async">
+                                    {{country.name}}
+                                </mat-option>
+                            </mat-select>
+                </div> 
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <label class="label">Numero</label>                
+                <input fieldSize="small" formControlName="pays_code" [readonly]="true" value="listPays.find(p => p.name === event)).callingCodes" type="text" nbInput fullWidth id="pays_code" >
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <label for="" class="label">Code CIMA</label>
+                <input fieldSize="small" formControlName="pays_codecima" [readonly]="true" value="listPays.find(p => p.name === event)).alpha2Code" type="text" nbInput fullWidth id="pays_codecima" >
+              </div>
+            </div>
+        </div>
+        <div class="row">
+          
+          <div class="col-sm-2">
+              <div class="form-group">
+                <label for="" class="label">Devise</label>
+                <input  formControlName="pays_devise" [readonly]="true" value="listPays.find(p => p.name === country.name)).currencies[0].code)" type="text" nbInput fullWidth id="pays_devise" >
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="" class="label">Libelle Court</label>
+                <input  formControlName="pays_libellecourt" [readonly]="true" value="listPays.find(p => p.name === event)).alpha2Code" type="text" nbInput fullWidth id="pays_libellecourt" >
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="" class="label">Nationalité<span style="color:red;">*</span></label>
+                <input formControlName="pays_nationalite" [readonly]="true" value='listPays.find(p => p.name === event)).demonym' type="text" nbInput fullWidth id="pays_nationalite" >
+              </div>
+          </div> 
+      </div>
+    </div>  
+      <input type="radio" name="tabs" id="tabtwo">
+      <label for="tabtwo" class="lab">Autres</label>
+      <div class="tab">
+        <div class="row">
+            <div class="col-sm-2">
+              <div class="form-group">
+                <label selected="1" class="label">Multi devise <span style="color:red;">*</span></label>
+                <nb-select (selectedChange)="onChangeDevise($event)"  fullWidth id="pays_multidevise" >
+                  <nb-option value="true">OUI</nb-option>
+                  <nb-option value="false">NON</nb-option>
+                </nb-select>
+            </div>                      
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <label  class="label">Multil langue <span style="color:red;">*</span></label>
+                <nb-select (selectedChange)="onChange($event)" fullWidth id="pays_multillangue" >
+                    <nb-option value="true">OUI</nb-option>
+                    <nb-option value="false">NON</nb-option>
+                  </nb-select>
+              </div>                         
+           </div>
+        </div>
+    </div>        
+</div>
+      
+      <br>
+      
+      
+      <div>
+        <button nbButton status="success" (click)="submit()" [disabled]='!addForm.valid'>Ajouter</button>
+        &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+    </div>
+    </form>
+  </div>
+  
+  <div *ngIf="check_fonct('c_pays')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+  </div>

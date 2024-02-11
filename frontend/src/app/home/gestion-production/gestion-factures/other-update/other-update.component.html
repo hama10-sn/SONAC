@@ -1,0 +1,1023 @@
+<div *ngIf="check_fonct('u_police')">
+    <form [formGroup]="addForm">
+        <div class="col-lg-12">
+            <nb-card>
+                <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Modification Autre police
+                </nb-card-header>
+                <nb-card-body>
+                    <div *ngIf="!showreadonly">
+                        <nb-alert status="danger" *ngIf="errorDateSub ">
+                            la date effet Renouvellement doit etre superieur a la date d'effect actuelle
+                        </nb-alert>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Client <span style="color:red;">*</span></label>
+                                <mat-select class="form-control" [formControl]="clientsCtrl"
+                                    placeholder="choisir un client" (selectionChange)="onChangeClient($event)" fullWidth
+                                    id="cont_numeroclient" #singleSelect>
+                                    <mat-option>
+                                        <ngx-mat-select-search placeholderLabel="recherche..."
+                                            noEntriesFoundLabel="aucune corespondance .."
+                                            [formControl]="clientsFilterCtrl">
+                                        </ngx-mat-select-search>
+                                    </mat-option>
+
+                                    <mat-option value="{{client.clien_numero}}"
+                                        *ngFor="let client of filteredClients | async">{{client.clien_numero}}:
+                                        {{client.clien_nom}}
+                                        {{client.clien_denomination}} {{client.clien_prenom}} {{ client.clien_sigle }}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="" class="label">Numero Police <span style="color:red;">*</span></label>
+                                <mat-select class="form-control" [formControl]="policeCtrl"
+                                    placeholder="choisir une police" (selectionChange)="onChangePolice($event)"
+                                    fullWidth id="dem_proiduit1" #singleSelect>
+
+                                    <mat-option>
+
+                                        <ngx-mat-select-search placeholderLabel="recherche..."
+                                            noEntriesFoundLabel="aucune corespondance .."
+                                            [formControl]="policeFilterCtrl"></ngx-mat-select-search>
+
+                                    </mat-option>
+
+
+
+                                    <mat-option *ngFor="let police of filteredPolice | async"
+                                        value="{{police.poli_numero}}">
+
+                                        {{police.poli_numero}}
+
+                                    </mat-option>
+
+                                </mat-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="label">Numero Facture <span style="color:red;">*</span></label>
+                                <mat-select class="form-control" [formControl]="factureCtrl"
+                                    placeholder="choisir une facture" (selectionChange)="onChangeFacture($event)"
+                                    fullWidth id="dem_proiduit1" #singleSelect>
+
+                                    <mat-option>
+
+                                        <ngx-mat-select-search placeholderLabel="recherche..."
+                                            noEntriesFoundLabel="aucune corespondance .."
+                                            [formControl]="factureFilterCtrl"></ngx-mat-select-search>
+
+                                    </mat-option>
+
+
+
+                                    <mat-option *ngFor="let facture of filteredFacture | async"
+                                        value="{{facture.fact_numacte}}">
+
+                                        {{facture.fact_numacte}}
+
+                                    </mat-option>
+
+                                </mat-select>
+
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-sm-3" *ngIf="typeModif == 1">
+                    <div class="form-group">
+                     
+                                  <label class="label">Type de modification <span style="color:red;">*</span></label>
+                    <nb-select  (selectedChange)="onChangeTypeModif($event)"  fullWidth  >
+                      <nb-option  value="1" >Correction Montant engagement</nb-option>
+                      <nb-option  value="2" >Modification date d'échéance seule</nb-option>
+                      <nb-option  value="3" >Modification date d'échéance avec modification contractuelle</nb-option>
+                        
+                    </nb-select>
+                    </div>
+                  </div> -->
+                        <!-- <div class="col-sm-3" *ngIf="typeModif == 2">
+                            <div class="form-group">
+
+                                <label class="label">Type de modification <span style="color:red;">*</span></label>
+                                <nb-select (selectedChange)="onChangeTypeModif($event)" [(selected)]="typeAvenant" fullWidth>
+                                    <nb-option value="5">Renouvellement de police</nb-option>
+
+                                </nb-select>
+                            </div>
+                        </div> -->
+                        <div class="col-sm-3">
+                            <div class="form-group">
+
+                                <label class="label">Type de modification <span style="color:red;">*</span></label>
+                                <nb-select (selectedChange)="onChangeTypeModif($event)" [(selected)]="typeAvenant"
+                                    fullWidth>
+                                    <nb-option value="5" *ngIf="typeModif == 2">Renouvellement de police</nb-option>
+                                    <nb-option value="7" *ngIf="typeModif == 3">Renouvellement de police</nb-option>
+                                    <nb-option value="6" *ngIf="typeModif == 3">Adjonction acheteurs</nb-option>
+                                    <nb-option value="8" *ngIf="typeModif == 3">Suppression acheteurs</nb-option>
+
+                                </nb-select>
+                            </div>
+                        </div>
+
+                    </div>
+                </nb-card-body>
+            </nb-card>
+            <button nbButton status="success" [disabled]='!addForm.valid' (click)="valider()">Valider</button>
+        </div>
+    </form>
+
+
+    <br><br>
+    <!-- <form [formGroup]="policeForm" *ngIf="(typeModif == 2 || typeModif == 3) && addForm.valid"> -->
+    <form [formGroup]="policeForm" *ngIf="addForm.valid">
+        <!-- <div class="col-lg-12"
+            *ngIf="showModifDateEcheanceSeule2 || isCorrectionEngagEcran || showModifDateEcheanceSeule">
+            <nb-card>
+                <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Information contractuelle Police
+                    N° {{ police?.poli_numero}}</nb-card-header>
+                <nb-card-body>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="" class="label">Code branche <span class="obligatoire">*</span></label>
+
+                                <nb-select [disabled]="showreadonly" [(selected)]="brancheSelected"
+                                    (selectedChange)="onChangeBranche($event)" fullWidth id="poli_branche">
+                                    <nb-option value="{{branche.branche_numero}}" *ngFor="let branche of branches">
+                                        {{branche.branche_numero}} : {{branche.branche_libelleLong}}
+                                    </nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="" class="label">Code catégorie <span class="obligatoire">*</span></label>
+
+                                <nb-select [disabled]="showreadonly" [(selected)]="categorieSelected"
+                                    (selectedChange)="onChangeCategorie($event)" fullWidth id="poli_categorie">
+                                    <nb-option value="{{categorie.categ_numero}}" *ngFor="let categorie of categoriess">
+                                        {{categorie.categ_numero}} : {{categorie.categ_libellelong}}
+                                    </nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="" class="label">code produit <span class="obligatoire">*</span></label>
+
+                                <nb-select [(selected)]="produitSelected" [disabled]="showreadonly" fullWidth
+                                    id="poli_codeproduit">
+                                    <nb-option value="{{produit.prod_numero}}" *ngFor="let produit of produitss">
+                                        {{produit.prod_numero}} : {{produit.prod_denominationlong}}
+                                    </nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="" class="label">Date effet <span class="obligatoire">*</span></label>
+                                <input [readonly]="showreadonly" fullWidth fieldSize="small"
+                                    formControlName="poli_dateeffetencours" type="datetime-local"
+                                    (focusout)="onFocusOutEventDateEffetEnCours()" nbInput id="poli_dateeffetencours">
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="" class="label">Date échéance <span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" formControlName="poli_dateecheance"
+                                    [readonly]="showModifDateEcheanceSeule2 || isCorrectionEngagEcran"
+                                    type="datetime-local" (change)="onChangeDateEcheance($event.target.value)" nbInput
+                                    id="poli_dateecheance">
+                            </div>
+                        </div>
+                        <div class="col-sm-3" *ngIf="showErrorvalidEcheance">
+                            <br><br>
+                            <p style="color: red ;" *ngIf="!validEcheance">la nouvelle date d'echeance doit etre
+                                supérieur à l'ancienne date d'echeance </p>
+                        </div>
+
+                        <div class="col-sm-3" *ngIf="showModifDateEcheanceSeule2">
+                            <div class="form-group">
+
+                                <label class="label">Periode :<span style="color:red;">*</span></label>
+                                <nb-select (selectedChange)="onChangePeriode($event)" fullWidth>
+                                    <nb-option value="2">Trimestiel</nb-option>
+                                    <nb-option value="4">prorata</nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3" *ngIf="showNbJours">
+                            <div class="form-group">
+                                <label for="" class="label">Nb jours <span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" (change)="onChangeNbJours($event.target.value)"
+                                    min="0" type="number" nbInput>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="" class="label">Capital Assuré <span class="obligatoire">*</span></label>
+                                <input [readonly]="!isCorrectionEngagEcran"
+                                    (change)="onChangeCapAssure($event.target.value)" fullWidth fieldSize="small"
+                                    type="text" min="0" value="{{ acte?.act_capitalassure | ngxNumberWithCommas}}"
+                                    nbInput>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="" class="label">Capital SMP <span class="obligatoire">*</span></label>
+                                <input [readonly]="!isCorrectionEngagEcran"
+                                    (change)="onChangeCapSMP($event.target.value)" fullWidth fieldSize="small"
+                                    type="text" value="{{ acte?.act_capitalsmp  |ngxNumberWithCommas}}" min="0" nbInput>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="" class="label">Capital LCI <span class="obligatoire">*</span></label>
+                                <input [readonly]="!isCorrectionEngagEcran"
+                                    (change)="onChangeCapLCI($event.target.value)" fullWidth fieldSize="small"
+                                    type="text" value="{{ acte?.act_capitallci | ngxNumberWithCommas}}" min="0" nbInput>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="row" *ngIf="isCorrectionEngagEcran">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+
+                                <label class="label">Voullez vous retarifer ??</label>
+                                <nb-select (selectedChange)="onChangeSiRetarif($event)" fullWidth>
+                                    <nb-option value="1">OUI</nb-option>
+                                    <nb-option value="2">NON</nb-option>
+
+
+                                </nb-select>
+                            </div>
+                        </div>
+                    </div>
+                </nb-card-body>
+            </nb-card>
+
+        </div> <br> -->
+
+
+        <div class="col-lg-12" *ngIf="renouvelPolice">
+            <nb-card>
+                <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Information contractuelle Police
+                    N° {{ police?.poli_numero}}</nb-card-header>
+                <nb-card-body>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="" class="label">Code branche <span class="obligatoire">*</span></label>
+
+                                <nb-select [disabled]="showreadonly" [(selected)]="brancheSelected"
+                                    (selectedChange)="onChangeBranche($event)" fullWidth id="poli_branche">
+                                    <nb-option value="{{branche.branche_numero}}" *ngFor="let branche of branches">
+                                        {{branche.branche_numero}} : {{branche.branche_libelleLong}}
+                                    </nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="" class="label">Code catégorie <span class="obligatoire">*</span></label>
+
+                                <nb-select [disabled]="showreadonly" [(selected)]="categorieSelected"
+                                    (selectedChange)="onChangeCategorie($event)" fullWidth id="poli_categorie">
+                                    <nb-option value="{{categorie.categ_numero}}" *ngFor="let categorie of categoriess">
+                                        {{categorie.categ_numero}} : {{categorie.categ_libellelong}}
+                                    </nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="" class="label">code produit <span class="obligatoire">*</span></label>
+
+                                <nb-select [(selected)]="produitSelected" [disabled]="showreadonly" fullWidth
+                                    id="poli_codeproduit">
+                                    <nb-option value="{{produit.prod_numero}}" *ngFor="let produit of produitss">
+                                        {{produit.prod_numero}} : {{produit.prod_denominationlong}}
+                                    </nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="" class="label">Date effet <span class="obligatoire">*</span></label>
+                                <input [readonly]="showreadonly" fullWidth fieldSize="small"
+                                    formControlName="poli_dateeffetencours" type="datetime-local"
+                                    (focusout)="onFocusOutEventDateEffetEnCours()" nbInput id="poli_dateeffetencours">
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="" class="label">Date échéance <span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" formControlName="poli_dateecheance"
+                                    [readonly]="showModifDateEcheanceSeule2 || isCorrectionEngagEcran"
+                                    type="datetime-local" (change)="onChangeDateEcheance($event.target.value)" nbInput
+                                    id="poli_dateecheance">
+                            </div>
+                        </div>
+                        <div class="col-sm-3" *ngIf="showErrorvalidEcheance">
+                            <br><br>
+                            <p style="color: red ;" *ngIf="!validEcheance">la nouvelle date d'echeance doit etre
+                                supérieur à l'ancienne date d'echeance </p>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+
+                                <label class="label">Periode :<span style="color:red;">*</span></label>
+                                <nb-select (selectedChange)="onChangePeriode($event)" fullWidth>
+                                    <nb-option value="1">Annuel</nb-option>
+                                    <nb-option value="2">Trimestiel</nb-option>
+                                    <nb-option value="3">semestriel</nb-option>
+                                    <nb-option value="4">prorata</nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3" *ngIf="showNbJours">
+                            <div class="form-group">
+                                <label for="" class="label">Nb jours <span class="obligatoire">*</span></label>
+                                <input fullWidth fieldSize="small" (change)="onChangeNbJours($event.target.value)"
+                                    min="0" type="number" nbInput>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </nb-card-body>
+            </nb-card>
+
+        </div> <br>
+
+
+        <div class="col-lg-12" *ngIf="ajoutAcheteurs">
+            <nb-card>
+                <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Information contractuelle Police
+                    N° {{ police?.poli_numero}}</nb-card-header>
+                <nb-card-body>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="label">Nouveau Montant acte <span class="obligatoire">*</span></label>
+                            <input fullWidth fieldSize="small" type="text" nbInput 
+                            (change)="onChangeMontantCapital($event)" [value]="newMontCapi | ngxNumberWithCommas">
+                        </div>
+                    </div>
+                    <fieldset class="fieldset">
+                        <legend class="tailleLegend">Acheteurs</legend>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label class="label">Nombre d' acheteurs <span class="obligatoire">*</span></label>
+                                    <input min="0" fullWidth fieldSize="small" type="number" nbInput
+                                        (change)="onChangeNbAcheteur($event)">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3"><br>
+                                <button nbButton status="success" [disabled]="!addacheteur"
+                                    (click)="ajoutAcheteur(dialog)">Ajout d'un acheteur</button>
+                            </div>
+
+                        </div>
+                        <p *ngIf="!addacheteur" style="color: red;">Nombre d'acheteurs atteint</p>
+                        <div *ngIf="produitSelected == '14001001'">
+
+
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <label for="">Nom Acheteur</label>
+
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="">Prenom Acheteur</label>
+
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="">Montant Crédit</label>
+
+                                </div>
+                                <div class="col-sm-2">
+                                    <label for=""> Nbre écheance</label>
+
+                                </div>
+                            </div>
+                            <div class="row" *ngFor="let lot of myForm.get('acheteurs')['controls'];let i = index">
+                                <div class="col-sm-2">
+
+                                    <nb-list>
+                                        <nb-list-item>
+                                            {{ lot.get('achet_nom').value}}
+                                        </nb-list-item>
+                                    </nb-list>
+                                </div>
+                                <div class="col-sm-3">
+
+                                    <nb-list>
+                                        <nb-list-item>
+                                            {{ lot.get('achet_prenom').value }}
+                                        </nb-list-item>
+                                    </nb-list>
+                                </div>
+                                <div class="col-sm-3">
+
+                                    <nb-list>
+                                        <nb-list-item>
+                                            {{ lot.get('achet_montantcredit').value | ngxNumberWithCommas}} F
+                                        </nb-list-item>
+                                    </nb-list>
+                                </div>
+                                <div class="col-sm-2">
+
+                                    <nb-list>
+                                        <nb-list-item>
+                                            {{ lot.get('achet_montantecheancecredit').value | ngxNumberWithCommas}}
+                                        </nb-list-item>
+                                    </nb-list>
+                                </div>
+                                <div class="col-sm-1">
+                                    <button nbButton status="danger" (click)="deleteAcheteur(i)">
+                                        <mat-icon>delete_outline</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">Capital Assuré total : {{newMontCapi |
+                                    ngxNumberWithCommas}} F</div>
+                                <div class="col-sm-6" style="color: red;" *ngIf="errorSomAcheteurs">le montant Total des montants
+                                    crédits doit etre égal au capital assuré saisi</div>
+                            </div>
+                        </div>
+                        <div *ngIf="produitSelected == '14002001'">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <label for="">Nom Acheteur</label>
+
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="">Prenom Acheteur</label>
+
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="">Montant Crédit</label>
+
+                                </div>
+                                <div class="col-sm-2">
+                                    <label for="">Duree Crédit</label>
+
+                                </div>
+
+                            </div>
+                            <div class="row" *ngFor="let lot of myForm.get('acheteurs')['controls'];let i = index">
+                                <div class="col-sm-2">
+
+                                    <nb-list>
+                                        <nb-list-item>
+                                            {{ lot.get('achet_nom').value}}
+                                        </nb-list-item>
+                                    </nb-list>
+                                </div>
+                                <div class="col-sm-3">
+
+                                    <nb-list>
+                                        <nb-list-item>
+                                            {{ lot.get('achet_prenom').value }}
+                                        </nb-list-item>
+                                    </nb-list>
+                                </div>
+                                <div class="col-sm-3">
+
+                                    <nb-list>
+                                        <nb-list-item>
+                                            {{ lot.get('achet_montantcredit').value | ngxNumberWithCommas}} F
+                                        </nb-list-item>
+                                    </nb-list>
+                                </div>
+                                <div class="col-sm-2">
+
+                                    <nb-list>
+                                        <nb-list-item>
+                                            {{ lot.get('achet_duree').value | ngxNumberWithCommas}} jours
+                                        </nb-list-item>
+                                    </nb-list>
+                                </div>
+
+                                <div class="col-sm-1">
+                                    <button nbButton status="danger" (click)="deleteAcheteur(i)">
+                                        <mat-icon>delete_outline</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-5">Capital Assuré total : {{newMontCapi |
+                                    ngxNumberWithCommas}} F</div>
+                                <div class="col-sm-7" style="color: red;" *ngIf="errorCred">le montant Total des montants
+                                    crédits doit etre égal au capital assuré saisi</div>
+                            </div>
+                        </div>
+                        <div *ngIf="produitSelected == '14003001'">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <label for="">Nom Acheteur</label>
+
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="">Prenom Acheteur</label>
+
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="">Montant Crédit</label>
+
+                                </div>
+                                <div class="col-sm-2">
+                                    <label for="">Duree Crédit</label>
+
+                                </div>
+
+                            </div>
+                            <div class="row" *ngFor="let lot of myForm.get('acheteurs')['controls'];let i = index">
+                                <div class="col-sm-2">
+
+                                    <nb-list>
+                                        <nb-list-item>
+                                            {{ lot.get('achet_nom').value}}
+                                        </nb-list-item>
+                                    </nb-list>
+                                </div>
+                                <div class="col-sm-3">
+
+                                    <nb-list>
+                                        <nb-list-item>
+                                            {{ lot.get('achet_prenom').value }}
+                                        </nb-list-item>
+                                    </nb-list>
+                                </div>
+                                <div class="col-sm-3">
+
+                                    <nb-list>
+                                        <nb-list-item>
+                                            {{ lot.get('achet_montantcredit').value | ngxNumberWithCommas}} F
+                                        </nb-list-item>
+                                    </nb-list>
+                                </div>
+                                <div class="col-sm-2">
+
+                                    <nb-list>
+                                        <nb-list-item>
+                                            {{ lot.get('achet_duree').value | ngxNumberWithCommas}} jours
+                                        </nb-list-item>
+                                    </nb-list>
+                                </div>
+
+                                <div class="col-sm-1">
+                                    <button nbButton status="danger" (click)="deleteAcheteur(i)">
+                                        <mat-icon>delete_outline</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">Capital Assuré total : {{newMontCapi |
+                                    ngxNumberWithCommas}} F</div>
+                                <div class="col-sm-6" style="color: red;" *ngIf="errorSomAcheteurs">le montant Total des montants
+                                    crédits doit etre égal au capital assuré saisi</div>
+                            </div>
+                        </div>
+                        <div *ngIf="produitSelected == '16008001'">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <label for="">Nom locataire</label>
+
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="">Prenom locataire</label>
+
+                                </div>
+                                <div class="col-sm-2">
+                                    <label for="">Montant Loyer Mensuel</label>
+
+                                </div>
+                                <div class="col-sm-2">
+                                    <label for="">type bail </label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label for="">duree bail </label>
+                                </div>
+
+                            </div>
+                            <div class="row" *ngFor="let lot of myForm.get('acheteurs')['controls'];let i = index">
+                                <div class="col-sm-2">
+
+                                    <nb-list>
+                                        <nb-list-item>
+                                            {{ lot.get('achet_nom').value}}
+                                        </nb-list-item>
+                                    </nb-list>
+                                </div>
+                                <div class="col-sm-3">
+
+                                    <nb-list>
+                                        <nb-list-item>
+                                            {{ lot.get('achet_prenom').value }}
+                                        </nb-list-item>
+                                    </nb-list>
+                                </div>
+                                <div class="col-sm-2">
+
+                                    <nb-list>
+                                        <nb-list-item>
+                                            {{ lot.get('achet_montant_loyer').value | ngxNumberWithCommas}} F
+                                        </nb-list-item>
+                                    </nb-list>
+                                </div>
+                                <div class="col-sm-2">
+
+                                    <nb-list>
+                                        <nb-list-item>
+                                            {{ lot.get('achet_bail').value }}
+                                        </nb-list-item>
+                                    </nb-list>
+                                </div>
+                                <div class="col-sm-2">
+
+                                    <nb-list>
+                                        <nb-list-item>
+                                            {{ lot.get('achet_duree_bail').value }} mois
+                                        </nb-list-item>
+                                    </nb-list>
+                                </div>
+
+                                <div class="col-sm-1">
+                                    <button nbButton status="danger" (click)="deleteAcheteur(i)">
+                                        <mat-icon>delete_outline</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-5">Capital Assuré total : {{newMontCapi |
+                                    ngxNumberWithCommas}} F</div>
+                                <div class="col-sm-7" style="color: red;" *ngIf="errorCred">le montant Total des montants
+                                    crédits doit etre égal au capital assuré saisi</div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="label">Tarification conventionnelle</label>
+                                    <nb-select (selectedChange)="onChangeTarifConventionnelle($event)" selected="non"
+                                        fullWidth>
+                                        <nb-option value="oui">oui</nb-option>
+                                        <nb-option value="non">non</nb-option>
+                                    </nb-select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3" *ngIf="showTauxPreferentielle">
+                                <div class="form-group">
+                                    <label class="label">Taux prérentiel (en %)</label>
+                                    <input fullWidth fieldSize="small" type="number" nbInput
+                                        (change)="onChangeTauxPreferentielle($event)">
+                                    <span class="messageTauxPref" *ngIf="afficheMesssageTauxPref">Vous avez saisi
+                                        {{tauxPreferentiel}} %</span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <br>
+
+                                <button nbButton status="primary" (click)="tariferAjoutAcheteur()">tarifier</button>
+                            </div>
+                        </div>
+
+
+                        <br>
+                        <div class="row" *ngIf="tarifA">
+                            <div class="col-lg-3">
+                                <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">TAUX PRODUIT :</p>
+                                <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">TAUX COMMISSION :</p>
+                                <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">MONTANT COMMISSION :
+                                </p>
+                            </div>
+                            <div class="col-lg-3" style="text-align:right ;">
+                                <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;"><span>{{tauxAp}}
+                                        %</span></p>
+                                <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;"><span>{{tauxCom }}
+                                        %</span></p>
+                                <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">
+                                    <span>{{commissionsapporteur1 | ngxNumberWithCommas}} F CFA</span>
+                                </p>
+                            </div>
+                            <div class="col-lg-3">
+                                <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">Prime NETTE :</p>
+                                <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">FRAIS ACCESSOIRE :
+                                </p>
+                                <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">TAXE D'ASSURANCE :
+                                </p>
+                                <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">PRIME TTC :</p>
+                            </div>
+                            <div class="col-lg-3" style="text-align:right ;">
+                                <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;"><span>{{primenette |
+                                        ngxNumberWithCommas}} F CFA</span></p>
+                                <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">
+                                    <span>{{accessoirecompagnie + accessoireapporteur | ngxNumberWithCommas}} F
+                                        CFA</span>
+                                </p>
+                                <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;"><span>{{taxeTE |
+                                        ngxNumberWithCommas}} F CFA</span></p>
+                                <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;"><span
+                                        style="font-weight: bold;">{{primebrute | ngxNumberWithCommas}} F CFA</span></p>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+
+                </nb-card-body>
+            </nb-card>
+
+        </div> <br>
+
+
+
+        <div class="col-lg-12" *ngIf="delAcheteur">
+            <mat-card>
+                <div fxLayout fxLayoutAlign="center center">
+                    <mat-form-field fxFlex="40%">
+                        <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+                    </mat-form-field>
+                    <mat-card-header class="card-header">
+                        <span class="header">La liste des acheteurs de la Police N° {{ police?.poli_numero}}</span>
+
+                    </mat-card-header>
+
+                </div>
+                <table mat-table [dataSource]="dataSource" matSort>
+                    <ng-container matColumnDef="achet_numero">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Numero </th>
+                        <td mat-cell *matCellDef="let acheteur"> {{acheteur.achet_numero}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="achet_numeroclient">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> client</th>
+                        <td mat-cell *matCellDef="let acheteur"> {{onGetLibelleByClient(acheteur.achet_numeroclient)}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="achet_numeroaffaire">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Police </th>
+                        <td mat-cell *matCellDef="let acheteur"> {{acheteur.achet_numeroaffaire}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="achet_type">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> type </th>
+                        <td mat-cell *matCellDef="let acheteur"> {{acheteur.achet_type}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="details">
+                        <th mat-header-cell *matHeaderCellDef>
+
+                        </th>
+                        <td mat-cell *matCellDef="let acheteur">
+                            <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">
+                                <mat-icon class="mat-18">more_vert</mat-icon>
+                            </button>
+                            <mat-menu #detail="matMenu">
+                                <button mat-menu-item (click)="open(dialog ,acheteur)">
+                                    <mat-icon>reorder</mat-icon>Détail
+                                </button>
+                                <button mat-menu-item (click)="open(dialogdel ,acheteur)">
+                                    <mat-icon class="mat-18" color="warn">delete
+                                    </mat-icon>Delete
+                                </button>
+                            </mat-menu>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                </table>
+                <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10, 15, 20]">
+                </mat-paginator>
+
+
+
+                <ng-template #dialogdel let-acheteur let-ref="dialogRef">
+
+                    <nb-card>
+                        <nb-card-header>
+                            SUPPRESSION
+                        </nb-card-header>
+                        <nb-card-body>
+                            <div *ngIf="onChechId(acheteur.achet_numero)==1">
+                                <h5 class="grid-h">Confirmation de la suppression</h5>
+                            </div>
+                            <div *ngIf="onChechId(acheteur.achet_numero)==2">
+
+                                <h5 class="grid-h">Impossible de supprimer acheteur à un credit en cours</h5>
+                            </div>
+                            <div *ngIf="onChechId(acheteur.achet_numero)==4">
+
+                                <h5 class="grid-h">Impossible de supprimer acheteur est rattaché a un sinistre</h5>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <br>
+
+                                    <div></div><br>
+
+                                </div>
+
+                            </div>
+
+
+                        </nb-card-body>
+                        <nb-card-footer>
+                            <div *ngIf="onChechId(acheteur.achet_numero)==1">
+                                <button nbButton (click)="onDeleteAcheteur(acheteur.achet_numero)" (click)="ref.close()"
+                                    status="success">Confirmer</button>&nbsp;&nbsp;
+                                <button nbButton (click)="ref.close()" status="danger">Annuler</button>
+                            </div>
+                            <div *ngIf="onChechId(acheteur.achet_numero)==2 || onChechId(acheteur.achet_numero)==4 ">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button nbButton (click)="ref.close()" status="danger">OK</button>
+                            </div>
+                        </nb-card-footer>
+                    </nb-card>
+
+
+                </ng-template>
+
+                
+    <ng-template #dialog let-acheteur let-ref="dialogRef">
+
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white">
+        details acheteur
+      </nb-card-header>
+      <nb-card-body>
+        
+        <div class="row">
+          
+           
+              <div class="col-sm-3">
+                <h5 class="grid-h">Information</h5>
+                  <div><span class="detail">Numero  : </span>{{ acheteur.achet_numero }}</div><br>
+                  <div><span class="detail">Nom/Denomination  :</span> {{ acheteur.achet_nom }}</div><br>
+                  <div><span class="detail">Prenom : </span>{{ acheteur.achet_prenom }}</div><br>
+                  <div><span class="detail">Police : </span>{{ acheteur.achet_numeroaffaire }}</div><br>
+              </div>
+              <div class="col-sm-3">
+                  <div><span class="detail">Type acheteur : </span>{{ acheteur.achet_type }}</div><br>
+                  <div><span class="detail">Chiffre Affaire :</span> {{ acheteur.achet_chiffreaffaire }}</div><br>
+                  <div><span class="detail">Montant credit  :</span> {{ acheteur.achet_montantcredit }}</div><br>
+                  <div><span class="detail">Montant echeance :</span> {{ acheteur.achet_montantecheance }}</div><br>
+                  <div><span class="detail">Nombre echeance : </span>{{ acheteur.util_email }}</div><br>
+              </div>
+            </div>
+      </nb-card-body>
+      <nb-card-footer>
+          <button nbButton (click)="ref.close()" status="danger">Fermer</button>
+        </nb-card-footer>
+    </nb-card>
+    
+
+</ng-template>
+
+            </mat-card>
+        </div>
+
+        <!-- <div class="col-lg-12" *ngIf="showModifDateEcheanceSeule2 || affichTarif">
+            <nb-card>
+                <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Tarification</nb-card-header>
+                <nb-card-body>
+
+                    <div class="row">
+                        <div class="col-sm-3" *ngIf="showTraitement">
+                            <label class="label">Traitement :<span style="color:red;">*</span></label>
+                            <nb-select (selectedChange)="onChangeTraitement($event)" fullWidth>
+                                <nb-option value="1">Normal</nb-option>
+                                <nb-option value="2">Express</nb-option>
+
+                            </nb-select>
+                        </div>
+                        <div class="col-sm-6" *ngIf="showTypeCa">
+                            <label class="label">Type CA :<span style="color:red;">*</span></label>
+                            <nb-select (selectedChange)="onChangeTypeCa($event)" fullWidth>
+                                <nb-option value="CA_GLOBAL-prive">CA global < 500 millions (acheteur prive)</nb-option>
+                                        <nb-option value="CA_GLOBAL-prive">CA global > 500 millions (acheteur prive)
+                                        </nb-option>
+                                        <nb-option value="CA_PARTIEL-prive">CA partiel (acheteur prive)</nb-option>
+                                        <nb-option value="CA_CAS-prive">CA cas/cas (acheteur prive)</nb-option>
+                                        <nb-option value="CA_GLOBAL-public">CA global (acheteur public)</nb-option>
+                                        <nb-option value="CA_PARTIEL-public">CA partiel (acheteur public)</nb-option>
+                                        <nb-option value="CA_PAYS-public">CA par pays (acheteur public)</nb-option>
+                            </nb-select>
+                        </div>
+                        <div class="col-sm-3" *ngIf="showTypeCa">
+                            <label class="label">Type risque :<span style="color:red;">*</span></label>
+                            <nb-select (selectedChange)="onChangeTypeRisque($event)" fullWidth>
+                                <nb-option value="RC">Commercial</nb-option>
+                                <nb-option value="RP">Politique</nb-option>
+                                <nb-option value="RM">Mixte</nb-option>
+                            </nb-select>
+                        </div>
+                       
+                        <div class="col-sm-3">
+                            <br>
+
+                            <button nbButton status="primary" (click)="tarifer()">Retarifer</button>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row" *ngIf="tarif != null">
+                        <div class="col-lg-3">
+                            <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">TAUX PRODUIT :</p>
+                            <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">TAUX COMMISSION :</p>
+                            <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">MONTANT COMMISSION :</p>
+                        </div>
+                        <div class="col-lg-3" style="text-align:right ;">
+                            <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">
+                                <span>{{tarif?.tauxProduit}} %</span>
+                            </p>
+                            <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">
+                                <span>{{tarif?.tauxCommission }} %</span>
+                            </p>
+                            <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">
+                                <span>{{tarif?.montantCommission | ngxNumberWithCommas}} F CFA</span>
+                            </p>
+                        </div>
+                        <div class="col-lg-3">
+                            <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">Prime NETTE :</p>
+                            <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">FRAIS ACCESSOIRE :</p>
+                            <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">TAXE D'ASSURANCE :</p>
+                            <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">PRIME TTC :</p>
+                        </div>
+                        <div class="col-lg-3" style="text-align:right ;">
+                            <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;"><span>{{tarif?.primeNette
+                                    | ngxNumberWithCommas}} F CFA</span></p>
+                            <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">
+                                <span>{{tarif?.accessoireCompagnie + tarif?.accessoireapporteur | ngxNumberWithCommas}}
+                                    F CFA</span>
+                            </p>
+                            <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;">
+                                <span>{{tarif?.montantTaxe | ngxNumberWithCommas}} F CFA</span>
+                            </p>
+                            <p style="font-size: 16px;padding-top: 10px;padding-bottom: 10px;"><span
+                                    style="font-weight: bold;">{{tarif?.primeTTC | ngxNumberWithCommas}} F CFA</span>
+                            </p>
+                        </div>
+                    </div>
+
+
+                </nb-card-body>
+            </nb-card>
+            <button *ngIf="showModifDateEcheanceSeule2" (click)="validerEcheance2()" nbButton status="success"
+                [disabled]="!validbuttonecheance2">Modifier police </button>
+        </div> -->
+
+        <!-- &nbsp;&nbsp;&nbsp;&nbsp;<button *ngIf="showModifDateEcheanceSeule" nbButton status="success"
+            (click)="reemettreEcheanceSeule()" [disabled]="!validEcheance">Modifier police </button>
+        &nbsp;&nbsp;&nbsp;&nbsp;<button *ngIf="isCorrectionEngagEcran" nbButton status="success"
+            (click)="modifPoliceCorrectionEngag()" [disabled]="!validButtonCorrectionEngag">Modifier police </button> -->
+        <button *ngIf="renouvelPolice" nbButton status="success" (click)="reemettreEcheanceSeule()">Renouveler police
+        </button>
+        <button *ngIf="ajoutAcheteurs" [disabled]="!myForm.valid && !policeForm.valid" nbButton status="success" (click)="ajoutAcheteurPolice()"> Ajouter les acheteurs
+        </button>
+        <br><br><br>
+
+    </form>
+</div>
+<div *ngIf="check_fonct('c_police')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

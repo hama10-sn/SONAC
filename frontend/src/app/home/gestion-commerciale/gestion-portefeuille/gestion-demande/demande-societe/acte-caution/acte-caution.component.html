@@ -1,0 +1,1735 @@
+<div>
+    
+      <div class="col-lg-4">
+        <nb-card>
+          <nb-card-header style="background-color: rgb(7, 66, 124);color:white">{{title}}</nb-card-header>
+        </nb-card>
+      </div>
+  
+      
+      <br>
+      <div class="tabs">
+
+        <input type="radio" name="tabs" id="tabonefive" checked="checked">
+        <label for="tabonefive" class="lab">ACTE : CAUTION {{produit1}} </label>
+        <div class="tab">
+
+          <!--DEBUT SOUMISSION-->
+
+          <form [formGroup]="addForm2" *ngIf="produit1=='SOUMISSION'">
+            <h5>Soumission</h5>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">Numéro acte<span class="obligatoire">*</span></label><br>
+                  <input  cols="30" rows="4" fieldSize="small" formControlName="acte_titre" type="text" nbInput fullWidth
+                  id="acte_titre">
+                </div>
+              </div>
+              <!--div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">Demande d'appel d'offre<span class="obligatoire">*</span></label><br>
+                  <input  cols="30" rows="4" fieldSize="small" formControlName="acte_dao" type="text" nbInput fullWidth
+                  id="acte_dao">
+                </div>
+              </div-->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">Description bénéficiaire<span class="obligatoire">*</span></label><br>
+                  <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_beneficiaire" type="text" nbInput fullWidth
+                  id="acte_beneficiaire"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">Date acte<span class="obligatoire">*</span></label><br>
+                  <input fieldSize="small" formControlName="acte_date" type="date" nbInput fullWidth
+                  id="acte_date">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">Numéro du marché<span class="obligatoire">*</span></label><br>
+                  <input fieldSize="small" formControlName="acte_numero_marche" type="text" nbInput fullWidth
+                  id="acte_numero_marche">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">Date du marché<span class="obligatoire">*</span></label><br>
+                  <input fieldSize="small" formControlName="acte_date_info" type="date" nbInput fullWidth
+                  id="acte_date_info">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <!--div class="col-sm-3">
+                <div class="form-group">
+                  <label class="label">Numéro compte du marché<span class="obligatoire">*</span></label><br>
+                  <input fieldSize="small" formControlName="acte_numero_compte" type="text" nbInput fullWidth
+                  id="acte_numero_compte">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="label">Banque du marché<span class="obligatoire">*</span></label><br>
+                  <input fieldSize="small" formControlName="acte_banque" type="text" nbInput fullWidth
+                  id="acte_banque">
+                </div>
+              </div-->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">Numéro agrément<span class="obligatoire">*</span></label><br>
+                  <input fieldSize="small" formControlName="acte_numero_agrement" type="text" nbInput fullWidth
+                  id="acte_numero_agrement">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">Date expiration agrément<span class="obligatoire">*</span></label><br>
+                  <input fieldSize="small" formControlName="acte_date_expiration" type="date" nbInput fullWidth
+                  id="acte_date_expiration">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">Description appel d'offre<span class="obligatoire">*</span></label><br>
+                  <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_description_travaux" type="text" nbInput fullWidth
+                  id="acte_description_travaux"></textarea>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">Description lot(s)<span class="obligatoire">*</span></label><br>
+                  <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_lots" type="text" nbInput fullWidth
+                  id="acte_lots"></textarea>
+                </div>
+              </div>
+            </div>
+            <div><button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+              &nbsp;&nbsp;<button *ngIf="!havesoumission && candidateToModifyacte" nbButton status="success" (click)="onExportActeSoumission(demandeSociete)" [disabled]='!addForm2.valid'  >Exporter et enregistrer acte soumission</button>
+              &nbsp;&nbsp;<button *ngIf="havesoumission && candidateToModifyacte" nbButton status="success"  (click)="onExportActeSoumission(demandeSociete)" [disabled]='!addForm2.valid'  >Exporter et modifier acte soumission</button>
+              &nbsp;&nbsp;<button *ngIf="havesoumission" nbButton status="success"  (click)="onExportActeSoumissionbis(demandeSociete)" [disabled]='!addForm2.valid'  >Exporter acte soumission</button>
+            </div>
+          </form>
+
+          <!--FIN SOUMISSION-->
+
+          <!--DEBUT AVANCE DE DEMARRAGE-->
+          <form [formGroup]="addForm" *ngIf="produit1=='AVANCE DE DEMARRAGE'">
+            <h5>Avance de démarrage</h5>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro acte<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_titre" type="text" nbInput fullWidth
+                id="acte_titre">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Demande d'appel d'offre<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_dao" type="text" nbInput fullWidth
+                id="acte_dao">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Description bénéficiaire<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_beneficiaire" type="text" nbInput fullWidth
+                id="acte_beneficiaire"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date acte<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date" type="date" nbInput fullWidth
+                id="acte_date">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_marche" type="text" nbInput fullWidth
+                id="acte_numero_marche">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_info" type="date" nbInput fullWidth
+                id="acte_date_info">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Numéro compte du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_compte" type="text" nbInput fullWidth
+                id="acte_numero_compte">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Banque du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_banque" type="text" nbInput fullWidth
+                id="acte_banque">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Numéro agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_agrement" type="text" nbInput fullWidth
+                id="acte_numero_agrement">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Date expiration agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_expiration" type="date" nbInput fullWidth
+                id="acte_date_expiration">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label class="label">Description du marché<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_description_travaux" type="text" nbInput fullWidth
+                id="acte_description_travaux"></textarea>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+            &nbsp;&nbsp;<button *ngIf="!haveAvanceDemarrage && candidateToModifyacte" nbButton status="success" (click)="onExportActeAvanceDemarrage(demandeSociete)" [disabled]='!addForm.valid'  >Exporter et enregistrer acte avance démarrage</button>
+            &nbsp;&nbsp;<button *ngIf="haveAvanceDemarrage && candidateToModifyacte" nbButton status="success"  (click)="onExportActeAvanceDemarrage(demandeSociete)" [disabled]='!addForm.valid'  >Exporter et modifier acte avance démarrage</button>
+            &nbsp;&nbsp;<button *ngIf="haveAvanceDemarrage" nbButton status="success"  (click)="onExportActeAvanceDemarragebis(demandeSociete)" [disabled]='!addForm.valid'  >Exporter acte avance démarrage</button>
+          </div>
+        </form>
+
+        <!--FIN AVANCE DE DEMARRAGE-->
+
+        <!--DEBUT BONNE EXECUTION-->
+        <form [formGroup]="addForm4" *ngIf="produit1=='BONNE EXECUTION'">
+          <h5>Bonne exécution</h5>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro acte<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_titre" type="text" nbInput fullWidth
+                id="acte_titre">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Demande d'appel d'offre<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_dao" type="text" nbInput fullWidth
+                id="acte_dao">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Description bénéficiaire<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_beneficiaire" type="text" nbInput fullWidth
+                id="acte_beneficiaire"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date acte<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date" type="date" nbInput fullWidth
+                id="acte_date">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_marche" type="text" nbInput fullWidth
+                id="acte_numero_marche">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_info" type="date" nbInput fullWidth
+                id="acte_date_info">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date expiration garantie<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_fin_garantie" type="date" nbInput fullWidth
+                id="acte_date_fin_garantie">
+              </div>
+            </div>
+            <!--div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Banque du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_banque" type="text" nbInput fullWidth
+                id="acte_banque">
+              </div>
+            </div-->
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_agrement" type="text" nbInput fullWidth
+                id="acte_numero_agrement">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date expiration agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_expiration" type="date" nbInput fullWidth
+                id="acte_date_expiration">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Description appel d'offre<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_description_travaux" type="text" nbInput fullWidth
+                id="acte_description_travaux"></textarea>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Description lot(s)<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_lots" type="text" nbInput fullWidth
+                id="acte_lots"></textarea>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+            &nbsp;&nbsp;<button *ngIf="!havebonneExecution && candidateToModifyacte" nbButton status="success" (click)="onExportActeBonneExecution(demandeSociete)" [disabled]='!addForm4.valid'  >Exporter et enregistrer acte bonne exécution</button>
+            &nbsp;&nbsp;<button *ngIf="havebonneExecution && candidateToModifyacte" nbButton status="success"  (click)="onExportActeBonneExecution(demandeSociete)" [disabled]='!addForm4.valid'  >Exporter et modifier acte bonne exécution</button>
+            &nbsp;&nbsp;<button *ngIf="havebonneExecution" nbButton status="success"  (click)="onExportActeBonneExecutionbis(demandeSociete)" [disabled]='!addForm4.valid'  >Exporter acte bonne exécution</button>
+          </div>
+        </form>
+        <!--BONNE EXECUTION FIN-->
+        
+
+        <!--RETENUE DE GARANTIE DEBUT-->
+
+        <form [formGroup]="addForm5" *ngIf="produit1=='RETENUE DE GARANTIE'">
+          <h5>Retenue de garantie</h5>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Numéro acte<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_titre" type="text" nbInput fullWidth
+                id="acte_titre">
+              </div>
+            </div>
+            <!--div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Demande d'appel d'offre<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_dao" type="text" nbInput fullWidth
+                id="acte_dao">
+              </div>
+            </div-->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Description bénéficiaire<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_beneficiaire" type="text" nbInput fullWidth
+                id="acte_beneficiaire"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date acte<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date" type="date" nbInput fullWidth
+                id="acte_date">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_marche" type="text" nbInput fullWidth
+                id="acte_numero_marche">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_info" type="date" nbInput fullWidth
+                id="acte_date_info">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <!--div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Numéro compte du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_compte" type="text" nbInput fullWidth
+                id="acte_numero_compte">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Banque du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_banque" type="text" nbInput fullWidth
+                id="acte_banque">
+              </div>
+            </div-->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Numéro agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_agrement" type="text" nbInput fullWidth
+                id="acte_numero_agrement">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Date expiration agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_expiration" type="date" nbInput fullWidth
+                id="acte_date_expiration">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label class="label">Description du marché<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_description_travaux" type="text" nbInput fullWidth
+                id="acte_description_travaux"></textarea>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+            &nbsp;&nbsp;<button *ngIf="!haveretenueGarantie && candidateToModifyacte" nbButton status="success" (click)="onExportActeRetenueGarantie(demandeSociete)" [disabled]='!addForm5.valid'  >Exporter et enregistrer acte retenue garantie</button>
+            &nbsp;&nbsp;<button *ngIf="haveretenueGarantie && candidateToModifyacte" nbButton status="success"  (click)="onExportActeRetenueGarantie(demandeSociete)" [disabled]='!addForm5.valid'  >Exporter et modifier acte retenue garantie</button>
+            &nbsp;&nbsp;<button *ngIf="haveretenueGarantie" nbButton status="success"  (click)="onExportActeRetenueGarantiebis(demandeSociete)" [disabled]='!addForm5.valid'  >Exporter acte retenue garantie</button>
+          </div>
+        </form>
+        <!--RETENUE DE GARANTIE FIN-->
+
+        <!--DEFINITIVE DEBUT-->
+
+        <form [formGroup]="addForm3" *ngIf="produit1=='DEFINITIVE'">
+          <h5>Définitive</h5>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro acte<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_titre" type="text" nbInput fullWidth
+                id="acte_titre">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Demande d'appel d'offre<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_dao" type="text" nbInput fullWidth
+                id="acte_dao">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Description bénéficiaire<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_beneficiaire" type="text" nbInput fullWidth
+                id="acte_beneficiaire"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date acte<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date" type="date" nbInput fullWidth
+                id="acte_date">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_marche" type="text" nbInput fullWidth
+                id="acte_numero_marche">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_info" type="date" nbInput fullWidth
+                id="acte_date_info">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <!--div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Numéro compte du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_compte" type="text" nbInput fullWidth
+                id="acte_numero_compte">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Banque du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_banque" type="text" nbInput fullWidth
+                id="acte_banque">
+              </div>
+            </div-->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Numéro agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_agrement" type="text" nbInput fullWidth
+                id="acte_numero_agrement">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Date expiration agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_expiration" type="date" nbInput fullWidth
+                id="acte_date_expiration">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label class="label">Description du marché<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_description_travaux" type="text" nbInput fullWidth
+                id="acte_description_travaux"></textarea>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+            &nbsp;&nbsp;<button *ngIf="!haveDefinitive && candidateToModifyacte" nbButton status="success" (click)="onExportActeDefinive(demandeSociete)" [disabled]='!addForm3.valid'  >Exporter et enregistrer acte définitive</button>
+            &nbsp;&nbsp;<button *ngIf="haveDefinitive && candidateToModifyacte" nbButton status="success"  (click)="onExportActeDefinive(demandeSociete)" [disabled]='!addForm3.valid'  >Exporter et modifier acte définitive</button>
+            &nbsp;&nbsp;<button *ngIf="haveDefinitive" nbButton status="success"  (click)="onExportActeDefinivebis(demandeSociete)" [disabled]='!addForm3.valid'  >Exporter acte définitive</button>
+          </div>
+        </form>
+
+        <!--DEFINITIVE FIN-->
+        </div>
+
+
+        <input type="radio" name="tabs" id="tabthree" *ngIf="produit2Existe" >
+        <label for="tabthree" class="lab" *ngIf="produit2Existe">ACTE : CAUTION {{produit2}}</label>
+        <div class="tab" *ngIf="produit2Existe">
+          <!--DEBUT SOUMISSION-->
+
+          <form [formGroup]="addForm2" *ngIf="produit2=='SOUMISSION'">
+            <h5>Soumission</h5>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">Numéro acte<span class="obligatoire">*</span></label><br>
+                  <input  cols="30" rows="4" fieldSize="small" formControlName="acte_titre" type="text" nbInput fullWidth
+                  id="acte_titre">
+                </div>
+              </div>
+              <!--div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">Demande d'appel d'offre<span class="obligatoire">*</span></label><br>
+                  <input  cols="30" rows="4" fieldSize="small" formControlName="acte_dao" type="text" nbInput fullWidth
+                  id="acte_dao">
+                </div>
+              </div-->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">Description bénéficiaire<span class="obligatoire">*</span></label><br>
+                  <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_beneficiaire" type="text" nbInput fullWidth
+                  id="acte_beneficiaire"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">Date acte<span class="obligatoire">*</span></label><br>
+                  <input fieldSize="small" formControlName="acte_date" type="date" nbInput fullWidth
+                  id="acte_date">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">Numéro du marché<span class="obligatoire">*</span></label><br>
+                  <input fieldSize="small" formControlName="acte_numero_marche" type="text" nbInput fullWidth
+                  id="acte_numero_marche">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">Date du marché<span class="obligatoire">*</span></label><br>
+                  <input fieldSize="small" formControlName="acte_date_info" type="date" nbInput fullWidth
+                  id="acte_date_info">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <!--div class="col-sm-3">
+                <div class="form-group">
+                  <label class="label">Numéro compte du marché<span class="obligatoire">*</span></label><br>
+                  <input fieldSize="small" formControlName="acte_numero_compte" type="text" nbInput fullWidth
+                  id="acte_numero_compte">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="label">Banque du marché<span class="obligatoire">*</span></label><br>
+                  <input fieldSize="small" formControlName="acte_banque" type="text" nbInput fullWidth
+                  id="acte_banque">
+                </div>
+              </div-->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">Numéro agrément<span class="obligatoire">*</span></label><br>
+                  <input fieldSize="small" formControlName="acte_numero_agrement" type="text" nbInput fullWidth
+                  id="acte_numero_agrement">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">Date expiration agrément<span class="obligatoire">*</span></label><br>
+                  <input fieldSize="small" formControlName="acte_date_expiration" type="date" nbInput fullWidth
+                  id="acte_date_expiration">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">Description appel d'offre<span class="obligatoire">*</span></label><br>
+                  <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_description_travaux" type="text" nbInput fullWidth
+                  id="acte_description_travaux"></textarea>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">Description lot(s)<span class="obligatoire">*</span></label><br>
+                  <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_lots" type="text" nbInput fullWidth
+                  id="acte_lots"></textarea>
+                </div>
+              </div>
+            </div>
+            <div><button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+              &nbsp;&nbsp;<button *ngIf="!havesoumission && candidateToModifyacte" nbButton status="success" (click)="onExportActeSoumission(demandeSociete)" [disabled]='!addForm2.valid'  >Exporter et enregistrer acte soumission</button>
+              &nbsp;&nbsp;<button *ngIf="havesoumission && candidateToModifyacte" nbButton status="success"  (click)="onExportActeSoumission(demandeSociete)" [disabled]='!addForm2.valid'  >Exporter et modifier acte soumission</button>
+              &nbsp;&nbsp;<button *ngIf="havesoumission" nbButton status="success"  (click)="onExportActeSoumissionbis(demandeSociete)" [disabled]='!addForm2.valid'  >Exporter</button>
+            </div>
+          </form>
+
+          <!--FIN SOUMISSION-->
+
+          <!--DEBUT AVANCE DE DEMARRAGE-->
+          <form [formGroup]="addForm" *ngIf="produit2=='AVANCE DE DEMARRAGE'">
+            <h5>Avance de démarrage</h5>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro acte<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_titre" type="text" nbInput fullWidth
+                id="acte_titre">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Demande d'appel d'offre<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_dao" type="text" nbInput fullWidth
+                id="acte_dao">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Description bénéficiaire<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_beneficiaire" type="text" nbInput fullWidth
+                id="acte_beneficiaire"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date acte<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date" type="date" nbInput fullWidth
+                id="acte_date">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_marche" type="text" nbInput fullWidth
+                id="acte_numero_marche">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_info" type="date" nbInput fullWidth
+                id="acte_date_info">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Numéro compte du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_compte" type="text" nbInput fullWidth
+                id="acte_numero_compte">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Banque du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_banque" type="text" nbInput fullWidth
+                id="acte_banque">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Numéro agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_agrement" type="text" nbInput fullWidth
+                id="acte_numero_agrement">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Date expiration agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_expiration" type="date" nbInput fullWidth
+                id="acte_date_expiration">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label class="label">Description du marché<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_description_travaux" type="text" nbInput fullWidth
+                id="acte_description_travaux"></textarea>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+            &nbsp;&nbsp;<button *ngIf="!haveAvanceDemarrage && candidateToModifyacte" nbButton status="success" (click)="onExportActeAvanceDemarrage(demandeSociete)" [disabled]='!addForm.valid'  >Exporter et enregistrer acte avance démarrage</button>
+            &nbsp;&nbsp;<button *ngIf="haveAvanceDemarrage && candidateToModifyacte" nbButton status="success"  (click)="onExportActeAvanceDemarrage(demandeSociete)" [disabled]='!addForm.valid'  >Exporter et modifier acte avance démarrage</button>
+            &nbsp;&nbsp;<button *ngIf="haveAvanceDemarrage" nbButton status="success"  (click)="onExportActeAvanceDemarragebis(demandeSociete)" [disabled]='!addForm.valid'  >Exporter acte avance démarrage</button>
+          </div>
+        </form>
+
+        <!--FIN AVANCE DE DEMARRAGE-->
+
+        <!--DEBUT BONNE EXECUTION-->
+        <form [formGroup]="addForm4" *ngIf="produit2=='BONNE EXECUTION'">
+          <h5>Bonne exécution</h5>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro acte<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_titre" type="text" nbInput fullWidth
+                id="acte_titre">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Demande d'appel d'offre<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_dao" type="text" nbInput fullWidth
+                id="acte_dao">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Description bénéficiaire<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_beneficiaire" type="text" nbInput fullWidth
+                id="acte_beneficiaire"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date acte<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date" type="date" nbInput fullWidth
+                id="acte_date">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_marche" type="text" nbInput fullWidth
+                id="acte_numero_marche">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_info" type="date" nbInput fullWidth
+                id="acte_date_info">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date expiration garantie<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_fin_garantie" type="date" nbInput fullWidth
+                id="acte_date_fin_garantie">
+              </div>
+            </div>
+            <!--div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Banque du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_banque" type="text" nbInput fullWidth
+                id="acte_banque">
+              </div>
+            </div-->
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_agrement" type="text" nbInput fullWidth
+                id="acte_numero_agrement">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date expiration agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_expiration" type="date" nbInput fullWidth
+                id="acte_date_expiration">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Description appel d'offre<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_description_travaux" type="text" nbInput fullWidth
+                id="acte_description_travaux"></textarea>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Description lot(s)<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_lots" type="text" nbInput fullWidth
+                id="acte_lots"></textarea>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+            &nbsp;&nbsp;<button *ngIf="!havebonneExecution && candidateToModifyacte" nbButton status="success" (click)="onExportActeBonneExecution(demandeSociete)" [disabled]='!addForm4.valid'  >Exporter et enregistrer acte bonne exécution</button>
+            &nbsp;&nbsp;<button *ngIf="havebonneExecution && candidateToModifyacte" nbButton status="success"  (click)="onExportActeBonneExecution(demandeSociete)" [disabled]='!addForm4.valid'  >Exporter et modifier acte bonne exécution</button>
+            &nbsp;&nbsp;<button *ngIf="havebonneExecution" nbButton status="success"  (click)="onExportActeBonneExecutionbis(demandeSociete)" [disabled]='!addForm4.valid'  >Exporter acte bonne exécution</button>
+          </div>
+        </form>
+        <!--BONNE EXECUTION FIN-->
+        
+
+        <!--RETENUE DE GARANTIE DEBUT-->
+
+        <form [formGroup]="addForm5" *ngIf="produit2=='RETENUE DE GARANTIE'">
+          <h5>Retenue de garantie</h5>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Numéro acte<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_titre" type="text" nbInput fullWidth
+                id="acte_titre">
+              </div>
+            </div>
+            <!--div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Demande d'appel d'offre<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_dao" type="text" nbInput fullWidth
+                id="acte_dao">
+              </div>
+            </div-->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Description bénéficiaire<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_beneficiaire" type="text" nbInput fullWidth
+                id="acte_beneficiaire"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date acte<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date" type="date" nbInput fullWidth
+                id="acte_date">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_marche" type="text" nbInput fullWidth
+                id="acte_numero_marche">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_info" type="date" nbInput fullWidth
+                id="acte_date_info">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <!--div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Numéro compte du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_compte" type="text" nbInput fullWidth
+                id="acte_numero_compte">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Banque du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_banque" type="text" nbInput fullWidth
+                id="acte_banque">
+              </div>
+            </div-->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Numéro agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_agrement" type="text" nbInput fullWidth
+                id="acte_numero_agrement">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Date expiration agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_expiration" type="date" nbInput fullWidth
+                id="acte_date_expiration">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label class="label">Description du marché<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_description_travaux" type="text" nbInput fullWidth
+                id="acte_description_travaux"></textarea>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+            &nbsp;&nbsp;<button *ngIf="!haveretenueGarantie && candidateToModifyacte" nbButton status="success" (click)="onExportActeRetenueGarantie(demandeSociete)" [disabled]='!addForm5.valid'  >Exporter et enregistrer acte retenue garantie</button>
+            &nbsp;&nbsp;<button *ngIf="haveretenueGarantie && candidateToModifyacte" nbButton status="success"  (click)="onExportActeRetenueGarantie(demandeSociete)" [disabled]='!addForm5.valid'  >Exporter et modifier acte retenue garantie</button>
+            &nbsp;&nbsp;<button *ngIf="haveretenueGarantie" nbButton status="success"  (click)="onExportActeRetenueGarantiebis(demandeSociete)" [disabled]='!addForm5.valid'  >Exporter acte retenue garantie</button>
+          </div>
+        </form>
+        <!--RETENUE DE GARANTIE FIN-->
+
+        <!--DEFINITIVE DEBUT-->
+
+        <form [formGroup]="addForm3" *ngIf="produit2=='DEFINITIVE'">
+          <h5>Définitive</h5>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro acte<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_titre" type="text" nbInput fullWidth
+                id="acte_titre">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Demande d'appel d'offre<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_dao" type="text" nbInput fullWidth
+                id="acte_dao">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Description bénéficiaire<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_beneficiaire" type="text" nbInput fullWidth
+                id="acte_beneficiaire"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date acte<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date" type="date" nbInput fullWidth
+                id="acte_date">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_marche" type="text" nbInput fullWidth
+                id="acte_numero_marche">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_info" type="date" nbInput fullWidth
+                id="acte_date_info">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <!--div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Numéro compte du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_compte" type="text" nbInput fullWidth
+                id="acte_numero_compte">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Banque du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_banque" type="text" nbInput fullWidth
+                id="acte_banque">
+              </div>
+            </div-->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Numéro agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_agrement" type="text" nbInput fullWidth
+                id="acte_numero_agrement">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Date expiration agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_expiration" type="date" nbInput fullWidth
+                id="acte_date_expiration">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label class="label">Description du marché<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_description_travaux" type="text" nbInput fullWidth
+                id="acte_description_travaux"></textarea>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+            &nbsp;&nbsp;<button *ngIf="!haveDefinitive && candidateToModifyacte" nbButton status="success" (click)="onExportActeDefinive(demandeSociete)" [disabled]='!addForm3.valid'  >Exporter et enregistrer acte définitive</button>
+            &nbsp;&nbsp;<button *ngIf="haveDefinitive && candidateToModifyacte" nbButton status="success"  (click)="onExportActeDefinive(demandeSociete)" [disabled]='!addForm3.valid'  >Exporter et modifier acte définitive</button>
+            &nbsp;&nbsp;<button *ngIf="haveDefinitive" nbButton status="success"  (click)="onExportActeDefinivebis(demandeSociete)" [disabled]='!addForm3.valid'  >Exporter acte définitive</button>
+          </div>
+        </form>
+
+        <!--DEFINITIVE FIN-->
+
+        </div>
+
+        
+        
+  
+        <input type="radio" name="tabs" id="tabtwo" *ngIf="produit3Existe" >
+        <label *ngIf="produit3Existe" for="tabtwo" class="lab">ACTE : CAUTION {{ produit3 }}</label>
+        <div class="tab" *ngIf="produit3Existe">
+          <!--DEBUT SOUMISSION-->
+
+          <form [formGroup]="addForm2" *ngIf="produit3=='SOUMISSION'">
+            <h5>Soumission</h5>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">Numéro acte<span class="obligatoire">*</span></label><br>
+                  <input  cols="30" rows="4" fieldSize="small" formControlName="acte_titre" type="text" nbInput fullWidth
+                  id="acte_titre">
+                </div>
+              </div>
+              <!--div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">Demande d'appel d'offre<span class="obligatoire">*</span></label><br>
+                  <input  cols="30" rows="4" fieldSize="small" formControlName="acte_dao" type="text" nbInput fullWidth
+                  id="acte_dao">
+                </div>
+              </div-->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">Description bénéficiaire<span class="obligatoire">*</span></label><br>
+                  <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_beneficiaire" type="text" nbInput fullWidth
+                  id="acte_beneficiaire"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">Date acte<span class="obligatoire">*</span></label><br>
+                  <input fieldSize="small" formControlName="acte_date" type="date" nbInput fullWidth
+                  id="acte_date">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">Numéro du marché<span class="obligatoire">*</span></label><br>
+                  <input fieldSize="small" formControlName="acte_numero_marche" type="text" nbInput fullWidth
+                  id="acte_numero_marche">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">Date du marché<span class="obligatoire">*</span></label><br>
+                  <input fieldSize="small" formControlName="acte_date_info" type="date" nbInput fullWidth
+                  id="acte_date_info">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <!--div class="col-sm-3">
+                <div class="form-group">
+                  <label class="label">Numéro compte du marché<span class="obligatoire">*</span></label><br>
+                  <input fieldSize="small" formControlName="acte_numero_compte" type="text" nbInput fullWidth
+                  id="acte_numero_compte">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="label">Banque du marché<span class="obligatoire">*</span></label><br>
+                  <input fieldSize="small" formControlName="acte_banque" type="text" nbInput fullWidth
+                  id="acte_banque">
+                </div>
+              </div-->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">Numéro agrément<span class="obligatoire">*</span></label><br>
+                  <input fieldSize="small" formControlName="acte_numero_agrement" type="text" nbInput fullWidth
+                  id="acte_numero_agrement">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">Date expiration agrément<span class="obligatoire">*</span></label><br>
+                  <input fieldSize="small" formControlName="acte_date_expiration" type="date" nbInput fullWidth
+                  id="acte_date_expiration">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">Description appel d'offre<span class="obligatoire">*</span></label><br>
+                  <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_description_travaux" type="text" nbInput fullWidth
+                  id="acte_description_travaux"></textarea>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="label">Description lot(s)<span class="obligatoire">*</span></label><br>
+                  <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_lots" type="text" nbInput fullWidth
+                  id="acte_lots"></textarea>
+                </div>
+              </div>
+            </div>
+            <div><button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+              &nbsp;&nbsp;<button *ngIf="!havesoumission && candidateToModifyacte" nbButton status="success" (click)="onExportActeSoumission(demandeSociete)" [disabled]='!addForm2.valid'  >Exporter et enregistrer acte soumission</button>
+              &nbsp;&nbsp;<button *ngIf="havesoumission && candidateToModifyacte" nbButton status="success"  (click)="onExportActeSoumission(demandeSociete)" [disabled]='!addForm2.valid'  >Exporter et modifier acte soumission</button>
+              &nbsp;&nbsp;<button *ngIf="havesoumission" nbButton status="success"  (click)="onExportActeSoumissionbis(demandeSociete)" [disabled]='!addForm2.valid'  >Exporter</button>
+            </div>
+          </form>
+
+          <!--FIN SOUMISSION-->
+
+          <!--DEBUT AVANCE DE DEMARRAGE-->
+          <form [formGroup]="addForm" *ngIf="produit3=='AVANCE DE DEMARRAGE'">
+            <h5>Avance de démarrage</h5>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro acte<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_titre" type="text" nbInput fullWidth
+                id="acte_titre">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Demande d'appel d'offre<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_dao" type="text" nbInput fullWidth
+                id="acte_dao">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Description bénéficiaire<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_beneficiaire" type="text" nbInput fullWidth
+                id="acte_beneficiaire"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date acte<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date" type="date" nbInput fullWidth
+                id="acte_date">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_marche" type="text" nbInput fullWidth
+                id="acte_numero_marche">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_info" type="date" nbInput fullWidth
+                id="acte_date_info">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Numéro compte du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_compte" type="text" nbInput fullWidth
+                id="acte_numero_compte">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Banque du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_banque" type="text" nbInput fullWidth
+                id="acte_banque">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Numéro agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_agrement" type="text" nbInput fullWidth
+                id="acte_numero_agrement">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Date expiration agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_expiration" type="date" nbInput fullWidth
+                id="acte_date_expiration">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label class="label">Description du marché<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_description_travaux" type="text" nbInput fullWidth
+                id="acte_description_travaux"></textarea>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+            &nbsp;&nbsp;<button *ngIf="!haveAvanceDemarrage && candidateToModifyacte" nbButton status="success" (click)="onExportActeAvanceDemarrage(demandeSociete)" [disabled]='!addForm.valid'  >Exporter et enregistrer acte avance démarrage</button>
+            &nbsp;&nbsp;<button *ngIf="haveAvanceDemarrage && candidateToModifyacte" nbButton status="success"  (click)="onExportActeAvanceDemarrage(demandeSociete)" [disabled]='!addForm.valid'  >Exporter et modifier acte avance démarrage</button>
+            &nbsp;&nbsp;<button *ngIf="haveAvanceDemarrage" nbButton status="success"  (click)="onExportActeAvanceDemarragebis(demandeSociete)" [disabled]='!addForm.valid'  >Exporter acte avance démarrage</button>
+          </div>
+        </form>
+
+        <!--FIN AVANCE DE DEMARRAGE-->
+
+        <!--DEBUT BONNE EXECUTION-->
+        <form [formGroup]="addForm4" *ngIf="produit3=='BONNE EXECUTION'">
+          <h5>Bonne exécution</h5>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro acte<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_titre" type="text" nbInput fullWidth
+                id="acte_titre">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Demande d'appel d'offre<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_dao" type="text" nbInput fullWidth
+                id="acte_dao">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Description bénéficiaire<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_beneficiaire" type="text" nbInput fullWidth
+                id="acte_beneficiaire"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date acte<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date" type="date" nbInput fullWidth
+                id="acte_date">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_marche" type="text" nbInput fullWidth
+                id="acte_numero_marche">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_info" type="date" nbInput fullWidth
+                id="acte_date_info">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date expiration garantie<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_fin_garantie" type="date" nbInput fullWidth
+                id="acte_date_fin_garantie">
+              </div>
+            </div>
+            <!--div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Banque du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_banque" type="text" nbInput fullWidth
+                id="acte_banque">
+              </div>
+            </div-->
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_agrement" type="text" nbInput fullWidth
+                id="acte_numero_agrement">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date expiration agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_expiration" type="date" nbInput fullWidth
+                id="acte_date_expiration">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Description appel d'offre<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_description_travaux" type="text" nbInput fullWidth
+                id="acte_description_travaux"></textarea>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Description lot(s)<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_lots" type="text" nbInput fullWidth
+                id="acte_lots"></textarea>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+            &nbsp;&nbsp;<button *ngIf="!havebonneExecution && candidateToModifyacte" nbButton status="success" (click)="onExportActeBonneExecution(demandeSociete)" [disabled]='!addForm4.valid'  >Exporter et enregistrer acte bonne exécution</button>
+            &nbsp;&nbsp;<button *ngIf="havebonneExecution && candidateToModifyacte" nbButton status="success"  (click)="onExportActeBonneExecution(demandeSociete)" [disabled]='!addForm4.valid'  >Exporter et modifier acte bonne exécution</button>
+            &nbsp;&nbsp;<button *ngIf="havebonneExecution" nbButton status="success"  (click)="onExportActeBonneExecutionbis(demandeSociete)" [disabled]='!addForm4.valid'  >Exporter acte bonne exécution</button>
+          </div>
+        </form>
+        <!--BONNE EXECUTION FIN-->
+        
+
+        <!--RETENUE DE GARANTIE DEBUT-->
+
+        <form [formGroup]="addForm5" *ngIf="produit3=='RETENUE DE GARANTIE'">
+          <h5>Retenue de garantie</h5>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Numéro acte<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_titre" type="text" nbInput fullWidth
+                id="acte_titre">
+              </div>
+            </div>
+            <!--div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Demande d'appel d'offre<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_dao" type="text" nbInput fullWidth
+                id="acte_dao">
+              </div>
+            </div-->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Description bénéficiaire<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_beneficiaire" type="text" nbInput fullWidth
+                id="acte_beneficiaire"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date acte<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date" type="date" nbInput fullWidth
+                id="acte_date">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_marche" type="text" nbInput fullWidth
+                id="acte_numero_marche">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_info" type="date" nbInput fullWidth
+                id="acte_date_info">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <!--div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Numéro compte du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_compte" type="text" nbInput fullWidth
+                id="acte_numero_compte">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Banque du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_banque" type="text" nbInput fullWidth
+                id="acte_banque">
+              </div>
+            </div-->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Numéro agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_agrement" type="text" nbInput fullWidth
+                id="acte_numero_agrement">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Date expiration agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_expiration" type="date" nbInput fullWidth
+                id="acte_date_expiration">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label class="label">Description du marché<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_description_travaux" type="text" nbInput fullWidth
+                id="acte_description_travaux"></textarea>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+            &nbsp;&nbsp;<button *ngIf="!haveretenueGarantie && candidateToModifyacte" nbButton status="success" (click)="onExportActeRetenueGarantie(demandeSociete)" [disabled]='!addForm5.valid'  >Exporter et enregistrer acte retenue garantie</button>
+            &nbsp;&nbsp;<button *ngIf="haveretenueGarantie && candidateToModifyacte" nbButton status="success"  (click)="onExportActeRetenueGarantie(demandeSociete)" [disabled]='!addForm5.valid'  >Exporter et modifier acte retenue garantie</button>
+            &nbsp;&nbsp;<button *ngIf="haveretenueGarantie" nbButton status="success"  (click)="onExportActeRetenueGarantiebis(demandeSociete)" [disabled]='!addForm5.valid'  >Exporter acte retenue garantie</button>
+          </div>
+        </form>
+        <!--RETENUE DE GARANTIE FIN-->
+
+        <!--DEFINITIVE DEBUT-->
+
+        <form [formGroup]="addForm3" *ngIf="produit3=='DEFINITIVE'">
+          <h5>Définitive</h5>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro acte<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_titre" type="text" nbInput fullWidth
+                id="acte_titre">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Demande d'appel d'offre<span class="obligatoire">*</span></label><br>
+                <input  cols="30" rows="4" fieldSize="small" formControlName="acte_dao" type="text" nbInput fullWidth
+                id="acte_dao">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Description bénéficiaire<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_beneficiaire" type="text" nbInput fullWidth
+                id="acte_beneficiaire"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date acte<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date" type="date" nbInput fullWidth
+                id="acte_date">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Numéro du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_marche" type="text" nbInput fullWidth
+                id="acte_numero_marche">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Date du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_info" type="date" nbInput fullWidth
+                id="acte_date_info">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <!--div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Numéro compte du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_compte" type="text" nbInput fullWidth
+                id="acte_numero_compte">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Banque du marché<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_banque" type="text" nbInput fullWidth
+                id="acte_banque">
+              </div>
+            </div-->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Numéro agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_numero_agrement" type="text" nbInput fullWidth
+                id="acte_numero_agrement">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Date expiration agrément<span class="obligatoire">*</span></label><br>
+                <input fieldSize="small" formControlName="acte_date_expiration" type="date" nbInput fullWidth
+                id="acte_date_expiration">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label class="label">Description du marché<span class="obligatoire">*</span></label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="acte_description_travaux" type="text" nbInput fullWidth
+                id="acte_description_travaux"></textarea>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+            &nbsp;&nbsp;<button *ngIf="!haveDefinitive && candidateToModifyacte" nbButton status="success" (click)="onExportActeDefinive(demandeSociete)" [disabled]='!addForm3.valid'  >Exporter et enregistrer acte définitive</button>
+            &nbsp;&nbsp;<button *ngIf="haveDefinitive && candidateToModifyacte" nbButton status="success"  (click)="onExportActeDefinive(demandeSociete)" [disabled]='!addForm3.valid'  >Exporter et modifier acte définitive</button>
+            &nbsp;&nbsp;<button *ngIf="haveDefinitive" nbButton status="success"  (click)="onExportActeDefinivebis(demandeSociete)" [disabled]='!addForm3.valid'  >Exporter acte définitive</button>
+          </div>
+        </form>
+
+        <!--DEFINITIVE FIN-->
+
+        </div>
+      </div>
+      <!--div *ngIf="demandeSociete.dem_produitdemande2==0">
+        <div *ngIf="demandeSociete.dem_produitdemande1==15001001">
+          <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+          &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm2.valid'  >Exporter et enregistrer</button>
+          &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm2.valid'  >Exporter et modifier</button>
+        </div>
+        <div *ngIf="demandeSociete.dem_produitdemande1==15001002">
+          <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+          &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm.valid'  >Exporter et enregistrer</button>
+          &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm.valid'  >Exporter et modifier</button>
+        </div>
+        <div *ngIf="demandeSociete.dem_produitdemande1==15001003">
+          <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+          &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm4.valid'  >Exporter et enregistrer</button>
+          &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm4.valid'  >Exporter et modifier</button>
+        </div>
+        <div *ngIf="demandeSociete.dem_produitdemande1==15001004">
+          <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+          &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm5.valid'  >Exporter et enregistrer</button>
+          &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm5.valid'  >Exporter et modifier</button>
+        </div>
+        <div *ngIf="demandeSociete.dem_produitdemande1==15001005">
+          <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+          &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm3.valid'  >Exporter et enregistrer</button>
+          &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm3.valid'  >Exporter et modifier</button>
+        </div>
+      </div>
+      <div *ngIf="demandeSociete.dem_produitdemande2!=0 && demandeSociete.dem_produitdemande3==0">
+        <div *ngIf="(demandeSociete.dem_produitdemande1==15001001 && demandeSociete.dem_produitdemande2==15001002) ||
+                    (demandeSociete.dem_produitdemande1==15001002 && demandeSociete.dem_produitdemande2==15001001)">
+          <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+          &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm2.valid || !addForm.valid'  >Exporter et enregistrer</button>
+          &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm2.valid || !addForm.valid'  >Exporter et modifier</button>
+        </div>
+        <div *ngIf="(demandeSociete.dem_produitdemande1==15001001 && demandeSociete.dem_produitdemande2==15001003) ||
+                    (demandeSociete.dem_produitdemande1==15001003 && demandeSociete.dem_produitdemande2==15001001)">
+          <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+          &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm2.valid || !addForm4.valid'  >Exporter et enregistrer</button>
+          &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm2.valid || !addForm4.valid'  >Exporter et modifier</button>
+        </div>
+        <div *ngIf="(demandeSociete.dem_produitdemande1==15001001 && demandeSociete.dem_produitdemande2==15001004) ||
+                    (demandeSociete.dem_produitdemande1==15001004 && demandeSociete.dem_produitdemande2==15001001)">
+          <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+          &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm2.valid || !addForm5.valid'  >Exporter et enregistrer</button>
+          &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm2.valid || !addForm5.valid'  >Exporter et modifier</button>
+        </div>
+        <div *ngIf="(demandeSociete.dem_produitdemande1==15001001 && demandeSociete.dem_produitdemande2==15001005) ||
+                    (demandeSociete.dem_produitdemande1==15001005 && demandeSociete.dem_produitdemande2==15001001)">
+          <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+          &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm2.valid || !addForm3.valid'  >Exporter et enregistrer</button>
+          &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm2.valid || !addForm3.valid'  >Exporter et modifier</button>
+        </div>
+        <div *ngIf="(demandeSociete.dem_produitdemande1==15001002 && demandeSociete.dem_produitdemande2==15001003) ||
+                    (demandeSociete.dem_produitdemande1==15001003 && demandeSociete.dem_produitdemande2==15001002)">
+          <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+          &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm.valid || !addForm4.valid'  >Exporter et enregistrer</button>
+          &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm.valid || !addForm4.valid'  >Exporter et modifier</button>
+        </div>
+        <div *ngIf="(demandeSociete.dem_produitdemande1==15001002 && demandeSociete.dem_produitdemande2==15001004) ||
+                    (demandeSociete.dem_produitdemande1==15001004 && demandeSociete.dem_produitdemande2==15001002)">
+          <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+          &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm.valid || !addForm5.valid'  >Exporter et enregistrer</button>
+          &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm.valid || !addForm5.valid'  >Exporter et modifier</button>
+        </div>
+        <div *ngIf="(demandeSociete.dem_produitdemande1==15001002 && demandeSociete.dem_produitdemande2==15001005) ||
+                    (demandeSociete.dem_produitdemande1==15001005 && demandeSociete.dem_produitdemande2==15001002)">
+          <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+          &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm.valid || !addForm3.valid'  >Exporter et enregistrer</button>
+          &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm.valid || !addForm3.valid'  >Exporter et modifier</button>
+        </div>
+        <div *ngIf="(demandeSociete.dem_produitdemande1==15001003 && demandeSociete.dem_produitdemande2==15001004) ||
+                    (demandeSociete.dem_produitdemande1==15001004 && demandeSociete.dem_produitdemande2==15001003)">
+          <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+          &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm4.valid || !addForm5.valid'  >Exporter et enregistrer</button>
+          &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm4.valid || !addForm5.valid'  >Exporter et modifier</button>
+        </div>
+        <div *ngIf="(demandeSociete.dem_produitdemande1==15001003 && demandeSociete.dem_produitdemande2==15001005) ||
+                    (demandeSociete.dem_produitdemande1==15001005 && demandeSociete.dem_produitdemande2==15001003)">
+          <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+          &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm4.valid || !addForm3.valid'  >Exporter et enregistrer</button>
+          &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm4.valid || !addForm3.valid'  >Exporter et modifier</button>
+        </div>
+        <div *ngIf="(demandeSociete.dem_produitdemande1==15001004 && demandeSociete.dem_produitdemande2==15001005) ||
+                    (demandeSociete.dem_produitdemande1==15001005 && demandeSociete.dem_produitdemande2==15001004)">
+          <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+          &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm5.valid || !addForm3.valid'  >Exporter et enregistrer</button>
+          &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm5.valid || !addForm3.valid'  >Exporter et modifier</button>
+        </div>
+      </div>
+      <div *ngIf="demandeSociete.dem_produitdemande3!=0">
+        <div *ngIf="(demandeSociete.dem_produitdemande1==15001001 && demandeSociete.dem_produitdemande2==15001002 && demandeSociete.dem_produitdemande3==15001003) ||
+                    (demandeSociete.dem_produitdemande1==15001001 && demandeSociete.dem_produitdemande2==15001003 && demandeSociete.dem_produitdemande3==15001002) ||
+                    (demandeSociete.dem_produitdemande1==15001002 && demandeSociete.dem_produitdemande2==15001001 && demandeSociete.dem_produitdemande3==15001003) ||
+                    (demandeSociete.dem_produitdemande1==15001002 && demandeSociete.dem_produitdemande2==15001003 && demandeSociete.dem_produitdemande3==15001001) ||
+                    (demandeSociete.dem_produitdemande1==15001003 && demandeSociete.dem_produitdemande2==15001001 && demandeSociete.dem_produitdemande3==15001002) ||
+                    (demandeSociete.dem_produitdemande1==15001003 && demandeSociete.dem_produitdemande2==15001002 && demandeSociete.dem_produitdemande3==15001001)">
+
+                    <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+                    &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm2.valid || !addForm.valid || !addForm4.valid'  >Exporter et enregistrer</button>
+                    &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm2.valid || !addForm.valid || !addForm4.valid'  >Exporter et modifier</button>
+        </div>
+        <div *ngIf="(demandeSociete.dem_produitdemande1==15001001 && demandeSociete.dem_produitdemande2==15001002 && demandeSociete.dem_produitdemande3==15001004) ||
+                    (demandeSociete.dem_produitdemande1==15001001 && demandeSociete.dem_produitdemande2==15001004 && demandeSociete.dem_produitdemande3==15001002) ||
+                    (demandeSociete.dem_produitdemande1==15001002 && demandeSociete.dem_produitdemande2==15001001 && demandeSociete.dem_produitdemande3==15001004) ||
+                    (demandeSociete.dem_produitdemande1==15001002 && demandeSociete.dem_produitdemande2==15001004 && demandeSociete.dem_produitdemande3==15001001) ||
+                    (demandeSociete.dem_produitdemande1==15001004 && demandeSociete.dem_produitdemande2==15001001 && demandeSociete.dem_produitdemande3==15001002) ||
+                    (demandeSociete.dem_produitdemande1==15001004 && demandeSociete.dem_produitdemande2==15001002 && demandeSociete.dem_produitdemande3==15001001)">
+                    <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+                    &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm2.valid || !addForm.valid || !addForm5.valid'  >Exporter et enregistrer</button>
+                    &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm2.valid || !addForm.valid || !addForm5.valid'  >Exporter et modifier</button>
+        </div>
+        <div *ngIf="(demandeSociete.dem_produitdemande1==15001001 && demandeSociete.dem_produitdemande2==15001002 && demandeSociete.dem_produitdemande3==15001005) ||
+                    (demandeSociete.dem_produitdemande1==15001001 && demandeSociete.dem_produitdemande2==15001005 && demandeSociete.dem_produitdemande3==15001002) ||
+                    (demandeSociete.dem_produitdemande1==15001002 && demandeSociete.dem_produitdemande2==15001001 && demandeSociete.dem_produitdemande3==15001005) ||
+                    (demandeSociete.dem_produitdemande1==15001002 && demandeSociete.dem_produitdemande2==15001005 && demandeSociete.dem_produitdemande3==15001001) ||
+                    (demandeSociete.dem_produitdemande1==15001005 && demandeSociete.dem_produitdemande2==15001001 && demandeSociete.dem_produitdemande3==15001002) ||
+                    (demandeSociete.dem_produitdemande1==15001005 && demandeSociete.dem_produitdemande2==15001002 && demandeSociete.dem_produitdemande3==15001001)">
+
+                    <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+                    &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm2.valid || !addForm.valid || !addForm3.valid'  >Exporter et enregistrer</button>
+                    &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm2.valid || !addForm.valid || !addForm3.valid'  >Exporter et modifier</button>
+        </div>
+        <div *ngIf="(demandeSociete.dem_produitdemande1==15001001 && demandeSociete.dem_produitdemande2==15001003 && demandeSociete.dem_produitdemande3==15001004) ||
+                    (demandeSociete.dem_produitdemande1==15001001 && demandeSociete.dem_produitdemande2==15001004 && demandeSociete.dem_produitdemande3==15001003) ||
+                    (demandeSociete.dem_produitdemande1==15001003 && demandeSociete.dem_produitdemande2==15001001 && demandeSociete.dem_produitdemande3==15001004) ||
+                    (demandeSociete.dem_produitdemande1==15001003 && demandeSociete.dem_produitdemande2==15001004 && demandeSociete.dem_produitdemande3==15001001) ||
+                    (demandeSociete.dem_produitdemande1==15001004 && demandeSociete.dem_produitdemande2==15001001 && demandeSociete.dem_produitdemande3==15001003) ||
+                    (demandeSociete.dem_produitdemande1==15001004 && demandeSociete.dem_produitdemande2==15001003 && demandeSociete.dem_produitdemande3==15001001)">
+                    
+                    <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+                    &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm2.valid || !addForm4.valid || !addForm5.valid'  >Exporter et enregistrer</button>
+                    &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm2.valid || !addForm4.valid || !addForm5.valid'  >Exporter et modifier</button>
+        </div>
+        <div *ngIf="(demandeSociete.dem_produitdemande1==15001001 && demandeSociete.dem_produitdemande2==15001003 && demandeSociete.dem_produitdemande3==15001005) ||
+                    (demandeSociete.dem_produitdemande1==15001001 && demandeSociete.dem_produitdemande2==15001005 && demandeSociete.dem_produitdemande3==15001003) ||
+                    (demandeSociete.dem_produitdemande1==15001003 && demandeSociete.dem_produitdemande2==15001001 && demandeSociete.dem_produitdemande3==15001005) ||
+                    (demandeSociete.dem_produitdemande1==15001003 && demandeSociete.dem_produitdemande2==15001005 && demandeSociete.dem_produitdemande3==15001001) ||
+                    (demandeSociete.dem_produitdemande1==15001005 && demandeSociete.dem_produitdemande2==15001001 && demandeSociete.dem_produitdemande3==15001003) ||
+                    (demandeSociete.dem_produitdemande1==15001005 && demandeSociete.dem_produitdemande2==15001003 && demandeSociete.dem_produitdemande3==15001001)">
+                    <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+                    &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm2.valid || !addForm4.valid || !addForm3.valid'  >Exporter et enregistrer</button>
+                    &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm2.valid || !addForm4.valid || !addForm3.valid'  >Exporter et modifier</button>
+        </div>
+        <div *ngIf="(demandeSociete.dem_produitdemande1==15001002 && demandeSociete.dem_produitdemande2==15001003 && demandeSociete.dem_produitdemande3==15001004) ||
+                    (demandeSociete.dem_produitdemande1==15001002 && demandeSociete.dem_produitdemande2==15001004 && demandeSociete.dem_produitdemande3==15001003) ||
+                    (demandeSociete.dem_produitdemande1==15001003 && demandeSociete.dem_produitdemande2==15001002 && demandeSociete.dem_produitdemande3==15001004) ||
+                    (demandeSociete.dem_produitdemande1==15001003 && demandeSociete.dem_produitdemande2==15001004 && demandeSociete.dem_produitdemande3==15001002) ||
+                    (demandeSociete.dem_produitdemande1==15001004 && demandeSociete.dem_produitdemande2==15001002 && demandeSociete.dem_produitdemande3==15001003) ||
+                    (demandeSociete.dem_produitdemande1==15001004 && demandeSociete.dem_produitdemande2==15001003 && demandeSociete.dem_produitdemande3==15001002)">
+                    <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+                    &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm.valid || !addForm4.valid || !addForm5.valid'  >Exporter et enregistrer</button>
+                    &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm.valid || !addForm4.valid || !addForm5.valid'  >Exporter et modifier</button>
+        </div>
+        <div *ngIf="(demandeSociete.dem_produitdemande1==15001002 && demandeSociete.dem_produitdemande2==15001003 && demandeSociete.dem_produitdemande3==15001005) ||
+                    (demandeSociete.dem_produitdemande1==15001002 && demandeSociete.dem_produitdemande2==15001005 && demandeSociete.dem_produitdemande3==15001003) ||
+                    (demandeSociete.dem_produitdemande1==15001003 && demandeSociete.dem_produitdemande2==15001002 && demandeSociete.dem_produitdemande3==15001005) ||
+                    (demandeSociete.dem_produitdemande1==15001003 && demandeSociete.dem_produitdemande2==15001005 && demandeSociete.dem_produitdemande3==15001002) ||
+                    (demandeSociete.dem_produitdemande1==15001005 && demandeSociete.dem_produitdemande2==15001002 && demandeSociete.dem_produitdemande3==15001003) ||
+                    (demandeSociete.dem_produitdemande1==15001005 && demandeSociete.dem_produitdemande2==15001003 && demandeSociete.dem_produitdemande3==15001002)">
+                    <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+                    &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm.valid || !addForm4.valid || !addForm3.valid'  >Exporter et enregistrer</button>
+                    &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm.valid || !addForm4.valid || !addForm3.valid'  >Exporter et modifier</button>
+        </div>
+        <div *ngIf="(demandeSociete.dem_produitdemande1==15001002 && demandeSociete.dem_produitdemande2==15001004 && demandeSociete.dem_produitdemande3==15001005) ||
+                    (demandeSociete.dem_produitdemande1==15001002 && demandeSociete.dem_produitdemande2==15001005 && demandeSociete.dem_produitdemande3==15001004) ||
+                    (demandeSociete.dem_produitdemande1==15001004 && demandeSociete.dem_produitdemande2==15001002 && demandeSociete.dem_produitdemande3==15001005) ||
+                    (demandeSociete.dem_produitdemande1==15001004 && demandeSociete.dem_produitdemande2==15001005 && demandeSociete.dem_produitdemande3==15001002) ||
+                    (demandeSociete.dem_produitdemande1==15001005 && demandeSociete.dem_produitdemande2==15001002 && demandeSociete.dem_produitdemande3==15001004) ||
+                    (demandeSociete.dem_produitdemande1==15001005 && demandeSociete.dem_produitdemande2==15001004 && demandeSociete.dem_produitdemande3==15001002)">
+                    <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+                    &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm.valid || !addForm5.valid || !addForm3.valid'  >Exporter et enregistrer</button>
+                    &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm.valid || !addForm5.valid || !addForm3.valid'  >Exporter et modifier</button>
+        </div>
+      </div>
+      <div *ngIf="(demandeSociete.dem_produitdemande1==15001003 && demandeSociete.dem_produitdemande2==15001004 && demandeSociete.dem_produitdemande3==15001005) ||
+                  (demandeSociete.dem_produitdemande1==15001003 && demandeSociete.dem_produitdemande2==15001005 && demandeSociete.dem_produitdemande3==15001004) ||
+                  (demandeSociete.dem_produitdemande1==15001004 && demandeSociete.dem_produitdemande2==15001003 && demandeSociete.dem_produitdemande3==15001005) ||
+                  (demandeSociete.dem_produitdemande1==15001004 && demandeSociete.dem_produitdemande2==15001005 && demandeSociete.dem_produitdemande3==15001003) ||
+                  (demandeSociete.dem_produitdemande1==15001005 && demandeSociete.dem_produitdemande2==15001003 && demandeSociete.dem_produitdemande3==15001004) ||
+                  (demandeSociete.dem_produitdemande1==15001005 && demandeSociete.dem_produitdemande2==15001004 && demandeSociete.dem_produitdemande3==15001003)">
+                  <button class="cancel" nbButton status="danger" (click)="close()" >Fermer</button>
+                  &nbsp;&nbsp;<button *ngIf="!haveInstruction" nbButton status="success" (click)="onExportCmt(demandeSociete)" [disabled]='!addForm4.valid || !addForm5.valid || !addForm3.valid'  >Exporter et enregistrer</button>
+                  &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success"  (click)="onExportCmt(demandeSociete)" [disabled]='!addForm4.valid || !addForm5.valid || !addForm3.valid'  >Exporter et modifier</button>
+      </div>
+      
+  </div-->
+  <!--div *ngIf="check_fonct('c_client')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+  </div-->

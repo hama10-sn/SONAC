@@ -1,0 +1,393 @@
+<div>
+    <form [formGroup]="addForm">
+      <!-- <div class="col-lg-4">
+        <nb-card>
+          <nb-card-header id="titre_entete">Ajout d'un nouvel client</nb-card-header>
+        </nb-card>
+      </div> -->
+      <div class="col-lg-4">
+        <nb-card>
+          <nb-card-header style="background-color: rgb(7, 66, 124);color:white">{{titre}}</nb-card-header>
+        </nb-card>
+      </div>
+  
+     
+      <br>
+      <div class="tabs">
+
+        <input type="radio" name="tabs" id="tabonefive" checked="checked">
+        <label for="tabonefive" class="lab">RENSEIGNEMENTS  <br> GENERAUX <br></label>
+        <div class="tab">
+          <div class="row">
+
+
+            <div class="col-sm-3">
+                <h5 class="grid-h">Exploitant</h5>
+                <div><span class="detail">Nom  :</span> {{ nom }}</div><br>
+                <div><span class="detail">Prenom :</span> {{ prenom }}</div><br>
+                <div><span class="detail"></span> </div><br>
+                <!--div><span class="detail">Numéro Titulaire :</span> {{ demandeSociete.dem_clienttitulaire }}</div><br-->
+                <div><span class="detail"></span> </div><br>
+              </div>
+          <br>
+          <br>
+          <div class="col-sm-3">
+            <h5 class="grid-h">Assuré(e)</h5>
+            <div><span class="detail">Assuré:</span> {{ demandeur}}</div><br>
+            <div><span class="detail">Branche :</span> {{ c1 }}</div><br>
+            <div><span class="detail">Crédit sollicité :</span> {{ formatNumer(soumission)}} FCFA</div><br>
+            <div><span class="detail">Nature des produits :</span> {{ c2 }}</div><br>
+           <div><span class="detail">Bénéficiaire  :</span> {{ demandeur }}</div><br>
+
+          </div>
+
+          <div class="col-sm-6">
+            <h5 class="grid-h">RENSEIGNEMENTS GENERAUX </h5>
+            <div><span class="detail">Raison sociale:</span> {{ raisonsociale }}</div><br>
+            <div><span class="detail">Siège sociale :</span> {{ avancedemarrage }}</div><br>
+            <div><span class="detail">Adresse :</span> {{ bonneexcution }}</div><br>
+            <div><span class="detail">Répertoire des entités :</span> {{ retenuegarantie }}</div><br>
+            <div><span class="detail">Secteur d'activité :</span>{{ definitive }} </div><br>
+            <div><span class="detail">Dirigeant  :</span> {{ nomgerant }}</div><br>
+          </div>
+
+          <!--div class="col-sm-3">
+            <h5 class="grid-h">Description</h5>
+            <div></div><br>
+            <div></div><br>
+            <div></div><br>
+            <div></div><br>
+            <div></div><br>
+            <div></div><br>
+
+          </div-->
+        </div>
+        <div class="row">
+          <div class="col-sm-9">
+            <div class="form-group">
+              <label class="label">Description <span style="color:red;">*</span></label><br>
+              <textarea name="instruct_description" formControlName="instruct_description" id="instruct_description" cols="30" rows="4" placeholder="par ici la description" nbInput fullWidth></textarea>
+            </div>
+          </div>
+        </div>
+
+        </div>
+
+        <!--input type="radio" name="tabs" id="tabthree" >
+        <label for="tabthree" class="lab">RENSEIGNEMENTS  <br> GENERAUX <br></label>
+        <div class="tab">
+          <div class="row">
+            <div class="col-sm-3">
+              <div><span class="detail"></span> </div><br>
+              <div><span class="detail"></span> </div><br>
+              <div><span class="detail"></span> </div><br>
+              <div><span class="detail"></span> </div><br>
+            </div>
+            <br>
+            <br>
+            <div class="col-sm-6">
+              <h5 class="grid-h">Engagement en cours</h5>
+              <div><span class="detail">soumission  :</span> {{ formatNumer(temp1) }}</div><br>
+              <div><span class="detail">Avance de démarrage :</span> {{ formatNumer(temp2) }}</div><br>
+              <div><span class="detail">Bonne execution :</span> {{ formatNumer(temp3) }}</div><br>
+              <div><span class="detail">Retenue de garantie :</span> {{ formatNumer(temp4) }}</div><br>
+              <div><span class="detail">Définitive :</span> {{ formatNumer(temp5)}}</div><br>
+              <div><span class="detail">Total mains levées :</span> {{ formatNumer(tempmainLeve)}}</div><br>
+              <div><span class="detail">TOTAL ENGAGEMENT:</span> {{ formatNumer(temp1+temp2+temp3+temp4+temp5)}}</div><br>
+              <div></div><br>
+              <div></div><br>
+              <div></div><br>
+            </div>
+          </div>       
+        </div-->
+
+        <input type="radio" name="tabs" id="tabsix" >
+        <label for="tabsix" class="lab">A. PRESENATION<br>SOCIETE</label>
+        <div class="tab">
+            <div class="row">
+                <div class="col-sm-9">
+                  <div class="form-group">
+                    <label class="label">Présenation societe<span style="color:red;">*</span></label><br>
+                    <textarea name="instruct_present_societe" formControlName="instruct_present_societe" id="instruct_present_societe" cols="30" rows="4" placeholder="par ici la présentation sociales" nbInput fullWidth></textarea>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <input type="radio" name="tabs" id="tabseven" >
+        <label for="tabseven" class="lab">B. ACTIVITE DU  <br> CLIENT</label>
+        <div class="tab">
+            <div class="row">
+                <div class="col-sm-9">
+                  <div class="form-group">
+                    <label class="label">Activité client <span style="color:red;">*</span></label><br>
+                    <textarea name="instruct_activites_client" formControlName="instruct_activites_client" id="instruct_activites_client" cols="30" rows="4" placeholder="par ici les activités du client" nbInput fullWidth></textarea>
+                  </div>
+                </div>
+            </div>        
+        </div>
+
+        <input type="radio" name="tabs" id="tabone" >
+        <label for="tabone" class="lab">C. RISQUES LIES <br> A L’ACTIVITE</label>
+        <div class="tab">
+            <div class="row">
+                <div class="col-sm-9">
+                  <div class="form-group">
+                    <label class="label">Risques liés à l'activité <span style="color:red;">*</span></label><br>
+                    <textarea name="instruct_risques_activite" formControlName="instruct_risques_activite" id="instruct_risques_activite" cols="30" rows="4" placeholder="par ici les risques liés à l'activité" nbInput fullWidth></textarea>
+                  </div>
+                </div>
+                
+            </div>   
+        </div>
+
+  
+        <input type="radio" name="tabs" id="tabo">
+        <label for="tabo" class="lab">D. REFEFERENCES <br> TECHNIQUES</label> 
+        <div class="tab">
+          <form [formGroup]="refForm">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Identification marchés</label><br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="identification" type="text" nbInput fullWidth
+                id="identification"></textarea>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Observations</label> <br>
+                <textarea  cols="30" rows="4" fieldSize="small" formControlName="observation" type="text" nbInput fullWidth
+                id="observation"></textarea>
+              </div>
+            </div>
+          </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">Montants marchés</label><br>
+                  <input fieldSize="small" formControlName="montant_marche" type="text" nbInput fullWidth
+                  id="montant_marche" >
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="label">Bénéficiaire</label><br>
+                  <input fieldSize="small" formControlName="beneficiaires" type="text" nbInput fullWidth
+                  id="beneficiaires">
+                </div>
+              </div>
+          </div>
+          
+            <button style="background-color: rgb(7, 66, 124);" status="primary" nbButton (click)="ajoutReference()" [disabled]='!refForm.valid'>Ajouter references</button>
+          </form>
+          <div class="row">
+            <div class="col-sm-9">
+              <h5>Liste des références techniques<span style="color:red;">*</span></h5>
+              <table class="table table-bordered">
+                <thead class="text-white" style="background-color: rgb(7, 66, 124);">
+                  
+                    <th class="text-center">Identification Marchés</th>
+                    <th class="text-center">Bénéficiaires</th>
+                    <th class="text-center">Montants Marchés (F.CFA)</th>
+                    <th class="text-center">Observations</th>
+                    <th class="text-center">Action</th>
+                  
+                </thead>
+                <tbody  *ngFor="let ref of referenceTech">
+                  <tr>
+                    <td class="text-center">{{ref.identification}}</td>
+                    <td class="text-center">{{ref.beneficiaires}}</td>
+                    <td class="text-center">{{ref.montant_marche}}</td>
+                    <td class="text-center">{{ref.observation}}</td>
+                    <td class="text-center">
+                      <button mat-icon-button color="warn" (click)="onDeleteRef(ref)"> 
+                          <mat-icon class="mat-18">delete</mat-icon>
+                      </button>
+                  </td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+          </div>
+        </div>
+
+                
+        <input type="radio" name="tabs" id="tabtwo" >
+        <label for="tabtwo" class="lab">E. CONCLUSION<br> 1/ CARACTE <br> RISTIQUES <br> DE L’OPERATION <br> ASSUREE </label>
+        <div class="tab">
+            <div class="row">
+              <div class="col-sm-9">
+                <div class="form-group">
+                  <label class="label">Conclusion <span style="color:red;">*</span></label><br>
+                  <textarea name="instruct_conclusion" formControlName="instruct_conclusion" id="instruct_conclusion" cols="30" rows="4" placeholder="par ici la conclusion" nbInput fullWidth></textarea>
+                </div>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="label">Objet de la vente<span style="color:red;">*</span></label><br>
+                    <input fieldSize="small" formControlName="instruct_objet" type="text" nbInput fullWidth
+                    id="instruct_objet">
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="label">Montant de l’encours demandé <span style="color:red;">*</span></label> <br>
+                    <input disabled fieldSize="small" formControlName="instruct_encours_demande" type="text" nbInput fullWidth
+                    id="instruct_encours_demande">
+                  </div>
+                </div>
+              </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="label">Durée du crédit<span style="color:red;">*</span> </label><br>
+                      <input fieldSize="small" formControlName="instruct_duree_credit" type="number" nbInput fullWidth
+                      id="instruct_duree_credit" >
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label">Conditions de paiement <span style="color:red;">*</span></label>
+                        <!--input fieldSize="small" formControlName="dem_soumissionarbitrage" type="text" nbInput fullWidth id="dem_soumissionarbitrage" -->
+                        <nb-select  fullWidth id="instruct_condition_paiement" formControlName="instruct_condition_paiement" >
+                            <nb-option value="Traites et/ou chèque ">Traites et/ou chèque</nb-option>
+                            <nb-option value="Traites">Traites</nb-option>
+                            <nb-option value="Chèque">Chèques</nb-option> 
+                          </nb-select>
+                    </div> 
+                  </div>
+              </div>
+        </div>
+  
+  ;     <input type="radio" name="tabs" id="tabone3">
+        <label for="tabone3" class="lab">2/ CARACTE <br> RISTIQUES <br> DE LA COU <br> VERTURE <br> PROPOSEE</label>
+        <div class="tab">
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Taux acompte<span style="color:red;">*</span></label><br>
+                <input fieldSize="small" formControlName="instruct_taux" type="number" nbInput fullWidth
+                id="instruct_taux">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Type de couverture<span style="color:red;">*</span> </label> <br>
+                <input fieldSize="small" formControlName="instruct_type_couverture" type="text" nbInput fullWidth
+                id="instruct_type_couverture">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Reconduction de la couverture <span style="color:red;">*</span></label><br>
+                <input fieldSize="small" formControlName="instruct_reconduction_couverture" type="text" nbInput fullWidth
+                id="instruct_reconduction_couverture" >
+              </div>
+            </div>
+          </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="" class="label">Délai de carence   <span style="color:red;">*</span></label>
+                    <input fieldSize="small" formControlName="instruct_delai_carence" type="text" nbInput fullWidth
+                  id="instruct_delai_carence" >
+                </div> 
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="label">Délai d’indemnisation  <span style="color:red;">*</span></label><br>
+                  <input fieldSize="small" formControlName="instruct_delai_idem" type="text" nbInput fullWidth
+                  id="instruct_delai_idem" >
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="label">Sanction de l’irrespect <span style="color:red;">*</span></label> <br>
+                  <input fieldSize="small" formControlName="instruct_sanction" type="text" nbInput fullWidth
+                  id="instruct_sanction">
+                </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="label">Prise d’effet de la couverture<span style="color:red;">*</span></label> <br>
+                  <input fieldSize="small" formControlName="instruct_effet" type="text" nbInput fullWidth
+                  id="instruct_effet">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="" class="label">Caducité de la couverture <span style="color:red;">*</span></label>
+                    <input fieldSize="small" formControlName="instruct_caducite" type="text" nbInput fullWidth
+                  id="instruct_caducite" >
+                </div> 
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="" class="label">Dispositions contractuelles applicables <span style="color:red;">*</span><span style="color:red;">*</span></label>
+                    <input fieldSize="small" formControlName="instruct_disposition" type="text" nbInput fullWidth
+                  id="instruct_disposition" >
+                </div> 
+              </div>
+          </div>                
+        </div>
+  
+        <!--input type="radio" name="tabs" id="tabone4">
+        <label for="tabone4" class="lab">CARACTERISTIQUES</label>
+        <div class="tab">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <!-<label class="label">Commentaire</label> ->
+                <textarea id=""  rows="10" cols="100"
+                  placeholder="Vous pouvez mettre votre commentaire ici !">
+                </textarea>
+                <!- <ckeditor [config]="{  height: '150' }" formControlName="clien_commentaire"></ckeditor> ->
+              </div>
+            </div>
+          </div>
+        </div-->
+  
+        <!-- 
+        <input type="radio" name="tabs" id="tabone4">
+        <label for="tabone4" class="lab">STATUS</label>
+        <div class="tab">
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="label">Status</label>
+                <nb-select (selectedChange)="onChangeStatus($event)" type="text" fullWidth id="clien_status">
+                  <nb-option value="1">Valide</nb-option>
+                  <nb-option value="2">En attente</nb-option>
+                </nb-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        -->
+  
+      </div>
+  
+      <br>
+      <div class="col-sm-6">
+        <label style="font-size: 15px;color:green" class="label">Mémo Direction Arbitrage</label><span style="color:red;">*</span><br>
+        <textarea  cols="30" rows="4" fieldSize="small" formControlName="instruct_memo" type="text" nbInput fullWidth
+         id="instruct_memo"       ></textarea>
+      </div>
+      <div>
+  
+        <button class="cancel" nbButton status="danger" (click)="close()" >Annuler</button>
+        &nbsp;&nbsp;<button *ngIf="!haveInstruction && candidateToModifyInstruct" nbButton status="success" (click)="onExportConditionInstruction(demandeSociete)" [disabled]='!addForm.valid || !tailleRef'  >Exporter et enregistrer</button>
+        &nbsp;&nbsp;<button *ngIf="haveInstruction && candidateToModifyInstruct" nbButton status="success" (click)="onExportConditionInstruction(demandeSociete)" [disabled]='!addForm.valid || !tailleRef'  >Exporter et modifier</button>
+        &nbsp;&nbsp;<button *ngIf="haveInstruction" nbButton status="success" (click)="onExportInstruction(demandeSociete)" [disabled]='!addForm.valid || !tailleRef'  >Exporter</button>
+      </div>
+  
+    </form>
+  </div>
+  <!--div *ngIf="check_fonct('c_client')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+  </div-->

@@ -1,0 +1,92 @@
+<form [formGroup]="myPenaliteForm">
+  <div class="col-lg-6">
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Encaisser une pénalité</nb-card-header>
+    </nb-card>
+  </div>
+  <br>
+  <div class="tabs">
+    <input type="radio" name="tabs" id="tabone" checked="checked">
+    <label for="tabone" class="lab">INFO PENALITE</label>
+    <div class="tab">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant pénalités facturées</label>
+            <input fieldSize="small" type="text" readonly [value]="montantPenalite" nbInput fullWidth id="penalit_mtpenalitfac">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Date pénalités</label>
+            <input fieldSize="small" type="text" readonly [value]="datePenalite" nbInput fullWidth id="penalit_datepenalit">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Taux pénalité</label>
+            <input fieldSize="small" type="text" readonly [value]="tauxPenalite" nbInput fullWidth id="penalit_taux">
+          </div>
+        </div>
+      </div>
+    </div>
+    <input type="radio" name="tabs" id="tabtwo">
+    <label for="tabtwo" class="lab">INFO ENCAISSEMENT</label>
+    <div class="tab" formGroupName="penaliteForm">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Code réglement<span class="obligatoire">*</span></label>
+              <nb-select fullWidth (selectedChange)="onChangeCodeReglement($event)" formControlName="penalit_typenc"
+                id="penalit_typenc">
+                <nb-option value="C">Chèque</nb-option>
+                <nb-option value="T">Traite</nb-option>
+                <nb-option value="E">Espèces</nb-option>
+                <nb-option value="A">Autres</nb-option>
+              </nb-select>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant pénalités encaissées</label><span style="color:red;">*</span>
+            <input fieldSize="small" type="text" [value]="montantEncaisse"
+              (focusout)="onChangeFocusMontantPenalite($event)" nbInput fullWidth id="penalit_mtpenalitenc">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Code banque<span *ngIf="showObligatoireCodeBanque"
+              class="obligatoire">*</span></label>
+            <mat-select class="form-control" [formControl]="banqueCtrl" placeholder="choisir une banque"
+              (selectionChange)="onChangeBanque($event)" fullWidth id="penalit_cbanq" #singleSelect>
+              <mat-option>
+                <ngx-mat-select-search [formControl]="banqueFilterCtrl" placeholderLabel="recherche..."
+                  noEntriesFoundLabel="aucune corespondance">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option value="{{banque.banq_codebanque}}" *ngFor="let banque of filteredBanque | async">
+                {{banque.banq_codebanque}} : {{banque.banq_codenormalise}} : {{banque.banq_denomination}}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Numéro chéque<span *ngIf="showObligatoireNumCheque"
+              class="obligatoire">*</span></label>
+            <input fieldSize="small" formControlName="penalit_numchq" type="text" nbInput fullWidth
+              id="penalit_numchq" (focusout)="onFocusOutEventNumCheque($event)"
+              [ngStyle]="{border: getColorNumCheque()}">
+            <p class="paraProblemeSaisi" *ngIf="problemeMemeNumCheque">
+              {{messageExistanceCheque}}
+            </p>  
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+  </div>
+  <div>
+    <button nbButton status="success" [disabled]="!myPenaliteForm.valid" (click)="onSubmit()">Valider</button>
+  </div>
+</form>

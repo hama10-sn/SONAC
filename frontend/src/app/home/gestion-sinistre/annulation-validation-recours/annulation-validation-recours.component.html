@@ -1,0 +1,38 @@
+<form [formGroup]="myValidationForm">
+  <div class="col-lg-4">
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Annulation de la validation de recours</nb-card-header>
+    </nb-card>
+  </div>
+  <br>
+  <div class="tabs">
+    <input type="radio" name="tabs" id="tabone" checked="checked">
+    <label for="tabone" class="lab">INFO RECOURS</label>
+    <div class="tab" formGroupName="mvtsinistreForm">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant recours à encaissé en principal<span style="color:red;">*</span></label>
+            <input fieldSize="small" readonly [value]="montant_recours_principal" type="text" nbInput fullWidth id="recou_mtnencp">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant recours à encaissé en frais<span style="color:red;">*</span></label>
+            <input fieldSize="small" readonly [value]="montant_recours_frais" type="text" nbInput fullWidth id="recou_mtnenfr">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant recours à encaissé en honoraires<span style="color:red;">*</span></label>
+            <input fieldSize="small" readonly [value]="montant_recours_honoraire" type="text" nbInput fullWidth id="recou_mtnenho">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+    <div>
+      <button nbButton status="success" (click)="onSubmit()" [disabled]='!myValidationForm.valid'>Valider</button>
+    </div>
+</form>

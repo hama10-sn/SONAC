@@ -1,0 +1,181 @@
+<!-- <div *ngIf="check_fonct('l_prospect')"> -->
+<div>
+    <mat-card>
+        <div fxLayout fxLayoutAlign="center center">
+            <mat-form-field fxFlex="40%">
+                <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+            </mat-form-field>
+            <mat-card-header class="card-header">
+                <span class="header">La liste des polices</span>
+                <!-- <div *ngIf="check_fonct('c_prospect')"> -->
+                <div *ngIf="aff">
+                    <div>
+                        <button mat-icon-button class="buttons" status="success" (click)="onOpenAjout()">
+                            <mat-icon class="material-icons color_green" title="Ajouter police">add_circle</mat-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Export pour consultation/édition -->
+                <!-- <div>
+                    <button class="buttons_export" mat-button [matMenuTriggerFor]="menu">Export</button>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item (click)="onExport('pdf')">
+                        PDF
+                      </button>
+                      <button mat-menu-item (click)="onExport('excel')">
+                        EXCEL
+                      </button>
+                    </mat-menu>
+                  </div> -->
+            </mat-card-header>
+        </div>
+
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="poli_numero">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro </th>
+                <td mat-cell *matCellDef="let police"> {{police.poli_numero}} </td>
+            </ng-container>
+            <!-- <ng-container matColumnDef="poli_client">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Client </th>
+                <td mat-cell *matCellDef="let police"> {{ police.poli_client }}
+                </td>
+            </ng-container> -->
+            <ng-container matColumnDef="poli_intermediaire">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Intermédiaire</th>
+                <td mat-cell *matCellDef="let police">{{onGetinter(police.poli_intermediaire)}}</td>
+            </ng-container>
+            <ng-container matColumnDef="poli_compagnie">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Compagnie</th>
+                <td mat-cell *matCellDef="let police">{{onGetdenom(police.poli_compagnie)}}</td>
+            </ng-container>
+            <ng-container matColumnDef="poli_codeproduit">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Produit</th>
+                <td mat-cell *matCellDef="let police">{{police.poli_codeproduit}}:
+                    {{onGetLibelleByProduit(police.poli_codeproduit)}}</td>
+            </ng-container>
+            <ng-container matColumnDef="details">
+                <th mat-header-cell *matHeaderCellDef> Details </th>
+                <td mat-cell *matCellDef="let police">
+                    <button mat-icon-button color="primary" (click)="onOpen(dialog , police)">
+                        <mat-icon class="mat-18">reorder</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="engagement">
+                <th mat-header-cell *matHeaderCellDef>Engagement</th>
+                <td mat-cell *matCellDef="let police">
+                    <button mat-icon-button color="primary" (click)="onOpenEng(dialogENG , police)">
+                        <mat-icon class="mat-18">fingerprint</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <!-- <ng-container matColumnDef="update">
+                <th mat-header-cell *matHeaderCellDef>
+                   
+                    <div>Modification</div>
+                </th>
+                <td mat-cell *matCellDef="let police">
+                   
+                    <div>
+                        <button mat-icon-button color="green" (click)="onOpenModif(police)">
+                            <mat-icon class="mat-18">edit</mat-icon>
+                        </button>
+                    </div>
+                </td>
+            </ng-container> -->
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSize]="6" [pageSizeOptions]="[1, 4, 6, 10, 20]"></mat-paginator>
+
+        <ng-template #dialog let-police let-ref="dialogRef">
+
+            <nb-card>
+                <nb-card-header>DETAILS DE LA POLICE</nb-card-header>
+                <nb-card-body>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h5 class="grid-h">informations générales</h5>
+                            <div><span class="detail">Numéro :</span> {{police.poli_numero }}
+                            </div><br>
+                            <div><span class="detail">Produit :</span>
+                                {{onGetLibelleByProduit(police.poli_codeproduit)}}
+                            </div><br>
+                            <div><span class="detail">Intermédiaire :</span> {{onGetinter( police.poli_intermediaire) }}
+                            </div><br>
+
+                            <div><span class="detail">Compagnie :</span> {{onGetdenom(police.poli_compagnie) }} </div>
+                            <div><span class="detail">Client :</span> {{onGetClient(police.poli_client) }}</div><br>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <h5 class="grid-h">informations complémentaires</h5>
+                            <div><span class="detail">Date effet :</span> {{ police.poli_dateeffetencours |
+                                date:'dd-MM-yyyy, h:mm a'}}</div><br>
+                            <div><span class="detail">Date échéance :</span> {{ police.poli_dateecheance |
+                                date:'dd-MM-yyyy, h:mm a'}}</div><br>
+                            <div><span class="detail">Durée :</span> {{ police.poli_duree }} mois</div><br>
+                            <div><span class="detail">Prime nette :</span> {{ police.poli_primenettotal |
+                                ngxNumberWithCommas }}</div><br>
+                            <div><span class="detail">Prime brute :</span> {{ police.poli_primebruttotal |
+                                ngxNumberWithCommas }}</div><br>
+                        </div>
+                    </div>
+                </nb-card-body>
+                <nb-card-footer>
+                    <!-- <button nbButton (click)="onOpenModif(prospect)" (click)="ref.close()" status="success"
+                        class="btn btn-succes">Modifier</button>&nbsp;&nbsp; -->
+                    <button nbButton (click)="ref.close()" status="danger" class="btn btn-primary">Fermer</button>
+                </nb-card-footer>
+            </nb-card>
+        </ng-template>
+
+
+
+        <ng-template #dialogENG let-police let-ref="dialogRef">
+
+            <nb-card>
+                <nb-card-header class="col-lg-24">ENGAGEMENT DE LA POLICE</nb-card-header>
+                <nb-card-body>
+                    <div class="row">
+                        <ngx-gestion-engagements [id_police]="police.poli_numero"></ngx-gestion-engagements>
+
+                    </div>
+                </nb-card-body>
+                <nb-card-footer>
+                    <button nbButton (click)="ref.close()" status="danger">Fermer</button>
+                </nb-card-footer>
+            </nb-card>
+        </ng-template>
+
+
+        <!-- Dialog de confirmation pour la suppression -->
+        <!-- <ng-template #dialogdel let-prospect let-ref="dialogRef">
+
+            <nb-card>
+                <nb-card-header>
+                    SUPPRESSION
+                </nb-card-header>
+                <nb-card-body>
+                    <h5 class="grid-h">Merci de confirmer la suppression</h5>
+                    <div class="row">
+                        <div class="col-sm-16">
+                            <div></div><br>
+                        </div>
+                    </div>
+                </nb-card-body>
+                <nb-card-footer>
+                    <button nbButton (click)="redirectToDelete(prospect.prospc_numero)" (click)="ref.close()"
+                        status="success">Confirmer</button>&nbsp;&nbsp;
+                    <button nbButton (click)="ref.close()" status="danger">Annuler</button>
+                </nb-card-footer>
+            </nb-card>
+        </ng-template> -->
+    </mat-card>
+</div>
+<!-- <div *ngIf="check_fonct('l_prospect')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div> -->

@@ -1,0 +1,31 @@
+<div *ngIf="check_fonct('u_cimacodificationcompagnie')">
+<form [formGroup]="modifForm"> 
+    <nb-card>
+        <nb-card-header>Modifier CIMA Compagie</nb-card-header>
+        
+        <nb-card-body >
+          <div class="row">                       
+            <div class="col-sm-4">
+                <div class="form-group">
+                  <label  class="label">CODE<span style="color:red;">*</span></label>
+                  <input formControlName="code_cima_compagnie" [readonly]="true" type="text" nbInput fullWidth  id="code_cima_compagnie" >             
+                </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label  class="label">Dénomination<span style="color:red;">*</span></label>
+                <input formControlName="denomination"  type="text" nbInput fullWidth  id="denomination" >             
+              </div>
+            </div>
+          </div>        
+          <nb-card-footer>
+            <button nbButton status="success" (click)="submit()"  [disabled]='!modifForm.valid'>Modifier</button>
+            &nbsp;&nbsp;<button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+          </nb-card-footer>
+        </nb-card-body>
+      </nb-card>
+    </form>
+  </div>
+  <div *ngIf="check_fonct('u_cimacodificationcompagnie')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+  </div>

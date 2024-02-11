@@ -1,0 +1,222 @@
+<div *ngIf="check_fonct('l_dem_Pers')">
+    <mat-card>
+        <div fxLayout fxLayoutAlign="center center">
+            <mat-form-field fxFlex="40%">
+                <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Recherche">
+            </mat-form-field>
+            <mat-card-header class="card-header">
+
+                <span class="header">La liste des agréments</span>
+                <div *ngIf="check_fonct('c_dem_Pers')">
+                    <button mat-icon-button class="buttons" status="success" (click)="openAjout()">
+                        <mat-icon style="margin-bottom: 17px;" class="material-icons color_green" title="Ajouter agrément">add_circle
+                        </mat-icon>
+                    </button>
+                </div>
+            </mat-card-header>
+
+        </div>
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="dem_persnum">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> N° dossier </th>
+                <td mat-cell *matCellDef="let dem_Pers"> {{dem_Pers.dem_persnum}} </td>
+            </ng-container>
+            <!-- <ng-container matColumnDef="dem_typeclientpers">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> client</th>
+                <td mat-cell *matCellDef="let dem_Pers"> {{dem_Pers.dem_typeclientpers}} </td>
+            </ng-container> -->
+            <ng-container matColumnDef="dem_nom">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom </th>
+                <td mat-cell *matCellDef="let dem_Pers"> {{dem_Pers.dem_nom}} </td>
+            </ng-container>
+            <ng-container matColumnDef="dem_prenom">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Prenom </th>
+                <td mat-cell *matCellDef="let dem_Pers"> {{dem_Pers.dem_prenom}} </td>
+            </ng-container>
+            <ng-container matColumnDef="dem_adresse1">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Adresse </th>
+                <td mat-cell *matCellDef="let dem_Pers"> {{dem_Pers.dem_adresse1 }} </td>
+            </ng-container>
+            <ng-container matColumnDef="dem_telephoneprincipal">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Telephone 1 </th>
+                <td mat-cell *matCellDef="let dem_Pers"> {{dem_Pers.dem_telephoneprincipal}} </td>
+            </ng-container>
+            <ng-container matColumnDef="dem_objetdemande">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Objet </th>
+                <td mat-cell *matCellDef="let dem_Pers"> {{ dem_Pers.dem_objetdemande }} </td>
+            </ng-container>
+            <ng-container matColumnDef="dem_statut">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                <td mat-cell *matCellDef="let dem_Pers"> {{dem_Pers.dem_statut }} </td>
+            </ng-container>
+            <!-- <ng-container matColumnDef="details">
+                <th mat-header-cell *matHeaderCellDef> Details </th>
+                <td mat-cell *matCellDef="let dem_Pers">
+                    <button mat-icon-button color="primary" (click)="open(dialog,dem_Pers)">
+                        <mat-icon class="mat-18">reorder</mat-icon>
+                    </button>
+                </td>
+            </ng-container> -->
+            <!--ng-container matColumnDef="update">
+                <th mat-header-cell *matHeaderCellDef><div *ngIf="check_fonct('u_dem_Pers')"> Modification </div></th>
+                <td mat-cell *matCellDef="let dem_Pers">
+                  <div *ngIf="check_fonct('u_dem_Pers')">
+                  <button mat-icon-button color="green" (click)="openModif(dem_Pers)">
+                      <mat-icon class="mat-18">edit</mat-icon>
+                  </button>
+                </div>
+                </td>
+              </ng-container-->
+            <!-- <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef>
+                    <div *ngIf="check_fonct('d_dem_Pers')"> Delete </div>
+                </th>
+                <td mat-cell *matCellDef="let dem_Pers">
+                    <button mat-icon-button color="warn" (click)="open(dialogdel ,dem_Pers)">
+                        <mat-icon class="mat-18">
+                            <div *ngIf="check_fonct('d_dem_Pers')"> delete </div>
+                        </mat-icon>
+                    </button>
+                </td>
+
+            </ng-container> -->
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef>
+                    <div *ngIf="check_fonct('d_dem_Pers')"> Action </div>
+                </th>
+                <td mat-cell *matCellDef="let dem_Pers">
+                    <button mat-button [mat-menu-trigger-for]="detail" yPosition="above">
+                        <mat-icon class="mat-18">more_vert</mat-icon>
+                    </button>
+                    <mat-menu #detail="matMenu">
+                        <button mat-menu-item color="primary" (click)="open(dialog,dem_Pers)">
+                            <mat-icon >reorder</mat-icon>Détail
+                        </button>
+                        <button mat-menu-item   (click)="open(dialogdel ,dem_Pers)">
+                            <mat-icon color="warn">delete
+                            </mat-icon>Suppimer
+                        </button>
+                    </mat-menu>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+        <mat-paginator [pageSize]="6" [pageSizeOptions]="[1, 4, 6, 10, 20]">
+        </mat-paginator>
+
+        <ng-template #dialog let-dem_Pers let-ref="dialogRef">
+            <nb-card>
+                <nb-card-header>
+                    details Demande Physique
+                </nb-card-header>
+                <nb-card-body>
+                    <div class="row">
+
+
+                        <div class="col-sm-3">
+                            <h5 class="grid-h">Information</h5>
+                            <div><span class="detail">Numero :</span> {{ dem_Pers.dem_persnum }}</div><br>
+                            <div><span class="detail">Type Client :</span> {{ dem_Pers.dem_typeclientpers }}</div><br>
+                            <div><span class="detail">Civilité :</span> {{
+                                onGetCiviliteByCode(dem_Pers.dem_civilitepers) }}</div><br>
+                            <div><span class="detail">Nom :</span> {{ dem_Pers.dem_nom }}</div><br>
+                            <div><span class="detail">Prenom :</span> {{ dem_Pers.dem_prenom }}</div><br>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="col-sm-3">
+                            <div><span class="detail">Type Titulaire :</span> {{ dem_Pers.dem_typetitulaire }}</div><br>
+                            <div><span class="detail">Secteur D'activité :</span> {{
+                                onGetSecteurByCode(dem_Pers.dem_secteuractivites) }}</div><br>
+                            <div><span class="detail">Registre :</span> {{ dem_Pers.dem_registrecommerce}}</div><br>
+                            <div><span class="detail">NINEA :</span> {{ dem_Pers.dem_ninea }}</div><br>
+                            <div><span class="detail">Compte Bancaire :</span> {{ dem_Pers.dem_comptebancaire }}</div>
+                            <br>
+                            <div><span class="detail">Objet :</span> {{ dem_Pers.dem_objetdemande}}</div><br>
+                            <div><span class="detail">Statut :</span> {{ dem_Pers.dem_statut }}</div><br>
+
+                        </div>
+
+                        <div class="col-sm-3">
+                            <h5 class="grid-h">Coordonnées</h5>
+                            <div><span class="detail">adresse 1 :</span> {{ dem_Pers.dem_adresse1 }}</div><br>
+                            <div><span class="detail">adresse 2 :</span> {{ dem_Pers.dem_adresse2 }}</div><br>
+                            <div><span class="detail">telephone principal :</span> {{ dem_Pers.dem_telephoneprincipal }}
+                            </div><br>
+                            <div><span class="detail">telephone :</span> {{ dem_Pers.dem_telephone2 }}</div><br>
+                            <div><span class="detail">Ville :</span> {{ dem_Pers.dem_ville }}</div><br>
+                            <div><span class="detail">Mobile :</span> {{ dem_Pers.dem_telephonemobile }}</div><br>
+                            <div><span class="detail">Email:</span> {{ dem_Pers.dem_email }}</div><br>
+                        </div>
+                        <div class="col-sm-3">
+                            <h5 class="grid-h">Coordonnées</h5>
+                            <div><span class="detail">Produit 1 :</span> {{ dem_Pers.dem_produitdemande1 }}</div><br>
+                            <div><span class="detail">Produit 2 :</span> {{ dem_Pers.dem_produitdemande2 }}</div><br>
+                            <div><span class="detail">Produit 3 :</span> {{ dem_Pers.dem_produitdemande3 }}</div><br>
+                            <div><span class="detail">Arbitrage :</span> {{ dem_Pers.dem_soumissionarbitrage }}</div>
+                            <br>
+                        </div>
+                    </div>
+
+                </nb-card-body>
+                <nb-card-footer>
+                    <button nbButton (click)="ref.close()" status="danger">Fermer</button>&nbsp;&nbsp;
+                    <!--button nbButton status="success" (click)="ref.close()" (click)="openModif(dem_Pers.reass_code,dem_Pers)"><div *ngIf="check_fonct('u_dem_Pers')">modifier</div></button-->
+                </nb-card-footer>
+            </nb-card>
+
+
+        </ng-template>
+        <ng-template #dialogdel let-dem_Pers let-ref="dialogRef">
+
+            <nb-card>
+                <nb-card-header>
+                    SUPPRESSION
+                </nb-card-header>
+                <nb-card-body>
+                    <div *ngIf="onChechId(dem_Pers.dem_persnum)==1">
+
+                        <h5 class="grid-h">Confirmation de la suppression</h5>
+                    </div>
+                    <div *ngIf="onChechId(dem_Pers.dem_persnum)==2">
+
+                        <h5 class="grid-h">Impossible de supprimer demande rattachée à une affaire</h5>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <br>
+
+                            <div></div><br>
+
+                        </div>
+
+                    </div>
+
+
+                </nb-card-body>
+                <nb-card-footer>
+                    <div *ngIf="onChechId(dem_Pers.dem_persnum)==1">
+                        <button nbButton (click)="onDeleteDemande(dem_Pers.dem_persnum)" (click)="ref.close()"
+                            status="success">Confirmer</button>&nbsp;&nbsp;
+                        <button nbButton (click)="ref.close()" status="danger">Annuler</button>
+                    </div>
+                    <div *ngIf="onChechId(dem_Pers.dem_persnum)==2">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button nbButton (click)="ref.close()" status="danger">OK</button>
+                    </div>
+                </nb-card-footer>
+            </nb-card>
+
+
+        </ng-template>
+    </mat-card>
+</div>
+<div *ngIf="check_fonct('l_dem_Pers')==false">
+    <ngx-page-not-autoriser></ngx-page-not-autoriser>
+</div>

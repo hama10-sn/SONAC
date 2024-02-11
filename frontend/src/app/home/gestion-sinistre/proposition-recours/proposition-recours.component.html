@@ -1,0 +1,112 @@
+<form [formGroup]="myRecoursForm">
+  <div class="col-lg-6">
+    <nb-card>
+      <nb-card-header style="background-color: rgb(7, 66, 124);color:white">Ajout d'une proposition de recours</nb-card-header>
+    </nb-card>
+  </div>
+  <br>
+  <div class="tabs">
+    <input type="radio" name="tabs" id="tabone" checked="checked">
+    <label for="tabone" class="lab">INFO SAP + REGLEMENT</label>
+    <div class="tab">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant (SAP + Réglement) principal</label>
+            <input fieldSize="small" readonly [value]="montant_principal" type="text" nbInput fullWidth id="sini_evaluationprincipale">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant (SAP + Réglement) frais</label>
+            <input fieldSize="small" readonly [value]="montant_frais" type="text" nbInput fullWidth id="sini_evaluationfrais">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant (SAP + Réglement) honoraires</label>
+            <input fieldSize="small" readonly [value]="montant_honoraire" type="text" nbInput fullWidth id="sini_evaluationhonoraires">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Bénéficiaire</label>
+            <input fieldSize="small" readonly [value]="benificiaire" type="text" nbInput fullWidth id="mvts_beneficiaire">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Tiers responsable</label>
+            <input fieldSize="small" readonly [value]="tiersResponsable" type="text" nbInput fullWidth id="mvts_tiers">
+          </div>
+        </div>
+      </div>
+    </div>
+    <input type="radio" name="tabs" id="tabtwo">
+    <label for="tabtwo" class="lab">PROPOSITION RECOURS</label>
+    <div class="tab" formGroupName="mvtsinistreForm">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant recours principal proposé</label>
+            <input fieldSize="small" readonly [value]="montant_principal" type="text" nbInput fullWidth id="sini_evaluationprincipale">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant recours frais proposé</label>
+            <input fieldSize="small" readonly [value]="montant_frais" type="text" nbInput fullWidth id="sini_evaluationfrais">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant recours honoraires proposé</label>
+            <input fieldSize="small" readonly [value]="montant_honoraire" type="text" nbInput fullWidth id="sini_evaluationhonoraires">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant recours à encaissé en principal</label>
+            <input fieldSize="small" type="text" [value]="montantPrincipal" (focusout)="onChangeFocusMontantRecoursPrincipal($event)" nbInput fullWidth id="mvts_montantprincipal" [ngStyle]="{border: getColorMontant()}">
+          </div>
+          <div *ngIf="problemeMontantPrincipalRecours" class="col-sm-8">
+            <span style="color:rgb(255, 230, 0); font-style: italic;">
+                Le montant du recours demandé est supérieur au montant du (SAP + Réglement) global
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant recours à encaissé en frais</label>
+            <input fieldSize="small" type="text" [value]="montantFrais" (focusout)="onChangeFocusMontantRecoursFrais($event)" nbInput fullWidth id="mvts_montantfrais" [ngStyle]="{border: getColorMontantRecoursFrais()}">
+          </div>
+          <div *ngIf="problemeMontantRecoursFrais" class="col-sm-8">
+            <span style="color:red; font-style: italic;">
+              Le montant frais du recours doit-être inférieur ou égale au montant du SAP frais
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="label">Montant recours à encaissé en honoraires</label>
+            <input fieldSize="small" type="text" [value]="montantHonoraire" (focusout)="onChangeFocusMontantRecoursHonoraire($event)" nbInput fullWidth id="mvts_montanthonoraire" [ngStyle]="{border: getColorMontantRecoursHonoraires()}">
+          </div>
+          <div *ngIf="problemeMontantRecoursHonoraire" class="col-sm-8">
+            <span style="color:red; font-style: italic;">
+              Le montant honoraires du recours doit-être inférieur ou égale au montant du SAP honoraires
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+    <div>
+      <button nbButton status="success" (click)="onSubmit()" [disabled]='!myRecoursForm.valid'>Valider</button>&nbsp;&nbsp;
+      <button class="cancel" nbButton status="danger" (click)="cancel()">Annuler</button>
+    </div>
+</form>
